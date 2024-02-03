@@ -1,5 +1,5 @@
 package it.unibo.model.api;
 
-public class api {
+public interface Ingredient {
     
 }
