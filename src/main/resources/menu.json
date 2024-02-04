@@ -1,8 +1,8 @@
 [
     {
-        "nome" : "Pizza1",
-        "costo" : 1,
-        "ingredienti" : [
+        "name" : "Pizza1",
+        "cost" : 1,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -11,9 +11,9 @@
     },
 
     {
-        "nome" : "Pizza2",
-        "costo" : 2,
-        "ingredienti" : [
+        "name" : "Pizza2",
+        "cost" : 2,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -22,9 +22,9 @@
     },
 
     {
-        "nome" : "Pizza3",
-        "costo" : 3,
-        "ingredienti" : [
+        "name" : "Pizza3",
+        "cost" : 3,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -33,9 +33,9 @@
     },
 
     {
-        "nome" : "Pizza4",
-        "costo" : 4,
-        "ingredienti" : [
+        "name" : "Pizza4",
+        "cost" : 4,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -44,9 +44,9 @@
     },
 
     {
-        "nome" : "Pizza5",
-        "costo" : 5,
-        "ingredienti" : [
+        "name" : "Pizza5",
+        "cost" : 5,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -55,9 +55,9 @@
     },
 
     {
-        "nome" : "Pizza6",
-        "costo" : 6,
-        "ingredienti" : [
+        "name" : "Pizza6",
+        "cost" : 6,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -66,9 +66,9 @@
     },
 
     {
-        "nome" : "Pizza7",
-        "costo" : 7,
-        "ingredienti" : [
+        "name" : "Pizza7",
+        "cost" : 7,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -77,9 +77,9 @@
     },
 
     {
-        "nome" : "Pizza8",
-        "costo" : 8,
-        "ingredienti" : [
+        "name" : "Pizza8",
+        "cost" : 8,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -88,9 +88,9 @@
     },
 
     {
-        "nome" : "Pizza9",
-        "costo" : 9,
-        "ingredienti" : [
+        "name" : "Pizza9",
+        "cost" : 9,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
@@ -99,9 +99,9 @@
     },
 
     {
-        "nome" : "Pizza10",
-        "costo" : 10,
-        "ingredienti" : [
+        "name" : "Pizza10",
+        "cost" : 10,
+        "ingredients" : [
             "Ingrediente1",
             "Ingrediente2",
             "Ingrediente3",
