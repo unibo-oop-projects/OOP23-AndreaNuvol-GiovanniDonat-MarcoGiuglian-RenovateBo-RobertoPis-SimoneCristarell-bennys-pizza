@@ -2,6 +2,9 @@ package it.unibo.model.impl;
 
 import it.unibo.model.api.Ingredient;
 
+/**
+ * Implementation of the 'Ingredient' interface
+ */
 public abstract class IngredientImpl implements Ingredient {
 
     protected static final int MAX_QUANTITY = 100;
