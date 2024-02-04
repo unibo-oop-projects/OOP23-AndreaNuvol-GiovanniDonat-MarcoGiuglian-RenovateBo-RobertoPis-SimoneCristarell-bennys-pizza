@@ -1,0 +1,22 @@
+package it.unibo.model.impl.IngredientsImpl;
+
+import it.unibo.model.impl.IngredientImpl;
+
+/**
+ * Class that emulates an anchovy
+ */
+public class Anchovy extends IngredientImpl{
+
+    private final static int QUANTITY_TO_REDUCE = 5;
+    private final static double PRICE = 1.2;
+    private final static String IMAGE_PATH = "";
+
+    public Anchovy() {
+        super(PRICE, IMAGE_PATH);
+    }
+
+    public void reduce() {
+        super.reduce(QUANTITY_TO_REDUCE);
+    }
+    
+}
