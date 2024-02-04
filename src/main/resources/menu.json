@@ -1,0 +1,111 @@
+[
+    {
+        "nome" : "Pizza1",
+        "costo" : 1,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza2",
+        "costo" : 2,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza3",
+        "costo" : 3,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza4",
+        "costo" : 4,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza5",
+        "costo" : 5,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza6",
+        "costo" : 6,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza7",
+        "costo" : 7,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza8",
+        "costo" : 8,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza9",
+        "costo" : 9,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "nome" : "Pizza10",
+        "costo" : 10,
+        "ingredienti" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    }
+]
