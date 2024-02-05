@@ -12,9 +12,8 @@ public interface Ingredient {
     /**
      * Decrease the quantity of the ingredient when it is put on a pizza.
      * NOTE: the quantity is different for each ingredient.
-     * @param toReduce the quantity to reduce
      */
-    void reduce(int toReduce);
+    void reduce();
 
     /**
      * @return the price of the ingredient

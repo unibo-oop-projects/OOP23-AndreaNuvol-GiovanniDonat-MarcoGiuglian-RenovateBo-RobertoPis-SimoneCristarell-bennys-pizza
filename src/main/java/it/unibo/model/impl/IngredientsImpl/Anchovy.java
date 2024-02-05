@@ -15,8 +15,9 @@ public class Anchovy extends IngredientImpl{
         super(PRICE, IMAGE_PATH);
     }
 
+    @Override
     public void reduce() {
-        super.reduce(QUANTITY_TO_REDUCE);
+        super.reduceIngredient(QUANTITY_TO_REDUCE);
     }
     
 }

@@ -3,16 +3,17 @@ package it.unibo.model.impl;
 import it.unibo.model.api.Ingredient;
 
 /**
- * Implementation of the 'Ingredient' interface
+ * Abstract implementation of the 'Ingredient' interface
  */
-public class IngredientImpl implements Ingredient {
+public abstract class IngredientImpl implements Ingredient {
 
     protected static final int MAX_QUANTITY = 100;
-    protected int quantity = MAX_QUANTITY;
+    protected int quantity;
     protected double price;
     protected String imagePath;
 
-    public IngredientImpl(final double price, final String imagePath) {
+    protected IngredientImpl(final double price, final String imagePath) {
+        this.quantity = MAX_QUANTITY;
         this.price = price;
         this.imagePath = imagePath;
     }
@@ -32,8 +33,14 @@ public class IngredientImpl implements Ingredient {
         this.quantity = MAX_QUANTITY;
     }
 
-    @Override
-    public void reduce(final int toReduce) {
+    public abstract void reduce();
+
+    /**
+     * Method in common among all the classes that inherit from 'IngredientImpl'.
+     * It is used in the method 'reduce()' of these classes
+     * @param toReduce the quantity of the ingredient to reduce
+     */
+    protected void reduceIngredient(final int toReduce) {
         this.quantity = this.quantity - toReduce;
     }
 
