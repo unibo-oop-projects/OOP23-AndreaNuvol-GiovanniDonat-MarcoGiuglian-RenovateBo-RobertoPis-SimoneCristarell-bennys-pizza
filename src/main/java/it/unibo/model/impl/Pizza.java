@@ -6,14 +6,10 @@ public class Pizza {
     
     private String name;
     private float cost;
-    private final List<String> ingredients = new ArrayList<>();
+    private List<String> ingredients;
 
     public String getName() {
         return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<String> getIngredients() {
