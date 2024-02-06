@@ -9,10 +9,10 @@ public class Tuna extends IngredientImpl{
 
     private final static int QUANTITY_TO_REDUCE = 11;
     private final static double PRICE = 1.1;
-    private final static String IMAGE_PATH = "";
+    private final static String IMAGE_NAME = "Tuna.png";
 
     public Tuna() {
-        super(PRICE, IMAGE_PATH);
+        super(PRICE, IMAGE_NAME);
     }
 
     @Override

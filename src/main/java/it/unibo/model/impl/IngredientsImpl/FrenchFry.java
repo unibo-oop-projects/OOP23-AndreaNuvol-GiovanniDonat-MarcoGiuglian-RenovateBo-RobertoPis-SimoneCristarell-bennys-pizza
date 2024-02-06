@@ -9,10 +9,10 @@ public class FrenchFry extends IngredientImpl{
 
     private final static int QUANTITY_TO_REDUCE = 17;
     private final static double PRICE = 1.5;
-    private final static String IMAGE_PATH = "";
+    private final static String IMAGE_NAME = "FrenchFries.png";
 
     public FrenchFry() {
-        super(PRICE, IMAGE_PATH);
+        super(PRICE, IMAGE_NAME);
     }
 
     @Override

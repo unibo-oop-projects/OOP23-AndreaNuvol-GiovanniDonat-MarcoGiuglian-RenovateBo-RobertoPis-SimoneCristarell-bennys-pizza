@@ -9,10 +9,10 @@ public class CherryTomatoe extends IngredientImpl{
 
     private final static int QUANTITY_TO_REDUCE = 8;
     private final static double PRICE = 0.9;
-    private final static String IMAGE_PATH = "";
+    private final static String IMAGE_NAME = "CherryTomatoes.png";
 
     public CherryTomatoe() {
-        super(PRICE, IMAGE_PATH);
+        super(PRICE, IMAGE_NAME);
     }
 
     @Override

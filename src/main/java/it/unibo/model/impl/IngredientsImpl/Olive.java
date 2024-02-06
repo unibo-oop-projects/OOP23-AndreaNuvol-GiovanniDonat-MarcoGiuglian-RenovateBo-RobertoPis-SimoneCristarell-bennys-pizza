@@ -9,10 +9,10 @@ public class Olive extends IngredientImpl{
 
     private final static int QUANTITY_TO_REDUCE = 15;
     private final static double PRICE = 1;
-    private final static String IMAGE_PATH = "";
+    private final static String IMAGE_NAME = "Olives.png";
 
     public Olive() {
-        super(PRICE, IMAGE_PATH);
+        super(PRICE, IMAGE_NAME);
     }
 
     @Override

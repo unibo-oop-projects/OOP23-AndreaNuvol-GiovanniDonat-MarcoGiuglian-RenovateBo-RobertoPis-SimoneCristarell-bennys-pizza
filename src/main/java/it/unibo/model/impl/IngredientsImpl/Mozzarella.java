@@ -9,10 +9,10 @@ public class Mozzarella extends IngredientImpl{
 
     private final static int QUANTITY_TO_REDUCE = 10;
     private final static double PRICE = 0.6;
-    private final static String IMAGE_PATH = "";
+    private final static String IMAGE_NAME = "Mozzarella.png";
 
     public Mozzarella() {
-        super(PRICE, IMAGE_PATH);
+        super(PRICE, IMAGE_NAME);
     }
 
     @Override

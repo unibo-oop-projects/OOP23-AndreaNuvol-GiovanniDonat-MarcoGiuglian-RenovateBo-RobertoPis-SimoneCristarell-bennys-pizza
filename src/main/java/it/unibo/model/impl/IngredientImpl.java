@@ -1,5 +1,8 @@
 package it.unibo.model.impl;
 
+import java.io.File;
+import java.nio.file.FileSystems;
+
 import it.unibo.model.api.Ingredient;
 
 /**
@@ -7,15 +10,17 @@ import it.unibo.model.api.Ingredient;
  */
 public abstract class IngredientImpl implements Ingredient {
 
-    protected static final int MAX_QUANTITY = 100;
-    protected int quantity;
-    protected double price;
-    protected String imagePath;
+    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
+    private static final String PATH_TO_RESOURCES = File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
+    private static final int MAX_QUANTITY = 100;
+    private int quantity;
+    private double price;
+    private String imagePath;
 
-    protected IngredientImpl(final double price, final String imagePath) {
+    protected IngredientImpl(final double price, final String imageName) {
         this.quantity = MAX_QUANTITY;
         this.price = price;
-        this.imagePath = imagePath;
+        this.imagePath = PATH_TO_THE_ROOT + PATH_TO_RESOURCES + imageName;
     }
 
     @Override

@@ -9,10 +9,10 @@ public class Mushroom extends IngredientImpl{
 
     private final static int QUANTITY_TO_REDUCE = 13;
     private final static double PRICE = 1.4;
-    private final static String IMAGE_PATH = "";
+    private final static String IMAGE_NAME = "Mushrooms.png";
 
     public Mushroom() {
-        super(PRICE, IMAGE_PATH);
+        super(PRICE, IMAGE_NAME);
     }
 
     @Override

@@ -9,10 +9,10 @@ public class Onion extends IngredientImpl{
 
     private final static int QUANTITY_TO_REDUCE = 8;
     private final static double PRICE = 1;
-    private final static String IMAGE_PATH = "";
+    private final static String IMAGE_NAME = "Onions.png";
 
     public Onion() {
-        super(PRICE, IMAGE_PATH);
+        super(PRICE, IMAGE_NAME);
     }
 
     @Override
