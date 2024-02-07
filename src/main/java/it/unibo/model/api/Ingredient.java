@@ -24,4 +24,9 @@ public interface Ingredient {
      * @return the path of the image of the ingredient
      */
     String getImagePath();
+
+    /**
+     * @return the current quantity of the ingredient
+     */
+    int getQuantity();
 }

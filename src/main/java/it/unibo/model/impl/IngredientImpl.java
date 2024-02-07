@@ -24,6 +24,11 @@ public abstract class IngredientImpl implements Ingredient {
     }
 
     @Override
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    @Override
     public double getPrice() {
         return this.price;
     }
