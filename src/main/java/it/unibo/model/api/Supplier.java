@@ -4,7 +4,7 @@ package it.unibo.model.api
  * Interface of ingredient supply
  */
 
-public interface Supply {
+public interface Supplier {
     /**
      * It increases the quantity of the ingredient that you choose.
      */

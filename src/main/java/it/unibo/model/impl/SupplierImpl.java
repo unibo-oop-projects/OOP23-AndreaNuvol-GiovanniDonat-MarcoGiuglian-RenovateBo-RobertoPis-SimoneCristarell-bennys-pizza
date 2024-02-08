@@ -1,9 +1,9 @@
 package it.unibo.model.impl;
 
-import it.unibo.model.api.Supply;
+import it.unibo.model.api.Supplier;
 import it.unibo.model.api.Ingredient;
 
-public class SupplyImpl implements Supply {
+public class SupplierImpl implements Supplier {
 
     @Override
     public final void supply(Ingredient Ingredient) {
@@ -12,6 +12,6 @@ public class SupplyImpl implements Supply {
     }
 
     private static final void payment() {
-        
+
     }
 }
