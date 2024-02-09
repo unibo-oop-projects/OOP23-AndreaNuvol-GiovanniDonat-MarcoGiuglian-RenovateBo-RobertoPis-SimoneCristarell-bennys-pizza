@@ -1,4 +1,4 @@
-package it.unibo.model.api
+package it.unibo.model.api;
 
 /**
  * Interface of ingredient supply
@@ -13,6 +13,6 @@ public interface Supplier {
     /**
      * It reduce money like a payment for a supply.
      */
-    void payment()
+    void payment();
 
 }
