@@ -7,8 +7,7 @@ public class SupplierImpl implements Supplier {
 
     @Override
     public final void supply(Ingredient Ingredient) {
-        ingredient.supply;
-
+        ingredient.supply();
     }
 
     private static final void payment() {
