@@ -10,8 +10,9 @@ import it.unibo.model.api.Ingredient;
  */
 public abstract class IngredientImpl implements Ingredient {
 
+    private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
-    private static final String PATH_TO_RESOURCES = File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
+    private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP;
     private static final int MAX_QUANTITY = 100;
     private int quantity;
     private double price;
