@@ -55,4 +55,9 @@ public abstract class IngredientImpl implements Ingredient {
         this.quantity = this.quantity - toReduce;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        return this.imagePath.equals(((Ingredient)o).getImagePath());
+    }
+
 }
