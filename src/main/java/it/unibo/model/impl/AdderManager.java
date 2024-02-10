@@ -2,9 +2,8 @@ package it.unibo.model.impl;
 
 import it.unibo.model.api.Management;
 
-public class ManagementImpl implements Management{
+public class AdderManager implements Management{
     private double balance = 0;
-
     @Override
     public void updateBalance(final double amount) {
         balance += amount;
