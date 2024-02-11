@@ -2,6 +2,7 @@ package it.unibo.model.impl;
 
 import java.io.File;
 import java.nio.file.FileSystems;
+import java.util.regex.Pattern;
 
 import it.unibo.model.api.Ingredient;
 
@@ -58,6 +59,12 @@ public abstract class IngredientImpl implements Ingredient {
     @Override
     public boolean equals(final Object o) {
         return this.imagePath.equals(((Ingredient)o).getImagePath());
+    }
+
+    @Override
+    public String toString() {
+        String[] strings = this.imagePath.split(Pattern.quote(SEP));
+        return strings[strings.length - 1].split(Pattern.quote("."))[0];
     }
 
 }
