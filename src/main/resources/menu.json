@@ -1,0 +1,111 @@
+[
+    {
+        "name" : "Pizza1",
+        "cost" : 1,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza2",
+        "cost" : 2,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza3",
+        "cost" : 3,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza4",
+        "cost" : 4,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza5",
+        "cost" : 5,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza6",
+        "cost" : 6,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza7",
+        "cost" : 7,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza8",
+        "cost" : 8,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza9",
+        "cost" : 9,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    },
+
+    {
+        "name" : "Pizza10",
+        "cost" : 10,
+        "ingredients" : [
+            "Ingrediente1",
+            "Ingrediente2",
+            "Ingrediente3",
+            "Ingrediente4"
+        ]
+    }
+]
