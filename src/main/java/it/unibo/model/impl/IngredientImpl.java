@@ -12,7 +12,7 @@ public abstract class IngredientImpl implements Ingredient {
 
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
-    private static final int MAX_QUANTITY = 100;
+    public static final int MAX_QUANTITY = 100;
     private int quantity;
     private double price;
     private String imagePath;
