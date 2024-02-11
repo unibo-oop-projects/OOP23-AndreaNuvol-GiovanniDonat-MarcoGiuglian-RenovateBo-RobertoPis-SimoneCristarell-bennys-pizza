@@ -1,4 +1,4 @@
-package it.unibo.mode.api;
+package it.unibo.model.api;
 
 public interface Oven {
     

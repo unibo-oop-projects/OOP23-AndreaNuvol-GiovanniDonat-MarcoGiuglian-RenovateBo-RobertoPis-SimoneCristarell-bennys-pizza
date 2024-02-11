@@ -11,8 +11,4 @@ public class SubtractorManager extends AbstractManager{
     private boolean isWithdrawAllowed(final double amount){
         return balance >= amount;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/Management

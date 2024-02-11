@@ -12,13 +12,8 @@ public abstract class IngredientImpl implements Ingredient {
 
     private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
-<<<<<<< HEAD
-    private static final String PATH_TO_RESOURCES = File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator;
-    public static final int MAX_QUANTITY = 100;
-=======
     private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "ingredientsImages" + SEP;
-    private static final int MAX_QUANTITY = 100;
->>>>>>> origin/ingredientsLogic
+    public static final int MAX_QUANTITY = 100;
     private int quantity;
     private double price;
     private String imagePath;

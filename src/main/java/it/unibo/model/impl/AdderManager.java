@@ -6,8 +6,4 @@ public class AdderManager extends AbstractManager{
     public void updateBalance(final double amount) {
         balance += amount;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/Management

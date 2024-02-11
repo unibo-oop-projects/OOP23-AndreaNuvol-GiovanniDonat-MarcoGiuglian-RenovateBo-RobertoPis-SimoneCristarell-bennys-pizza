@@ -13,7 +13,7 @@ public class PreparationZoneImpl implements PreparationZone {
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
 
-    public PreparationZoneImpl(){
+    public PreparationZoneImpl() {
         ingredientsQuantities.put(new Anchovy(), IngredientImpl.MAX_QUANTITY);
         ingredientsQuantities.put(new Artichoke(), IngredientImpl.MAX_QUANTITY);
         ingredientsQuantities.put(new CherryTomatoe(), IngredientImpl.MAX_QUANTITY);

@@ -14,8 +14,4 @@ public abstract class AbstractManager implements Management{
     @Override
     public abstract void updateBalance(final double amount);
     
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/Management
