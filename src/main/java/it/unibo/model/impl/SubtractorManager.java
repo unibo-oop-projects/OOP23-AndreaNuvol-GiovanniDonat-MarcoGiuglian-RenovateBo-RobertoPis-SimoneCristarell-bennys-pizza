@@ -1,17 +1,14 @@
 package it.unibo.model.impl;
 
-import it.unibo.model.api.Management;
-
-public class SubtractorManager implements Management{
-    private double balance = 0;
+public class SubtractorManager extends AbstractManager{
     @Override
     public void updateBalance(final double amount) {
-        balance -= amount;
+        if(isWithdrawAllowed(amount)){
+            balance -= amount;
+        }
     }
 
-    @Override
-    public double getBalance() {
-        return this.balance;
+    private boolean isWithdrawAllowed(final double amount){
+        return balance >= amount;
     }
-    
 }
