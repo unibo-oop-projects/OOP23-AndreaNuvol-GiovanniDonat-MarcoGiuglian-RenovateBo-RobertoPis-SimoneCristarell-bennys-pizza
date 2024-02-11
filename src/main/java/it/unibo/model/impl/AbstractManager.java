@@ -4,7 +4,11 @@ import it.unibo.model.api.Management;
 
 public abstract class AbstractManager implements Management{
 
-    protected double balance = 0;
+    protected double balance;
+
+    public AbstractManager(final double balance){
+        this.balance = balance;
+    }
     
     @Override
     public double getBalance() {
