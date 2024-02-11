@@ -13,6 +13,6 @@ public interface Supplier {
     /**
      * It reduce money like a payment for a supply.
      */
-    static void payment(Management balance);
+    void payment(Management balance);
 
 }
