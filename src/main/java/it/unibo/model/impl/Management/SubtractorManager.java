@@ -2,10 +2,6 @@ package it.unibo.model.impl;
 
 public class SubtractorManager extends AbstractManager{
 
-    public SubtractorManager(final double actualAmount){
-        super(actualAmount);
-    }
-
     @Override
     public void updateBalance(final double amount) {
         if(isWithdrawAllowed(amount)){
