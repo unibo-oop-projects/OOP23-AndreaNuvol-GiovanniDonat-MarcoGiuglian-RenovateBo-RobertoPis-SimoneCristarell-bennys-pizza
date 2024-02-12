@@ -38,11 +38,15 @@ public class MenuImpl implements Menu {
 
     @Override
     public void show() {
-        for(final Pizza pizza : MenuImpl.menu) {
+        for(final Pizza pizza : menu) {
             System.out.println(pizza.getName()          + " " +
                                 pizza.getIngredients()  + " " +
                                 pizza.getCost()         + "\n" );
         }
+    }
+
+    public int getNumPizzasInMenu() {
+        return menu.size();
     }
 
     @Override
