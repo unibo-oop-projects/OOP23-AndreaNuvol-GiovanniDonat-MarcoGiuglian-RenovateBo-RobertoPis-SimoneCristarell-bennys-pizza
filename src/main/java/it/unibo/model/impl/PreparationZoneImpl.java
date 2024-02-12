@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.model.api.*;
-// import it.unibo.model.impl.IngredientsImpl.*;
+
 public class PreparationZoneImpl implements PreparationZone {
 
     private static final int MIN_PIZZE_TO_PREPARE = 1;
@@ -19,19 +19,18 @@ public class PreparationZoneImpl implements PreparationZone {
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     
-
     public PreparationZoneImpl(final int numPizzeToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (numPizzeToPrepare < MIN_PIZZE_TO_PREPARE || numPizzeToPrepare > MAX_PIZZE_TO_PREPARE) {
             throw new IllegalArgumentException("The number of pizzas to prepare can be only 1 or 2.");
-        } else if (numPizzeToPrepare == 2) {
+        } else if (numPizzeToPrepare == MAX_PIZZE_TO_PREPARE) {
             this.pizza2 = Optional.of(new PizzaFactoryImpl());
         }
 
-        List<String> classes = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe", "Dough", 
-            "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", "Parmesan", 
-            "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel"));
+        final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe", 
+            "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", 
+            "Parmesan", "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel"));
 
-        for (final var cl: classes) {
+        for (final var cl: ingredientsClassesNames) {
             final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
             this.ingredientsQuantities.put((Ingredient)clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
         }
