@@ -1,4 +1,4 @@
-package it.unibo.model.impl;
+package it.unibo.model.impl.Management;
 
 public class AdderManager extends AbstractManager{
 
