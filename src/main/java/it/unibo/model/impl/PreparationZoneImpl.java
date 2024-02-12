@@ -2,7 +2,6 @@ package it.unibo.model.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,25 +11,21 @@ import it.unibo.model.api.*;
 
 public class PreparationZoneImpl implements PreparationZone {
 
-    private static final int MIN_PIZZE_TO_PREPARE = 1;
-    private static final int MAX_PIZZE_TO_PREPARE = 2;
+    private static final int MIN_PIZZAS_TO_PREPARE = 1;
+    private static final int MAX_PIZZAS_TO_PREPARE = 2;
     private final PizzaFactory pizza1 = new PizzaFactoryImpl();
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
-    //key = if the preparation zone is dirty, value = path of the image of the ingredient which is dirtying the zone
-    final Map<Boolean, Optional<Ingredient>> isDirty = new HashMap<>(); 
+    final List<Ingredient> dirtyIngredients = new ArrayList<>();
     private final Cleaner cleaner = new CleanerImpl();
     
-    public PreparationZoneImpl(final int numPizzeToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        if (numPizzeToPrepare < MIN_PIZZE_TO_PREPARE || numPizzeToPrepare > MAX_PIZZE_TO_PREPARE) {
+    public PreparationZoneImpl(final int numPizzasToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        if (numPizzasToPrepare < MIN_PIZZAS_TO_PREPARE || numPizzasToPrepare > MAX_PIZZAS_TO_PREPARE) {
             throw new IllegalArgumentException("The number of pizzas to prepare can be only 1 or 2.");
-        } else if (numPizzeToPrepare == MAX_PIZZE_TO_PREPARE) {
+        } else if (numPizzasToPrepare == MAX_PIZZAS_TO_PREPARE) {
             this.pizza2 = Optional.of(new PizzaFactoryImpl());
         }
-        /* at the start, isDirty has only one entry (false, Optional.empty()). Then, if the zone gets dirty, there will be another 
-        entry (true, optional with the ingredient that is dirtying), which will be removed when the zone will be cleaned */
-        this.isDirty.put(false, Optional.empty());
 
         final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe", 
             "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", 
@@ -57,7 +52,7 @@ public class PreparationZoneImpl implements PreparationZone {
 
     @Override
     public Map<Ingredient, Integer> getIngredientsQuantities() {
-        return Collections.unmodifiableMap(this.ingredientsQuantities);
+        return this.ingredientsQuantities;
     }
 
     @Override
@@ -72,14 +67,16 @@ public class PreparationZoneImpl implements PreparationZone {
 
     @Override
     public boolean isDirty() {
-        return this.isDirty.containsKey(true);
+        return !this.dirtyIngredients.isEmpty();
     }
 
-    public String getDirtyImagePath() {
+    public List<String> getDirtyImagePath() {
         if (!isDirty()) {
             throw new IllegalStateException("The preparation zone is not dirty.");
         }
-        return this.isDirty.get(true).get().getImagePath();
+        final List<String> output = new ArrayList<>();
+        this.dirtyIngredients.forEach(i -> output.add(i.getImagePath()));
+        return output;
     }
 
 }

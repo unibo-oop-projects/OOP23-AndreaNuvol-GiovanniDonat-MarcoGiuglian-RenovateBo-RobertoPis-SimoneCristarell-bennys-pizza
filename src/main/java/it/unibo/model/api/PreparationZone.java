@@ -32,6 +32,11 @@ public interface PreparationZone {
     Cleaner getCleaner();
 
     /**
+     * @return a list of the ingredients that are dirtying the preparation zone
+     */
+    // List<Ingredient> getDirtyIngredients();
+
+    /**
      * It checks if the preparation zone is dirty
      * @return true if the preparation zone is dirty, false otherwise
      */

@@ -12,7 +12,7 @@ public class CleanerImpl implements Cleaner {
         if (!zone.isDirty()) {
             throw new IllegalStateException("The preparation zone has to be dirty to call the cleaner");
         }
-        zone.isDirty.remove(true);
+        zone.dirtyIngredients.clear();
     }
     
 }
