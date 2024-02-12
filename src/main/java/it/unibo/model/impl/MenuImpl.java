@@ -19,7 +19,7 @@ public class MenuImpl implements Menu {
 
     private static List<Pizza> menu;
 
-    private static void generateMenu() {
+    public static List<Pizza> generateMenu() {
         ObjectMapper mapper = new ObjectMapper();
         try {
             menu = mapper.readValue(new File(FILE_PATH), new TypeReference<List<Pizza>>() {});
@@ -33,6 +33,7 @@ public class MenuImpl implements Menu {
             System.out.println(e.toString());
             System.exit(1);
         }
+        return menu;
     }
 
     @Override
@@ -48,19 +49,4 @@ public class MenuImpl implements Menu {
     public void update() {
         
     }
-
-    
-    public List<Pizza> getMenu() {
-        return MenuImpl.menu;
-    }
-
-    /*
-    public static void main(String[] args) {
-        MenuImpl menu = new MenuImpl();
-        menu.generateMenu();
-        menu.show();
-    }
-    */
-    
-    
 }
