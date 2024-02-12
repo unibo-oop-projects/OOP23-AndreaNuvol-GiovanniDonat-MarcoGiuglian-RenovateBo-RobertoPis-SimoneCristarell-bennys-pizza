@@ -24,11 +24,14 @@ public class MenuImpl implements Menu {
         try {
             this.menu = mapper.readValue(new File(FILE_PATH), new TypeReference<List<Pizza>>() {});
         } catch (StreamReadException e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
+            System.exit(1);
         } catch (DatabindException e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
+            System.exit(1);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
+            System.exit(1);
         }
     }
 
@@ -37,8 +40,7 @@ public class MenuImpl implements Menu {
         for(final Pizza pizza : this.menu) {
             System.out.println(pizza.getName()          + " " +
                                 pizza.getIngredients()  + " " +
-                                pizza.getCost()         + "\n"
-                              );
+                                pizza.getCost()         + "\n" );
         }
     }
 
@@ -47,12 +49,16 @@ public class MenuImpl implements Menu {
         
     }
 
-    /*
+    
+    public List<Pizza> getMenu() {
+        return this.menu;
+    }
+
     public static void main(String[] args) {
         MenuImpl menu = new MenuImpl();
         menu.generateMenu();
         menu.show();
     }
-    */
+    
     
 }
