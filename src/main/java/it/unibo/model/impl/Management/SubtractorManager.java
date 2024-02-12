@@ -10,6 +10,6 @@ public class SubtractorManager extends AbstractManager{
     }
 
     private boolean isWithdrawAllowed(final double amount){
-        return balance >= amount;
+       return amount >= 0 && amount <= balance ? true : false;
     }
 }

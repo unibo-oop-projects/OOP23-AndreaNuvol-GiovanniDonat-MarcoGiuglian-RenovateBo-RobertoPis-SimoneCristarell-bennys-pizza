@@ -1,12 +1,8 @@
 package it.unibo.test_management;
 
 import org.junit.jupiter.api.Test;
-
-import it.unibo.model.impl.Management.AbstractManager;
 import it.unibo.model.impl.Management.AdderManager;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestAdderManager {
 
@@ -28,7 +24,7 @@ public class TestAdderManager {
         assertEquals(3.14, manager.getBalance(), 0.001);
     }
 
-    // Can add negative amounts to balance (should not be allowed)
+    // Cannot add negative amounts to balance
     @Test
     public void test_add_negative_amounts_to_balance() {
         manager.resetBalance();
@@ -36,7 +32,7 @@ public class TestAdderManager {
         assertEquals(0, manager.getBalance(), 0.001);
     }
 
-    // Can add NaN to balance (should not be allowed)
+    // Cannot add NaN to balance
     @Test
     public void test_add_nan_to_balance() {
         manager.resetBalance();
