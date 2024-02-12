@@ -18,6 +18,9 @@ public class PreparationZoneImpl implements PreparationZone {
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
+    //key = if the preparation zone is dirty, value = path of the image of the ingredient which is dirtying the zone
+    final Map<Boolean, Optional<Ingredient>> isDirty = new HashMap<>(); 
+    private final Cleaner cleaner = new CleanerImpl();
     
     public PreparationZoneImpl(final int numPizzeToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (numPizzeToPrepare < MIN_PIZZE_TO_PREPARE || numPizzeToPrepare > MAX_PIZZE_TO_PREPARE) {
@@ -25,6 +28,9 @@ public class PreparationZoneImpl implements PreparationZone {
         } else if (numPizzeToPrepare == MAX_PIZZE_TO_PREPARE) {
             this.pizza2 = Optional.of(new PizzaFactoryImpl());
         }
+        /* at the start, isDirty has only one entry (false, Optional.empty()). Then, if the zone gets dirty, there will be another 
+        entry (true, optional with the ingredient that is dirtying), which will be removed when the zone will be cleaned */
+        this.isDirty.put(false, Optional.empty());
 
         final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe", 
             "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", 
@@ -57,6 +63,23 @@ public class PreparationZoneImpl implements PreparationZone {
     @Override
     public Oven getOven() {
         return this.oven;
+    }
+
+    @Override
+    public Cleaner getCleaner() {
+        return this.cleaner;
+    }
+
+    @Override
+    public boolean isDirty() {
+        return this.isDirty.containsKey(true);
+    }
+
+    public String getDirtyImagePath() {
+        if (!isDirty()) {
+            throw new IllegalStateException("The preparation zone is not dirty.");
+        }
+        return this.isDirty.get(true).get().getImagePath();
     }
 
 }

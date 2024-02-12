@@ -26,4 +26,15 @@ public interface PreparationZone {
      */
     Oven getOven();
 
+    /**
+     * @return the clenear 
+     */
+    Cleaner getCleaner();
+
+    /**
+     * It checks if the preparation zone is dirty
+     * @return true if the preparation zone is dirty, false otherwise
+     */
+    boolean isDirty();
+
 }
