@@ -1,8 +1,11 @@
 package it.unibo.model.api;
 
+import it.unibo.model.impl.Client.ClientImpl;
+
 public interface Client {
     
-    void order();
+    ClientImpl.Order order();
 
     void pay();
+
 }

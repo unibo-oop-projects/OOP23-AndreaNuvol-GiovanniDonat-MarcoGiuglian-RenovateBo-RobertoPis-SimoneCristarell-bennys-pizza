@@ -1,5 +1,6 @@
 package it.unibo.model.impl.Client;
 
+import java.util.*;
 import it.unibo.model.api.Client;
 import it.unibo.model.api.Menu;
 import it.unibo.model.impl.MenuImpl;
@@ -9,24 +10,38 @@ import it.unibo.model.impl.Management.AdderManager; // The client can only add m
 public class ClientImpl implements Client{
 
     @Override
-    public void order() {
-        // creare ordine prendendo 2 nomi di pizze in modo randomico dal menu
-        // prendo il menu
-        Menu menu = new MenuImpl();
-        
-        
+    public ClientImpl.Order order() {
+        Random random = new Random();
+        int max, min = 0;
+        int indexPizza1 = random.nextInt(max + 1 - min ) + min, indexPizza2;
+        List<MenuImpl.Pizza> menu = MenuImpl.generateMenu();
+
     }
 
     @Override
     public void pay() {
-        // se la pizza va bene paga il prezzo della pizza
-        AbstractManager manager = new AdderManager();
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pay'");
     }
 
-    public static void main(String[] args) {
-        MenuImpl menu = new MenuImpl();
-        // menu.generateMenu();
-        menu.show();
+    public static class Order {
+    
+        private final int id;
+        private final ArrayList<MenuImpl.Pizza> pizze;
+    
+        public Order(final int id, final ArrayList<MenuImpl.Pizza> pizze) {
+            this.id = id;
+            this.pizze = new ArrayList<MenuImpl.Pizza>(pizze);
+        }
+ 
+        public int getOrderId(){
+            return this.id;
+        }
+
+        public ArrayList<MenuImpl.Pizza> getOrderPizzas(){
+            return pizze;
+        }
+        
     }
     
 }
