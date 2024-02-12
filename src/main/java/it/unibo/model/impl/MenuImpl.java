@@ -73,6 +73,10 @@ public class MenuImpl implements Menu {
         public List<String> getIngredients() {
             return this.ingredients;
         }
+
+        public int getNumIngredientsOfPizza() {
+            return this.ingredients.size();
+        }
     
         public float getCost() {
             return this.cost;
