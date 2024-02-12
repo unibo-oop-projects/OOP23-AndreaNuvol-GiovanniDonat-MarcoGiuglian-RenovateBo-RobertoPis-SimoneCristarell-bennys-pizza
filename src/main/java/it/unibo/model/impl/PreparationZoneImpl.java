@@ -14,7 +14,7 @@ public class PreparationZoneImpl implements PreparationZone {
 
     private static final int MIN_PIZZE_TO_PREPARE = 1;
     private static final int MAX_PIZZE_TO_PREPARE = 2;
-    private final PizzaFactory pizza1 = new PizzaFactoryImpl();
+    private Optional<PizzaFactory> pizza1 = Optional.empty();
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
@@ -22,7 +22,10 @@ public class PreparationZoneImpl implements PreparationZone {
     public PreparationZoneImpl(final int numPizzeToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (numPizzeToPrepare < MIN_PIZZE_TO_PREPARE || numPizzeToPrepare > MAX_PIZZE_TO_PREPARE) {
             throw new IllegalArgumentException("The number of pizzas to prepare can be only 1 or 2.");
-        } else if (numPizzeToPrepare == MAX_PIZZE_TO_PREPARE) {
+        } else {
+            this.pizza1 = Optional.of(new PizzaFactoryImpl());
+        }
+        if (numPizzeToPrepare == MAX_PIZZE_TO_PREPARE) {
             this.pizza2 = Optional.of(new PizzaFactoryImpl());
         }
 
@@ -38,7 +41,10 @@ public class PreparationZoneImpl implements PreparationZone {
 
     @Override
     public PizzaFactory getPizza1() {
-        return this.pizza1;
+        if (this.pizza1.isEmpty()) {
+            throw new IllegalStateException("Pizza n. 2 is not requested from this client.");
+        }
+        return this.pizza1.get();
     }
 
     @Override
