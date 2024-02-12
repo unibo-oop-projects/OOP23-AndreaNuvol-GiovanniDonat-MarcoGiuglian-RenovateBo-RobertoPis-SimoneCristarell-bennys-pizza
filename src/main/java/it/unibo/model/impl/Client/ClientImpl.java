@@ -12,10 +12,13 @@ public class ClientImpl implements Client{
     @Override
     public ClientImpl.Order order() {
         Random random = new Random();
-        int max, min = 0;
-        int indexPizza1 = random.nextInt(max + 1 - min ) + min, indexPizza2;
+        int max = MenuImpl.getNumPizzasInMenu(), min = 0;
+        int indexPizza1 = random.nextInt(max + 1 - min ) + min, indexPizza2 = random.nextInt(max + 1 - min ) + min;
         List<MenuImpl.Pizza> menu = MenuImpl.generateMenu();
-
+        List<String> pizzasToOrder = new ArrayList<>(); 
+        
+        menu.indexOf(indexPizza1);
+        // return new ClientImpl.Order();
     }
 
     @Override

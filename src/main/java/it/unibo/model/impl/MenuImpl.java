@@ -45,7 +45,7 @@ public class MenuImpl implements Menu {
         }
     }
 
-    public int getNumPizzasInMenu() {
+    public static int getNumPizzasInMenu() {
         return menu.size();
     }
 
@@ -54,7 +54,7 @@ public class MenuImpl implements Menu {
         
     }
 
-    static class Pizza {
+    public static class Pizza {
     
         private final String name;
         private final float cost;
