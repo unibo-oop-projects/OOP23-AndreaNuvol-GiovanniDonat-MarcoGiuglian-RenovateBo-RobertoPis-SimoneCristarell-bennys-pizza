@@ -49,12 +49,16 @@ public class MenuImpl implements Menu {
         
     }
 
-    /*
+    
+    public List<Pizza> getMenu() {
+        return this.menu;
+    }
+
     public static void main(String[] args) {
         MenuImpl menu = new MenuImpl();
         menu.generateMenu();
         menu.show();
     }
-    */
+    
     
 }
