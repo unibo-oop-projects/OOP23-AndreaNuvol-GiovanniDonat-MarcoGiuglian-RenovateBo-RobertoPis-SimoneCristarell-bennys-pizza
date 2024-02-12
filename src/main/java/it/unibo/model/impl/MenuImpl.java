@@ -17,12 +17,12 @@ public class MenuImpl implements Menu {
                                             "resources" + SEP +
                                             "menu.json";
 
-    private List<Pizza> menu;
+    private static List<Pizza> menu;
 
-    private void generateMenu() {
+    public static List<Pizza> generateMenu() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            this.menu = mapper.readValue(new File(FILE_PATH), new TypeReference<List<Pizza>>() {});
+            menu = mapper.readValue(new File(FILE_PATH), new TypeReference<List<Pizza>>() {});
         } catch (StreamReadException e) {
             System.out.println(e.toString());
             System.exit(1);
@@ -33,11 +33,12 @@ public class MenuImpl implements Menu {
             System.out.println(e.toString());
             System.exit(1);
         }
+        return menu;
     }
 
     @Override
     public void show() {
-        for(final Pizza pizza : this.menu) {
+        for(final Pizza pizza : MenuImpl.menu) {
             System.out.println(pizza.getName()          + " " +
                                 pizza.getIngredients()  + " " +
                                 pizza.getCost()         + "\n" );
@@ -48,13 +49,4 @@ public class MenuImpl implements Menu {
     public void update() {
         
     }
-
-    /*
-    public static void main(String[] args) {
-        MenuImpl menu = new MenuImpl();
-        menu.generateMenu();
-        menu.show();
-    }
-    */
-    
 }
