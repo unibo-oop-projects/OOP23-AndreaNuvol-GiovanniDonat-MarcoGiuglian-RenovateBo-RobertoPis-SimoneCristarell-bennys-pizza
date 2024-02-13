@@ -44,11 +44,11 @@ public class ClientImpl implements Client{
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzas = this.order.getOrderPizzas();
         final AbstractManager manager = new AdderManager();
         double amountToAdd = 0;
-        // controllo prima pizza
+        // checking first pizza
         if(pizzaFactoryImpl1.equals(pizzas.getLeft().getIngredients())){
             amountToAdd = pizzas.getLeft().getCost();
         }else{
-            // se le pizze non sono esattemente uguali mi faccio pagare gli ingredienti che sono corretti
+            // If the pizzas are not exactly the same I charge for the ingredients that are correct
             for(final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()){
                 if(pizzas.getLeft().getIngredients().contains(ingredient)){
                     amountToAdd += ingredient.getPrice();
@@ -57,9 +57,9 @@ public class ClientImpl implements Client{
         }
         manager.updateBalance(amountToAdd);
         amountToAdd = 0;
-        // controllo seconda pizza se c'è
+        // checking second pizza
         if(pizzas.getRight().isPresent()){
-            if(pizzaFactoryImpl2.equals(pizzas.getRight().get().getIngredients())){
+            if(pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())){
                 amountToAdd = pizzas.getRight().get().getCost();
             }else{
                 for(final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()){
@@ -68,8 +68,9 @@ public class ClientImpl implements Client{
                     }
                 }
             }
+            manager.updateBalance(amountToAdd);
         }
-        manager.updateBalance(amountToAdd);
+        
     }
 
     private int nPizzeToOrder(){
