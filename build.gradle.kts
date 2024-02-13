@@ -42,8 +42,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
 
-    // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation("com.google.code.gson:gson:2.10.1")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind 
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+
 }
 
 application {
