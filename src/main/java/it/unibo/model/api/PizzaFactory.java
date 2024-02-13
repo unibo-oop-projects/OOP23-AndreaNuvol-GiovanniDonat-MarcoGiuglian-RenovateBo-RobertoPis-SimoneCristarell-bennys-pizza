@@ -11,9 +11,10 @@ public interface PizzaFactory {
 
     /**
      * It adds an ingredient to the pizza you are preparing.
+     * @param zone the preparation zone where you are working.
      * @param ingredientToAdd the ingredient to add
      */
-    void addIngredient(IngredientImpl ingredientToAdd);
+    void addIngredient(PreparationZone zone, IngredientImpl ingredientToAdd);
 
     /**
      * @param requestedIngredients the ingredients of the requested pizza

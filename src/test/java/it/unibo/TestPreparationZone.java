@@ -11,10 +11,8 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.api.Ingredient;
-import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.IngredientImpl;
-import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
 
 public class TestPreparationZone {
