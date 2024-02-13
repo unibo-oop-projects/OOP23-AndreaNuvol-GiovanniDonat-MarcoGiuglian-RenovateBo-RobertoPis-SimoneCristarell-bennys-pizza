@@ -13,11 +13,12 @@ public class PreparationZoneImpl implements PreparationZone {
 
     private static final int MIN_PIZZAS_TO_PREPARE = 1;
     private static final int MAX_PIZZAS_TO_PREPARE = 2;
+    private static final int MAX_DIRTY_INGREDIENTS = 4;
     private final PizzaFactory pizza1 = new PizzaFactoryImpl();
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
-    final List<Ingredient> dirtyIngredients = new ArrayList<>();
+    private final List<Ingredient> dirtyIngredients = new ArrayList<>();
     private final Cleaner cleaner = new CleanerImpl();
     
     public PreparationZoneImpl(final int numPizzasToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -35,6 +36,7 @@ public class PreparationZoneImpl implements PreparationZone {
             final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
             this.ingredientsQuantities.put((Ingredient)clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
         }
+
     }
 
     @Override
@@ -68,6 +70,15 @@ public class PreparationZoneImpl implements PreparationZone {
     @Override
     public boolean isDirty() {
         return !this.dirtyIngredients.isEmpty();
+    }
+
+    @Override
+    public void manageDirtyIngredients(final Optional<Ingredient> dirtyIngredient) {
+        if (dirtyIngredient.isEmpty()) {
+            this.dirtyIngredients.clear();
+        } else if (this.dirtyIngredients.size() < MAX_DIRTY_INGREDIENTS) {
+            this.dirtyIngredients.add(dirtyIngredient.get());
+        }
     }
 
     public List<String> getDirtyImagePath() {
