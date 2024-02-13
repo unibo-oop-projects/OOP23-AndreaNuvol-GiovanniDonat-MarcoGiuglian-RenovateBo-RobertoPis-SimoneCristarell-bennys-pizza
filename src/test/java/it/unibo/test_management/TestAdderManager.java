@@ -3,6 +3,7 @@ package it.unibo.test_management;
 import org.junit.jupiter.api.Test;
 import it.unibo.model.impl.Management.AdderManager;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAdderManager {
 
@@ -28,8 +29,10 @@ public class TestAdderManager {
     @Test
     public void test_add_negative_amounts_to_balance() {
         manager.resetBalance();
-        manager.updateBalance(-10);
-        assertEquals(0, manager.getBalance(), 0.001);
+        assertThrows(IllegalArgumentException.class, () -> {
+            manager.updateBalance(-10);
+        });
+
     }
 
     // Cannot add NaN to balance

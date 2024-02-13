@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestSubtractorManager {
     AdderManager adderManager = new AdderManager(); // we need it to start with a balance different from 0
@@ -31,8 +32,9 @@ public class TestSubtractorManager {
     // Cannot subtract negative amounts to balance
     @Test
     public void test_subtract_negative_amounts_to_balance(){
-        manager.updateBalance(-14.4);
-        assertEquals(0, manager.getBalance(), 0.001);
+        assertThrows(IllegalArgumentException.class, () -> {
+            manager.updateBalance(-14.4);
+        });
         manager.resetBalance();
     }
 

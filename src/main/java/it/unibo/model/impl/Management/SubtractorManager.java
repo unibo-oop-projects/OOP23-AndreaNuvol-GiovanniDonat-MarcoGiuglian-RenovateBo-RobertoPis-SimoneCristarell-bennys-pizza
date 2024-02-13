@@ -6,6 +6,8 @@ public class SubtractorManager extends AbstractManager{
     public void updateBalance(final double amount) {
         if(isWithdrawAllowed(amount)){
             balance -= amount;
+        }else{
+            throw new IllegalArgumentException("Can't subtract negative value or value value less than the balance.");
         }
     }
 

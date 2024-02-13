@@ -6,6 +6,8 @@ public class AdderManager extends AbstractManager{
     public void updateBalance(final double amount) {
         if(isDepositAllowed(amount)){
             balance += amount;
+        }else{
+            throw new IllegalArgumentException("Can't add negative value to balance.");
         }
     }
 

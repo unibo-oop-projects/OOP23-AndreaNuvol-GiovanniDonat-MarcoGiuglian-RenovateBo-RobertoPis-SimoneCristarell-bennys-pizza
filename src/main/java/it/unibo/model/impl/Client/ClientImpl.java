@@ -25,8 +25,7 @@ public class ClientImpl implements Client{
 
     @Override
     public void pay() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pay'");
+        
     }
 
     private int nPizzeToOrder(){
