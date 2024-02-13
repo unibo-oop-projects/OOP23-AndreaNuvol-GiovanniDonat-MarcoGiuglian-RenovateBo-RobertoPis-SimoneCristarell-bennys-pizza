@@ -8,17 +8,19 @@ import it.unibo.model.impl.Management.AbstractManager;
 import it.unibo.model.impl.Management.AdderManager; // The client can only add money to the balance
 
 public class ClientImpl implements Client{
+    private int orderId = 0;
+    private Random random = new Random();
 
     @Override
     public ClientImpl.Order order() {
-        Random random = new Random();
-        int max = MenuImpl.getNumPizzasInMenu(), min = 0;
-        int indexPizza1 = random.nextInt(max + 1 - min ) + min, indexPizza2 = random.nextInt(max + 1 - min ) + min;
-        List<MenuImpl.Pizza> menu = MenuImpl.generateMenu();
-        List<String> pizzasToOrder = new ArrayList<>(); 
-        
-        menu.indexOf(indexPizza1);
-        // return new ClientImpl.Order();
+        final int max = MenuImpl.getNumPizzasInMenu() - 1, min = 0;
+        final List<MenuImpl.Pizza> menu = MenuImpl.generateMenu();
+        List<String> pizzasToOrder = new ArrayList<>();
+        for(int i = 0; i < nPizzeToOrder(); i++){
+            final int indexPizza = random.nextInt(max + 1 - min ) + min;
+            pizzasToOrder.add(menu.get(indexPizza).getName());
+        }
+        return new Order(orderId++, pizzasToOrder);
     }
 
     @Override
@@ -27,21 +29,26 @@ public class ClientImpl implements Client{
         throw new UnsupportedOperationException("Unimplemented method 'pay'");
     }
 
+    private int nPizzeToOrder(){
+        final int min = 1, max = 2;
+        return random.nextInt(max + 1 - min) + min;
+    }
+
     public static class Order {
     
         private final int id;
-        private final ArrayList<MenuImpl.Pizza> pizze;
+        private final ArrayList<String> pizze;
     
-        public Order(final int id, final ArrayList<MenuImpl.Pizza> pizze) {
+        public Order(final int id, final List<String> pizze) {
             this.id = id;
-            this.pizze = new ArrayList<MenuImpl.Pizza>(pizze);
+            this.pizze = new ArrayList<String>(pizze);
         }
  
         public int getOrderId(){
             return this.id;
         }
 
-        public ArrayList<MenuImpl.Pizza> getOrderPizzas(){
+        public ArrayList<String> getOrderPizzas(){
             return pizze;
         }
         
