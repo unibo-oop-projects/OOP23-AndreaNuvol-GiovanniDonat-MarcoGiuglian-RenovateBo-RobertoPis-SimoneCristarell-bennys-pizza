@@ -1,4 +1,4 @@
-package it.unibo.model.impl;
+package it.unibo.model.impl.Time;
 
 import java.util.*;
 
@@ -55,21 +55,4 @@ public class TimeImp {
     private boolean isEndOfDay() {
         return this.hour == ENDING_HOUR && this.min == ENDING_MIN ? true : false;
     }
-
-    /*
-    public int getHour() {
-        return this.hour;
-    }
-
-    public int getMin() {
-        return this.min;
-    }
-    */
-
-    /*
-    public static void main(String[] args) {
-        TimeImp time = new TimeImp();
-        time.startTimeForNewDay();
-    }
-    */
 }
