@@ -14,6 +14,8 @@ public class PreparationZoneImpl implements PreparationZone {
     private static final int MIN_PIZZAS_TO_PREPARE = 1;
     private static final int MAX_PIZZAS_TO_PREPARE = 2;
     private static final int MAX_DIRTY_INGREDIENTS = 4;
+    private final Supplier supplier = new SupplierImpl();
+    private Management management;
     private PizzaFactory pizza1;
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
@@ -21,12 +23,13 @@ public class PreparationZoneImpl implements PreparationZone {
     private final List<Ingredient> dirtyIngredients = new ArrayList<>();
     private final Cleaner cleaner = new CleanerImpl();
     
-    public PreparationZoneImpl(final int numPizzasToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public PreparationZoneImpl(final int numPizzasToPrepare, final Management management) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (numPizzasToPrepare < MIN_PIZZAS_TO_PREPARE || numPizzasToPrepare > MAX_PIZZAS_TO_PREPARE) {
             throw new IllegalArgumentException("The number of pizzas to prepare can be only 1 or 2.");
         } else if (numPizzasToPrepare == MAX_PIZZAS_TO_PREPARE) {
             this.pizza2 = Optional.of(new PizzaFactoryImpl());
         }
+        this.management = management;
         this.pizza1 = new PizzaFactoryImpl();
 
         final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe", 
@@ -89,6 +92,24 @@ public class PreparationZoneImpl implements PreparationZone {
         final List<String> output = new ArrayList<>();
         this.dirtyIngredients.forEach(i -> output.add(i.getImagePath()));
         return output;
+    }
+
+    @Override
+    public void updateQuantities(final String ingredientName, final boolean isPizza1, final boolean isASupply) {
+        this.ingredientsQuantities.keySet().stream()
+            .filter(ingredient -> ingredient.toString().equals(ingredientName))
+            .forEach(ingredient -> {
+                if (isASupply) {
+                    supplier.supply(ingredient, management);
+                }else {
+                    if (isPizza1) {
+                        this.pizza1.addIngredient(this, ingredient);
+                    } else {
+                        this.pizza2.addIngredient(this, ingredient);
+                    }
+                }
+                this.ingredientsQuantities.replace(ingredient, ingredient.getQuantity());
+            });
     }
 
     @Override
