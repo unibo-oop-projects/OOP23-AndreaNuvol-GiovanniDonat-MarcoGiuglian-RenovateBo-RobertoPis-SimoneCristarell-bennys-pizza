@@ -41,8 +41,9 @@ public class TestSubtractorManager {
     // Cannot subtract NaN to balance
     @Test
     public void test_add_nan_to_balance() {
-        manager.updateBalance(Double.NaN);
-        assertEquals(0, manager.getBalance(), 0.001);
+        assertThrows(IllegalArgumentException.class, () -> {
+            manager.updateBalance(Double.NaN);
+        });
         manager.resetBalance();
     }
 }

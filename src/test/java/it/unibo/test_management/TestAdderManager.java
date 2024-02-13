@@ -39,8 +39,9 @@ public class TestAdderManager {
     @Test
     public void test_add_nan_to_balance() {
         manager.resetBalance();
-        manager.updateBalance(Double.NaN);
-        assertEquals(0, manager.getBalance(), 0.001);
+        assertThrows(IllegalArgumentException.class, () -> {
+            manager.updateBalance(Double.NaN);
+        });
     }
 
 }

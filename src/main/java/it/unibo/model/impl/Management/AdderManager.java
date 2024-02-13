@@ -7,7 +7,7 @@ public class AdderManager extends AbstractManager{
         if(isDepositAllowed(amount)){
             balance += amount;
         }else{
-            throw new IllegalArgumentException("Can't add negative value to balance.");
+            throw new IllegalArgumentException("Can't add negative or null value to balance.");
         }
     }
 
