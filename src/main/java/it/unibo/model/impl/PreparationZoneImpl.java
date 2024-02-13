@@ -14,7 +14,7 @@ public class PreparationZoneImpl implements PreparationZone {
     private static final int MIN_PIZZAS_TO_PREPARE = 1;
     private static final int MAX_PIZZAS_TO_PREPARE = 2;
     private static final int MAX_DIRTY_INGREDIENTS = 4;
-    private Optional<PizzaFactory> pizza1 = Optional.empty();
+    private PizzaFactory pizza1;
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
@@ -24,12 +24,10 @@ public class PreparationZoneImpl implements PreparationZone {
     public PreparationZoneImpl(final int numPizzasToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (numPizzasToPrepare < MIN_PIZZAS_TO_PREPARE || numPizzasToPrepare > MAX_PIZZAS_TO_PREPARE) {
             throw new IllegalArgumentException("The number of pizzas to prepare can be only 1 or 2.");
-        } else {
-            this.pizza1 = Optional.of(new PizzaFactoryImpl());
-        }
-        if (numPizzasToPrepare == MAX_PIZZAS_TO_PREPARE) {
+        } else if (numPizzasToPrepare == MAX_PIZZAS_TO_PREPARE) {
             this.pizza2 = Optional.of(new PizzaFactoryImpl());
         }
+        this.pizza1 = new PizzaFactoryImpl();
 
         final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe", 
             "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", 
@@ -44,10 +42,7 @@ public class PreparationZoneImpl implements PreparationZone {
 
     @Override
     public PizzaFactory getPizza1() {
-        if (this.pizza1.isEmpty()) {
-            throw new IllegalStateException("An error occured while ordering the pizzas");
-        }
-        return this.pizza1.get();
+        return this.pizza1;
     }
 
     @Override
@@ -94,6 +89,12 @@ public class PreparationZoneImpl implements PreparationZone {
         final List<String> output = new ArrayList<>();
         this.dirtyIngredients.forEach(i -> output.add(i.getImagePath()));
         return output;
+    }
+
+    @Override
+    public void resetPizzas() {
+        this.pizza1 = new PizzaFactoryImpl();
+        this.pizza2 = Optional.empty();
     }
 
 }

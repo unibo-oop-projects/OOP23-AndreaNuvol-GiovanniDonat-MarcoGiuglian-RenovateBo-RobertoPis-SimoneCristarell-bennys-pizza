@@ -45,4 +45,9 @@ public interface PreparationZone {
      */
     void manageDirtyIngredients(Optional<Ingredient> dirtyIngredient);
 
+    /**
+     * It resets the two pizza factories of the preparation zone
+     */
+    void resetPizzas();
+
 }
