@@ -10,22 +10,28 @@ import it.unibo.model.impl.Management.AdderManager; // The client can only add m
 public class ClientImpl implements Client{
     private int orderId = 0;
     private Random random = new Random();
+    private Order order;
 
     @Override
     public ClientImpl.Order order() {
         final int max = MenuImpl.getNumPizzasInMenu() - 1, min = 0;
         final List<MenuImpl.Pizza> menu = MenuImpl.generateMenu();
-        List<String> pizzasToOrder = new ArrayList<>();
+        List<MenuImpl.Pizza> pizzasToOrder = new ArrayList<>();
         for(int i = 0; i < nPizzeToOrder(); i++){
             final int indexPizza = random.nextInt(max + 1 - min ) + min;
             pizzasToOrder.add(menu.get(indexPizza).getName());
         }
-        return new Order(orderId++, pizzasToOrder);
+        this.order = new Order(orderId++, pizzasToOrder);
+        return this.order;
     }
 
     @Override
     public void pay() {
-        
+        List<String> pizzas = this.order.getOrderPizzas();
+        AbstractManager manager = new AdderManager();
+        for (final String string : pizzas) {
+            
+        }
     }
 
     private int nPizzeToOrder(){
