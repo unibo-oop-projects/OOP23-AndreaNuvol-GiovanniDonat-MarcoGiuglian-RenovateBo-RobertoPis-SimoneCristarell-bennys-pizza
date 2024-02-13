@@ -3,9 +3,7 @@ package it.unibo.model.impl.Client;
 import java.util.*;
 import it.unibo.model.api.Client;
 import it.unibo.model.api.Ingredient;
-import it.unibo.model.api.Menu;
 import it.unibo.model.impl.Menu.MenuImpl;
-import it.unibo.model.impl.Menu.MenuImpl.Pizza;
 import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.Management.AbstractManager;
 import it.unibo.model.impl.Management.AdderManager; // The client can only add money to the balance
@@ -24,13 +22,11 @@ public class ClientImpl implements Client{
         final int max = MenuImpl.getNumPizzasInMenu() - 1, min = 0;
         final List<MenuImpl.Pizza> menu = MenuImpl.generateMenu();
         MenuImpl.Pizza pizza1 = null;
-        Optional<MenuImpl.Pizza> pizza2 = null;
+        Optional<MenuImpl.Pizza> pizza2 = Optional.empty();
         for(int i = 0; i < nPizzeToOrder(); i++){
             final int indexPizza = random.nextInt(max + 1 - min ) + min;
             pizza1 = menu.get(indexPizza);
-            if(nPizzeToOrder() == 1){
-                pizza2 = Optional.empty();
-            }else{
+            if(nPizzeToOrder() == 2){
                 pizza2 = Optional.of(menu.get(indexPizza));
             }
         }
@@ -95,7 +91,5 @@ public class ClientImpl implements Client{
         public Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> getOrderPizzas(){
             return this.pizze;
         }
-        
     }
-    
 }

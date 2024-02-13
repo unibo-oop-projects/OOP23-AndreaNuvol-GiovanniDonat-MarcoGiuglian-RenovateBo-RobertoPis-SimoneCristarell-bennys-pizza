@@ -17,6 +17,6 @@ public interface Client {
     /**
      * It adds money to the balance based on the cost of the pizza and the quality with which it was made
      */
-    void pay(final Optional<PizzaFactoryImpl> pizzaFactoryImpl1, final Optional<PizzaFactoryImpl> pizzaFactoryImpl2);
+    void pay(final PizzaFactoryImpl pizzaFactoryImpl1, final Optional<PizzaFactoryImpl> pizzaFactoryImpl2);
 
 }
