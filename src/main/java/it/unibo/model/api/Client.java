@@ -1,5 +1,8 @@
 package it.unibo.model.api;
 
+import java.util.Optional;
+
+import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.Client.ClientImpl;
 
 public interface Client {
@@ -14,6 +17,6 @@ public interface Client {
     /**
      * It adds money to the balance based on the cost of the pizza and the quality with which it was made
      */
-    void pay();
+    void pay(final Optional<PizzaFactoryImpl> pizzaFactoryImpl1, final Optional<PizzaFactoryImpl> pizzaFactoryImpl2);
 
 }
