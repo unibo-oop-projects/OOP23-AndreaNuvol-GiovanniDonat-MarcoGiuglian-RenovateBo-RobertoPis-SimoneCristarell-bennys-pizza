@@ -7,4 +7,11 @@ public interface Management {
      * @param amount => is the amount to add or subtract
      */
     void updateBalance(double amount);
+
+
+    /**
+     * It check if the player pass the level
+     * @return true if player pass the level, false otherwise
+     */
+    boolean levelPassed();
 }
