@@ -2,6 +2,8 @@ package it.unibo.model.impl.Time;
 
 import java.util.*;
 
+import it.unibo.model.impl.Management.AbstractManager;
+
 public class TimeImp {
 
     final static int TIME_FOR_15_MINUTES = 15000; // millisecondi per far passare 15 minuti nel gioco
@@ -12,6 +14,7 @@ public class TimeImp {
     final static int ENDING_HOUR = 22;
     final static int ENDING_MIN = 30;
     
+    public int workingDays = 1;
     private int hour;
     private int min;
     private Timer timer;
@@ -39,6 +42,9 @@ public class TimeImp {
                 if(isEndOfDay()) {
                     // System.out.println("FINE GIORNATA!\nOrario: Ora : [ " + getHour() + " ] \t Minuti : [ " + getMin() + " ]\n");
                     timer.cancel();
+                    if(AbstractManager.levelPassed()) {
+                        workingDays++;
+                    }
                 }
             }
             
