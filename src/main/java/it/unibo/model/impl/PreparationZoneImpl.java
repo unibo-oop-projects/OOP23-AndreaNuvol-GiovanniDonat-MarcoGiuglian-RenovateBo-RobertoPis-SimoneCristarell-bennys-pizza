@@ -95,17 +95,17 @@ public class PreparationZoneImpl implements PreparationZone {
     }
 
     @Override
-    public void updateQuantities(final String ingredientName, final boolean isPizza1, final boolean isASupply) {
+    public void actionsOnIngredients(final String ingredientName, final boolean isPizza1, final boolean isASupply) {
         this.ingredientsQuantities.keySet().stream()
             .filter(ingredient -> ingredient.toString().equals(ingredientName))
             .forEach(ingredient -> {
                 if (isASupply) {
                     supplier.supply(ingredient, management);
-                }else {
+                } else {
                     if (isPizza1) {
-                        this.pizza1.addIngredient(this, ingredient);
+                        this.pizza1.addIngredient(this, (IngredientImpl)ingredient);
                     } else {
-                        this.pizza2.addIngredient(this, ingredient);
+                        this.pizza2.get().addIngredient(this, (IngredientImpl)ingredient);
                     }
                 }
                 this.ingredientsQuantities.replace(ingredient, ingredient.getQuantity());

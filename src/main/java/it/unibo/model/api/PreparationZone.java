@@ -52,7 +52,7 @@ public interface PreparationZone {
      * @param isPizza1 true if the ingredient is in pizza1, false if is in pizza2
      * @param isASupply true if we have to supply, false if we have to reduce the quantity
      */
-    void updateQuantities(String ingredientName, boolean isPizza1, boolean isASupply);
+    void actionsOnIngredients(String ingredientName, boolean isPizza1, boolean isASupply);
 
     /**
      * It resets the two pizza factories of the preparation zone

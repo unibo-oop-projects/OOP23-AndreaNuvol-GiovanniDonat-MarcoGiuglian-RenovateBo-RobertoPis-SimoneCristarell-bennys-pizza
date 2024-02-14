@@ -2,11 +2,11 @@ package it.unibo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,29 +52,26 @@ public class TestPreparationZone {
                 final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
                 ingredientsQuantities.put((Ingredient)clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
         }
-            final PreparationZone preparationZone = new PreparationZoneImpl(MIN_PIZZAS);
+            final PreparationZone preparationZone = new PreparationZoneImpl(MIN_PIZZAS, new SubtractorManager());
             assertEquals(preparationZone.getIngredientsQuantities(), ingredientsQuantities);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
+    private void testActionIngredient(final PreparationZone pz, final boolean isASupply, final int expectedQuantity) {
+        pz.actionsOnIngredients("Wurstel", true, isASupply);
+        for (Ingredient i: pz.getIngredientsQuantities().keySet()) {
+            if (i.toString().equals("Wurstel")) {
+                assertEquals(expectedQuantity, i.getQuantity());
+            }
+        }
+    }
+
     @Test
     public void testUpdateQuantities() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PreparationZone p = new PreparationZoneImpl(MIN_PIZZAS, new SubtractorManager());
-        
-        p.updateQuantities("Wurstel", true, false);
-        for (IngredientImpl i : p.getIngredientsQuantities().keySet()) {
-            if (i.toString().equals("Wurstel")) {
-                assertEquals(85, i.getQuantity());
-            }
-        }
-
-        p.updateQuantities("Wurstel", true, true);
-        for (IngredientImpl i : p.getIngredientsQuantities().keySet()) {
-            if (i.toString().equals("Wurstel")) {
-                assertEquals(IngredientImpl.MAX_QUANTITY, i.getQuantity());
-            }
-        }
+        testActionIngredient(p, false, 85);
+        testActionIngredient(p, true, IngredientImpl.MAX_QUANTITY);
     }
 }
