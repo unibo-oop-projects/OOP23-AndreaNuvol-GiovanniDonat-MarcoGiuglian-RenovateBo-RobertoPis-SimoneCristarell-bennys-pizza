@@ -14,7 +14,7 @@ import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.IngredientImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
-import it.unibo.model.impl.SubtractorManager;
+import it.unibo.model.impl.Management.SubtractorManager;
 
 public class TestPreparationZone {
 

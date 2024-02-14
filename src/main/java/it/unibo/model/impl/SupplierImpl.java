@@ -1,6 +1,7 @@
 package it.unibo.model.impl;
 
 import it.unibo.model.api.*;
+import it.unibo.model.impl.Management.SubtractorManager;
 
 public class SupplierImpl implements Supplier {
     private static final double amountToPay = 5;

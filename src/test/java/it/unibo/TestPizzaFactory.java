@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
-import it.unibo.model.impl.SubtractorManager;
+import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.IngredientsImpl.Dough;
 import it.unibo.model.impl.IngredientsImpl.FrenchFry;
 import it.unibo.model.impl.IngredientsImpl.Ham;
