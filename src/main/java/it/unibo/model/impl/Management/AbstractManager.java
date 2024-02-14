@@ -1,9 +1,11 @@
 package it.unibo.model.impl.Management;
 
 import it.unibo.model.api.Management;
+import it.unibo.model.impl.Time.TimeImpl;
 
 public abstract class AbstractManager implements Management{
-    private static final double minAmountToPassTheLevel = 30;
+    private static final double minAmountToPassTheLevel = 10;
+    private static double factoryMultiple = 1;
     protected static double balance = 0;
 
     public double getBalance(){
@@ -11,7 +13,10 @@ public abstract class AbstractManager implements Management{
     }
 
     public static boolean levelPassed(){
-        return balance >= minAmountToPassTheLevel ? true : false;
+        if(TimeImpl.getWorkingDay() != 1){
+            factoryMultiple = 1.5;
+        }
+        return balance >= minAmountToPassTheLevel*factoryMultiple ? true : false;
     }
 
     public void resetBalance(){
