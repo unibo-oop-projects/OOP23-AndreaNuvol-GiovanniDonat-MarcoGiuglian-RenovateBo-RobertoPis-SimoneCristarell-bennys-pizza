@@ -1,7 +1,6 @@
 package it.unibo.model.impl.Menu;
 
 import it.unibo.model.api.*;
-import it.unibo.model.impl.IngredientImpl;
 
 import java.io.*;
 import java.util.*;
@@ -55,9 +54,9 @@ public class MenuImpl implements Menu {
     
         private final String name;
         private final float cost;
-        private List<IngredientImpl> ingredients;
+        private List<String> ingredients;
     
-        public Pizza(String name, float cost, List<IngredientImpl> ingredients) {
+        public Pizza(String name, float cost, List<String> ingredients) {
             this.name = name;
             this.cost = cost;
             this.ingredients = ingredients;
@@ -67,7 +66,7 @@ public class MenuImpl implements Menu {
             return this.name;
         }
     
-        public List<IngredientImpl> getIngredients() {
+        public List<String> getIngredients() {
             return this.ingredients;
         }
 

@@ -6,10 +6,10 @@
             "Dough",
             "TomatoSauce",
             "Mozzarella",
-            "Artichoke",
-            "Sausage",
-            "Mushroom",
-            "Olive"
+            "Artichokes",
+            "Sausages",
+            "Mushrooms",
+            "Olives"
         ]
     },
 
@@ -31,8 +31,8 @@
             "Dough",
             "TomatoSauce",
             "Mozzarella",
-            "Sausage",
-            "Mushroom"
+            "Sausages",
+            "Mushrooms"
         ]
     },
 
@@ -43,10 +43,10 @@
             "Dough",
             "TomatoSauce",
             "Mozzarella",
-            "Artichoke",
-            "Ham",
-            "Mushroom",
-            "Olive"
+            "Artichokes",
+            "Hams",
+            "Mushrooms",
+            "Olives"
         ]
     },
 
@@ -71,7 +71,7 @@
             "SauTomatoSaucesage",
             "Mozzarella",
             "Wurstel",
-            "FrenchFry"
+            "FrenchFries"
         ]
     },
 
@@ -92,8 +92,8 @@
             "Dough",
             "TomatoSauce",
             "Mozzarella",
-            "Anchovy",
-            "Olive"
+            "Anchovies",
+            "Olives"
         ]
     },
 
@@ -105,7 +105,7 @@
             "TomatoSauce",
             "Mozzarella",
             "Fontina",
-            "Ham"
+            "Hams"
         ]
     },
 
@@ -117,7 +117,7 @@
             "TomatoSauce",
             "Mozzarella",
             "Tuna",
-            "Onion"
+            "Onions"
         ]
     },
 
@@ -128,7 +128,7 @@
             "Dough",
             "TomatoSauce",
             "Mozzarella",
-            "FrenchFry"
+            "FrenchFries"
         ]
     },
 
@@ -139,7 +139,7 @@
             "Dough",
             "TomatoSauce",
             "Mozzarella",
-            "Ham",
+            "Hams",
             "Parmesan"
         ]
     },
@@ -151,16 +151,16 @@
             "Dough",
             "TomatoSauce",
             "Mozzarella",
-            "Anchovy",
-            "Artichoke",
-            "CherryTomatoe",
-            "FrenchFry",
-            "Ham",
-            "Olive",
-            "Onion",
+            "Anchovies",
+            "Artichokes",
+            "CherryTomatoes",
+            "FrenchFries",
+            "Hams",
+            "Olives",
+            "Onions",
             "Parmesan",
             "Salami",
-            "Sausage",
+            "Sausages",
             "Tuna",
             "Wurstel"        ]
     }
