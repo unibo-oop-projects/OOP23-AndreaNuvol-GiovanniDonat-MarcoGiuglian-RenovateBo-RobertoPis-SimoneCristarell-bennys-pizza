@@ -14,7 +14,7 @@ public class TimeImpl {
     final static int ENDING_HOUR = 22;
     final static int ENDING_MIN = 30;
     
-    private int workingDays = 1;
+    private static int workingDays = 1;
     private int hour;
     private int min;
     private Timer timer;
@@ -59,7 +59,7 @@ public class TimeImpl {
         return this.hour == ENDING_HOUR && this.min == ENDING_MIN ? true : false;
     }
 
-    public int getWorkingDay() {
-        return this.workingDays;
+    public static int getWorkingDay() {
+        return workingDays;
     }
 }
