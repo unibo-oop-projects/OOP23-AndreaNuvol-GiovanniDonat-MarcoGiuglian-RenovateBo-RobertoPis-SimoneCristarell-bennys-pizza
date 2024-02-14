@@ -25,6 +25,7 @@ public class MenuImpl implements Menu {
         ObjectMapper mapper = new ObjectMapper();
         try {
             menu = mapper.readValue(new File(FILE_PATH), new TypeReference<List<Pizza>>() {});
+            
         } catch (StreamReadException e) {
             System.out.println(e.toString());
             System.exit(1);
