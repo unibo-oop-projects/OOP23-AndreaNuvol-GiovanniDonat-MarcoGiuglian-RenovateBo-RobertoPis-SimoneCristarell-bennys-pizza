@@ -20,7 +20,7 @@ public class ClientImpl implements Client{
     public ClientImpl.Order order() {
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzasToOrder;
         final int max = MenuImpl.getNumPizzasInMenu() - 1, min = 0;
-        final List<MenuImpl.Pizza> menu = MenuImpl.generateMenu();
+        final List<MenuImpl.Pizza> menu = MenuImpl.getPizzas();
         MenuImpl.Pizza pizza1 = null;
         Optional<MenuImpl.Pizza> pizza2 = Optional.empty();
         for(int i = 0; i < nPizzeToOrder(); i++){
@@ -46,7 +46,7 @@ public class ClientImpl implements Client{
         }else{
             // If the pizzas are not exactly the same I charge for the ingredients that are correct
             for(final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()){
-                if(pizzas.getLeft().getIngredients().contains(ingredient)){
+                if(pizzas.getLeft().getIngredients().contains(ingredient.toString())){
                     amountToAdd += ingredient.getPrice();
                 }
             }
@@ -59,7 +59,7 @@ public class ClientImpl implements Client{
                 amountToAdd = pizzas.getRight().get().getCost();
             }else{
                 for(final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()){
-                    if(pizzas.getRight().get().getIngredients().contains(ingredient)){
+                    if(pizzas.getRight().get().getIngredients().contains(ingredient.toString())){
                         amountToAdd += ingredient.getPrice();
                     }
                 }

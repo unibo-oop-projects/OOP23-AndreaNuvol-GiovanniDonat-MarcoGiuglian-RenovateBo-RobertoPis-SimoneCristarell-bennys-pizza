@@ -1,7 +1,5 @@
 package it.unibo.model.impl.Menu;
 
-import it.unibo.model.api.*;
-
 import java.io.*;
 import java.util.*;
 
@@ -10,7 +8,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class MenuImpl implements Menu {
+public class MenuImpl {
 
     private final static String SEP = File.separator;
     private static final String FILE_PATH = "src" + SEP +
@@ -18,13 +16,12 @@ public class MenuImpl implements Menu {
                                             "resources" + SEP +
                                             "menu.json";
 
-    private static List<Pizza> menu;
+    private static List<Pizza> pizzas;
 
-    public static List<Pizza> generateMenu() {
+    public static void generateMenu() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            menu = mapper.readValue(new File(FILE_PATH), new TypeReference<List<Pizza>>() {});
-            
+            pizzas = mapper.readValue(new File(FILE_PATH), new TypeReference<List<Pizza>>() {});   
         } catch (StreamReadException e) {
             System.out.println(e.toString());
             System.exit(1);
@@ -35,12 +32,10 @@ public class MenuImpl implements Menu {
             System.out.println(e.toString());
             System.exit(1);
         }
-        return menu;
     }
 
-    @Override
-    public void show() {
-        for(final Pizza pizza : menu) {
+    public static void show() {
+        for(final Pizza pizza : pizzas) {
             System.out.println(pizza.getName()          + " " +
                                 pizza.getIngredients()  + " " +
                                 pizza.getCost()         + "\n" );
@@ -48,7 +43,11 @@ public class MenuImpl implements Menu {
     }
 
     public static int getNumPizzasInMenu() {
-        return menu.size();
+        return pizzas.size();
+    }
+
+    public static List<Pizza> getPizzas() {
+        return pizzas;
     }
 
     public static class Pizza {
@@ -79,5 +78,10 @@ public class MenuImpl implements Menu {
             return this.cost;
         }
         
+    }
+
+    public static void main(String[] args) {
+        generateMenu();
+        show();
     }
 }
