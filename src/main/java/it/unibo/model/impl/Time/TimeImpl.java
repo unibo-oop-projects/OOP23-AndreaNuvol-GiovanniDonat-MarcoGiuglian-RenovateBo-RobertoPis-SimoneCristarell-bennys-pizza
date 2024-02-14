@@ -41,7 +41,9 @@ public class TimeImpl {
                     timer.cancel();
                     if(AbstractManager.levelPassed()) {
                         workingDays++;
+                        AbstractManager.addBalanceTot();
                     }
+                    AbstractManager.resetBalanceDay();
                 }
             }
             
