@@ -11,9 +11,11 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.api.Ingredient;
+import it.unibo.model.api.Management;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.IngredientImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
+import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 
 public class TestPreparationZone {
@@ -60,6 +62,8 @@ public class TestPreparationZone {
     }
 
     private void testActionIngredient(final PreparationZone pz, final boolean isASupply, final int expectedQuantity) {
+        final Management adder = new AdderManager();
+        adder.updateBalance(10);
         pz.actionsOnIngredients("Wurstel", true, isASupply);
         for (Ingredient i: pz.getIngredientsQuantities().keySet()) {
             if (i.toString().equals("Wurstel")) {

@@ -50,7 +50,8 @@ public class TestPizzaFactory {
 
     @Test
     public void testPreparedPizzaEqualToTheRequestedOne() {
-        final var ingredientsRequested = new ArrayList<>(List.of(new Dough(), new TomatoSauce(), new Mozzarella(), new Ham(), new Mushroom()));
+        final var ingredientsRequested = new ArrayList<>(List.of(new Dough().toString(), new TomatoSauce().toString(), 
+            new Mozzarella().toString(), new Ham().toString(), new Mushroom().toString()));
         final PizzaFactory pizza = new PizzaFactoryImpl();
         pizza.addIngredient(p, new Dough());
         pizza.addIngredient(p, new TomatoSauce());
