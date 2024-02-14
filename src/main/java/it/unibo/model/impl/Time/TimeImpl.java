@@ -19,12 +19,6 @@ public class TimeImpl {
     private int min;
     private Timer timer;
 
-    public TimeImpl() {
-        this.hour = STARTING_HOUR;
-        this.min = STARTING_MIN;
-        this.timer = new Timer();
-    }
-
     private void startTimeForNewDay() {
         TimerTask task = new TimerTask() {
 
@@ -53,7 +47,9 @@ public class TimeImpl {
     }
 
     public void newDay() {
-        new TimeImpl();
+        this.hour = STARTING_HOUR;
+        this.min = STARTING_MIN;
+        this.timer = new Timer();
         startTimeForNewDay();
     }
 
@@ -63,5 +59,13 @@ public class TimeImpl {
 
     public static int getWorkingDay() {
         return workingDays;
+    }
+
+    public int getHour() {
+        return this.hour;
+    }
+
+    public int getMin() {
+        return this.min;
     }
 }
