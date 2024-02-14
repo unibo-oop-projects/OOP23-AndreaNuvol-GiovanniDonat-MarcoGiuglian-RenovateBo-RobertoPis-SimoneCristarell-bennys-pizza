@@ -3,6 +3,7 @@ package it.unibo.model.api;
 import java.util.List;
 
 import it.unibo.model.impl.IngredientImpl;
+import it.unibo.model.impl.PreparationZoneImpl;
 
 /**
  * Interface of a pizza factory
@@ -14,7 +15,7 @@ public interface PizzaFactory {
      * @param zone the preparation zone where you are working.
      * @param ingredientToAdd the ingredient to add
      */
-    void addIngredient(PreparationZone zone, IngredientImpl ingredientToAdd);
+    void addIngredient(PreparationZoneImpl zone, IngredientImpl ingredientToAdd);
 
     /**
      * @param requestedIngredients the ingredients of the requested pizza
