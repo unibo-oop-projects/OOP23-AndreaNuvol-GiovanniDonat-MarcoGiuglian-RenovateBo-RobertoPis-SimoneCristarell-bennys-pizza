@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
+import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.IngredientsImpl.Dough;
 import it.unibo.model.impl.IngredientsImpl.FrenchFry;
 import it.unibo.model.impl.IngredientsImpl.Ham;
@@ -30,7 +31,7 @@ public class TestPizzaFactory {
 
     @BeforeEach
     public void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        this.p = new PreparationZoneImpl(1);
+        this.p = new PreparationZoneImpl(1, new SubtractorManager());
     }
 
     @Test

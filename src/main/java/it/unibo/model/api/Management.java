@@ -7,4 +7,5 @@ public interface Management {
      * @param amount => is the amount to add or subtract
      */
     void updateBalance(double amount);
+
 }

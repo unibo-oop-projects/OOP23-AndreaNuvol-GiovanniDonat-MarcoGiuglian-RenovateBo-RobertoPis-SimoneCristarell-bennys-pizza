@@ -51,11 +51,6 @@ public class MenuImpl implements Menu {
         return menu.size();
     }
 
-    @Override
-    public void update() {
-        
-    }
-
     public static class Pizza {
     
         private final String name;
