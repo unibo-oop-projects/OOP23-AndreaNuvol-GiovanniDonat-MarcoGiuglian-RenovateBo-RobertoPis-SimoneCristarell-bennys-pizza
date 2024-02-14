@@ -1,8 +1,7 @@
-[
-    {
-        "name" : "4 stagioni",
-        "cost" : 6.1,
-        "ingredients" : [
+[{
+        "name": "4 stagioni",
+        "cost": 6.1,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -14,9 +13,9 @@
     },
 
     {
-        "name" : "Diavola",
-        "cost" : 2.4,
-        "ingredients" : [
+        "name": "Diavola",
+        "cost": 2.4,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -25,9 +24,9 @@
     },
 
     {
-        "name" : "Boscaiola",
-        "cost" : 4,
-        "ingredients" : [
+        "name": "Boscaiola",
+        "cost": 4,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -37,9 +36,9 @@
     },
 
     {
-        "name" : "Capricciosa",
-        "cost" : 5.7,
-        "ingredients" : [
+        "name": "Capricciosa",
+        "cost": 5.7,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -51,9 +50,9 @@
     },
 
     {
-        "name" : "4 formaggi",
-        "cost" : 4.2,
-        "ingredients" : [
+        "name": "4 formaggi",
+        "cost": 4.2,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -64,9 +63,9 @@
     },
 
     {
-        "name" : "Americana",
-        "cost" : 3.8,
-        "ingredients" : [
+        "name": "Americana",
+        "cost": 3.8,
+        "ingredients": [
             "Dough",
             "SauTomatoSaucesage",
             "Mozzarella",
@@ -76,9 +75,9 @@
     },
 
     {
-        "name" : "Margherita",
-        "cost" : 1.2,
-        "ingredients" : [
+        "name": "Margherita",
+        "cost": 1.2,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella"
@@ -86,9 +85,9 @@
     },
 
     {
-        "name" : "Acciughina",
-        "cost" : 3.4,
-        "ingredients" : [
+        "name": "Acciughina",
+        "cost": 3.4,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -98,9 +97,9 @@
     },
 
     {
-        "name" : "Valdostana",
-        "cost" : 3,
-        "ingredients" : [
+        "name": "Valdostana",
+        "cost": 3,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -110,9 +109,9 @@
     },
 
     {
-        "name" : "Puzzona",
-        "cost" : 3.3,
-        "ingredients" : [
+        "name": "Puzzona",
+        "cost": 3.3,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -122,9 +121,9 @@
     },
 
     {
-        "name" : "Baby",
-        "cost" : 2.7,
-        "ingredients" : [
+        "name": "Baby",
+        "cost": 2.7,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -133,9 +132,9 @@
     },
 
     {
-        "name" : "Estiva",
-        "cost" : 2.8,
-        "ingredients" : [
+        "name": "Estiva",
+        "cost": 2.8,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -145,9 +144,9 @@
     },
 
     {
-        "name" : "Suprema",
-        "cost" : 15.7,
-        "ingredients" : [
+        "name": "Suprema",
+        "cost": 15.7,
+        "ingredients": [
             "Dough",
             "TomatoSauce",
             "Mozzarella",
@@ -162,6 +161,7 @@
             "Salami",
             "Sausage",
             "Tuna",
-            "Wurstel"        ]
+            "Wurstel"
+        ]
     }
 ]
