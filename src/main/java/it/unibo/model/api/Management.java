@@ -8,10 +8,4 @@ public interface Management {
      */
     void updateBalance(double amount);
 
-
-    /**
-     * It check if the player pass the level
-     * @return true if player pass the level, false otherwise
-     */
-    boolean levelPassed();
 }
