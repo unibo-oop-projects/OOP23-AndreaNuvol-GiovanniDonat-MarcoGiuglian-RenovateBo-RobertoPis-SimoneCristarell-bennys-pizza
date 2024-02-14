@@ -11,7 +11,7 @@ import it.unibo.model.api.PreparationZone;
 public class CleanerImpl implements Cleaner {
 
     @Override
-    public void clean(final PreparationZone zone) {
+    public void clean(final PreparationZone zone) throws IllegalStateException{
         if (!zone.isDirty()) {
             throw new IllegalStateException("The preparation zone has to be dirty to call the cleaner");
         }

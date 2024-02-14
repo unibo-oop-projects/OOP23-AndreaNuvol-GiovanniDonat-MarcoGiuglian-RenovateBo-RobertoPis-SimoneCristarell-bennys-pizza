@@ -31,7 +31,7 @@ public class TestPizzaFactory {
 
     @BeforeEach
     public void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        this.p = new PreparationZoneImpl(1, new SubtractorManager());
+        this.p = new PreparationZoneImpl(new SubtractorManager());
     }
 
     @Test

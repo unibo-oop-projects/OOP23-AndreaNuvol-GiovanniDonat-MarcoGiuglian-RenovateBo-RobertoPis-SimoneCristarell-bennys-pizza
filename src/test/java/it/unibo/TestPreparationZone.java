@@ -24,9 +24,21 @@ public class TestPreparationZone {
     private static final int BIGGER_NUMBER_OF_PIZZAS = 3;
     private static final int LOWER_NUMBER_OF_PIZZAS = 0;
 
+    @Test
+    public void testUnsetNumberOfPizzasToPrepare() {
+        try {
+            final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
+            preparationZone.getPizza1();
+            preparationZone.getPizza2();
+        } catch (Exception e) {
+            assertEquals("The number of pizzas to prepare is unknown.", e.getMessage());
+        }
+    }
+
     private void testNumberOfPizzas(final int number, final String string) {
         try {
-            final PreparationZone preparationZone = new PreparationZoneImpl(number, new SubtractorManager());
+            final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
+            preparationZone.setNumberOfPizzasToPrepare(number);
             preparationZone.getPizza1();
             preparationZone.getPizza2();
         } catch (Exception e) {
@@ -54,7 +66,7 @@ public class TestPreparationZone {
                 final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
                 ingredientsQuantities.put((Ingredient)clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
         }
-            final PreparationZone preparationZone = new PreparationZoneImpl(MIN_PIZZAS, new SubtractorManager());
+            final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
             assertEquals(preparationZone.getIngredientsQuantities(), ingredientsQuantities);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,18 +76,25 @@ public class TestPreparationZone {
     private void testActionIngredient(final PreparationZone pz, final boolean isASupply, final int expectedQuantity) {
         final Management adder = new AdderManager();
         adder.updateBalance(10);
-        pz.actionsOnIngredients("Wurstel", true, isASupply);
-        for (Ingredient i: pz.getIngredientsQuantities().keySet()) {
-            if (i.toString().equals("Wurstel")) {
-                assertEquals(expectedQuantity, i.getQuantity());
+        try {
+            pz.actionsOnIngredients("Wurstel", true, isASupply);
+            for (Ingredient i: pz.getIngredientsQuantities().keySet()) {
+                if (i.toString().equals("Wurstel")) {
+                    assertEquals(expectedQuantity, i.getQuantity());
+                }
             }
+        } catch (Exception e) {
+            assertEquals("The quantity of this ingredient is already the maximum possible.", e.getMessage());
         }
+        
     }
 
     @Test
     public void testUpdateQuantities() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        PreparationZone p = new PreparationZoneImpl(MIN_PIZZAS, new SubtractorManager());
+        PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
+        p.setNumberOfPizzasToPrepare(MIN_PIZZAS);
         testActionIngredient(p, false, 85);
+        testActionIngredient(p, true, IngredientImpl.MAX_QUANTITY);
         testActionIngredient(p, true, IngredientImpl.MAX_QUANTITY);
     }
 }
