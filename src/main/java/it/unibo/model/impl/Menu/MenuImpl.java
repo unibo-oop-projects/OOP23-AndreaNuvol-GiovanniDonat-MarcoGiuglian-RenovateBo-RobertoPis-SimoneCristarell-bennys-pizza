@@ -61,6 +61,10 @@ public class MenuImpl {
             this.cost = cost;
             this.ingredients = ingredients;
         }
+        
+        public Pizza() {
+            this.name = "";
+            this.cost = 0;}
     
         public String getName() {
             return this.name;
@@ -80,8 +84,4 @@ public class MenuImpl {
         
     }
 
-    public static void main(String[] args) {
-        generateMenu();
-        show();
-    }
 }
