@@ -28,11 +28,13 @@ public class PizzaFactoryImpl implements PizzaFactory{
     }
 
     @Override
-    public boolean equals(final List<IngredientImpl> requestedIngredients) {
-        return this.addedIngredients.size() != requestedIngredients.size() 
+    public boolean equals(final List<String> requestedIngredients) {
+        final var ingredientsStrings = new ArrayList<String>();
+        this.addedIngredients.forEach(i -> ingredientsStrings.add(i.toString()));
+        return this.addedIngredients.size() != requestedIngredients.size()
             ? false 
             : requestedIngredients.stream()
-                .filter(this.addedIngredients::contains)
+                .filter(ingredientsStrings::contains)
                 .count() == requestedIngredients.size();
     }
 
