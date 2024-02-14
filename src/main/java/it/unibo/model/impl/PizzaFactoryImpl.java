@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Random;
 
 import it.unibo.model.api.PizzaFactory;
-import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.IngredientsImpl.Dough;
 
 /**
@@ -18,7 +17,7 @@ public class PizzaFactoryImpl implements PizzaFactory{
     private final List<IngredientImpl> addedIngredients = new ArrayList<>();
 
     @Override
-    public void addIngredient(final PreparationZone zone, final IngredientImpl ingredientToAdd) {
+    public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) {
         if (!this.addedIngredients.contains(ingredientToAdd)) {
             this.addedIngredients.add(ingredientToAdd);
             ingredientToAdd.reduce();

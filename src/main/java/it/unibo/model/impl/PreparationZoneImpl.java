@@ -14,22 +14,23 @@ public class PreparationZoneImpl implements PreparationZone {
     private static final int MIN_PIZZAS_TO_PREPARE = 1;
     private static final int MAX_PIZZAS_TO_PREPARE = 2;
     private static final int MAX_DIRTY_INGREDIENTS = 4;
-    private Optional<PizzaFactory> pizza1 = Optional.empty();
+    private final Supplier supplier = new SupplierImpl();
+    private SubtractorManager management;
+    private PizzaFactory pizza1;
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     private final List<Ingredient> dirtyIngredients = new ArrayList<>();
     private final Cleaner cleaner = new CleanerImpl();
     
-    public PreparationZoneImpl(final int numPizzasToPrepare) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public PreparationZoneImpl(final int numPizzasToPrepare, final SubtractorManager management) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (numPizzasToPrepare < MIN_PIZZAS_TO_PREPARE || numPizzasToPrepare > MAX_PIZZAS_TO_PREPARE) {
             throw new IllegalArgumentException("The number of pizzas to prepare can be only 1 or 2.");
-        } else {
-            this.pizza1 = Optional.of(new PizzaFactoryImpl());
-        }
-        if (numPizzasToPrepare == MAX_PIZZAS_TO_PREPARE) {
+        } else if (numPizzasToPrepare == MAX_PIZZAS_TO_PREPARE) {
             this.pizza2 = Optional.of(new PizzaFactoryImpl());
         }
+        this.management = management;
+        this.pizza1 = new PizzaFactoryImpl();
 
         final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe", 
             "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", 
@@ -44,10 +45,7 @@ public class PreparationZoneImpl implements PreparationZone {
 
     @Override
     public PizzaFactory getPizza1() {
-        if (this.pizza1.isEmpty()) {
-            throw new IllegalStateException("An error occured while ordering the pizzas");
-        }
-        return this.pizza1.get();
+        return this.pizza1;
     }
 
     @Override
@@ -94,6 +92,30 @@ public class PreparationZoneImpl implements PreparationZone {
         final List<String> output = new ArrayList<>();
         this.dirtyIngredients.forEach(i -> output.add(i.getImagePath()));
         return output;
+    }
+
+    @Override
+    public void actionsOnIngredients(final String ingredientName, final boolean isPizza1, final boolean isASupply) {
+        this.ingredientsQuantities.keySet().stream()
+            .filter(ingredient -> ingredient.toString().equals(ingredientName))
+            .forEach(ingredient -> {
+                if (isASupply) {
+                    supplier.supply(ingredient, management);
+                } else {
+                    if (isPizza1) {
+                        this.pizza1.addIngredient(this, (IngredientImpl)ingredient);
+                    } else {
+                        this.pizza2.get().addIngredient(this, (IngredientImpl)ingredient);
+                    }
+                }
+                this.ingredientsQuantities.replace(ingredient, ingredient.getQuantity());
+            });
+    }
+
+    @Override
+    public void resetPizzas() {
+        this.pizza1 = new PizzaFactoryImpl();
+        this.pizza2 = Optional.empty();
     }
 
 }
