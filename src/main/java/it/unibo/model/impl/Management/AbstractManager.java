@@ -13,6 +13,10 @@ public abstract class AbstractManager implements Management{
         return balanceTot;
     }
 
+    public double getBalanceDay(){
+        return balanceDay;
+    }
+
     public static boolean levelPassed(){
         if(TimeImpl.getWorkingDay() != 1){
             factoryMultiple = 1.5;

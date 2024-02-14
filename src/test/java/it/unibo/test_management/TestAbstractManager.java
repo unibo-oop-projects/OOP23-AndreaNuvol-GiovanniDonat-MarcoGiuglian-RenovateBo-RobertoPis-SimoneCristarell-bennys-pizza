@@ -19,6 +19,6 @@ public class TestAbstractManager {
     // balance is initialized to 0
     @Test
     public void test_balance_initialization() {
-        assertEquals(0, manager.getBalance(), 0);
+        assertEquals(0, manager.getBalanceTot(), 0);
     }
 }
