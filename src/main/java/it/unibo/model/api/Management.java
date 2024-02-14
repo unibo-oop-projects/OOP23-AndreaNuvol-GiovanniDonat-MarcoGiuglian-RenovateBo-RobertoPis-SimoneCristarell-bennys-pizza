@@ -6,5 +6,5 @@ public interface Management {
      * It modifies the balance by adding or subtracting a certain value
      * @param amount => is the amount to add or subtract
      */
-    void updateBalance(final double amount);
+    void updateBalance(double amount);
 }
