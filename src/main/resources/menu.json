@@ -1,111 +1,167 @@
 [
     {
-        "name" : "Pizza1",
-        "cost" : 1,
+        "name" : "4 stagioni",
+        "cost" : 6.1,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Artichoke",
+            "Sausage",
+            "Mushroom",
+            "Olive"
         ]
     },
 
     {
-        "name" : "Pizza2",
-        "cost" : 2,
+        "name" : "Diavola",
+        "cost" : 2.4,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Salami"
         ]
     },
 
     {
-        "name" : "Pizza3",
-        "cost" : 3,
-        "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
-        ]
-    },
-
-    {
-        "name" : "Pizza4",
+        "name" : "Boscaiola",
         "cost" : 4,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Sausage",
+            "Mushroom"
         ]
     },
 
     {
-        "name" : "Pizza5",
-        "cost" : 5,
+        "name" : "Capricciosa",
+        "cost" : 5.7,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Artichoke",
+            "Ham",
+            "Mushroom",
+            "Olive"
         ]
     },
 
     {
-        "name" : "Pizza6",
-        "cost" : 6,
+        "name" : "4 formaggi",
+        "cost" : 4.2,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Fontina",
+            "Parmesan",
+            "Gorgonzola"
         ]
     },
 
     {
-        "name" : "Pizza7",
-        "cost" : 7,
+        "name" : "Americana",
+        "cost" : 3.8,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "SauTomatoSaucesage",
+            "Mozzarella",
+            "Wurstel",
+            "FrenchFry"
         ]
     },
 
     {
-        "name" : "Pizza8",
-        "cost" : 8,
+        "name" : "Margherita",
+        "cost" : 1.2,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella"
         ]
     },
 
     {
-        "name" : "Pizza9",
-        "cost" : 9,
+        "name" : "Acciughina",
+        "cost" : 3.4,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Anchovy",
+            "Olive"
         ]
     },
 
     {
-        "name" : "Pizza10",
-        "cost" : 10,
+        "name" : "Valdostana",
+        "cost" : 3,
         "ingredients" : [
-            "Ingrediente1",
-            "Ingrediente2",
-            "Ingrediente3",
-            "Ingrediente4"
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Fontina",
+            "Ham"
         ]
+    },
+
+    {
+        "name" : "Puzzona",
+        "cost" : 3.3,
+        "ingredients" : [
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Tuna",
+            "Onion"
+        ]
+    },
+
+    {
+        "name" : "Baby",
+        "cost" : 2.7,
+        "ingredients" : [
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "FrenchFry"
+        ]
+    },
+
+    {
+        "name" : "Estiva",
+        "cost" : 2.8,
+        "ingredients" : [
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Ham",
+            "Parmesan"
+        ]
+    },
+
+    {
+        "name" : "Suprema",
+        "cost" : 15.7,
+        "ingredients" : [
+            "Dough",
+            "TomatoSauce",
+            "Mozzarella",
+            "Anchovy",
+            "Artichoke",
+            "CherryTomatoe",
+            "FrenchFry",
+            "Ham",
+            "Olive",
+            "Onion",
+            "Parmesan",
+            "Salami",
+            "Sausage",
+            "Tuna",
+            "Wurstel"        ]
     }
 ]
