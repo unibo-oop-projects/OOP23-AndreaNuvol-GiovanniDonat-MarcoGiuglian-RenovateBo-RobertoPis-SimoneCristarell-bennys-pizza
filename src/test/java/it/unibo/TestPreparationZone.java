@@ -34,14 +34,14 @@ public class TestPreparationZone {
 
     
     @Test
-    public void TestPizzasGetter() {
+    public void testPizzasGetter() {
         testNumberOfPizzas(MIN_PIZZAS, "Pizza n. 2 is not requested from this client.");
         testNumberOfPizzas(BIGGER_NUMBER_OF_PIZZAS, "The number of pizzas to prepare can be only 1 or 2.");
         testNumberOfPizzas(LOWER_NUMBER_OF_PIZZAS, "The number of pizzas to prepare can be only 1 or 2.");
     }
 
     @Test
-    public void TestIngredientsQuantitiesGetter() {
+    public void testIngredientsQuantitiesGetter() {
         try {
             final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
             final List<String> ingredients = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe",
@@ -61,7 +61,7 @@ public class TestPreparationZone {
 
     @Test
     public void testUpdateQuantities() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        PreparationZone p = new PreparationZoneImpl(MIN_PIZZAS, new SubtractorManager);
+        PreparationZone p = new PreparationZoneImpl(MIN_PIZZAS, new SubtractorManager());
         
         p.updateQuantities("Wurstel", true, false);
         for (IngredientImpl i : p.getIngredientsQuantities().keySet()) {

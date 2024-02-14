@@ -15,7 +15,7 @@ public class PreparationZoneImpl implements PreparationZone {
     private static final int MAX_PIZZAS_TO_PREPARE = 2;
     private static final int MAX_DIRTY_INGREDIENTS = 4;
     private final Supplier supplier = new SupplierImpl();
-    private Management management;
+    private SubtractorManager management;
     private PizzaFactory pizza1;
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
@@ -23,7 +23,7 @@ public class PreparationZoneImpl implements PreparationZone {
     private final List<Ingredient> dirtyIngredients = new ArrayList<>();
     private final Cleaner cleaner = new CleanerImpl();
     
-    public PreparationZoneImpl(final int numPizzasToPrepare, final Management management) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public PreparationZoneImpl(final int numPizzasToPrepare, final SubtractorManager management) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (numPizzasToPrepare < MIN_PIZZAS_TO_PREPARE || numPizzasToPrepare > MAX_PIZZAS_TO_PREPARE) {
             throw new IllegalArgumentException("The number of pizzas to prepare can be only 1 or 2.");
         } else if (numPizzasToPrepare == MAX_PIZZAS_TO_PREPARE) {
