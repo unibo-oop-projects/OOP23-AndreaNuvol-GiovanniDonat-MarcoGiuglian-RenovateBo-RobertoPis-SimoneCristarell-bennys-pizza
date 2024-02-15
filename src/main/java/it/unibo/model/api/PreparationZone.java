@@ -7,6 +7,13 @@ import java.util.Optional;
  * Interface of the zone in which the pizza is prepared.
  */
 public interface PreparationZone {
+
+    /**
+     * It sets the number of pizzas to prepare, requested by the current client
+     * @param numberOfPizzas the number of pizzas to prepare
+     */
+    void setNumberOfPizzasToPrepare(int numberOfPizzas);
+
     /**
      * @return pizza number 1
      */
@@ -14,8 +21,9 @@ public interface PreparationZone {
 
     /**
      * @return pizza number 2, only if is there
+     * @throws IllegalStateException if the pizza n. 2 is not requested
      */
-    PizzaFactory getPizza2();
+    PizzaFactory getPizza2() throws IllegalStateException;
 
     /**
      * @return a map with the Ingredient as Key and the quantity of this as Value
@@ -51,8 +59,9 @@ public interface PreparationZone {
      * @param ingredientName the ingrediet of which we have to update quantities
      * @param isPizza1 true if the ingredient is in pizza1, false if is in pizza2
      * @param isASupply true if we have to supply, false if we have to reduce the quantity
+     * @throws IllegalStateException when you want to supply an ingredient that is already at its maximum quantity
      */
-    void actionsOnIngredients(String ingredientName, boolean isPizza1, boolean isASupply);
+    void actionsOnIngredients(String ingredientName, boolean isPizza1, boolean isASupply) throws IllegalStateException;
 
     /**
      * It resets the two pizza factories of the preparation zone
