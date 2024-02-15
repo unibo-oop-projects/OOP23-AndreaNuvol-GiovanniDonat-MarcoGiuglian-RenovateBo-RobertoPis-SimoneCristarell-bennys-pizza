@@ -29,8 +29,8 @@ public class OvenImpl implements Oven{
         return emptyOven ? true : false;
     }
 
-
-    private void baking() {
+    @Override
+    public void baking() {
         emptyOven = false;
 
         TimerTask ovenTask = new TimerTask() {
