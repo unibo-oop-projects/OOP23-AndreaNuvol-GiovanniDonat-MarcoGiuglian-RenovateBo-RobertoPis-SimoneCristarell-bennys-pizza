@@ -11,11 +11,12 @@ import it.unibo.model.impl.PreparationZoneImpl;
 public interface PizzaFactory {
 
     /**
-     * It adds an ingredient to the pizza you are preparing.
-     * @param zone the preparation zone where you are working.
+     * It adds an ingredient to the pizza you are preparing and reduces its quantity on the preparation zone.
+     * @param zone the preparation zone where you are working
      * @param ingredientToAdd the ingredient to add
+     * @throws IllegalStateException when it is put an ingredient before the dough
      */
-    void addIngredient(PreparationZoneImpl zone, IngredientImpl ingredientToAdd);
+    void addIngredient(PreparationZoneImpl zone, IngredientImpl ingredientToAdd) throws IllegalStateException;
 
     /**
      * @param requestedIngredients the ingredients of the requested pizza

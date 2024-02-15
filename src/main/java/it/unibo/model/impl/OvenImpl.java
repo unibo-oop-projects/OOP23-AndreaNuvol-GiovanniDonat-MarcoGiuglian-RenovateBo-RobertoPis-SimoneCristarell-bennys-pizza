@@ -11,16 +11,20 @@ public class OvenImpl implements Oven{
     final static long COOKNING_TIME_IN_SECONDS = 5;
     final static long COOKNING_TIME_IN_MICROSECONDS = 5000;
 
-    private boolean emptyOven;
-    private boolean isPizzaCooked;
-    private Timer ovenTimer;
-    private LocalTime finishBakingTime;
+    private static boolean emptyOven;
+    private static boolean isCooked;
+    private static Timer ovenTimer;
+    private static LocalTime finishBakingTime;
 
 
     public OvenImpl(){
+        resetOven();
+    }
+
+    public static void resetOven(){
         emptyOven = true;
         ovenTimer = new Timer();
-        isPizzaCooked = false;
+        isCooked = false;
         finishBakingTime = LocalTime.now().plusSeconds(COOKNING_TIME_IN_SECONDS);
     }
 
@@ -29,6 +33,10 @@ public class OvenImpl implements Oven{
         return emptyOven ? true : false;
     }
 
+    @Override
+    public void bakingPizza(){
+        baking();
+    }
 
     private void baking() {
         emptyOven = false;
@@ -39,7 +47,7 @@ public class OvenImpl implements Oven{
             public void run() {
 
                 if (LocalTime.now().getSecond() == finishBakingTime.getSecond()){
-                    isPizzaCooked = true;
+                    isCooked = true;
                     ovenTimer.cancel();
                 }
             }
@@ -47,5 +55,10 @@ public class OvenImpl implements Oven{
         };
 
         ovenTimer.scheduleAtFixedRate(ovenTask, 0, COOKNING_TIME_IN_MICROSECONDS);
+    }
+
+    @Override
+    public boolean isPizzaCooked() {
+        return isCooked;
     }
 }
