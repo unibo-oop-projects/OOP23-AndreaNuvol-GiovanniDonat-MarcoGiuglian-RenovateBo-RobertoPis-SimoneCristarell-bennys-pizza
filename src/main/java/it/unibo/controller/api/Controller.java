@@ -37,6 +37,9 @@ public interface Controller {
      */
     void throwPizzaInGarbageBin(PizzaFactoryImpl PizzaFactory);
 
-    //void bakingPizza();
+    /**
+     * It cooks the pizza you have prepared
+     */
+    void bakingPizza();
 
 }
