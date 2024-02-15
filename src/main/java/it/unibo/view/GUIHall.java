@@ -35,7 +35,7 @@ public class GUIHall {
 
 
             displayLabelsBalance(imagePanel);
-            
+            displayClient();
         });
     }
 
@@ -53,5 +53,9 @@ public class GUIHall {
         imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
         imagePanel.add(labelTotalBalance);
         imagePanel.add(labelDayBalance);
+    }
+
+    private void displayClient(){
+        
     }
 }
