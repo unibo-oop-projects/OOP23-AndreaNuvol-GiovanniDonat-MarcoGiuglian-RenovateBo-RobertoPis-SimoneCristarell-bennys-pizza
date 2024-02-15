@@ -41,8 +41,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void throwPizzaInGarbageBin(PizzaFactoryImpl pizza) {
-        this.preparationZone.getGarbageBin().throwPizzaInGarbageBin(pizza);
+    public void throwPizzaInGarbageBin(final PizzaFactoryImpl pizzaToThrow) {
+        this.preparationZone.getGarbageBin().throwPizzaInGarbageBin(pizzaToThrow);
     }
 
     @Override
