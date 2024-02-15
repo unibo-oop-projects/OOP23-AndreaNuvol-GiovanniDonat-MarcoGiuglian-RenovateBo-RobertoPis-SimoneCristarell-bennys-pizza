@@ -17,14 +17,21 @@ public class PizzaFactoryImpl implements PizzaFactory{
     private final List<IngredientImpl> addedIngredients = new ArrayList<>();
 
     @Override
-    public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) {
+    public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) throws IllegalStateException{
+        if (!this.addedIngredients.contains(new Dough()) && isNotDough(ingredientToAdd)) {
+            throw new IllegalStateException("You have to put the dough before putting the ingredients.");
+        }
         if (!this.addedIngredients.contains(ingredientToAdd)) {
             this.addedIngredients.add(ingredientToAdd);
             ingredientToAdd.reduce();
-            if (hasMadeAMess() && !Dough.class.isInstance(ingredientToAdd)) {
+            if (hasMadeAMess() && isNotDough(ingredientToAdd)) {
                 zone.manageDirtyIngredients(Optional.of(ingredientToAdd));
             }
         }
+    }
+
+    private boolean isNotDough(final IngredientImpl ingredientToAdd) {
+        return !Dough.class.isInstance(ingredientToAdd);
     }
 
     @Override
