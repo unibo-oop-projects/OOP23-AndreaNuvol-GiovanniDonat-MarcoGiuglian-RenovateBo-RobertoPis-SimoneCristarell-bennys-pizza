@@ -77,9 +77,9 @@ public class TestPreparationZone {
         final Management adder = new AdderManager();
         adder.updateBalance(10);
         try {
-            pz.actionsOnIngredients("Wurstel", true, isASupply);
+            pz.actionsOnIngredients("Dough", true, isASupply);
             for (Ingredient i: pz.getIngredientsQuantities().keySet()) {
-                if (i.toString().equals("Wurstel")) {
+                if (i.toString().equals("Dough")) {
                     assertEquals(expectedQuantity, i.getQuantity());
                 }
             }
@@ -93,7 +93,7 @@ public class TestPreparationZone {
     public void testUpdateQuantities() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
         p.setNumberOfPizzasToPrepare(MIN_PIZZAS);
-        testActionIngredient(p, false, 85);
+        testActionIngredient(p, false, 82);
         testActionIngredient(p, true, IngredientImpl.MAX_QUANTITY);
         testActionIngredient(p, true, IngredientImpl.MAX_QUANTITY);
     }
