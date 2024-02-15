@@ -113,6 +113,7 @@ public class PreparationZoneImpl implements PreparationZone {
 
     @Override
     public void actionsOnIngredients(final String ingredientName, final boolean isPizza1, final boolean isASupply) {
+        ifNumOfPizzasUnsetOp();
         this.ingredientsQuantities.keySet().stream()
             .filter(ingredient -> ingredient.toString().equals(ingredientName))
             .forEach(ingredient -> {
