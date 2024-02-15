@@ -1,6 +1,7 @@
 package it.unibo.controller.api;
 
 import it.unibo.model.api.PreparationZone;
+import it.unibo.model.impl.PizzaFactoryImpl;
 
 /**
  * Controller interface
@@ -30,5 +31,15 @@ public interface Controller {
      * @return the preparation zone where you are working
      */
     PreparationZone getPreparationZone();
+
+    /**
+     * It brings back pizza without ingredients
+     */
+    void throwPizzaInGarbageBin(PizzaFactoryImpl PizzaFactory);
+
+    /**
+     * It cooks the pizza you have prepared
+     */
+    void bakingPizza();
 
 }
