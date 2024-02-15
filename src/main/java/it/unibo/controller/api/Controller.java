@@ -31,4 +31,11 @@ public interface Controller {
      */
     PreparationZone getPreparationZone();
 
+    /**
+     * It brings back pizza without ingredients
+     */
+    void throwPizzaInGarbageBin(PizzaFactoryImpl PizzaFactory);
+
+    //void bakingPizza();
+
 }

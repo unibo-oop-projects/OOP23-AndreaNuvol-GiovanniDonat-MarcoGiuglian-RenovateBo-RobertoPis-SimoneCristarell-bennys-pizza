@@ -40,6 +40,11 @@ public interface PreparationZone {
      */
     Cleaner getCleaner();
 
+     /**
+     * @return the garbage bin
+     */
+    GarbageBin getGarbageBin();
+
     /**
      * It checks if the preparation zone is dirty
      * @return true if the preparation zone is dirty, false otherwise

@@ -39,4 +39,14 @@ public class ControllerImpl implements Controller {
         this.preparationZone.getCleaner().clean(this.preparationZone);
     }
 
+    @Override
+    public void throwPizzaInGarbageBin(PizzaFactoryImpl pizza) {
+        this.preparationZone.getGarbageBin().throwPizzaInGarbageBin(pizza);
+    }
+
+    // @Override
+    // public void bakingPizza() {
+    //     this.preparationZone.getOven().baking();
+    // }
+
 }
