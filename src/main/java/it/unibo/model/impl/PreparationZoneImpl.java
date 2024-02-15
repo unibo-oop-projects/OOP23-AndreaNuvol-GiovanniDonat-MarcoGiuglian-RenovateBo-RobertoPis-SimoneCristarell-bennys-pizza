@@ -25,6 +25,7 @@ public class PreparationZoneImpl implements PreparationZone {
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     private final List<Ingredient> dirtyIngredients = new ArrayList<>();
     private final Cleaner cleaner = new CleanerImpl();
+    private final GarbageBin garbageBin = new GarbageBinImpl();
     
     public PreparationZoneImpl(final SubtractorManager management) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.management = management;
@@ -86,6 +87,11 @@ public class PreparationZoneImpl implements PreparationZone {
     @Override
     public Cleaner getCleaner() {
         return this.cleaner;
+    }
+
+    @Override
+    public GarbageBin getGarbageBin() {
+        return this.garbageBin;
     }
 
     @Override
