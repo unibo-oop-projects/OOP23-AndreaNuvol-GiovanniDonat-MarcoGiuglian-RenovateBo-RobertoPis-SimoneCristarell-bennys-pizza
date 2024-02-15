@@ -12,11 +12,11 @@ import it.unibo.model.impl.Management.SubtractorManager;
  */
 public class ControllerImpl implements Controller {
 
-    private final SubtractorManager subtractor = new SubtractorManager();
+    private final SubtractorManager subtractorManager = new SubtractorManager();
     private final PreparationZone preparationZone;
 
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        this.preparationZone = new PreparationZoneImpl(this.subtractor);
+        this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
     }
 
     @Override
@@ -25,8 +25,18 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addIngredient(final String ingredientStringToAdd, final boolean isPizza1, final boolean isASupply) {
-        this.preparationZone.actionsOnIngredients(ingredientStringToAdd, isPizza1, isASupply);
+    public void addIngredient(final String ingredientStringToAdd, final boolean isPizza1) {
+        this.preparationZone.actionsOnIngredients(ingredientStringToAdd, isPizza1, false);
+    }
+
+    @Override
+    public void supply(final String ingredientStringToAdd) {
+        this.preparationZone.actionsOnIngredients(ingredientStringToAdd, false, true);
+    }
+
+    @Override
+    public void clean() {
+        this.preparationZone.getCleaner().clean(this.preparationZone);
     }
 
 }
