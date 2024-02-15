@@ -40,7 +40,7 @@ public interface PreparationZone {
      */
     Cleaner getCleaner();
 
-    /**
+     /**
      * @return the garbage bin
      */
     GarbageBin getGarbageBin();
