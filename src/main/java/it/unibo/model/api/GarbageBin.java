@@ -7,6 +7,10 @@ import it.unibo.model.impl.PizzaFactoryImpl;
  */
 public interface GarbageBin {
 
+    /**
+     * simulate throwing pizza in the bin
+     * @param pizza the pizza that needs to be thrown away
+     */
     void throwPizzaInGarbageBin(PizzaFactoryImpl pizza);
     
 }
