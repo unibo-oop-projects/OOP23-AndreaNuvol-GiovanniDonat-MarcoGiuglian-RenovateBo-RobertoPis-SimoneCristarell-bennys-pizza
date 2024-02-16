@@ -12,9 +12,10 @@ import it.unibo.model.impl.Management.SubtractorManager;
  * Implementation of the controller interface
  */
 public class ControllerImpl implements Controller {
-
+    
     private final SubtractorManager subtractorManager = new SubtractorManager();
     private final PreparationZone preparationZone;
+    
 
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
@@ -48,6 +49,16 @@ public class ControllerImpl implements Controller {
     @Override
     public void bakingPizza() {
         this.preparationZone.getOven().bakingPizza();
+    }
+
+    @Override
+    public double getBalanceTot() {
+        return this.subtractorManager.getBalanceTot();
+    }
+
+    @Override
+    public double getBalanceDay() {
+        return this.subtractorManager.getBalanceDay();
     }
 
 }

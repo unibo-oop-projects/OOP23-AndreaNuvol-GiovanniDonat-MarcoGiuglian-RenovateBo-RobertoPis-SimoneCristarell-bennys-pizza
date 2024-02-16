@@ -42,4 +42,18 @@ public interface Controller {
      */
     void bakingPizza();
 
+
+
+    /**
+     * It get the total balance
+     * @return the total balance
+     */
+    double getBalanceTot();
+
+
+    /**
+     * It get the day balance
+     * @return the day balance
+     */
+    double getBalanceDay();
 }
