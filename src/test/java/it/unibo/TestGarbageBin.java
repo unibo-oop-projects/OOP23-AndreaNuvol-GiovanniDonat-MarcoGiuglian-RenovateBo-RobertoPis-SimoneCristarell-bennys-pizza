@@ -1,6 +1,5 @@
 package it.unibo;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.InvocationTargetException;
