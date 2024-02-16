@@ -70,7 +70,8 @@ public interface PreparationZone {
 
     /**
      * It resets the two pizza factories of the preparation zone
+     * @param isPizza1 true if the pizza to reset is the n. 1
      */
-    void resetPizzas();
+    void resetPizza(boolean isPizza1);
 
 }
