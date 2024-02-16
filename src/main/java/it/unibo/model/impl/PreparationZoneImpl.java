@@ -148,4 +148,11 @@ public class PreparationZoneImpl implements PreparationZone {
         this.pizza2 = this.pizza2.isPresent() ? Optional.of(new PizzaFactoryImpl()) : Optional.empty();
     }
 
+    @Override
+    public void resetPizzaPreparation() {
+        resetPizza(true);
+        resetPizza(false);
+        this.isNumberOfPizzasToPrepareSet = false;
+    }
+
 }

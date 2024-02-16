@@ -74,4 +74,9 @@ public interface PreparationZone {
      */
     void resetPizza(boolean isPizza1);
 
+    /**
+     * It is called when you have finished to prepare a cient's order
+     */
+    void resetPizzaPreparation();
+
 }
