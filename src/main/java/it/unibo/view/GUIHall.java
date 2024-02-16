@@ -22,7 +22,7 @@ public class GUIHall {
     private static int lastClientShowed = 0;
 
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    static int width = (int) screenSize.getWidth(); 
+    static int width = (int) screenSize.getWidth();
     static int height = (int) screenSize.getHeight();
 
     final static int MENU_WIDTH = (int)(width * 0.1);
@@ -36,7 +36,7 @@ public class GUIHall {
             background.getContentPane().add(imagePanel);
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             background.setSize(width, height);
-    
+            imagePanel.setLayout(new BorderLayout());
             displayMenu(imagePanel, background);
             displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
@@ -44,7 +44,6 @@ public class GUIHall {
     }
 
     private void displayMenu(final ImagePanel imagePanel, final JFrame background) {
-        imagePanel.setLayout(new BorderLayout());
         JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
         JButton menuButton = new JButton("Menu");
@@ -55,7 +54,6 @@ public class GUIHall {
     }
 
     private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background){
-        imagePanel.setLayout(new BorderLayout());
         JPanel balanceLabelsPanel = new JPanel();
         balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
         setPanelAttributes(balanceLabelsPanel);
@@ -71,10 +69,10 @@ public class GUIHall {
         background.setVisible(true);
     }
 
-    private void setPanelAttributes(final JPanel menuPanel) {
-        menuPanel.setOpaque(false);
-        menuPanel.setBackground(new Color(0, 0, 0, 0));
-        menuPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
+    private void setPanelAttributes(final JPanel panel) {
+        panel.setOpaque(false);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setBorder(new EmptyBorder(10, 10, 50, 10));
     }
 
     private void setMenuButtonAttributes(final JButton menuButton) {
