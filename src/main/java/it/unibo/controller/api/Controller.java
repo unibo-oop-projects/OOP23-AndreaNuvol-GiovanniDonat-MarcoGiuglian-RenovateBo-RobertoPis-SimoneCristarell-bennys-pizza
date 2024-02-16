@@ -1,6 +1,5 @@
 package it.unibo.controller.api;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -59,6 +58,19 @@ public interface Controller {
      */
     double getBalanceDay();
 
+
+    /**
+     * It add the amount to balance
+     * @param amount the value to add
+     */
+    void addToBalance(double amount);
+
+
+    /**
+     * It subtract the amount to balance
+     * @param amount the value to subtract
+     */
+    void subtractToBalance(double amount);
 
     /**
      * It do the order of the client

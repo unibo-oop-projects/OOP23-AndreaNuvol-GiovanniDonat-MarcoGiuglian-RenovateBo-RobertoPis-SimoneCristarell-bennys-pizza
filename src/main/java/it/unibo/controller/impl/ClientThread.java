@@ -25,6 +25,7 @@ public class ClientThread extends Thread{
                 if(isWaiting) {
                     condition.await();
                 }
+                Thread.sleep(50000);
                 Pair<String, Optional<String>> orderedPizzas = controller.order();
 
                 isWaiting = true;

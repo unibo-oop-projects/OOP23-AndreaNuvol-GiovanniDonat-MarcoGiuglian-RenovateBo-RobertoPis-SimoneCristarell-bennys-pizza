@@ -1,8 +1,6 @@
 package it.unibo.view;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
@@ -47,7 +45,7 @@ public class GUIHall {
             imagePanel.setLayout(new BorderLayout());
 
             displayMenu(imagePanel, background);
-            displayBalanceLabels(imagePanel, background);
+            displayBalanceLabels(imagePanel, background, controller);
             displayClient(imagePanel);
 
             controller.generateMenu();// generation of menu
@@ -62,7 +60,7 @@ public class GUIHall {
                 null,
                 pizzaOrder,
                 "ORDER",
-                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
                 options,
@@ -85,12 +83,13 @@ public class GUIHall {
         background.setVisible(true); // da mettere false quando si passa alla schermata della cucina 
     }
 
-    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background){
+    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background, final Controller controller){
         JPanel balanceLabelsPanel = new JPanel();
         balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
         setPanelAttributes(balanceLabelsPanel);
-        JLabel balanceTotLabel = new JLabel(BALANCE_TOT);
-        JLabel balanceDayLabel = new JLabel(BALANCE_DAY);
+        controller.addToBalance(5);
+        JLabel balanceTotLabel = new JLabel(BALANCE_TOT + Double.toString(controller.getBalanceTot()));
+        JLabel balanceDayLabel = new JLabel(BALANCE_DAY + Double.toString(controller.getBalanceDay()));
         Font fontLabelBalanceTot = balanceTotLabel.getFont().deriveFont(Font.BOLD, 20);
         Font fontLabelBalanceDay = balanceDayLabel.getFont().deriveFont(Font.BOLD, 25);
         balanceTotLabel.setFont(fontLabelBalanceTot);

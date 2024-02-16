@@ -9,6 +9,7 @@ import it.unibo.model.api.Client;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Client.ClientImpl;
+import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 
@@ -20,6 +21,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public class ControllerImpl implements Controller {
     
     private final SubtractorManager subtractorManager = new SubtractorManager();
+    private final AdderManager adderManager = new AdderManager();
     private final PreparationZone preparationZone;
     private final Client client = new ClientImpl();
     private ClientImpl.Order order;
@@ -27,8 +29,8 @@ public class ControllerImpl implements Controller {
     
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
-        clientThread = new ClientThread(this);
-        clientThread.start();
+        this.clientThread = new ClientThread(this);
+        this.clientThread.start();
     }
 
     @Override
@@ -72,9 +74,19 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public void addToBalance(final double amount) {
+        this.adderManager.updateBalance(amount);
+    }
+
+    @Override
+    public void subtractToBalance(final double amount) {
+        this.subtractorManager.updateBalance(amount);
+    }
+
+    @Override
     public Pair<String, Optional<String>> order() {
         Pair<String, Optional<String>> orderedPizzas;
-        order = client.order();
+        order = this.client.order();
         if(order.getNumberPizzasToOrder() == 1){
             orderedPizzas = Pair.of(order.getOrderPizzas().getLeft().getName(), Optional.empty());
         }else{
@@ -85,7 +97,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void pay() {
-        client.pay(this.preparationZone.getPizza1(), Optional.of(this.preparationZone.getPizza2()));
+        this.client.pay(this.preparationZone.getPizza1(), Optional.of(this.preparationZone.getPizza2()));
     }
 
     public void generateMenu(){
