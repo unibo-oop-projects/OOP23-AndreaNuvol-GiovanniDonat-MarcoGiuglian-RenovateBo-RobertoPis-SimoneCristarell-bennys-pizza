@@ -18,9 +18,7 @@ public class GUIHall {
                                                     "resources" + SEP;
     private static final String FILE_PATH_BACKGROUND = FILE_PATH_IN_COMMON + "front.png";
     private static final String FILE_PATH_CLIENT = FILE_PATH_IN_COMMON + "clientsImages" + SEP;
-    private static final String FILE_PATH_CLIENT1 = FILE_PATH_CLIENT + "ClientImage1.png";
-    private static final String FILE_PATH_CLIENT2 = FILE_PATH_CLIENT + "ClientImage1.png";
-    private static final String FILE_PATH_CLIENT3 = FILE_PATH_CLIENT + "ClientImage1.png";
+    private static int lastClientShowed = 0;
 
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     static int width = (int) screenSize.getWidth(); 
@@ -37,9 +35,9 @@ public class GUIHall {
             frame.setSize(width, height);
             frame.setVisible(true);
 
-
             displayLabelsBalance(imagePanel);
             displayClient(imagePanel);
+            
         });
     }
 
@@ -59,12 +57,42 @@ public class GUIHall {
         imagePanel.add(labelDayBalance);
     }
 
+    // Show a client different from the last showed, it return the index 
+    private int showNewClient(){
+        int indexClient;
+        if(lastClientShowed != 0){
+            do{
+                indexClient = randomIndexClientImage();
+            }while(indexClient != lastClientShowed);
+        }else{
+            indexClient = randomIndexClientImage();
+        }
+        lastClientShowed = indexClient;
+        return indexClient;
+    }
+
     private void displayClient(final ImagePanel imagePanel){
-        String imagePath = PATH_TO_THE_ROOT + FILE_PATH_CLIENT + "ClientImage" + randomIndexClientImage() + ".png";
+        int indexClient = showNewClient();
+        String imagePath = PATH_TO_THE_ROOT + FILE_PATH_CLIENT + "ClientImage" + indexClient + ".png";
         Image clientImage = Toolkit.getDefaultToolkit().getImage(imagePath);
         JLabel clientLabel = new JLabel(new ImageIcon(clientImage));
-        int clientX = 450;
-        int clientY = 342;
+        int clientX = 0;
+        int clientY = 0;
+        switch (indexClient) {
+            case 1:
+                clientX = 450;
+                clientY = 342;
+                break; 
+            case 2:
+                clientX = 450;
+                clientY = 425;
+                break;
+            case 3:
+                clientX = 450;
+                clientY = 440;
+                break;
+        }
+        
         clientLabel.setBounds(clientX, clientY, clientImage.getWidth(null), clientImage.getHeight(null));
         imagePanel.setLayout(null);
         imagePanel.add(clientLabel);
