@@ -4,10 +4,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import javax.swing.*;
 import java.util.Random;
 import javax.swing.border.EmptyBorder;
+
+import it.unibo.controller.api.Controller;
+import it.unibo.controller.impl.ControllerImpl;
 
 public class GUIHall {
 
@@ -30,7 +34,7 @@ public class GUIHall {
     final static int MENU_WIDTH = (int)(width * 0.1);
     final static int MENU_HEIGHT = (int)(height * 0.08);
 
-    public GUIHall() {
+    public GUIHall(final Controller controller) {
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame("BENNY'S PIZZA");
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
@@ -147,8 +151,8 @@ public class GUIHall {
         return random.nextInt(3) + 1;
     }
 
-    public static void main(String[] args) {
-        new GUIHall();
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        new GUIHall(new ControllerImpl());
     }
 
 }
