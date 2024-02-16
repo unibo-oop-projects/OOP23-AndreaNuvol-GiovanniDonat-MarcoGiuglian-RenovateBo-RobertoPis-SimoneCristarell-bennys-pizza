@@ -24,6 +24,7 @@ public class GUIHall {
     static int width = (int) screenSize.getWidth(); 
     static int height = (int) screenSize.getHeight();
 
+
     public GUIHall() {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Image Background Example");
@@ -46,6 +47,7 @@ public class GUIHall {
     }
 
     private void displayLabelsBalance(final ImagePanel imagePanel){
+
         JLabel labelTotalBalance = new JLabel(BALANCE_TOT);
         JLabel labelDayBalance = new JLabel(BALANCE_DAY);
         Font fontLabelBalanceTot = labelTotalBalance.getFont().deriveFont(Font.BOLD, 20);
@@ -80,19 +82,18 @@ public class GUIHall {
         int clientY = 0;
         switch (indexClient) {
             case 1:
-                clientX = 450;
-                clientY = 342;
+                clientX = (int)(width * 0.26);
+                clientY = (int)(height * 0.32);
                 break; 
             case 2:
-                clientX = 450;
-                clientY = 425;
+                clientX = (int)(width * 0.24);
+                clientY = (int)(height * 0.40);
                 break;
             case 3:
-                clientX = 450;
-                clientY = 440;
+                clientX = (int)(width * 0.25);
+                clientY = (int)(height * 0.41);
                 break;
         }
-        
         clientLabel.setBounds(clientX, clientY, clientImage.getWidth(null), clientImage.getHeight(null));
         imagePanel.setLayout(null);
         imagePanel.add(clientLabel);
