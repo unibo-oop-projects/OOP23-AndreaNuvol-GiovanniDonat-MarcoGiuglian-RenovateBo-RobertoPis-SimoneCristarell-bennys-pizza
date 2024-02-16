@@ -42,8 +42,6 @@ public interface Controller {
      */
     void bakingPizza();
 
-
-
     /**
      * It get the total balance
      * @return the total balance
