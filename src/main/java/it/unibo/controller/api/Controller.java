@@ -61,13 +61,14 @@ public interface Controller {
 
 
     /**
-     * It create a new order made by client
+     * It do the order of the client
+     * @return a pair of two strings, second string can be empty if the client ordered only 1 pizza
      */
     Pair<String, Optional<String>> order();
 
     /**
      * It pay the amount to pay
      */
-    void pay(List<String> ingredientPizzaFactory1, Optional<List<String>> ingredientPizzaFactory2);
+    void pay();
 
 }
