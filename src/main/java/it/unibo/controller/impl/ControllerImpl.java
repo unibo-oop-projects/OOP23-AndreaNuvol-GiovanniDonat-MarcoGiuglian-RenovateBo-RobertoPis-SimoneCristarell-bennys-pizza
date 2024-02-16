@@ -3,8 +3,10 @@ package it.unibo.controller.impl;
 import java.lang.reflect.InvocationTargetException;
 
 import it.unibo.controller.api.Controller;
+import it.unibo.model.api.Client;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
+import it.unibo.model.impl.Client.ClientImpl;
 import it.unibo.model.impl.Management.SubtractorManager;
 
 /**
@@ -14,6 +16,8 @@ public class ControllerImpl implements Controller {
     
     private final SubtractorManager subtractorManager = new SubtractorManager();
     private final PreparationZone preparationZone;
+    private final Client client = new ClientImpl();
+    private ClientImpl.Order order;
     
 
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -58,6 +62,16 @@ public class ControllerImpl implements Controller {
     @Override
     public double getBalanceDay() {
         return this.subtractorManager.getBalanceDay();
+    }
+
+    @Override
+    public void order() {
+        order = client.order();
+    }
+
+    @Override
+    public void pay() {
+        
     }
 
 }

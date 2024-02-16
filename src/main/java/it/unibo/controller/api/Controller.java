@@ -53,4 +53,16 @@ public interface Controller {
      * @return the day balance
      */
     double getBalanceDay();
+
+
+    /**
+     * It create a new order made by client
+     */
+    void order();
+
+    /**
+     * It pay the amount to pay
+     */
+    void pay();
+
 }
