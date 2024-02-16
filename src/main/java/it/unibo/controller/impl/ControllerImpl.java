@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.PreparationZone;
-import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Management.SubtractorManager;
 
@@ -42,8 +41,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void throwPizzaInGarbageBin(final PizzaFactoryImpl pizzaToThrow) {
-        this.preparationZone.getGarbageBin().throwPizzaInGarbageBin(pizzaToThrow);
+    public void throwPizzaInGarbageBin(final boolean isPizza1) {
+        this.preparationZone.getGarbageBin().throwPizzaInGarbageBin(this.preparationZone, isPizza1);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package it.unibo.model.api;
 
-import it.unibo.model.impl.PizzaFactoryImpl;
-
 /**
  *  Interface of the GarbageBin
  */
@@ -9,8 +7,9 @@ public interface GarbageBin {
 
     /**
      * simulate throwing pizza in the bin
-     * @param pizza the pizza that needs to be thrown away
+     * @param zone the zone where you are working
+     * @param isPizza1 true if the pizza to throw in the bin is the n.1 , false otherwise
      */
-    void throwPizzaInGarbageBin(PizzaFactoryImpl pizza);
+    void throwPizzaInGarbageBin(PreparationZone zone, boolean isPizza1);
     
 }
