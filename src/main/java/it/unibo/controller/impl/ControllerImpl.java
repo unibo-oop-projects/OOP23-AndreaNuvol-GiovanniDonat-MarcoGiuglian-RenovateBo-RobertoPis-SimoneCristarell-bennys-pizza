@@ -1,6 +1,10 @@
 package it.unibo.controller.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.swing.text.html.Option;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Client;
@@ -8,6 +12,8 @@ import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Client.ClientImpl;
 import it.unibo.model.impl.Management.SubtractorManager;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Implementation of the controller interface
@@ -22,6 +28,7 @@ public class ControllerImpl implements Controller {
 
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
+        this.order = null;
     }
 
     @Override
@@ -65,13 +72,20 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void order() {
+    public Pair<String, Optional<String>> order() {
+        Pair<String, Optional<String>> orderedPizzas;
         order = client.order();
+        if(order.getNumberPizzasToOrder() == 1){
+            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft().getName(), Optional.empty());
+        }else{
+            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft().getName(), Optional.of(order.getOrderPizzas().getRight().get().getName()));
+        }
+        return orderedPizzas;
     }
 
     @Override
-    public void pay() {
-        
+    public void pay(final List<String> ingredientPizzaFactory1, final Optional<List<String>> ingredientPizzaFactory2) {
+        client.pay(null, null);
     }
 
 }

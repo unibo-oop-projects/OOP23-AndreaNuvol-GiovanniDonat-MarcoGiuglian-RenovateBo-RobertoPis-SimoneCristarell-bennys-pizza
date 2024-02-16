@@ -1,5 +1,10 @@
 package it.unibo.controller.api;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import it.unibo.model.api.PreparationZone;
 
 /**
@@ -58,11 +63,11 @@ public interface Controller {
     /**
      * It create a new order made by client
      */
-    void order();
+    Pair<String, Optional<String>> order();
 
     /**
      * It pay the amount to pay
      */
-    void pay();
+    void pay(List<String> ingredientPizzaFactory1, Optional<List<String>> ingredientPizzaFactory2);
 
 }
