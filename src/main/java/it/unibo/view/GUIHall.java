@@ -5,6 +5,7 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import javax.swing.*;
 import java.util.Random;
+import javax.swing.border.EmptyBorder;
 
 public class GUIHall {
 
@@ -24,26 +25,54 @@ public class GUIHall {
     static int width = (int) screenSize.getWidth(); 
     static int height = (int) screenSize.getHeight();
 
+    final static int MENU_WIDTH = (int)(width * 0.1);
+    final static int MENU_HEIGHT = (int)(height * 0.08);
 
     public GUIHall() {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Image Background Example");
+            JFrame background = new JFrame("BENNY'S PIZZA");
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
             ImagePanel imagePanel = new ImagePanel(backgroundImage);
-            frame.getContentPane().setLayout(new BorderLayout()); // Imposta il layout manager del frame
-            frame.getContentPane().add(imagePanel, BorderLayout.CENTER);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(width, height);
-            frame.setVisible(true);
-
+            
+            frontView(imagePanel, background);
             displayLabelsBalance(imagePanel);
             displayClient(imagePanel);
             
         });
     }
 
-    public static void main(String[] args) {
-        new GUIHall();
+    private void frontView(ImagePanel imagePanel, JFrame background) {
+        
+        imagePanel.setLayout(new BorderLayout());
+
+        background.getContentPane().add(imagePanel);
+        background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        background.setSize(width, height);
+
+        JPanel menuPanel = new JPanel(new BorderLayout());
+        setMenuPanelAttributes(menuPanel);
+
+        JButton menuButton = new JButton("Menu");
+        setMenuButtonAttributes(menuButton);
+        
+        menuPanel.add(menuButton, BorderLayout.EAST);
+        imagePanel.add(menuPanel, BorderLayout.SOUTH);
+        
+        background.setVisible(true); // da mettere false quando si passa alla schermata della cucina 
+    }
+
+    private void setMenuPanelAttributes(JPanel menuPanel) {
+        menuPanel.setOpaque(false);
+        menuPanel.setBackground(new Color(0, 0, 0, 0));
+        menuPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
+    }
+
+    private void setMenuButtonAttributes(JButton menuButton) {
+        menuButton.setBackground(new Color(Integer.parseInt("FF7F50", 16)));
+        menuButton.setBorderPainted(false);
+        menuButton.setFocusPainted(false);
+        menuButton.setFont(new Font("Arial", Font.BOLD, 30));
+        menuButton.setSize(MENU_WIDTH, MENU_WIDTH);
     }
 
     private void displayLabelsBalance(final ImagePanel imagePanel){
@@ -103,4 +132,9 @@ public class GUIHall {
         Random random = new Random();
         return random.nextInt(3) + 1;
     }
+
+    public static void main(String[] args) {
+        new GUIHall();
+    }
+
 }
