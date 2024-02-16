@@ -24,11 +24,12 @@ public class ControllerImpl implements Controller {
     private final PreparationZone preparationZone;
     private final Client client = new ClientImpl();
     private ClientImpl.Order order;
+    private final ClientThread clientThread;
     
-
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
-        this.order = null;
+        clientThread = new ClientThread(this);
+        clientThread.start();
     }
 
     @Override
