@@ -84,8 +84,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void pay(final List<String> ingredientPizzaFactory1, final Optional<List<String>> ingredientPizzaFactory2) {
-        client.pay(null, null);
+    public void pay() {
+        client.pay(this.preparationZone.getPizza1(), Optional.of(this.preparationZone.getPizza2()));
     }
 
 }
