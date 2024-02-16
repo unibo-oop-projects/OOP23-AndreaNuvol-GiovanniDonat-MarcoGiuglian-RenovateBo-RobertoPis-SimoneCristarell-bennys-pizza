@@ -1,6 +1,8 @@
 package it.unibo.view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.nio.file.FileSystems;
 import javax.swing.*;
@@ -37,9 +39,26 @@ public class GUIHall {
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
+
             displayMenu(imagePanel, background);
             displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
+
+            Object[] options = {"OK"};
+            int res = JOptionPane.showOptionDialog(
+                null,
+                "I nomi delle pizze ordinate",
+                "ORDER",
+                JOptionPane.PLAIN_MESSAGE,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+            );
+            if(res == JOptionPane.OK_OPTION){
+                // qui passa alla cucina 
+            }
+
         });
     }
 
