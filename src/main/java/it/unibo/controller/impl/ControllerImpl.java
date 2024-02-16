@@ -1,10 +1,8 @@
 package it.unibo.controller.impl;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Optional;
 
-import javax.swing.text.html.Option;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Client;
@@ -12,6 +10,7 @@ import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Client.ClientImpl;
 import it.unibo.model.impl.Management.SubtractorManager;
+import it.unibo.model.impl.Menu.MenuImpl;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -87,6 +86,10 @@ public class ControllerImpl implements Controller {
     @Override
     public void pay() {
         client.pay(this.preparationZone.getPizza1(), Optional.of(this.preparationZone.getPizza2()));
+    }
+
+    public void generateMenu(){
+        MenuImpl.generateMenu();
     }
 
 }

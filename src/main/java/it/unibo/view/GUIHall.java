@@ -9,9 +9,11 @@ import java.nio.file.FileSystems;
 import javax.swing.*;
 import java.util.Random;
 import javax.swing.border.EmptyBorder;
-
+import java.util.Optional;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 public class GUIHall {
 
@@ -48,10 +50,17 @@ public class GUIHall {
             displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
 
+            controller.generateMenu();// generation of menu
+            Pair<String, Optional<String>> order = controller.order();
+            String pizzaOrder = order.getLeft();
+            Optional<String> optionalSecondPizza = order.getRight();
+            if(optionalSecondPizza.isPresent()){
+                pizzaOrder += "\n" + optionalSecondPizza.get();
+            }
             Object[] options = {"OK"};
             int res = JOptionPane.showOptionDialog(
                 null,
-                "I nomi delle pizze ordinate",
+                pizzaOrder,
                 "ORDER",
                 JOptionPane.PLAIN_MESSAGE,
                 JOptionPane.INFORMATION_MESSAGE,

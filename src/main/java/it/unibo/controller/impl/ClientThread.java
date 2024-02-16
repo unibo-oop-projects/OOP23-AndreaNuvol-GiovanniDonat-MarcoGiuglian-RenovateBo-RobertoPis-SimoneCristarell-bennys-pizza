@@ -22,11 +22,11 @@ public class ClientThread extends Thread{
         while(true){
             lock.lock();
             try{
-                while (isWaiting) {
+                if(isWaiting) {
                     condition.await();
                 }
                 Pair<String, Optional<String>> orderedPizzas = controller.order();
-                
+
                 isWaiting = true;
 
             }catch(InterruptedException e){

@@ -71,4 +71,8 @@ public interface Controller {
      */
     void pay();
 
+    /*
+     * 
+     */
+    void generateMenu();
 }
