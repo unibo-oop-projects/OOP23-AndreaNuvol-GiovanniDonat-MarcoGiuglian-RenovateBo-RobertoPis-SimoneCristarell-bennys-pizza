@@ -14,10 +14,12 @@ import java.nio.file.FileSystems;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
@@ -36,8 +38,7 @@ public class GUIKitchen {
     
     public GUIKitchen(final Controller controller) {
         frame.setSize(screenWidth, screenHeight);
-        final Image background = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + 
-            "Preparation_Zone.png");
+        final Image background = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "Preparation_Zone.png");
         ImagePanel imagePanel = new ImagePanel(background);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(imagePanel, BorderLayout.CENTER);
@@ -50,11 +51,26 @@ public class GUIKitchen {
         final Image garbageBin = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + 
             "KitchenComponentsImages" + SEP + "GarbageBin.png");
         final JButton btnGarbageBin = new JButton();
-        btnGarbageBin.setBackground(new Color(195, 195, 195, 255));
-        btnGarbageBin.setBorderPainted(false);
-        lowPanel.add(btnGarbageBin, BorderLayout.EAST);
         displayGarbageBinButton(btnGarbageBin, garbageBin, frame.getWidth(), frame.getHeight(), lowPanel);
+        lowPanel.add(btnGarbageBin, BorderLayout.EAST);
         imagePanel.add(lowPanel, BorderLayout.SOUTH);
+
+        final JPanel centralPanel = new JPanel(new BorderLayout());
+        centralPanel.setOpaque(false);
+        
+        final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        centralNorthPanel.setOpaque(false);
+        final JLabel lblSelect = new JLabel("Select the ingredient to supply:");
+        centralNorthPanel.add(lblSelect);
+        final String[] items = { "Anchovy", "Artichoke", "CherryTomatoe", "Dough", "Fontina", "FrenchFry", "Gorgonzola", 
+            "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", "Parmesan", "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel" };
+        final JComboBox<String> comboBox = new JComboBox<>(items);
+        centralNorthPanel.add(comboBox);
+        final JButton btnSupply = new JButton("Supply");
+        centralNorthPanel.add(btnSupply);
+        displaySupplyComponents(frame.getWidth(), frame.getHeight(), comboBox, btnSupply, centralNorthPanel);
+        centralPanel.add(centralNorthPanel, BorderLayout.NORTH);
+        imagePanel.add(centralPanel, BorderLayout.CENTER);
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override
@@ -63,6 +79,7 @@ public class GUIKitchen {
                 int height = frame.getContentPane().getHeight();
                 displayInfoLabels(imagePanel);
                 displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowPanel);
+                displaySupplyComponents(width, height, comboBox, btnSupply, centralNorthPanel);
             }
         });
 
@@ -84,6 +101,17 @@ public class GUIKitchen {
             .getScaledInstance((int)(bin.getWidth()-10), (int)(bin.getHeight()-5), 0)));
         lowPanel.setBorder(new EmptyBorder((int)(height*0.2), (int)(width*0.2), 
             (int)(height*0.09), (int)(width*0.12)));
+        bin.setBackground(new Color(195, 195, 195, 255));
+        bin.setBorderPainted(false);
+    }
+
+    private void displaySupplyComponents(final int width, final int height, final JComboBox<String> comboBox, final JButton btnSupply, final JPanel centralNorthPanel) {
+        comboBox.setPreferredSize(new Dimension((int)(width * 0.08), (int)(height * 0.035)));
+        btnSupply.setBackground(new Color(252, 211, 147, 255));
+        btnSupply.setPreferredSize(new Dimension((int)(width * 0.04), (int)(height * 0.035)));
+        btnSupply.setBorder(new LineBorder(Color.DARK_GRAY, 1));
+        centralNorthPanel.setBorder(new EmptyBorder((int)(height*0.012), (int)(width*0.04), 
+            (int)(height*0.09), (int)(width*0.12)));
     }
 
     public void start() {
@@ -91,7 +119,7 @@ public class GUIKitchen {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        new GUIKitchen(new ControllerImpl()).start();;
+        new GUIKitchen(new ControllerImpl()).start();
     }
 
 }
