@@ -13,7 +13,7 @@ import it.unibo.controller.impl.ControllerImpl;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public class GUIHall {
+public class GUIHallImpl {
 
     final static String SEP = File.separator;
     private static final String BALANCE_TOT = "Balance tot: ";
@@ -34,7 +34,7 @@ public class GUIHall {
     final static int MENU_WIDTH = (int)(width * 0.1);
     final static int MENU_HEIGHT = (int)(height * 0.08);
 
-    public GUIHall(final Controller controller) {
+    public GUIHallImpl(final Controller controller) {
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame("BENNY'S PIZZA");
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
@@ -75,7 +75,7 @@ public class GUIHall {
         });
     }
 
-    private void displayMenu(final ImagePanel imagePanel, final JFrame background) {
+    public void displayMenu(final ImagePanel imagePanel, final JFrame background) {
         JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
         JButton menuButton = new JButton("Menu");
@@ -85,7 +85,7 @@ public class GUIHall {
         background.setVisible(true); // da mettere false quando si passa alla schermata della cucina 
     }
 
-    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background, final Controller controller){
+    public static void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background, final Controller controller){
         JPanel balanceLabelsPanel = new JPanel();
         balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
         setPanelAttributes(balanceLabelsPanel);
@@ -102,13 +102,13 @@ public class GUIHall {
         background.setVisible(true);
     }
 
-    private void setPanelAttributes(final JPanel panel) {
+    private static void setPanelAttributes(final JPanel panel) {
         panel.setOpaque(false);
         panel.setBackground(new Color(0, 0, 0, 0));
         panel.setBorder(new EmptyBorder(10, 10, 50, 10));
     }
 
-    private void setMenuButtonAttributes(final JButton menuButton) {
+    private static void setMenuButtonAttributes(final JButton menuButton) {
         menuButton.setBackground(new Color(Integer.parseInt("FF7F50", 16)));
         menuButton.setBorderPainted(false);
         menuButton.setFocusPainted(false);
@@ -117,7 +117,7 @@ public class GUIHall {
     }
 
     // Show a client different from the last showed, it return the index 
-    private int showNewClient(){
+    private static int showNewClient(){
         int indexClient;
         if(lastClientShowed != 0){
             do{
@@ -130,7 +130,7 @@ public class GUIHall {
         return indexClient;
     }
 
-    private void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
+    public static void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
         JPanel clockPanel = new JPanel(new BorderLayout());
         setPanelAttributes(clockPanel);
 
@@ -145,7 +145,7 @@ public class GUIHall {
     }
 
     
-    private void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
+    public static void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
         JPanel workingDayPanel = new JPanel(new GridBagLayout());
         setPanelAttributes(workingDayPanel);
     
@@ -161,7 +161,7 @@ public class GUIHall {
         background.setVisible(true);
     }
 
-    private void displayClient(final ImagePanel imagePanel){
+    public static void displayClient(final ImagePanel imagePanel){
         int indexClient = showNewClient();
         String imagePath = PATH_TO_THE_ROOT + FILE_PATH_CLIENT + "ClientImage" + indexClient + ".png";
         Image clientImage = Toolkit.getDefaultToolkit().getImage(imagePath);
@@ -187,13 +187,13 @@ public class GUIHall {
         imagePanel.add(clientLabel);
     }
 
-    private int randomIndexClientImage(){
+    private static int randomIndexClientImage(){
         Random random = new Random();
         return random.nextInt(3) + 1;
     }
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        new GUIHall(new ControllerImpl());
+        new GUIHallImpl(new ControllerImpl());
     }
 
 }

@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.impl;
 
 import java.awt.*;
 import javax.swing.JPanel;
