@@ -114,7 +114,6 @@ public class GUIKitchen {
         displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel);
         imagePanel.add(centralSouthPanel ,BorderLayout.SOUTH);
 
-
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
