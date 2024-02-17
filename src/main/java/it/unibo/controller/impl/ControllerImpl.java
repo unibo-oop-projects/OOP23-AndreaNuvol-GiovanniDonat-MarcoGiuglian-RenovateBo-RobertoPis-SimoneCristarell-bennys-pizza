@@ -1,6 +1,8 @@
 package it.unibo.controller.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -12,6 +14,7 @@ import it.unibo.model.impl.Client.ClientImpl;
 import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
+import it.unibo.model.impl.Menu.MenuImpl.Pizza;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -31,6 +34,7 @@ public class ControllerImpl implements Controller {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
         this.clientThread = new ClientThread(this);
         this.clientThread.start();
+        MenuImpl.generateMenu();
     }
 
     @Override
@@ -100,8 +104,17 @@ public class ControllerImpl implements Controller {
         this.client.pay(this.preparationZone.getPizza1(), Optional.of(this.preparationZone.getPizza2()));
     }
 
+    @Override
     public void generateMenu(){
         MenuImpl.generateMenu();
     }
 
+    @Override
+    public List<String> getMenu() {
+        List<String> menu = new ArrayList<>();
+        for(final Pizza pizza : MenuImpl.getPizzas()) {
+            menu.add(pizza.toString());
+        }
+        return menu;
+    }
 }

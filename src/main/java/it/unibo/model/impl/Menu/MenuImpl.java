@@ -84,7 +84,12 @@ public class MenuImpl {
         public float getCost() {
             return this.cost;
         }
-        
+
+        public String toString() {
+            String output;
+            output = getName() + " " + getIngredients() + " " + getCost() + "$";
+            return output;
+        }        
     }
 
 }
