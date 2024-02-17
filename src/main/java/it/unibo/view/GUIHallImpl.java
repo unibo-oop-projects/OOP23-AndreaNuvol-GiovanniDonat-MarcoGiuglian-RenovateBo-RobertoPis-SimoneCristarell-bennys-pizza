@@ -1,6 +1,8 @@
 package it.unibo.view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
@@ -10,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.util.Optional;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
+import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -18,6 +21,7 @@ public class GUIHallImpl {
     final static String SEP = File.separator;
     private static final String BALANCE_TOT = "Balance tot: ";
     private static final String BALANCE_DAY = "Balance day: ";
+    private static final String MENU_STRING = "MENU - BENNY'S PIZZA";
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String FILE_PATH_IN_COMMON = SEP         +
                                                     "src"       + SEP +
@@ -31,8 +35,10 @@ public class GUIHallImpl {
     static int width = (int) screenSize.getWidth();
     static int height = (int) screenSize.getHeight();
 
-    final static int MENU_WIDTH = (int)(width * 0.1);
-    final static int MENU_HEIGHT = (int)(height * 0.08);
+    final static int MENU_BUTTON_WIDTH = (int)(width * 0.1);
+    final static int MENU_BUTTON_HEIGHT = (int)(height * 0.08);
+    final static int MENU_TXTAREA_WIDTH = (int)(width * 0.85);
+    final static int MENU_TXTAREA_HEIGHT = (int)(height * 0.63);
 
     public GUIHallImpl(final Controller controller) {
         SwingUtilities.invokeLater(() -> {
@@ -44,7 +50,7 @@ public class GUIHallImpl {
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
 
-            displayMenu(imagePanel, background);
+            displayMenu(imagePanel, background, controller);
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background, controller);
@@ -75,7 +81,7 @@ public class GUIHallImpl {
         });
     }
 
-    public void displayMenu(final ImagePanel imagePanel, final JFrame background) {
+    public void displayMenu(final ImagePanel imagePanel, final JFrame background, final Controller controller) {
         JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
         JButton menuButton = new JButton("Menu");
@@ -83,6 +89,28 @@ public class GUIHallImpl {
         menuPanel.add(menuButton, BorderLayout.EAST);
         imagePanel.add(menuPanel, BorderLayout.SOUTH);
         background.setVisible(true); // da mettere false quando si passa alla schermata della cucina 
+
+        menuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dialog = new JDialog();
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setSize(MENU_TXTAREA_WIDTH, MENU_TXTAREA_HEIGHT); // da rendere portabileee!!
+
+                JTextArea textArea = new JTextArea(MENU_STRING);
+                StringBuilder sb = new StringBuilder();
+                sb.append(MENU_STRING + "\n\n");
+                for(final String pizza : controller.getMenu()) {
+                    sb.append(pizza + "\n");
+                }
+                textArea.setText(sb.toString());
+
+                textArea.setFont(new Font("Arial", Font.BOLD, 15)); // Imposta il tipo e la dimensione del carattere
+                dialog.getContentPane().add(textArea); // Aggiunge il messaggio al dialogo
+
+                dialog.setVisible(true); // Rende visibile il dialogo
+            }
+        });
     }
 
     public static void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background, final Controller controller){
@@ -113,7 +141,7 @@ public class GUIHallImpl {
         menuButton.setBorderPainted(false);
         menuButton.setFocusPainted(false);
         menuButton.setFont(new Font("Arial", Font.BOLD, 30));
-        menuButton.setSize(MENU_WIDTH, MENU_WIDTH);
+        menuButton.setSize(MENU_BUTTON_WIDTH, MENU_BUTTON_WIDTH);
     }
 
     // Show a client different from the last showed, it return the index 

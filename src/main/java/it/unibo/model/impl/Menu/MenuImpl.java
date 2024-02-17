@@ -87,7 +87,7 @@ public class MenuImpl {
 
         public String toString() {
             String output;
-            output = getName() + " " + getIngredients() + " " + getCost() + "$";
+            output = getName() + " " + getIngredients() + " " + getCost() + "$\n";
             return output;
         }        
     }
