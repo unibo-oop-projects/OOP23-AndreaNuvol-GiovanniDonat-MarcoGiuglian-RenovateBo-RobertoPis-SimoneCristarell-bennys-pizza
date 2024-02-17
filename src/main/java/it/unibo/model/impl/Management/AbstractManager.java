@@ -5,6 +5,7 @@ import it.unibo.model.impl.Time.TimeImpl;
 import java.beans.*;
 
 public abstract class AbstractManager implements Management{
+    public static final String BALANCE_DAY_PROPERTY = "balanceDay";
     private static final double minAmountToPassTheLevel = 10;
     private static double factoryMultiple = 1;
     protected static double balanceTot = 0;

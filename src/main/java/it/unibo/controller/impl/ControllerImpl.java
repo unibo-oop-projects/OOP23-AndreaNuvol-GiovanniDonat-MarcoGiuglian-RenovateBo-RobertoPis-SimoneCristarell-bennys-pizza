@@ -15,6 +15,7 @@ import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
+import java.beans.*;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -28,12 +29,22 @@ public class ControllerImpl implements Controller {
     private final Client client = new ClientImpl();
     private ClientImpl.Order order;
     private final ClientThread clientThread;
+    private PropertyChangeSupport propertyChangeSupport;
     
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
         MenuImpl.generateMenu();
+        this.propertyChangeSupport = new PropertyChangeSupport(this);
         this.clientThread = new ClientThread(this);
         this.clientThread.start();
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+        propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
 
     @Override

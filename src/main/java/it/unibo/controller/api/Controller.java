@@ -1,5 +1,6 @@
 package it.unibo.controller.api;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,11 +94,11 @@ public interface Controller {
     /**
      * @return a list of string with name, ingredients and cost for each pizza in menu
      */
-    public List<String> getMenu();
+    List<String> getMenu();
 
     
     /**
      * @return the thread of the client
      */
-    public ClientThread getClientThread();
+    ClientThread getClientThread();
 }

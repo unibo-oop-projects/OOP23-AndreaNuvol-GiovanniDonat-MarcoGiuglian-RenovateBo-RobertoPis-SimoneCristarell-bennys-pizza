@@ -39,9 +39,12 @@ public class GUIHallImpl {
     final static int MENU_BUTTON_HEIGHT = (int)(height * 0.08);
     final static int MENU_TXTAREA_WIDTH = (int)(width * 0.85);
     final static int MENU_TXTAREA_HEIGHT = (int)(height * 0.63);
+    JLabel balanceTotLabel, balanceDayLabel;
 
     public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
+        UpdateThread updateThread = new UpdateThread(this, controller);
+        updateThread.start();
         
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame("BENNY'S PIZZA");
@@ -83,7 +86,7 @@ public class GUIHallImpl {
         );
         if(res == JOptionPane.OK_OPTION){
             // qui passa alla cucina 
-            
+            controller.addToBalance(55);
         }
     }
 
@@ -113,7 +116,7 @@ public class GUIHallImpl {
                 null, 
                 null,
                 null
-            );
+                );
             }
         });
     }
@@ -123,9 +126,8 @@ public class GUIHallImpl {
         balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
         setPanelAttributes(balanceLabelsPanel);
         controller.addToBalance(5);
-
-        JLabel balanceTotLabel = new JLabel(BALANCE_TOT + Double.toString(controller.getBalanceTot()));
-        JLabel balanceDayLabel = new JLabel(BALANCE_DAY + Double.toString(controller.getBalanceDay()));
+        balanceTotLabel = new JLabel(BALANCE_TOT + Double.toString(controller.getBalanceTot()));
+        balanceDayLabel = new JLabel(BALANCE_DAY + Double.toString(controller.getBalanceDay()));
         Font fontLabelBalanceTot = balanceTotLabel.getFont().deriveFont(Font.BOLD, 20);
         Font fontLabelBalanceDay = balanceDayLabel.getFont().deriveFont(Font.BOLD, 25);
         balanceTotLabel.setFont(fontLabelBalanceTot);
@@ -134,12 +136,18 @@ public class GUIHallImpl {
         balanceLabelsPanel.add(balanceDayLabel);
         imagePanel.add(balanceLabelsPanel, BorderLayout.NORTH);
         background.setVisible(true);
+
     }
 
     private void setPanelAttributes(final JPanel panel) {
         panel.setOpaque(false);
         panel.setBackground(new Color(0, 0, 0, 0));
         panel.setBorder(new EmptyBorder(10, 10, 50, 10));
+    }
+
+    public void updateBalanceLabels(double balanceTot, double balanceDay) {
+        balanceTotLabel.setText(BALANCE_TOT + Double.toString(balanceTot));
+        balanceDayLabel.setText(BALANCE_DAY + Double.toString(balanceDay));
     }
 
     private void setMenuButtonAttributes(final JButton menuButton) {
