@@ -136,7 +136,6 @@ public class GUIHallImpl {
         background.setVisible(true);
     }
 
-
     private void setPanelAttributes(final JPanel panel) {
         panel.setOpaque(false);
         panel.setBackground(new Color(0, 0, 0, 0));
