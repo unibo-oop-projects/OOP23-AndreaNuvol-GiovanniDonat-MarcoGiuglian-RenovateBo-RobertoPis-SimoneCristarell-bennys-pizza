@@ -8,7 +8,7 @@ public class AdderManager extends AbstractManager{
     public void updateBalance(final double amount) {
         if(isDepositAllowed(amount)){
             balanceDay += amount;
-            support.firePropertyChange("data", balanceDay, balanceDay);
+            support.firePropertyChange("balanceDay", balanceDay, balanceDay);
         }else{
             throw new IllegalArgumentException("Can't add negative or null value to balance.");
         }

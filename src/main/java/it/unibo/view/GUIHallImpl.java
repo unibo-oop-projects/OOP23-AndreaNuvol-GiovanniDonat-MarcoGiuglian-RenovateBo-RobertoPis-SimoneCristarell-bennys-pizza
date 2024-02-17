@@ -40,8 +40,9 @@ public class GUIHallImpl {
     final static int MENU_TXTAREA_WIDTH = (int)(width * 0.85);
     final static int MENU_TXTAREA_HEIGHT = (int)(height * 0.63);
 
-    public GUIHallImpl(final Controller controller) {
+    public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
+        
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame("BENNY'S PIZZA");
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
@@ -56,34 +57,34 @@ public class GUIHallImpl {
             displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
-            displayOrder(imagePanel, controller);
+            displayOrder(imagePanel);
+
             
         });
     }
 
-    private void displayOrder(final ImagePanel imagePanel, final Controller controller){
-        Pair<String, Optional<String>> order = controller.order();
-            String pizzaOrder = order.getLeft();
-            Optional<String> optionalSecondPizza = order.getRight();
-            if(optionalSecondPizza.isPresent()){
-                pizzaOrder += "\n" + optionalSecondPizza.get();
-            }
-            Object[] options = {"OK"};
-            int res = JOptionPane.showOptionDialog(
-                null,
-                pizzaOrder,
-                MENU_STRING,
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                options,
-                options[0]
-            );
-            if(res == JOptionPane.OK_OPTION){
-                // qui passa alla cucina 
-                controller.addToBalance(16);
-                
-            }
+    private void displayOrder(final ImagePanel imagePanel){
+        Pair<String, Optional<String>> order = controller.getClientThread().getOrder();
+        String pizzaOrder = order.getLeft();
+        Optional<String> optionalSecondPizza = order.getRight();
+        if(optionalSecondPizza.isPresent()){
+            pizzaOrder += "\n" + optionalSecondPizza.get();
+        }
+        Object[] options = {"OK"};
+        int res = JOptionPane.showOptionDialog(
+            null,
+            pizzaOrder,
+            MENU_STRING,
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.INFORMATION_MESSAGE,
+            null,
+            options,
+            options[0]
+        );
+        if(res == JOptionPane.OK_OPTION){
+            // qui passa alla cucina 
+            
+        }
     }
 
     public void displayMenu(final ImagePanel imagePanel, final JFrame background) {

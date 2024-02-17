@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import it.unibo.controller.impl.ClientThread;
 import it.unibo.model.api.PreparationZone;
 
 /**
@@ -93,4 +94,6 @@ public interface Controller {
      * @return a list of string with name, ingredients and cost for each pizza in menu
      */
     public List<String> getMenu();
+
+    public ClientThread getClientThread();
 }

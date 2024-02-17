@@ -31,9 +31,14 @@ public class ControllerImpl implements Controller {
     
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
+        MenuImpl.generateMenu();
         this.clientThread = new ClientThread(this);
         this.clientThread.start();
-        MenuImpl.generateMenu();
+    }
+
+    @Override
+    public ClientThread getClientThread(){
+        return this.clientThread;
     }
 
     @Override
