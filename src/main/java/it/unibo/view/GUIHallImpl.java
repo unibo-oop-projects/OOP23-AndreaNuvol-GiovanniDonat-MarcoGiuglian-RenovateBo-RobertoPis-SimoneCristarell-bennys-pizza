@@ -11,6 +11,10 @@ import java.util.Optional;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 public class GUIHallImpl {
@@ -18,6 +22,7 @@ public class GUIHallImpl {
     final static String SEP = File.separator;
     private static final String BALANCE_TOT = "Balance tot: ";
     private static final String BALANCE_DAY = "Balance day: ";
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String FILE_PATH_IN_COMMON = SEP         +
                                                     "src"       + SEP +
@@ -44,14 +49,20 @@ public class GUIHallImpl {
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
 
+
+            controller.generateMenu();// generation of menu
             displayMenu(imagePanel, background);
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background, controller);
             displayClient(imagePanel);
+            displayOrder(imagePanel, controller);
+            
+        });
+    }
 
-            controller.generateMenu();// generation of menu
-            Pair<String, Optional<String>> order = controller.order();
+    private void displayOrder(final ImagePanel imagePanel, final Controller controller){
+        Pair<String, Optional<String>> order = controller.order();
             String pizzaOrder = order.getLeft();
             Optional<String> optionalSecondPizza = order.getRight();
             if(optionalSecondPizza.isPresent()){
@@ -70,12 +81,14 @@ public class GUIHallImpl {
             );
             if(res == JOptionPane.OK_OPTION){
                 // qui passa alla cucina 
+                controller.addToBalance(16);
+                imagePanel.revalidate();
+                imagePanel.repaint();
+                
             }
-
-        });
     }
 
-    public void displayMenu(final ImagePanel imagePanel, final JFrame background) {
+    private void displayMenu(final ImagePanel imagePanel, final JFrame background) {
         JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
         JButton menuButton = new JButton("Menu");
@@ -85,11 +98,12 @@ public class GUIHallImpl {
         background.setVisible(true); // da mettere false quando si passa alla schermata della cucina 
     }
 
-    public static void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background, final Controller controller){
+    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background, final Controller controller){
         JPanel balanceLabelsPanel = new JPanel();
         balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
         setPanelAttributes(balanceLabelsPanel);
         controller.addToBalance(5);
+
         JLabel balanceTotLabel = new JLabel(BALANCE_TOT + Double.toString(controller.getBalanceTot()));
         JLabel balanceDayLabel = new JLabel(BALANCE_DAY + Double.toString(controller.getBalanceDay()));
         Font fontLabelBalanceTot = balanceTotLabel.getFont().deriveFont(Font.BOLD, 20);
@@ -102,13 +116,14 @@ public class GUIHallImpl {
         background.setVisible(true);
     }
 
-    private static void setPanelAttributes(final JPanel panel) {
+
+    private void setPanelAttributes(final JPanel panel) {
         panel.setOpaque(false);
         panel.setBackground(new Color(0, 0, 0, 0));
         panel.setBorder(new EmptyBorder(10, 10, 50, 10));
     }
 
-    private static void setMenuButtonAttributes(final JButton menuButton) {
+    private void setMenuButtonAttributes(final JButton menuButton) {
         menuButton.setBackground(new Color(Integer.parseInt("FF7F50", 16)));
         menuButton.setBorderPainted(false);
         menuButton.setFocusPainted(false);
@@ -117,7 +132,7 @@ public class GUIHallImpl {
     }
 
     // Show a client different from the last showed, it return the index 
-    private static int showNewClient(){
+    private int showNewClient(){
         int indexClient;
         if(lastClientShowed != 0){
             do{
@@ -130,7 +145,7 @@ public class GUIHallImpl {
         return indexClient;
     }
 
-    public static void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
+    private void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
         JPanel clockPanel = new JPanel(new BorderLayout());
         setPanelAttributes(clockPanel);
 
@@ -144,8 +159,7 @@ public class GUIHallImpl {
         background.setVisible(true);
     }
 
-    
-    public static void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
+    private void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
         JPanel workingDayPanel = new JPanel(new GridBagLayout());
         setPanelAttributes(workingDayPanel);
     
@@ -161,7 +175,7 @@ public class GUIHallImpl {
         background.setVisible(true);
     }
 
-    public static void displayClient(final ImagePanel imagePanel){
+    private void displayClient(final ImagePanel imagePanel){
         int indexClient = showNewClient();
         String imagePath = PATH_TO_THE_ROOT + FILE_PATH_CLIENT + "ClientImage" + indexClient + ".png";
         Image clientImage = Toolkit.getDefaultToolkit().getImage(imagePath);
@@ -187,7 +201,7 @@ public class GUIHallImpl {
         imagePanel.add(clientLabel);
     }
 
-    private static int randomIndexClientImage(){
+    private int randomIndexClientImage(){
         Random random = new Random();
         return random.nextInt(3) + 1;
     }
