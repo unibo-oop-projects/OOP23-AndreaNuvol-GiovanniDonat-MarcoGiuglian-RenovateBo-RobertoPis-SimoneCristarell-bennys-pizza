@@ -98,22 +98,21 @@ public class GUIHallImpl {
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog dialog = new JDialog();
-                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                dialog.setSize(MENU_TXTAREA_WIDTH, MENU_TXTAREA_HEIGHT); // da rendere portabileee!!
-
-                JTextArea textArea = new JTextArea(MENU_STRING);
                 StringBuilder sb = new StringBuilder();
-                sb.append(MENU_STRING + "\n\n");
                 for(final String pizza : controller.getMenu()) {
                     sb.append(pizza + "\n");
                 }
-                textArea.setText(sb.toString());
 
-                textArea.setFont(new Font("Arial", Font.BOLD, 15)); // Imposta il tipo e la dimensione del carattere
-                dialog.getContentPane().add(textArea); // Aggiunge il messaggio al dialogo
-
-                dialog.setVisible(true); // Rende visibile il dialogo
+                JOptionPane.showOptionDialog(
+                null,
+                sb,
+                "ORDER",
+                JOptionPane.CLOSED_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null, 
+                null,
+                null
+            );
             }
         });
     }
