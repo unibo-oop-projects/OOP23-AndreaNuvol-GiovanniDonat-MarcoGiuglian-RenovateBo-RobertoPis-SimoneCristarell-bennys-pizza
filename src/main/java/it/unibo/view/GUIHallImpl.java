@@ -72,7 +72,7 @@ public class GUIHallImpl {
             int res = JOptionPane.showOptionDialog(
                 null,
                 pizzaOrder,
-                "ORDER",
+                MENU_STRING,
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
@@ -106,7 +106,7 @@ public class GUIHallImpl {
                 JOptionPane.showOptionDialog(
                 null,
                 sb,
-                "ORDER",
+                MENU_STRING,
                 JOptionPane.CLOSED_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null, 
