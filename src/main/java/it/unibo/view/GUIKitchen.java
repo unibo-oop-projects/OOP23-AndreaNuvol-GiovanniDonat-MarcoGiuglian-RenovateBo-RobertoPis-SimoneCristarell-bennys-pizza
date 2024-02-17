@@ -2,6 +2,7 @@ package it.unibo.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -11,13 +12,16 @@ import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -58,19 +62,40 @@ public class GUIKitchen {
         final JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.setOpaque(false);
 
-        final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, (int)(frame.getWidth()*0.02), (int)(frame.getHeight()*0.01)));
         centralNorthPanel.setOpaque(false);
         final JLabel lblSelect = new JLabel("Select the ingredient to supply:");
         centralNorthPanel.add(lblSelect);
         final String[] items = { "Anchovies", "Artichokes", "CherryTomatoes", "Dough", "Fontina", "FrenchFries", "Gorgonzola",
-            "Ham", "Mozzarella", "Mushrooms", "Olives", "Onions", "Parmesan", "Salami", "Sausages", "TomatoSauce", "Tuna", "Wurstel" };
+            "Ham", "Mozzarella", "Mushrooms", "Olives", "Onions", "Parmesan", "Salami", "Sausages", "TomatoeSauce", "Tuna", "Wurstel" };
         final JComboBox<String> comboBox = new JComboBox<>(items);
+
+        final Map<String, ImageIcon> itemImageMap = new HashMap<>();
+        for (int i = 0; i < items.length; i++) {
+            itemImageMap.put(items[i], new ImageIcon(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "IngredientsButtonsIcons" + SEP + items[i] + ".png"));
+        }
+        comboBox.setRenderer(new DefaultListCellRenderer() {
+                @Override
+                public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                    JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    // Get the icon for the current item
+                    ImageIcon icon = new ImageIcon(itemImageMap.get((String) value).getImage().getScaledInstance(80, 80, 0));
+                    // Set the icon and text for the label
+                    label.setIcon(icon);
+                    label.setText((String) value);
+                    return label;
+                }
+        });
+
         centralNorthPanel.add(comboBox);
         final JButton btnSupply = new JButton("Supply");
+        final JButton btnAdd = new JButton("Add");
+        centralNorthPanel.add(btnAdd);
         centralNorthPanel.add(btnSupply);
-        displaySupplyComponents(frame.getWidth(), frame.getHeight(), comboBox, btnSupply, centralNorthPanel);
+        displaySupplyComponents(frame.getWidth(), frame.getHeight(), comboBox, btnSupply, btnAdd, centralNorthPanel);
         centralPanel.add(centralNorthPanel, BorderLayout.NORTH);
         imagePanel.add(centralPanel, BorderLayout.CENTER);
+
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override
@@ -79,7 +104,7 @@ public class GUIKitchen {
                 int height = frame.getContentPane().getHeight();
                 displayInfoLabels(imagePanel, width);
                 displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowPanel);
-                displaySupplyComponents(width, height, comboBox, btnSupply, centralNorthPanel);
+                displaySupplyComponents(width, height, comboBox, btnSupply, btnAdd, centralNorthPanel);
             }
         });
 
@@ -105,17 +130,16 @@ public class GUIKitchen {
         bin.setBorderPainted(false);
     }
 
-    private void displaySupplyComponents(final int width, final int height, final JComboBox<String> comboBox, final JButton btnSupply, final JPanel centralNorthPanel) {
-        comboBox.setPreferredSize(new Dimension((int)(width * 0.09), (int)(height * 0.035)));
+    private void displaySupplyComponents(final int width, final int height, final JComboBox<String> comboBox, final JButton btnSupply, final JButton btnAdd, final JPanel centralNorthPanel) {
+        comboBox.setPreferredSize(new Dimension((int)(width * 0.18), (int)(height * 0.035)));
         btnSupply.setBackground(new Color(252, 211, 147, 255));
         btnSupply.setPreferredSize(new Dimension((int)(width * 0.04), (int)(height * 0.035)));
         btnSupply.setBorder(new LineBorder(Color.DARK_GRAY, 1));
-        centralNorthPanel.setBorder(new EmptyBorder((int)(height*0.012), (int)(width*0.04),
-            (int)(height*0), (int)(width*0.12)));
-    }
-
-    private void displayIngredientsComponents() {
-
+        btnAdd.setBackground(new Color(252, 211, 147, 255));
+        btnAdd.setPreferredSize(new Dimension((int)(width * 0.04), (int)(height * 0.035)));
+        btnAdd.setBorder(new LineBorder(Color.DARK_GRAY, 1));
+        centralNorthPanel.setBorder(new EmptyBorder((int)(height*0.012), (int)(width*0.04), 
+        (int)(height*0.09), (int)(width*0.12)));
     }
 
     public void start() {
