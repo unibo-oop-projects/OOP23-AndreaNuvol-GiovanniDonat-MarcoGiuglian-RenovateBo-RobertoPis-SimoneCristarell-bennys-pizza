@@ -12,6 +12,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,7 +36,7 @@ public class GUIKitchen {
     private final int screenHeight = (int)screenSize.getHeight();
 
     private final JFrame frame = new JFrame("KITCHEN");
-    
+
     public GUIKitchen(final Controller controller) {
         frame.setSize(screenWidth, screenHeight);
         final Image background = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "Preparation_Zone.png");
@@ -43,13 +44,12 @@ public class GUIKitchen {
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(imagePanel, BorderLayout.CENTER);
         imagePanel.setLayout(new BorderLayout());
-        
-        displayInfoLabels(imagePanel);
+
+        displayInfoLabels(imagePanel, frame.getWidth());
 
         final JPanel lowPanel = new JPanel(new BorderLayout());
         lowPanel.setOpaque(false);
-        final Image garbageBin = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + 
-            "KitchenComponentsImages" + SEP + "GarbageBin.png");
+        final Image garbageBin = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + "GarbageBin.png");
         final JButton btnGarbageBin = new JButton();
         displayGarbageBinButton(btnGarbageBin, garbageBin, frame.getWidth(), frame.getHeight(), lowPanel);
         lowPanel.add(btnGarbageBin, BorderLayout.EAST);
@@ -57,13 +57,13 @@ public class GUIKitchen {
 
         final JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.setOpaque(false);
-        
+
         final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         centralNorthPanel.setOpaque(false);
         final JLabel lblSelect = new JLabel("Select the ingredient to supply:");
         centralNorthPanel.add(lblSelect);
-        final String[] items = { "Anchovy", "Artichoke", "CherryTomatoe", "Dough", "Fontina", "FrenchFry", "Gorgonzola", 
-            "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", "Parmesan", "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel" };
+        final String[] items = { "Anchovies", "Artichokes", "CherryTomatoes", "Dough", "Fontina", "FrenchFries", "Gorgonzola",
+            "Ham", "Mozzarella", "Mushrooms", "Olives", "Onions", "Parmesan", "Salami", "Sausages", "TomatoSauce", "Tuna", "Wurstel" };
         final JComboBox<String> comboBox = new JComboBox<>(items);
         centralNorthPanel.add(comboBox);
         final JButton btnSupply = new JButton("Supply");
@@ -77,7 +77,7 @@ public class GUIKitchen {
             public void componentResized(final ComponentEvent e) {
                 int width = frame.getContentPane().getWidth();
                 int height = frame.getContentPane().getHeight();
-                displayInfoLabels(imagePanel);
+                displayInfoLabels(imagePanel, width);
                 displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowPanel);
                 displaySupplyComponents(width, height, comboBox, btnSupply, centralNorthPanel);
             }
@@ -86,8 +86,8 @@ public class GUIKitchen {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void displayInfoLabels(final ImagePanel imagePanel) {
-        final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int)(frame.getWidth() / 35), 10));
+    private void displayInfoLabels(final ImagePanel imagePanel, final int width) {
+        final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int)(width / 5), 10));
         final JLabel lblDay = new JLabel("Day: 16/02/2024");
         highPanel.add(lblDay);
         highPanel.add(new JLabel("18:15"));
@@ -99,19 +99,23 @@ public class GUIKitchen {
         bin.setSize(new Dimension((int)(width * 0.08), (int)(height * 0.15)));
         bin.setIcon(new ImageIcon(garbageBin
             .getScaledInstance((int)(bin.getWidth()-10), (int)(bin.getHeight()-5), 0)));
-        lowPanel.setBorder(new EmptyBorder((int)(height*0.2), (int)(width*0.2), 
+        lowPanel.setBorder(new EmptyBorder((int)(height*0.2), (int)(width*0.2),
             (int)(height*0.09), (int)(width*0.12)));
         bin.setBackground(new Color(195, 195, 195, 255));
         bin.setBorderPainted(false);
     }
 
     private void displaySupplyComponents(final int width, final int height, final JComboBox<String> comboBox, final JButton btnSupply, final JPanel centralNorthPanel) {
-        comboBox.setPreferredSize(new Dimension((int)(width * 0.08), (int)(height * 0.035)));
+        comboBox.setPreferredSize(new Dimension((int)(width * 0.09), (int)(height * 0.035)));
         btnSupply.setBackground(new Color(252, 211, 147, 255));
         btnSupply.setPreferredSize(new Dimension((int)(width * 0.04), (int)(height * 0.035)));
         btnSupply.setBorder(new LineBorder(Color.DARK_GRAY, 1));
-        centralNorthPanel.setBorder(new EmptyBorder((int)(height*0.012), (int)(width*0.04), 
-            (int)(height*0.09), (int)(width*0.12)));
+        centralNorthPanel.setBorder(new EmptyBorder((int)(height*0.012), (int)(width*0.04),
+            (int)(height*0), (int)(width*0.12)));
+    }
+
+    private void displayIngredientsComponents() {
+
     }
 
     public void start() {
