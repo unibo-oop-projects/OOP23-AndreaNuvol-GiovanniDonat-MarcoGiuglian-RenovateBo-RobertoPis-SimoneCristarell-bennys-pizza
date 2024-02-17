@@ -45,6 +45,8 @@ public class GUIHall {
             imagePanel.setLayout(new BorderLayout());
 
             displayMenu(imagePanel, background);
+            displayClockLabels(imagePanel, background);
+            displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background, controller);
             displayClient(imagePanel);
 
@@ -126,6 +128,37 @@ public class GUIHall {
         }
         lastClientShowed = indexClient;
         return indexClient;
+    }
+
+    private void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
+        JPanel clockPanel = new JPanel(new BorderLayout());
+        setPanelAttributes(clockPanel);
+
+        JLabel clockLabel = new JLabel("Ora : Minuti");
+        clockLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        clockLabel.setSize(300, 300); // da rendere portabile!!
+
+        clockPanel.add(clockLabel, BorderLayout.EAST);
+        imagePanel.add(clockPanel, BorderLayout.NORTH);
+        
+        background.setVisible(true);
+    }
+
+    
+    private void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
+        JPanel workingDayPanel = new JPanel(new GridBagLayout());
+        setPanelAttributes(workingDayPanel);
+    
+        JLabel workingDayLabel = new JLabel("Numero giornata");
+        workingDayLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        workingDayLabel.setSize(300, 300); // da rendere portabile!!
+    
+        GridBagConstraints gbc = new GridBagConstraints();
+    
+        workingDayPanel.add(workingDayLabel, gbc);
+        imagePanel.add(workingDayPanel, BorderLayout.NORTH);
+        
+        background.setVisible(true);
     }
 
     private void displayClient(final ImagePanel imagePanel){
