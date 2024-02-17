@@ -95,5 +95,9 @@ public interface Controller {
      */
     public List<String> getMenu();
 
+    
+    /**
+     * @return the thread of the client
+     */
     public ClientThread getClientThread();
 }
