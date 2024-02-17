@@ -18,6 +18,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public class GUIHallImpl {
 
     final static String SEP = File.separator;
+    private Controller controller;
     private static final String BALANCE_TOT = "Balance tot: ";
     private static final String BALANCE_DAY = "Balance day: ";
     private static final String MENU_STRING = "MENU - BENNY'S PIZZA";
@@ -40,6 +41,7 @@ public class GUIHallImpl {
     final static int MENU_TXTAREA_HEIGHT = (int)(height * 0.63);
 
     public GUIHallImpl(final Controller controller) {
+        this.controller = controller;
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame("BENNY'S PIZZA");
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
@@ -49,10 +51,10 @@ public class GUIHallImpl {
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
 
-            displayMenu(imagePanel, background, controller);
+            displayMenu(imagePanel, background);
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
-            displayBalanceLabels(imagePanel, background, controller);
+            displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
             displayOrder(imagePanel, controller);
             
@@ -80,13 +82,11 @@ public class GUIHallImpl {
             if(res == JOptionPane.OK_OPTION){
                 // qui passa alla cucina 
                 controller.addToBalance(16);
-                imagePanel.revalidate();
-                imagePanel.repaint();
                 
             }
     }
 
-    public void displayMenu(final ImagePanel imagePanel, final JFrame background, final Controller controller) {
+    public void displayMenu(final ImagePanel imagePanel, final JFrame background) {
         JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
         JButton menuButton = new JButton("Menu");
@@ -118,7 +118,7 @@ public class GUIHallImpl {
         });
     }
 
-    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background, final Controller controller){
+    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background){
         JPanel balanceLabelsPanel = new JPanel();
         balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
         setPanelAttributes(balanceLabelsPanel);
