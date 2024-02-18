@@ -13,15 +13,14 @@ import java.util.Random;
 import javax.swing.border.EmptyBorder;
 import java.util.Optional;
 import it.unibo.controller.impl.ControllerImpl;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 public class GUIHallImpl implements PropertyChangeListener {
 
     final static String SEP = File.separator;
     private ControllerImpl controller;
-    private static final String BALANCE_TOT = "Balance tot: ";
-    private static final String BALANCE_DAY = "Balance day: ";
+    private static final String BALANCE_TOT = "Total balance : ";
+    private static final String BALANCE_DAY = "Daily balance : ";
     private static final String MENU_STRING = "MENU - BENNY'S PIZZA";
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String FILE_PATH_IN_COMMON = SEP         +
@@ -30,6 +29,8 @@ public class GUIHallImpl implements PropertyChangeListener {
                                                     "resources" + SEP;
     private static final String FILE_PATH_BACKGROUND = FILE_PATH_IN_COMMON + "front.png";
     private static final String FILE_PATH_CLIENT = FILE_PATH_IN_COMMON + "clientsImages" + SEP;
+    
+    private StringBuilder sb = new StringBuilder();
     private static int lastClientShowed = 0;
 
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -40,21 +41,23 @@ public class GUIHallImpl implements PropertyChangeListener {
     final static int MENU_BUTTON_HEIGHT = (int)(height * 0.08);
     final static int MENU_TXTAREA_WIDTH = (int)(width * 0.85);
     final static int MENU_TXTAREA_HEIGHT = (int)(height * 0.63);
-    
-    JLabel balanceTotLabel = new JLabel();
-    JLabel balanceDayLabel = new JLabel();
-    private StringBuilder sb = new StringBuilder();
-    JLabel clockLabel = new JLabel();
-    JPanel clockImagePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-    JLabel dayLabel = new JLabel();
-    JPanel dayImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    final static int CLOCK_LABEL_WIDTH = (int)(width * 0.1);
+    final static int CLOCK_LABEL_HEIGHT = (int)(height * 0.05);
+    
+    private JLabel balanceTotLabel = new JLabel();
+    private JLabel balanceDayLabel = new JLabel();
+    private JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+    private JLabel clockLabel = new JLabel();
+    private JPanel clockPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+    private JLabel dayLabel = new JLabel();
+    private JPanel dayImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
 
     public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
-        UpdateThread updateThread = new UpdateThread(this, controller);
-        updateThread.start();
         createStringBuilderMenu();
         
         SwingUtilities.invokeLater(() -> {
@@ -72,8 +75,6 @@ public class GUIHallImpl implements PropertyChangeListener {
             displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
             displayOrder(imagePanel);
-
-            
         });
     }
 
@@ -134,33 +135,10 @@ public class GUIHallImpl implements PropertyChangeListener {
         });
     }
 
-    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background){
-        JPanel balanceLabelsPanel = new JPanel();
-        balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
-        setPanelAttributes(balanceLabelsPanel);
-        controller.addToBalance(5);
-
-        balanceTotLabel = new JLabel(BALANCE_TOT + Double.toString(controller.getBalanceTot()));
-        balanceDayLabel = new JLabel(BALANCE_DAY + Double.toString(controller.getBalanceDay()));
-        Font fontLabelBalanceTot = balanceTotLabel.getFont().deriveFont(Font.BOLD, 20);
-        Font fontLabelBalanceDay = balanceDayLabel.getFont().deriveFont(Font.BOLD, 25);
-        balanceTotLabel.setFont(fontLabelBalanceTot);
-        balanceDayLabel.setFont(fontLabelBalanceDay);
-        balanceLabelsPanel.add(balanceTotLabel);
-        balanceLabelsPanel.add(balanceDayLabel);
-        imagePanel.add(balanceLabelsPanel, BorderLayout.NORTH);
-        background.setVisible(true);
-        }
-
     private void setPanelAttributes(final JPanel panel) {
         panel.setOpaque(false);
         panel.setBackground(new Color(0, 0, 0, 0));
         panel.setBorder(new EmptyBorder(10, 10, 50, 10));
-    }
-
-    public void updateBalanceLabels(double balanceTot, double balanceDay) {
-        balanceTotLabel.setText(BALANCE_TOT + Double.toString(balanceTot));
-        balanceDayLabel.setText(BALANCE_DAY + Double.toString(balanceDay));
     }
 
     private void setMenuButtonAttributes(final JButton menuButton) {
@@ -186,17 +164,35 @@ public class GUIHallImpl implements PropertyChangeListener {
     }
 
     private void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
-        setPanelAttributes(clockImagePanel);
+        setPanelAttributes(clockPanel);
         
         this.controller.newDay();
         this.controller.getTimeModel().addPropertyChangeListener(this);
 
         clockLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        clockLabel.setSize(CLOCK_LABEL_WIDTH, CLOCK_LABEL_HEIGHT);
 
-        clockLabel.setSize(300, 300); // da rendere portabile!!
+        clockPanel.add(clockLabel); 
+        imagePanel.add(clockPanel, BorderLayout.NORTH);
+        
+        background.setVisible(true);
+    }
 
-        clockImagePanel.add(clockLabel); 
-        imagePanel.add(clockImagePanel, BorderLayout.NORTH);
+    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background){
+        setPanelAttributes(balancePanel);
+        this.controller.getAdderManagerModel().addPropertyChangeListener(this);
+        this.controller.getSubtractorManagerModel().addPropertyChangeListener(this);
+        
+        balanceDayLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        balanceTotLabel.setFont(new Font("Arial", Font.BOLD, 25));
+
+        balanceTotLabel.setText(BALANCE_TOT + this.controller.getBalanceTot());
+        balanceDayLabel.setText(BALANCE_DAY + this.controller.getBalanceDay());
+        
+        balancePanel.add(balanceTotLabel);
+        balancePanel.add(balanceDayLabel);
+        
+        imagePanel.add(balancePanel, BorderLayout.NORTH);
         
         background.setVisible(true);
     }
@@ -206,7 +202,6 @@ public class GUIHallImpl implements PropertyChangeListener {
     
         dayLabel.setText(String.valueOf(this.controller.getWorkingDay()));
         dayLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        dayLabel.setSize(300, 300); // da rendere portabile!!
         
         dayImagePanel.add(dayLabel);
         imagePanel.add(dayImagePanel, BorderLayout.NORTH);
@@ -253,9 +248,17 @@ public class GUIHallImpl implements PropertyChangeListener {
                 break;
 
             case "day" :
-                SwingUtilities.invokeLater(() -> clockLabel.setText((String.valueOf(controller.getWorkingDay()))));
+                SwingUtilities.invokeLater(() -> dayLabel.setText((String.valueOf(controller.getWorkingDay()))));
                 break;
         
+            case "balanceDay" :
+                SwingUtilities.invokeLater(() -> balanceDayLabel.setText("Daily balance : " + String.valueOf(controller.getBalanceDay())));
+                break;
+
+            case "balanceTot" :
+                SwingUtilities.invokeLater(() -> balanceTotLabel.setText("Total Balance : " + String.valueOf(controller.getBalanceTot())));
+                break;
+
             default:
                 break;
         }
