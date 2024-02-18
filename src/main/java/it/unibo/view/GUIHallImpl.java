@@ -19,9 +19,10 @@ public class GUIHallImpl implements PropertyChangeListener {
 
     final static String SEP = File.separator;
     private ControllerImpl controller;
+    private static final String TITLE = "BENNY'S PIZZA";
     private static final String BALANCE_TOT = "Total balance : ";
     private static final String BALANCE_DAY = "Daily balance : ";
-    private static final String MENU_STRING = "MENU - BENNY'S PIZZA";
+    private static final String MENU_STRING = "MENU - " + TITLE;
     private static final String FONT = "Arial";
     private static final String CURRENCY = "$";
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
@@ -63,7 +64,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         createStringBuilderMenu();
         
         SwingUtilities.invokeLater(() -> {
-            JFrame background = new JFrame("BENNY'S PIZZA");
+            JFrame background = new JFrame(TITLE);
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
             ImagePanel imagePanel = new ImagePanel(backgroundImage);
             background.getContentPane().add(imagePanel);
@@ -250,11 +251,11 @@ public class GUIHallImpl implements PropertyChangeListener {
                 break;
         
             case "balanceDay" :
-                SwingUtilities.invokeLater(() -> balanceDayLabel.setText("Daily balance : " + String.valueOf(controller.getBalanceDay()) + CURRENCY));
+                SwingUtilities.invokeLater(() -> balanceDayLabel.setText(BALANCE_DAY + String.valueOf(controller.getBalanceDay()) + CURRENCY));
                 break;
 
             case "balanceTot" :
-                SwingUtilities.invokeLater(() -> balanceTotLabel.setText("Total Balance : " + String.valueOf(controller.getBalanceTot()) + CURRENCY));
+                SwingUtilities.invokeLater(() -> balanceTotLabel.setText(BALANCE_TOT + String.valueOf(controller.getBalanceTot()) + CURRENCY));
                 break;
 
             default:

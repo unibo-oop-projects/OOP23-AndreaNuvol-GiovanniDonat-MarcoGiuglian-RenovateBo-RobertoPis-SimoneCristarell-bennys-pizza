@@ -79,12 +79,12 @@ public interface Controller {
     void subtractToBalance(double amount);
 
     /**
-     * @return 
+     * @return the adderManager to add money to balance
      */
     AdderManager getAdderManagerModel();
 
     /**
-     * @return
+     * @return the subtractorManager to subtract money to balance
      */
     SubtractorManager getSubtractorManagerModel();
 
