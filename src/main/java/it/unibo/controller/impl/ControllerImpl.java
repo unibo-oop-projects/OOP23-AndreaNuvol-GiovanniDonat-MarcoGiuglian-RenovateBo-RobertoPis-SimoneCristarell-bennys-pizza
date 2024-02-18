@@ -83,6 +83,16 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public int getIngredientQuantity(String ingredientName) {
+        for (final var ingredient: this.preparationZone.getIngredientsQuantities().keySet()) {
+            if (ingredient.toString().equals(ingredientName)) {
+                return ingredient.getQuantity();
+            }
+        }
+        return -1;
+    }
+
+    @Override
     public double getBalanceTot() {
         return this.subtractorManager.getBalanceTot();
     }

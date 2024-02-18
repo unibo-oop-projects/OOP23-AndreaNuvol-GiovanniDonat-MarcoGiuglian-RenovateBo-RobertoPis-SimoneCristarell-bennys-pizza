@@ -101,7 +101,8 @@ public class GUIHallImpl implements PropertyChangeListener {
         dialog.add(pizzaPanel, BorderLayout.CENTER);
         dialog.setCloseListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                // Azione da eseguire quando viene chiusa la finestra di dialogo
+                new GUIKitchen(controller).start();
+                background.setVisible(false);
                 controller.addToBalance(55);
             }
         });

@@ -42,6 +42,12 @@ public interface Controller {
     PreparationZone getPreparationZone();
 
     /**
+     * @param ingredientName the ingredient of which we want the quantity 
+     * @return the quantity of the ingredient requested
+     */
+    int getIngredientQuantity(String ingredientName);
+
+    /**
      * It brings back pizza without ingredients
      */
     void throwPizzaInGarbageBin(boolean isPizza1);
