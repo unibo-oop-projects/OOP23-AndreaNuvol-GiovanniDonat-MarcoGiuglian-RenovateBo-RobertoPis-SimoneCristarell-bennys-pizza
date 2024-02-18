@@ -22,6 +22,8 @@ public class GUIHallImpl implements PropertyChangeListener {
     private static final String BALANCE_TOT = "Total balance : ";
     private static final String BALANCE_DAY = "Daily balance : ";
     private static final String MENU_STRING = "MENU - BENNY'S PIZZA";
+    private static final String FONT = "Arial";
+    private static final String CURRENCY = "$";
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String FILE_PATH_IN_COMMON = SEP         +
                                                     "src"       + SEP +
@@ -108,7 +110,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         }
     }
 
-    public void displayMenu(final ImagePanel imagePanel, final JFrame background) {
+    private void displayMenu(final ImagePanel imagePanel, final JFrame background) {
         JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
         JButton menuButton = new JButton("Menu");
@@ -145,7 +147,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         menuButton.setBackground(new Color(Integer.parseInt("FF7F50", 16)));
         menuButton.setBorderPainted(false);
         menuButton.setFocusPainted(false);
-        menuButton.setFont(new Font("Arial", Font.BOLD, 30));
+        menuButton.setFont(new Font(FONT, Font.BOLD, 30));
         menuButton.setSize(MENU_BUTTON_WIDTH, MENU_BUTTON_WIDTH);
     }
 
@@ -169,7 +171,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         this.controller.newDay();
         this.controller.getTimeModel().addPropertyChangeListener(this);
 
-        clockLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        clockLabel.setFont(new Font(FONT, Font.BOLD, 25));
         clockLabel.setSize(CLOCK_LABEL_WIDTH, CLOCK_LABEL_HEIGHT);
 
         clockPanel.add(clockLabel); 
@@ -183,25 +185,21 @@ public class GUIHallImpl implements PropertyChangeListener {
         this.controller.getAdderManagerModel().addPropertyChangeListener(this);
         this.controller.getSubtractorManagerModel().addPropertyChangeListener(this);
         
-        balanceDayLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        balanceTotLabel.setFont(new Font("Arial", Font.BOLD, 25));
-
-        balanceTotLabel.setText(BALANCE_TOT + this.controller.getBalanceTot());
-        balanceDayLabel.setText(BALANCE_DAY + this.controller.getBalanceDay());
-        
+        balanceDayLabel.setFont(new Font(FONT, Font.BOLD, 25));
+        balanceTotLabel.setFont(new Font(FONT, Font.BOLD, 25));
+        balanceTotLabel.setText(BALANCE_TOT + this.controller.getBalanceTot() + CURRENCY);
+        balanceDayLabel.setText(BALANCE_DAY + this.controller.getBalanceDay() + CURRENCY);
         balancePanel.add(balanceTotLabel);
         balancePanel.add(balanceDayLabel);
-        
         imagePanel.add(balancePanel, BorderLayout.NORTH);
-        
         background.setVisible(true);
     }
 
     private void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
         setPanelAttributes(dayImagePanel);
     
-        dayLabel.setText(String.valueOf(this.controller.getWorkingDay()));
-        dayLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        dayLabel.setText("Day " + String.valueOf(this.controller.getWorkingDay()));
+        dayLabel.setFont(new Font(FONT, Font.BOLD, 25));
         
         dayImagePanel.add(dayLabel);
         imagePanel.add(dayImagePanel, BorderLayout.NORTH);
@@ -252,11 +250,11 @@ public class GUIHallImpl implements PropertyChangeListener {
                 break;
         
             case "balanceDay" :
-                SwingUtilities.invokeLater(() -> balanceDayLabel.setText("Daily balance : " + String.valueOf(controller.getBalanceDay())));
+                SwingUtilities.invokeLater(() -> balanceDayLabel.setText("Daily balance : " + String.valueOf(controller.getBalanceDay()) + CURRENCY));
                 break;
 
             case "balanceTot" :
-                SwingUtilities.invokeLater(() -> balanceTotLabel.setText("Total Balance : " + String.valueOf(controller.getBalanceTot())));
+                SwingUtilities.invokeLater(() -> balanceTotLabel.setText("Total Balance : " + String.valueOf(controller.getBalanceTot()) + CURRENCY));
                 break;
 
             default:
