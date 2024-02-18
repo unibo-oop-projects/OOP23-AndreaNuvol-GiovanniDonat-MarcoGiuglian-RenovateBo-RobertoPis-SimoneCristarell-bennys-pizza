@@ -60,6 +60,7 @@ public class GUIKitchen {
         final JButton btnGarbageBin = new JButton();
         displayGarbageBinButton(btnGarbageBin, garbageBin, frame.getWidth(), frame.getHeight(), lowEastPanel);
         lowEastPanel.add(btnGarbageBin);
+        lowPanel.add(lowEastPanel, BorderLayout.EAST);
 
         final JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.setOpaque(false);
@@ -115,16 +116,16 @@ public class GUIKitchen {
 
         final JPanel lowWestPanel = new JPanel();
         lowWestPanel.setOpaque(false);
-        final JButton btnOven = new JButton("Clean");
+        final JButton btnClean = new JButton("Clean");
         btnClean.setBackground(new Color(195, 195, 195, 255));
         lowWestPanel.add(btnClean);
-        displayOven(btnClean, frame.getWidth(), frame.getHeight(), lowWestPanel);
+        displayClean(btnClean, frame.getWidth(), frame.getHeight(), lowWestPanel);
         lowPanel.add(lowWestPanel, BorderLayout.WEST);
 
         final JPanel centralCentralPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
         centralCentralPanel.setOpaque(false);
         final Image choppingBoardImg = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + "ChoppingBoard.png");
-        final JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardImg.getScaledInstance(300, 300, 0)));
+        final JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardImg.getScaledInstance((int)(frame.getWidth()*0.3), 300, 0)));
         final JLabel lblChoppingBoard2 = new JLabel(new ImageIcon(choppingBoardImg.getScaledInstance(300, 300, 0)));
         centralCentralPanel.setBorder(new EmptyBorder(0, 80, 0, 0));
         centralCentralPanel.add(lblChoppingBoard);
@@ -164,7 +165,7 @@ public class GUIKitchen {
         bin.setIcon(new ImageIcon(garbageBin
             .getScaledInstance((int)(bin.getWidth()-10), (int)(bin.getHeight()-5), 0)));
         lowPanel.setBorder(new EmptyBorder((int)(height*0.01), (int)(width*0.05),
-            (int)(height*0.04), (int)(width*0.05)));
+            (int)(height*0.04), (int)(width*0.14)));
         bin.setBackground(new Color(195, 195, 195, 255));
         bin.setBorderPainted(false);
         lowPanel.validate();
@@ -191,14 +192,14 @@ public class GUIKitchen {
 
     private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel) {
         ovenButton.setSize(new Dimension((int)(width*0.08), (int)(height*0.05)));
-        centralSouthPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.77), (int)(height*0.08), (int)(width*0.42)));
+        centralSouthPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.77), (int)(height*0.1), (int)(width*0.42)));
         centralSouthPanel.validate();
     }
 
     private void displayClean(final JButton cleanerButton, final int width, final int height, final JPanel lowWestPanel) {
         cleanerButton.setSize(new Dimension((int)(width*0.1), (int)(height*0.05)));
-        lowWestPanel.setBorder(new EmptyBorder((int)(height*0.05), (int)(width*0.07), 
-            (int)(height*0.05), (int)(width*0.05)));
+        lowWestPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.07), 
+            (int)(height*0.20), (int)(width*0.1)));
         lowWestPanel.validate();
     }
     public void start() {
