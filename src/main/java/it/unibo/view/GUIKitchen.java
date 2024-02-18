@@ -65,6 +65,7 @@ public class GUIKitchen {
         centralPanel.setOpaque(false);
 
         final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, (int)(frame.getWidth()*0.002), (int)(frame.getHeight()*0.01)));
+        final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, (int)(frame.getWidth()*0.002), (int)(frame.getHeight()*0.01)));
         centralNorthPanel.setOpaque(false);
         final JLabel lblSelect = new JLabel("Select the ingredient to supply:");
         centralNorthPanel.add(lblSelect);
@@ -97,7 +98,7 @@ public class GUIKitchen {
         displaySupplyComponents(frame.getWidth(), frame.getHeight(), comboBox, btnSupply, btnAdd, centralNorthPanel);
         centralPanel.add(centralNorthPanel, BorderLayout.NORTH);
 
-        final JPanel rightPanel = new JPanel(new BorderLayout());
+        final JPanel rightPanel = new JPanel();
         rightPanel.setOpaque(false);
         final JButton btnEndingKitchen = new JButton("Ready");
         btnEndingKitchen.setBackground(new Color(255, 255, 255, 255));
@@ -180,7 +181,7 @@ public class GUIKitchen {
         rightPanel.setBorder(new EmptyBorder((int)(height*0.472), (int)(width*0.08), 
             (int)(height*0.18), (int)(width*0.155)));
         endButton.validate();
-        rightPanel.validat();
+        rightPanel.validate();
     }
 
     private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel) {
