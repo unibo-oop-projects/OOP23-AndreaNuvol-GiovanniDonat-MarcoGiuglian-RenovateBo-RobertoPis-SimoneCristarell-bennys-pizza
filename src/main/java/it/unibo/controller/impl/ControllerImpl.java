@@ -103,6 +103,16 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public AdderManager getAdderManagerModel() {
+        return this.adderManager;
+    }
+
+    @Override
+    public SubtractorManager getSubtractorManagerModel() {
+        return this.subtractorManager;
+    }
+
+    @Override
     public Pair<String, Optional<String>> order() {
         Pair<String, Optional<String>> orderedPizzas;
         order = this.client.order();

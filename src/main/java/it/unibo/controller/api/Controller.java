@@ -8,6 +8,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.controller.impl.ClientThread;
 import it.unibo.model.api.PreparationZone;
+import it.unibo.model.impl.Management.AdderManager;
+import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Time.TimeImpl;
 
 /**
@@ -75,6 +77,16 @@ public interface Controller {
      * @param amount the value to subtract
      */
     void subtractToBalance(double amount);
+
+    /**
+     * @return 
+     */
+    AdderManager getAdderManagerModel();
+
+    /**
+     * @return
+     */
+    SubtractorManager getSubtractorManagerModel();
 
     /**
      * It does the order of the client
