@@ -15,6 +15,8 @@ import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
+import it.unibo.model.impl.Time.TimeImpl;
+
 import java.beans.*;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -28,7 +30,9 @@ public class ControllerImpl implements Controller {
     private final PreparationZone preparationZone;
     private final Client client = new ClientImpl();
     private ClientImpl.Order order;
+    private TimeImpl time = new TimeImpl();
     private final ClientThread clientThread;
+    private PropertyChangeSupport support;
     private PropertyChangeSupport propertyChangeSupport;
     
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -37,10 +41,6 @@ public class ControllerImpl implements Controller {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         this.clientThread = new ClientThread(this);
         this.clientThread.start();
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
     protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
@@ -131,6 +131,31 @@ public class ControllerImpl implements Controller {
             menu.add(pizza.toString());
         }
         return menu;
+    }
+
+    @Override
+    public int getWorkingDay() {
+        return TimeImpl.getWorkingDay();
+    }
+
+    @Override
+    public String getHourAndMin() {
+        return time.getHourAndMin();
+    }
+
+    @Override
+    public TimeImpl getTimeModel() {
+        return this.time;
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    @Override
+    public void newDay() {
+        this.time.newDay();
     }
 
 }

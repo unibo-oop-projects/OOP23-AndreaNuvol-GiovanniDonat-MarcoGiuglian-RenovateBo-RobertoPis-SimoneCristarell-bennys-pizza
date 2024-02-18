@@ -8,6 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.controller.impl.ClientThread;
 import it.unibo.model.api.PreparationZone;
+import it.unibo.model.impl.Time.TimeImpl;
 
 /**
  * Controller interface
@@ -95,10 +96,34 @@ public interface Controller {
      * @return a list of string with name, ingredients and cost for each pizza in menu
      */
     List<String> getMenu();
-
     
     /**
      * @return the thread of the client
      */
     ClientThread getClientThread();
+
+    /**
+     * @return the number of days Benny worked
+     */
+    int getWorkingDay();
+
+    /**
+     * @return a string to show hour and minutes of the day
+     */
+    String getHourAndMin();
+
+    /**
+     * @return the model of time
+     */
+    TimeImpl getTimeModel();
+
+    /**
+     * It sets everything for a new day
+     */
+    void newDay();
+
+    /**
+     * It allows to update the view when the model changes
+     */
+    void addPropertyChangeListener(PropertyChangeListener pcl);
 }
