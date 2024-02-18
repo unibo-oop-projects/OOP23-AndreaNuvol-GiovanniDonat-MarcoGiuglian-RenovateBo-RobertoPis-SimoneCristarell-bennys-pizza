@@ -3,6 +3,8 @@ package it.unibo.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
@@ -10,15 +12,14 @@ import javax.swing.*;
 import java.util.Random;
 import javax.swing.border.EmptyBorder;
 import java.util.Optional;
-import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public class GUIHallImpl {
+public class GUIHallImpl implements PropertyChangeListener {
 
     final static String SEP = File.separator;
-    private Controller controller;
+    private ControllerImpl controller;
     private static final String BALANCE_TOT = "Balance tot: ";
     private static final String BALANCE_DAY = "Balance day: ";
     private static final String MENU_STRING = "MENU - BENNY'S PIZZA";
@@ -39,12 +40,22 @@ public class GUIHallImpl {
     final static int MENU_BUTTON_HEIGHT = (int)(height * 0.08);
     final static int MENU_TXTAREA_WIDTH = (int)(width * 0.85);
     final static int MENU_TXTAREA_HEIGHT = (int)(height * 0.63);
-    JLabel balanceTotLabel, balanceDayLabel;
+    
+    JLabel balanceTotLabel = new JLabel();
+    JLabel balanceDayLabel = new JLabel();
+    private StringBuilder sb = new StringBuilder();
+    JLabel clockLabel = new JLabel();
+    JPanel clockImagePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+    JLabel dayLabel = new JLabel();
+    JPanel dayImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
 
     public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
         UpdateThread updateThread = new UpdateThread(this, controller);
         updateThread.start();
+        createStringBuilderMenu();
         
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame("BENNY'S PIZZA");
@@ -90,6 +101,12 @@ public class GUIHallImpl {
         }
     }
 
+    private void createStringBuilderMenu() {
+        for(final String pizza : controller.getMenu()) {
+            this.sb.append(pizza + "\n");
+        }
+    }
+
     public void displayMenu(final ImagePanel imagePanel, final JFrame background) {
         JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
@@ -102,20 +119,16 @@ public class GUIHallImpl {
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringBuilder sb = new StringBuilder();
-                for(final String pizza : controller.getMenu()) {
-                    sb.append(pizza + "\n");
-                }
 
                 JOptionPane.showOptionDialog(
-                null,
-                sb,
-                MENU_STRING,
-                JOptionPane.CLOSED_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null, 
-                null,
-                null
+                    null,
+                    sb,
+                    MENU_STRING,
+                    JOptionPane.CLOSED_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null, 
+                    null,
+                    null
                 );
             }
         });
@@ -126,6 +139,7 @@ public class GUIHallImpl {
         balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
         setPanelAttributes(balanceLabelsPanel);
         controller.addToBalance(5);
+
         balanceTotLabel = new JLabel(BALANCE_TOT + Double.toString(controller.getBalanceTot()));
         balanceDayLabel = new JLabel(BALANCE_DAY + Double.toString(controller.getBalanceDay()));
         Font fontLabelBalanceTot = balanceTotLabel.getFont().deriveFont(Font.BOLD, 20);
@@ -136,8 +150,7 @@ public class GUIHallImpl {
         balanceLabelsPanel.add(balanceDayLabel);
         imagePanel.add(balanceLabelsPanel, BorderLayout.NORTH);
         background.setVisible(true);
-
-    }
+        }
 
     private void setPanelAttributes(final JPanel panel) {
         panel.setOpaque(false);
@@ -173,31 +186,30 @@ public class GUIHallImpl {
     }
 
     private void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
-        JPanel clockPanel = new JPanel(new BorderLayout());
-        setPanelAttributes(clockPanel);
+        setPanelAttributes(clockImagePanel);
+        
+        this.controller.newDay();
+        this.controller.getTimeModel().addPropertyChangeListener(this);
 
-        JLabel clockLabel = new JLabel("Ora : Minuti");
         clockLabel.setFont(new Font("Arial", Font.BOLD, 25));
+
         clockLabel.setSize(300, 300); // da rendere portabile!!
 
-        clockPanel.add(clockLabel, BorderLayout.EAST);
-        imagePanel.add(clockPanel, BorderLayout.NORTH);
+        clockImagePanel.add(clockLabel); 
+        imagePanel.add(clockImagePanel, BorderLayout.NORTH);
         
         background.setVisible(true);
     }
 
     private void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
-        JPanel workingDayPanel = new JPanel(new GridBagLayout());
-        setPanelAttributes(workingDayPanel);
+        setPanelAttributes(dayImagePanel);
     
-        JLabel workingDayLabel = new JLabel("Numero giornata");
-        workingDayLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        workingDayLabel.setSize(300, 300); // da rendere portabile!!
-    
-        GridBagConstraints gbc = new GridBagConstraints();
-    
-        workingDayPanel.add(workingDayLabel, gbc);
-        imagePanel.add(workingDayPanel, BorderLayout.NORTH);
+        dayLabel.setText(String.valueOf(this.controller.getWorkingDay()));
+        dayLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        dayLabel.setSize(300, 300); // da rendere portabile!!
+        
+        dayImagePanel.add(dayLabel);
+        imagePanel.add(dayImagePanel, BorderLayout.NORTH);
         
         background.setVisible(true);
     }
@@ -231,6 +243,22 @@ public class GUIHallImpl {
     private int randomIndexClientImage(){
         Random random = new Random();
         return random.nextInt(3) + 1;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        switch (evt.getPropertyName()) {
+            case "time":
+                SwingUtilities.invokeLater(() -> clockLabel.setText(controller.getHourAndMin()));
+                break;
+
+            case "day" :
+                SwingUtilities.invokeLater(() -> clockLabel.setText((String.valueOf(controller.getWorkingDay()))));
+                break;
+        
+            default:
+                break;
+        }
     }
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
