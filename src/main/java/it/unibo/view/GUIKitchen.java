@@ -23,7 +23,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -54,11 +53,13 @@ public class GUIKitchen {
 
         final JPanel lowPanel = new JPanel(new BorderLayout());
         lowPanel.setOpaque(false);
+
+        final JPanel lowEastPanel = new JPanel();
+        lowEastPanel.setOpaque(false);
         final Image garbageBin = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + "GarbageBin.png");
         final JButton btnGarbageBin = new JButton();
-        displayGarbageBinButton(btnGarbageBin, garbageBin, frame.getWidth(), frame.getHeight(), lowPanel);
-        lowPanel.add(btnGarbageBin, BorderLayout.EAST);
-        imagePanel.add(lowPanel, BorderLayout.SOUTH);
+        displayGarbageBinButton(btnGarbageBin, garbageBin, frame.getWidth(), frame.getHeight(), lowEastPanel);
+        lowEastPanel.add(btnGarbageBin);
 
         final JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.setOpaque(false);
@@ -112,6 +113,14 @@ public class GUIKitchen {
         displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel);
         centralPanel.add(centralSouthPanel, BorderLayout.SOUTH);
 
+        final JPanel lowWestPanel = new JPanel();
+        lowWestPanel.setOpaque(false);
+        final JButton btnOven = new JButton("Clean");
+        btnClean.setBackground(new Color(195, 195, 195, 255));
+        lowWestPanel.add(btnClean);
+        displayOven(btnClean, frame.getWidth(), frame.getHeight(), lowWestPanel);
+        lowPanel.add(lowWestPanel, BorderLayout.WEST);
+
         final JPanel centralCentralPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
         centralCentralPanel.setOpaque(false);
         final Image choppingBoardImg = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + "ChoppingBoard.png");
@@ -122,6 +131,7 @@ public class GUIKitchen {
         centralCentralPanel.add(lblChoppingBoard2);
         centralPanel.add(centralCentralPanel, BorderLayout.CENTER);
         imagePanel.add(centralPanel, BorderLayout.CENTER);
+        imagePanel.add(lowPanel, BorderLayout.SOUTH);
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override
@@ -129,11 +139,11 @@ public class GUIKitchen {
                 int width = frame.getContentPane().getWidth();
                 int height = frame.getContentPane().getHeight();
                 displayInfoLabels(imagePanel, width);
-                displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowPanel);
+                displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowEastPanel);
                 displaySupplyComponents(width, height, comboBox, btnSupply, btnAdd, centralNorthPanel);
                 displayEndingKitchen(btnEndingKitchen, width, height, rightPanel);
                 displayOven(btnOven, width, height, centralSouthPanel);
-                imagePanel.validate();
+                displayClean(btnClean, width, height, lowWestPanel);
             }
         });
 
@@ -153,8 +163,8 @@ public class GUIKitchen {
         bin.setSize(new Dimension((int)(width * 0.08), (int)(height * 0.15)));
         bin.setIcon(new ImageIcon(garbageBin
             .getScaledInstance((int)(bin.getWidth()-10), (int)(bin.getHeight()-5), 0)));
-        lowPanel.setBorder(new EmptyBorder((int)(height*0.01), (int)(width*0.2),
-            (int)(height*0.09), (int)(width*0.12)));
+        lowPanel.setBorder(new EmptyBorder((int)(height*0.01), (int)(width*0.05),
+            (int)(height*0.04), (int)(width*0.05)));
         bin.setBackground(new Color(195, 195, 195, 255));
         bin.setBorderPainted(false);
         lowPanel.validate();
@@ -185,6 +195,12 @@ public class GUIKitchen {
         centralSouthPanel.validate();
     }
 
+    private void displayClean(final JButton cleanerButton, final int width, final int height, final JPanel lowWestPanel) {
+        cleanerButton.setSize(new Dimension((int)(width*0.1), (int)(height*0.05)));
+        lowWestPanel.setBorder(new EmptyBorder((int)(height*0.05), (int)(width*0.07), 
+            (int)(height*0.05), (int)(width*0.05)));
+        lowWestPanel.validate();
+    }
     public void start() {
         frame.setVisible(true);
     }
