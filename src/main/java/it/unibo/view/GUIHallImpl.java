@@ -3,6 +3,8 @@ package it.unibo.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -77,32 +79,33 @@ public class GUIHallImpl implements PropertyChangeListener {
             displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
-            displayOrder(imagePanel);
+            displayOrder(imagePanel, background);
         });
     }
 
-    private void displayOrder(final ImagePanel imagePanel){
+    private void displayOrder(final ImagePanel imagePanel, final JFrame background){
         Pair<String, Optional<String>> order = controller.getClientThread().getOrder();
         String pizzaOrder = order.getLeft();
         Optional<String> optionalSecondPizza = order.getRight();
+        JPanel pizzaPanel = new JPanel();
+        pizzaPanel.setLayout(new BoxLayout(pizzaPanel, BoxLayout.Y_AXIS));
+        JLabel pizzaLabel1 = new JLabel(pizzaOrder);
+        pizzaPanel.add(pizzaLabel1);
+        
         if(optionalSecondPizza.isPresent()){
-            pizzaOrder += "\n" + optionalSecondPizza.get();
+            JLabel pizzaLabel2 = new JLabel(optionalSecondPizza.get());
+            pizzaPanel.add(pizzaLabel2);
         }
-        Object[] options = {"OK"};
-        int res = JOptionPane.showOptionDialog(
-            null,
-            pizzaOrder,
-            MENU_STRING,
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.INFORMATION_MESSAGE,
-            null,
-            options,
-            options[0]
-        );
-        if(res == JOptionPane.OK_OPTION){
-            // qui passa alla cucina 
-            controller.addToBalance(55);
-        }
+
+        CustomDialog dialog = new CustomDialog(null, "Order", "");
+        dialog.add(pizzaPanel, BorderLayout.CENTER);
+        dialog.setCloseListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Azione da eseguire quando viene chiusa la finestra di dialogo
+                controller.addToBalance(55);
+            }
+        });
+        dialog.setVisible(true);
     }
 
     private void createStringBuilderMenu() {
@@ -118,8 +121,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         setMenuButtonAttributes(menuButton);
         menuPanel.add(menuButton, BorderLayout.EAST);
         imagePanel.add(menuPanel, BorderLayout.SOUTH);
-        background.setVisible(true); // da mettere false quando si passa alla schermata della cucina 
-
+        background.setVisible(true); // to be set to false when switching to the kitchen screen
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -266,5 +268,4 @@ public class GUIHallImpl implements PropertyChangeListener {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         new GUIHallImpl(new ControllerImpl());
     }
-
 }
