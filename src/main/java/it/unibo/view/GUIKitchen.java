@@ -62,7 +62,7 @@ public class GUIKitchen {
         final JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.setOpaque(false);
 
-        final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, (int)(frame.getWidth()*0.001), (int)(frame.getHeight()*0.01)));
+        final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, (int)(frame.getWidth()*0.002), (int)(frame.getHeight()*0.01)));
         centralNorthPanel.setOpaque(false);
         final JLabel lblSelect = new JLabel("Select the ingredient to supply:");
         centralNorthPanel.add(lblSelect);
@@ -95,7 +95,7 @@ public class GUIKitchen {
         displaySupplyComponents(frame.getWidth(), frame.getHeight(), comboBox, btnSupply, btnAdd, centralNorthPanel);
         centralPanel.add(centralNorthPanel, BorderLayout.NORTH);
 
-        final JPanel rightPanel = new JPanel();
+        final JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.setOpaque(false);
         final JButton btnEndingKitchen = new JButton("Ready");
         btnEndingKitchen.setBackground(new Color(255, 255, 255, 255));
@@ -111,7 +111,8 @@ public class GUIKitchen {
         btnOven.setBorderPainted(false);
         centralSouthPanel.add(btnOven);
         displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel);
-        centralPanel.add(centralSouthPanel, BorderLayout.SOUTH);
+        centralPanel.add(centralSouthPanel);
+
         imagePanel.add(centralPanel, BorderLayout.CENTER);
 
         frame.addComponentListener(new ComponentAdapter() {
@@ -140,14 +141,15 @@ public class GUIKitchen {
     }
 
     private void displayGarbageBinButton(final JButton bin, final Image garbageBin, final int width, final int height, final JPanel lowPanel) {
-        bin.setPreferredSize(new Dimension((int)(width * 0.08), (int)(height * 0.005)));
+        //bin.setPreferredSize(new Dimension((int)(width * 0.08), (int)(height * 0.005)));
         bin.setSize(new Dimension((int)(width * 0.08), (int)(height * 0.15)));
         bin.setIcon(new ImageIcon(garbageBin
             .getScaledInstance((int)(bin.getWidth()-10), (int)(bin.getHeight()-5), 0)));
-        lowPanel.setBorder(new EmptyBorder((int)(height*0.02), (int)(width*0.2),
-            (int)(height*0.25), (int)(width*0.12)));
+        lowPanel.setBorder(new EmptyBorder((int)(height*0.01), (int)(width*0.2),
+            (int)(height*0.09), (int)(width*0.12)));
         bin.setBackground(new Color(195, 195, 195, 255));
         bin.setBorderPainted(false);
+        lowPanel.validate();
     }
 
     private void displaySupplyComponents(final int width, final int height, final JComboBox<String> comboBox, final JButton btnSupply, final JButton btnAdd, final JPanel centralNorthPanel) {
@@ -163,16 +165,19 @@ public class GUIKitchen {
     }
 
     private void displayEndingKitchen(final JButton endButton, final int width, final int height, final JPanel rightPanel) {
-        endButton.setPreferredSize(new Dimension((int)(width*0.005), (int)(height*0.05)));
-        endButton.setSize(new Dimension((int)(width*0.1), (int)(height*0.05)));
-        rightPanel.setBorder(new EmptyBorder((int)(height*0.458), (int)(width*0.05), 
-            (int)(height*0.2), (int)(width*0.22)));
+        //endButton.setPreferredSize(new Dimension((int)(width*0.005), (int)(height*0.05)));
+        endButton.setSize(new Dimension((int)(width*0.08), (int)(height*0)));
+        rightPanel.setBorder(new EmptyBorder((int)(height*0.48), (int)(width*0.13), 
+            (int)(height*0.1), (int)(width*0.152)));
+        endButton.validate();
+        rightPanel.validat();
     }
 
     private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel) {
-        ovenButton.setSize(new Dimension((int)(width*0.075), (int)(height*0.05)));
-        centralSouthPanel.setBorder(new EmptyBorder((int)(height*0.05), (int)(width*0.49), 
-            (int)(height*0.08), (int)(width*0.6)));
+        ovenButton.setSize(new Dimension((int)(width*0.08), (int)(height*0.05)));
+        centralSouthPanel.setBorder(new EmptyBorder((int)(height*0.493), (int)(width*0.823), 
+            (int)(height*0.05), (int)(width*0.42)));
+            centralSouthPanel.validate();
     }
 
     public void start() {
