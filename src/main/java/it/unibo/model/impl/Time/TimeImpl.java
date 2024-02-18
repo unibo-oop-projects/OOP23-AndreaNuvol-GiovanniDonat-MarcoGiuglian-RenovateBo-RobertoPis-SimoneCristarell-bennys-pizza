@@ -1,6 +1,7 @@
 package it.unibo.model.impl.Time;
 
 import java.util.*;
+import java.beans.*;
 
 import it.unibo.model.impl.Management.AbstractManager;
 
@@ -18,35 +19,41 @@ public class TimeImpl {
     private int hour;
     private int min;
     private Timer timer;
+    private PropertyChangeSupport support;
+
+    public void incrementTime() {
+        if(min == 45) {
+            min = 0;
+            hour++;
+        } else {
+            min += 15;
+        }
+        
+        if(isEndOfDay()) {
+            timer.cancel();
+            if(AbstractManager.levelPassed()) {
+                workingDays++;
+                AbstractManager.addBalanceTot();
+                support.firePropertyChange("day", null, TimeImpl.getWorkingDay());
+            }
+            AbstractManager.resetBalanceDay();
+        }
+        support.firePropertyChange("time", null, this.getHourAndMin());
+    }
 
     private void startTimeForNewDay() {
-        TimerTask task = new TimerTask() {
+        timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
-                if(min == 45) {
-                    min = 0;
-                    hour++;
-                } else {
-                    min += 15;
-                }
-
-                if(isEndOfDay()) {
-                    timer.cancel();
-                    if(AbstractManager.levelPassed()) {
-                        workingDays++;
-                        AbstractManager.addBalanceTot();
-                    }
-                    AbstractManager.resetBalanceDay();
-                }
+                incrementTime();
             }
             
-        };
-
-        timer.scheduleAtFixedRate(task, 0, TIME_FOR_15_MINUTES);
+        }, 0, TIME_FOR_15_MINUTES);
     }
 
     public void newDay() {
+        this.support = new PropertyChangeSupport(this);
         this.hour = STARTING_HOUR;
         this.min = STARTING_MIN;
         this.timer = new Timer();
@@ -61,11 +68,23 @@ public class TimeImpl {
         return workingDays;
     }
 
-    public int getHour() {
+    private int getHour() {
         return this.hour;
     }
 
-    public int getMin() {
+    private int getMin() {
         return this.min;
+    }
+
+    public String getHourAndMin() {
+        return new String(this.getHour() + " : " + this.getMin());
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
     }
 }
