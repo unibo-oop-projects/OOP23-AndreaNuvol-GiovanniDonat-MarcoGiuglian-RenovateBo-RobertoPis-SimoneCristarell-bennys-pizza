@@ -15,9 +15,11 @@ import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -69,8 +71,8 @@ public class GUIKitchen {
         centralNorthPanel.setOpaque(false);
         final JLabel lblSelect = new JLabel("Select the ingredient to supply:");
         centralNorthPanel.add(lblSelect);
-        final String[] items = { "Anchovies", "Artichokes", "CherryTomatoes", "Dough", "Fontina", "FrenchFries", "Gorgonzola",
-            "Ham", "Mozzarella", "Mushrooms", "Olives", "Onions", "Parmesan", "Salami", "Sausages", "TomatoeSauce", "Tuna", "Wurstel" };
+        final String[] items = { "Anchovies", "Artichokes", "CherryTomatoes", "Fontina", "FrenchFries", "Gorgonzola",
+            "Ham", "Wurstel", "Mushrooms", "Olives", "Onions", "Parmesan", "Salami", "Sausages", "Tuna", "Mozzarella", "TomatoeSauce", "Dough" };
         final JComboBox<String> comboBox = new JComboBox<>(items);
 
         final Map<String, ImageIcon> itemImageMap = new HashMap<>();
@@ -124,15 +126,23 @@ public class GUIKitchen {
 
         final JPanel centralCentralPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         centralCentralPanel.setOpaque(false);
-        final Image choppingBoardImg = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + 
-            "ChoppingBoard.png").getScaledInstance((int)(frame.getWidth()*0.22), (int)(frame.getHeight()*0.4), 0);
-        final JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardImg));
-        final JLabel lblChoppingBoard2 = new JLabel(new ImageIcon(choppingBoardImg));
-        centralCentralPanel.setBorder(new EmptyBorder(0, 50, 0, 0));
-        centralCentralPanel.add(lblChoppingBoard);
-        centralCentralPanel.add(lblChoppingBoard2);
         centralPanel.add(centralCentralPanel, BorderLayout.CENTER);
 
+        final JPanel blockPizza1 = new JPanel();
+        blockPizza1.setOpaque(false);
+        final JPanel blockPizza2 = new JPanel();
+        blockPizza1.setBorder(new EmptyBorder(0, 0, (int)(frame.getHeight()*0.1), 0));
+        blockPizza2.setBorder(new EmptyBorder(0, 0, (int)(frame.getHeight()*0.1), 0));
+        blockPizza2.setOpaque(false);
+        blockPizza1.setLayout(new BoxLayout(blockPizza1, BoxLayout.Y_AXIS));
+        blockPizza2.setLayout(new BoxLayout(blockPizza2, BoxLayout.Y_AXIS));
+
+        displayIngredients(items, blockPizza1);
+        displayIngredients(items, blockPizza2);
+        
+        centralCentralPanel.add(blockPizza1);
+        centralCentralPanel.add(blockPizza2);
+        centralCentralPanel.setBorder(new EmptyBorder(0, (int)(frame.getWidth()*0.07), 200, 0));
         imagePanel.add(centralPanel, BorderLayout.CENTER);
         imagePanel.add(lowPanel, BorderLayout.SOUTH);
 
@@ -151,6 +161,38 @@ public class GUIKitchen {
         });
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void displayIngredients(final String[] items, final JPanel blockPizza) {
+        ImageIcon choppingBoardIcon = new ImageIcon(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + 
+        "ChoppingBoard.png");
+        final JPanel ingredientsPanel = new JPanel(null);
+        ingredientsPanel.setPreferredSize(new Dimension((int)(frame.getWidth()*0.2), (int)(frame.getHeight()*0.32)));
+        ingredientsPanel.setOpaque(false);
+        for (final var name: items) {
+            final ImageIcon ingredientIcon = new ImageIcon(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "ingredientsImages" + SEP + name + ".png");
+            final JLabel ingredientLabel;
+            switch (name) {
+                case "Dough" -> { 
+                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.16), (int)(frame.getHeight()*0.25), 0)));
+                }
+                case "TomatoSauce" -> {
+                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.18), (int)(frame.getHeight()*0.28), 0)));
+                }
+                default -> {
+                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.18), (int)(frame.getHeight()*0.28), 0)));
+                }
+            }
+            ingredientLabel.setBounds(0, 0, (int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3));
+            ingredientsPanel.add(ingredientLabel);
+        }
+        JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3), 0)));
+        lblChoppingBoard.setBounds(0, 0, (int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3));
+        ingredientsPanel.add(lblChoppingBoard);
+        blockPizza.add(ingredientsPanel);
+        final JCheckBox pizza1 = new JCheckBox();
+        pizza1.setOpaque(false);
+        blockPizza.add(pizza1);
     }
 
     private void displayInfoLabels(final ImagePanel imagePanel, final int width) {
@@ -182,7 +224,7 @@ public class GUIKitchen {
         btnAdd.setPreferredSize(new Dimension((int)(width * 0.04), (int)(height * 0.035)));
         btnAdd.setBorder(new LineBorder(Color.DARK_GRAY, 1));
         centralNorthPanel.setBorder(new EmptyBorder((int)(height*0.012), (int)(width*0.04), 
-        (int)(height*0.09), (int)(width*0.12)));
+        (int)(height*0.05), (int)(width*0.12)));
     }
 
     private void displayEndingKitchen(final JButton endButton, final int width, final int height, final JPanel rightPanel) {
