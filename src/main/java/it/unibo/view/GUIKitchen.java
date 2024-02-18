@@ -87,7 +87,7 @@ public class GUIKitchen {
                     ImageIcon icon = new ImageIcon(itemImageMap.get((String) value).getImage().getScaledInstance(80, 80, 0));
                     // Set the icon and text for the label
                     label.setIcon(icon);
-                    label.setText((String) value);
+                    label.setText((String) value + "  Q: " + controller.getIngredientQuantity((String)value));
                     return label;
                 }
         });
@@ -185,6 +185,7 @@ public class GUIKitchen {
             }
             ingredientLabel.setBounds(0, 0, (int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3));
             ingredientsPanel.add(ingredientLabel);
+            ingredientLabel.setVisible(false);
         }
         JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3), 0)));
         lblChoppingBoard.setBounds(0, 0, (int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3));

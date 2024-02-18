@@ -50,4 +50,14 @@ public class ControllerImpl implements Controller {
         this.preparationZone.getOven().bakingPizza();
     }
 
+    @Override
+    public int getIngredientQuantity(String ingredientName) {
+        for (final var ingredient: this.preparationZone.getIngredientsQuantities().keySet()) {
+            if (ingredient.toString().equals(ingredientName)) {
+                return ingredient.getQuantity();
+            }
+        }
+        return -1;
+    }
+
 }
