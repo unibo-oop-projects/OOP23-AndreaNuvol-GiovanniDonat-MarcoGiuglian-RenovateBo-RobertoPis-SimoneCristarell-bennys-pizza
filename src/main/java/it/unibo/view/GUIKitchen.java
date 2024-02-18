@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
@@ -24,6 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -42,6 +45,9 @@ public class GUIKitchen {
     private final int screenHeight = (int)screenSize.getHeight();
 
     private final JFrame frame = new JFrame("KITCHEN");
+
+    private final Map<String, JLabel> ingredientLabelsMapPizza1 = new HashMap<>();
+    private final Map<String, JLabel> ingredientLabelsMapPizza2 = new HashMap<>();
 
     public GUIKitchen(final Controller controller) {
         frame.setSize(screenWidth, screenHeight);
@@ -136,9 +142,12 @@ public class GUIKitchen {
         blockPizza2.setOpaque(false);
         blockPizza1.setLayout(new BoxLayout(blockPizza1, BoxLayout.Y_AXIS));
         blockPizza2.setLayout(new BoxLayout(blockPizza2, BoxLayout.Y_AXIS));
+        final JCheckBox pizza1 = new JCheckBox();
+        final JCheckBox pizza2 = new JCheckBox();
 
-        displayIngredients(items, blockPizza1);
-        displayIngredients(items, blockPizza2);
+
+        displayIngredients(items, blockPizza1, pizza1);
+        displayIngredients(items, blockPizza2, pizza2);
         
         centralCentralPanel.add(blockPizza1);
         centralCentralPanel.add(blockPizza2);
@@ -161,9 +170,92 @@ public class GUIKitchen {
         });
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        btnGarbageBin.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkSelectedBox(pizza1, pizza2);
+                if (pizza1.isSelected()) {
+                    for (var ingredient : controller.getPreparationZone().getPizza1().getAddedIngredients()) {
+                        if(ingredientLabelsMapPizza1.get(ingredient.toString()).isVisible()) {
+                            ingredientLabelsMapPizza1.get(ingredient.toString()).setVisible(false);
+                        }
+                    }
+                    controller.throwPizzaInGarbageBin(true);
+                }
+                if (pizza2.isSelected()) {
+                    for (var ingredient : controller.getPreparationZone().getPizza2().getAddedIngredients()) {
+                        if(ingredientLabelsMapPizza2.get(ingredient.toString()).isVisible()) {
+                            ingredientLabelsMapPizza2.get(ingredient.toString()).setVisible(false);
+                        }
+                    }
+                    controller.throwPizzaInGarbageBin(false);
+                }
+            }
+            
+        });
+
+        btnAdd.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkSelectedBox(pizza1, pizza2);
+                if (pizza1.isSelected()) {
+                    controller.addIngredient(comboBox.getSelectedItem().toString(), true);
+                    ingredientLabelsMapPizza1.get(comboBox.getSelectedItem().toString()).setVisible(true);
+                }
+                if (pizza2.isSelected()) {
+                    controller.addIngredient(comboBox.getSelectedItem().toString(), false);
+                    ingredientLabelsMapPizza2.get(comboBox.getSelectedItem().toString()).setVisible(true);
+                }
+            }
+            
+        });
+
+        btnEndingKitchen.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+            
+        });
+
+        btnSupply.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.supply(comboBox.getSelectedItem().toString());
+            }
+            
+        });
+
+        btnOven.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkSelectedBox(pizza1, pizza2);
+                if (pizza1.isSelected()) {
+                    controller.bakingPizza();
+                    JOptionPane.showMessageDialog(frame, "Pizza number 1 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+                }
+                if (pizza2.isSelected()) {
+                    controller.bakingPizza();
+                    JOptionPane.showMessageDialog(frame, "Pizza number 2 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            
+        });
     }
 
-    private void displayIngredients(final String[] items, final JPanel blockPizza) {
+    private void checkSelectedBox(final JCheckBox pizza1, final JCheckBox pizza2) {
+        if (!pizza1.isSelected() && !pizza2.isSelected()) {
+            JOptionPane.showMessageDialog(frame, "You have to select at least one pizza!", "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void displayIngredients(final String[] items, final JPanel blockPizza, final JCheckBox pizza) {
         ImageIcon choppingBoardIcon = new ImageIcon(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + 
         "ChoppingBoard.png");
         final JPanel ingredientsPanel = new JPanel(null);
@@ -183,6 +275,11 @@ public class GUIKitchen {
                     ingredientLabel = new JLabel(new ImageIcon(ingredientIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.18), (int)(frame.getHeight()*0.28), 0)));
                 }
             }
+            if (ingredientLabelsMapPizza1.size() < 18) {
+                ingredientLabelsMapPizza1.put(name, ingredientLabel);
+            } else {
+                ingredientLabelsMapPizza2.put(name, ingredientLabel);
+            }
             ingredientLabel.setBounds(0, 0, (int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3));
             ingredientsPanel.add(ingredientLabel);
             ingredientLabel.setVisible(false);
@@ -191,9 +288,8 @@ public class GUIKitchen {
         lblChoppingBoard.setBounds(0, 0, (int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3));
         ingredientsPanel.add(lblChoppingBoard);
         blockPizza.add(ingredientsPanel);
-        final JCheckBox pizza1 = new JCheckBox();
-        pizza1.setOpaque(false);
-        blockPizza.add(pizza1);
+        pizza.setOpaque(false);
+        blockPizza.add(pizza);
     }
 
     private void displayInfoLabels(final ImagePanel imagePanel, final int width) {
