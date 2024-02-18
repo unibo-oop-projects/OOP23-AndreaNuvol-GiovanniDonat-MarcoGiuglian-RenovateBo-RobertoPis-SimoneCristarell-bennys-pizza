@@ -259,9 +259,6 @@ public class GUIHallImpl implements PropertyChangeListener {
             case "balanceTot" :
                 SwingUtilities.invokeLater(() -> balanceTotLabel.setText(BALANCE_TOT + String.valueOf(controller.getBalanceTot()) + CURRENCY));
                 break;
-
-            default:
-                break;
         }
     }
 
