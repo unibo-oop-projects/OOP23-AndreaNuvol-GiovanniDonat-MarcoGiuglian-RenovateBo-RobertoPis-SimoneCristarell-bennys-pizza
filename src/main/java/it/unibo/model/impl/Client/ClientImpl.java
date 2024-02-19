@@ -71,6 +71,11 @@ public class ClientImpl implements Client{
         
     }
 
+    @Override
+    public Order getOrder() {
+        return this.order;
+    }
+
     private int nPizzeToOrder(){
         final int min = 1, max = 2;
         return random.nextInt(max + 1 - min) + min;

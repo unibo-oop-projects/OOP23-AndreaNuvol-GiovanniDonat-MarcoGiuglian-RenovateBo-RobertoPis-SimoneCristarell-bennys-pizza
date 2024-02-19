@@ -184,4 +184,9 @@ public class ControllerImpl implements Controller {
         this.preparationZone.resetPizzaPreparation();
     }
 
+    @Override
+    public Pair<Pizza, Optional<Pizza>> getOrder() {
+        return this.client.getOrder().getOrderPizzas();
+    }
+
 }

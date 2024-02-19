@@ -56,7 +56,7 @@ public class GUIKitchen {
         frame.getContentPane().add(imagePanel, BorderLayout.CENTER);
         imagePanel.setLayout(new BorderLayout());
 
-        displayInfoLabels(imagePanel, frame.getWidth());
+        displayInfoLabels(imagePanel, frame.getWidth(), controller);
 
         final JPanel lowPanel = new JPanel(new BorderLayout());
         lowPanel.setOpaque(false);
@@ -159,7 +159,7 @@ public class GUIKitchen {
             public void componentResized(final ComponentEvent e) {
                 int width = frame.getContentPane().getWidth();
                 int height = frame.getContentPane().getHeight();
-                displayInfoLabels(imagePanel, width);
+                displayInfoLabels(imagePanel, width, controller);
                 displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowEastPanel);
                 displaySupplyComponents(width, height, comboBox, btnSupply, btnAdd, centralNorthPanel);
                 displayEndingKitchen(btnEndingKitchen, width, height, rightPanel);
@@ -321,13 +321,32 @@ public class GUIKitchen {
         blockPizza.add(pizza);
     }
 
-    private void displayInfoLabels(final ImagePanel imagePanel, final int width) {
-        final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int)(width / 5), 10));
+    private void displayInfoLabels(final ImagePanel imagePanel, final int width, final Controller controller) {
+        final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int)(width / 15), 10));
         final JLabel lblDay = new JLabel("Day: 16/02/2024");
+        final JLabel lblTime = new JLabel("18:15");
+        final JLabel lblBalance = new JLabel("Balance: 50€");
+        final JButton btnShowOrder = new JButton("Show client's order");
+        btnShowOrder.setPreferredSize(new Dimension(150, 21));
+        btnShowOrder.setBackground(Color.WHITE);
+        highPanel.setBorder(new EmptyBorder(-3, 0, 0, 0));
+        highPanel.add(btnShowOrder);
         highPanel.add(lblDay);
-        highPanel.add(new JLabel("18:15"));
-        highPanel.add(new JLabel("Balance: 50€"));
+        highPanel.add(lblTime);
+        highPanel.add(lblBalance);
         imagePanel.add(highPanel, BorderLayout.NORTH);
+
+        final String order = controller.getOrder().getLeft().getName() + "\n" + controller.getOrder().getLeft().getIngredients() + "\n\n" +
+            (controller.getOrder().getRight().isPresent() ? controller.getOrder().getRight().get().getName() + "\n" + controller.getOrder().getRight().get().getIngredients() : "");
+
+        btnShowOrder.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(frame, order, "ORDER", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        });
     }
 
     private void displayGarbageBinButton(final JButton bin, final Image garbageBin, final int width, final int height, final JPanel lowPanel) {
