@@ -336,8 +336,8 @@ public class GUIKitchen {
         highPanel.add(lblBalance);
         imagePanel.add(highPanel, BorderLayout.NORTH);
 
-        final String order = controller.getOrder().getLeft().getName() + "\n" + controller.getOrder().getLeft().getIngredients() + "\n\n" +
-            (controller.getOrder().getRight().isPresent() ? controller.getOrder().getRight().get().getName() + "\n" + controller.getOrder().getRight().get().getIngredients() : "");
+        final String order = controller.getClientThread().getOrder().getLeft() + "\n\n" +
+            (controller.getClientThread().getOrder().getRight().isPresent() ? controller.getClientThread().getOrder().getRight().get() + "\n" : "");
 
         btnShowOrder.addActionListener(new ActionListener() {
 

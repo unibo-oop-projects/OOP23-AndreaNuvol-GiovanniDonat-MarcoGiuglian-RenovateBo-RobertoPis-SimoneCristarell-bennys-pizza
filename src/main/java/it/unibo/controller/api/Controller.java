@@ -104,7 +104,7 @@ public interface Controller {
      * It does the order of the client
      * @return a pair of two strings, second string can be empty if the client ordered only 1 pizza
      */
-    Pair<String, Optional<String>> order();
+    Pair<Pizza, Optional<Pizza>> order();
 
     /**
      * It pays the amount to pay
@@ -150,6 +150,4 @@ public interface Controller {
      * It allows to update the view when the model changes
      */
     void addPropertyChangeListener(PropertyChangeListener pcl);
-
-    Pair<Pizza, Optional<Pizza>> getOrder();
 }

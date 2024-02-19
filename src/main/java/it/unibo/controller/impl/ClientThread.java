@@ -6,11 +6,13 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import org.apache.commons.lang3.tuple.Pair;
 
+import it.unibo.model.impl.Menu.MenuImpl.Pizza;
+
 public class ClientThread extends Thread{
     private final ControllerImpl controller;
     private final Lock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
-    private Pair<String, Optional<String>> orderedPizzas;
+    private Pair<Pizza, Optional<Pizza>> orderedPizzas;
 
     public ClientThread(ControllerImpl controller){
         this.controller = controller;
@@ -34,7 +36,7 @@ public class ClientThread extends Thread{
     }
 
 
-    public Pair<String, Optional<String>> getOrder(){
+    public Pair<Pizza, Optional<Pizza>> getOrder(){
         return orderedPizzas;
     }
 
