@@ -171,10 +171,11 @@ public class GUIKitchen {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        
         btnGarbageBin.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
                 checkSelectedBox(pizza1, pizza2);
                 if (pizza1.isSelected()) {
                     for (var ingredient : controller.getPreparationZone().getPizza1().getAddedIngredients()) {
@@ -192,7 +193,12 @@ public class GUIKitchen {
                     }
                     controller.throwPizzaInGarbageBin(false);
                 }
+            } catch (Exception bottonGarbageBinEcxeption) {
+                JOptionPane.showMessageDialog(frame, bottonGarbageBinEcxeption.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
             }
+        }
+
             
         });
 
@@ -200,6 +206,7 @@ public class GUIKitchen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
                 checkSelectedBox(pizza1, pizza2);
                 if (pizza1.isSelected()) {
                     controller.addIngredient(comboBox.getSelectedItem().toString(), true);
@@ -209,7 +216,10 @@ public class GUIKitchen {
                     controller.addIngredient(comboBox.getSelectedItem().toString(), false);
                     ingredientLabelsMapPizza2.get(comboBox.getSelectedItem().toString()).setVisible(true);
                 }
+            } catch (Exception bottonAddException) {
+                JOptionPane.showMessageDialog(frame, bottonAddException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
             
         });
 
@@ -217,8 +227,12 @@ public class GUIKitchen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
                 frame.dispose();
+            } catch (Exception bottonEndingKitchenException) {
+                JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
             
         });
 
@@ -226,8 +240,12 @@ public class GUIKitchen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
                 controller.supply(comboBox.getSelectedItem().toString());
+            } catch (Exception bottonSupplyException) {
+                JOptionPane.showMessageDialog(frame, bottonSupplyException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
             
         });
 
@@ -235,6 +253,7 @@ public class GUIKitchen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
                 checkSelectedBox(pizza1, pizza2);
                 if (pizza1.isSelected()) {
                     controller.bakingPizza();
@@ -244,7 +263,10 @@ public class GUIKitchen {
                     controller.bakingPizza();
                     JOptionPane.showMessageDialog(frame, "Pizza number 2 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
                 }
+            } catch (Exception bottonOvException) {
+                JOptionPane.showMessageDialog(frame, bottonOvException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
             
         });
     }
