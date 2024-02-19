@@ -193,8 +193,8 @@ public class GUIKitchen {
                     }
                     controller.throwPizzaInGarbageBin(false);
                 }
-            } catch (Exception bottonGarbageBinEcxeption) {
-                JOptionPane.showMessageDialog(frame, bottonGarbageBinEcxeption.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception bottonGarbageBinException) {
+                JOptionPane.showMessageDialog(frame, bottonGarbageBinException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
             }
         }
