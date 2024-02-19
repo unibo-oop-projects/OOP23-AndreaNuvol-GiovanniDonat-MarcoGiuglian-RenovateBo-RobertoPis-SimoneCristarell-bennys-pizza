@@ -176,27 +176,28 @@ public class GUIKitchen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 checkSelectedBox(pizza1, pizza2);
-                if (pizza1.isSelected()) {
-                    for (var ingredient : controller.getPreparationZone().getPizza1().getAddedIngredients()) {
-                        if(ingredientLabelsMapPizza1.get(ingredient.toString()).isVisible()) {
-                            ingredientLabelsMapPizza1.get(ingredient.toString()).setVisible(false);
+                try {
+                    if (pizza1.isSelected()) {
+                        for (var ingredient : controller.getPreparationZone().getPizza1().getAddedIngredients()) {
+                            if(ingredientLabelsMapPizza1.get(ingredient.toString()).isVisible()) {
+                                ingredientLabelsMapPizza1.get(ingredient.toString()).setVisible(false);
+                            }
                         }
+                        controller.throwPizzaInGarbageBin(true);
                     }
-                    controller.throwPizzaInGarbageBin(true);
-                }
-                if (pizza2.isSelected()) {
-                    for (var ingredient : controller.getPreparationZone().getPizza2().get().getAddedIngredients()) {
-                        if(ingredientLabelsMapPizza2.get(ingredient.toString()).isVisible()) {
-                            ingredientLabelsMapPizza2.get(ingredient.toString()).setVisible(false);
+                    if (pizza2.isSelected()) {
+                        for (var ingredient : controller.getPreparationZone().getPizza2().get().getAddedIngredients()) {
+                            if(ingredientLabelsMapPizza2.get(ingredient.toString()).isVisible()) {
+                                ingredientLabelsMapPizza2.get(ingredient.toString()).setVisible(false);
+                            }
                         }
+                        controller.throwPizzaInGarbageBin(false);
                     }
-                    controller.throwPizzaInGarbageBin(false);
-                }
-            } catch (Exception bottonGarbageBinException) {
-                JOptionPane.showMessageDialog(frame, bottonGarbageBinException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception bottonGarbageBinException) {
+                    JOptionPane.showMessageDialog(frame, bottonGarbageBinException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
+                }
             }
-
             
         });
 
@@ -205,18 +206,19 @@ public class GUIKitchen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 checkSelectedBox(pizza1, pizza2);
-                if (pizza1.isSelected()) {
-                    controller.addIngredient(comboBox.getSelectedItem().toString(), true);
-                    ingredientLabelsMapPizza1.get(comboBox.getSelectedItem().toString()).setVisible(true);
+                try {
+                    if (pizza1.isSelected()) {
+                        controller.addIngredient(comboBox.getSelectedItem().toString(), true);
+                        ingredientLabelsMapPizza1.get(comboBox.getSelectedItem().toString()).setVisible(true);
+                    }
+                    if (pizza2.isSelected()) {
+                        controller.addIngredient(comboBox.getSelectedItem().toString(), false);
+                        ingredientLabelsMapPizza2.get(comboBox.getSelectedItem().toString()).setVisible(true);
+                    }
+                } catch (Exception bottonAddException) {
+                    JOptionPane.showMessageDialog(frame, bottonAddException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                if (pizza2.isSelected()) {
-                    controller.addIngredient(comboBox.getSelectedItem().toString(), false);
-                    ingredientLabelsMapPizza2.get(comboBox.getSelectedItem().toString()).setVisible(true);
-                }
-            } catch (Exception bottonAddException) {
-                JOptionPane.showMessageDialog(frame, bottonAddException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
             
         });
 
@@ -224,12 +226,15 @@ public class GUIKitchen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-            } catch (Exception bottonEndingKitchenException) {
-                JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    controller.getClientThread().wakeUp();
+                    frame.dispose();
+                    backgroundHall.setVisible(true);
+                } catch (Exception bottonEndingKitchenException) {
+                    JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                    
             }
-                backgroundHall.setVisible(true);
-        }
             
         });
 
@@ -238,11 +243,11 @@ public class GUIKitchen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                controller.supply(comboBox.getSelectedItem().toString());
-                } catch (Exception bottonSupplyException) {
-                    JOptionPane.showMessageDialog(frame, bottonSupplyException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    controller.supply(comboBox.getSelectedItem().toString());
+                    } catch (Exception bottonSupplyException) {
+                        JOptionPane.showMessageDialog(frame, bottonSupplyException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-            }
             
         });
 
@@ -250,19 +255,20 @@ public class GUIKitchen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                checkSelectedBox(pizza1, pizza2);
-                if (pizza1.isSelected()) {
-                    controller.bakingPizza();
-                    JOptionPane.showMessageDialog(frame, "Pizza number 1 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+                checkSelectedBox(pizza1, pizza2);   
+                try {
+                    if (pizza1.isSelected()) {
+                        controller.bakingPizza();
+                        JOptionPane.showMessageDialog(frame, "Pizza number 1 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    if (pizza2.isSelected()) {
+                        controller.bakingPizza();
+                        JOptionPane.showMessageDialog(frame, "Pizza number 2 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (Exception bottonOvenException) {
+                    JOptionPane.showMessageDialog(frame, bottonOvenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                if (pizza2.isSelected()) {
-                    controller.bakingPizza();
-                    JOptionPane.showMessageDialog(frame, "Pizza number 2 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (Exception bottonOvenException) {
-                JOptionPane.showMessageDialog(frame, bottonOvenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
             
         });
     }

@@ -103,7 +103,6 @@ public class GUIHallImpl implements PropertyChangeListener {
             public void windowClosing(WindowEvent e) {
                 new GUIKitchen(controller, background).start();
                 background.setVisible(false);
-                // controller.addToBalance(55);
             }
         });
         dialog.setVisible(true);
