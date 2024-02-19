@@ -179,19 +179,11 @@ public class GUIKitchen {
                 checkSelectedBox(pizza1, pizza2);
                 try {
                     if (pizza1.isSelected()) {
-                        for (var ingredient : controller.getPreparationZone().getPizza1().getAddedIngredients()) {
-                            if(ingredientLabelsMapPizza1.get(ingredient.toString()).isVisible()) {
-                                ingredientLabelsMapPizza1.get(ingredient.toString()).setVisible(false);
-                            }
-                        }
+                        disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
                         controller.throwPizzaInGarbageBin(true);
                     }
                     if (pizza2.isSelected()) {
-                        for (var ingredient : controller.getPreparationZone().getPizza2().get().getAddedIngredients()) {
-                            if(ingredientLabelsMapPizza2.get(ingredient.toString()).isVisible()) {
-                                ingredientLabelsMapPizza2.get(ingredient.toString()).setVisible(false);
-                            }
-                        }
+                        disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
                         controller.throwPizzaInGarbageBin(false);
                     }
                 } catch (Exception bottonGarbageBinException) {
@@ -245,10 +237,10 @@ public class GUIKitchen {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.supply(comboBox.getSelectedItem().toString());
-                    } catch (Exception bottonSupplyException) {
-                        JOptionPane.showMessageDialog(frame, bottonSupplyException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                } catch (Exception bottonSupplyException) {
+                    JOptionPane.showMessageDialog(frame, bottonSupplyException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            }
             
         });
 
@@ -259,10 +251,12 @@ public class GUIKitchen {
                 checkSelectedBox(pizza1, pizza2);   
                 try {
                     if (pizza1.isSelected()) {
+                        disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
                         controller.bakingPizza();
                         JOptionPane.showMessageDialog(frame, "Pizza number 1 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
                     }
                     if (pizza2.isSelected()) {
+                        disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
                         controller.bakingPizza();
                         JOptionPane.showMessageDialog(frame, "Pizza number 2 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -272,6 +266,16 @@ public class GUIKitchen {
             }
             
         });
+    }
+
+    private void disenableIngredientsLabels(final Controller controller, final boolean isPizza1, final Map<String, JLabel> map) {
+        for (var ingredient : isPizza1 
+                ? controller.getPreparationZone().getPizza1().getAddedIngredients() 
+                : controller.getPreparationZone().getPizza2().get().getAddedIngredients()) {
+            if(map.get(ingredient.toString()).isVisible()) {
+                map.get(ingredient.toString()).setVisible(false);
+            }
+        }
     }
 
     private void checkSelectedBox(final JCheckBox pizza1, final JCheckBox pizza2) {
