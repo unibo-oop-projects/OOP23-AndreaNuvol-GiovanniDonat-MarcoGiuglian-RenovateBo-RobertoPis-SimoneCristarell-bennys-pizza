@@ -11,6 +11,9 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import javax.swing.*;
 import java.util.Random;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
 import javax.swing.border.EmptyBorder;
 import java.util.Optional;
 import it.unibo.controller.impl.ControllerImpl;
@@ -62,7 +65,6 @@ public class GUIHallImpl implements PropertyChangeListener {
     public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
         createStringBuilderMenu();
-        this.controller.getClientThread().start();
         
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame(TITLE);
@@ -75,19 +77,19 @@ public class GUIHallImpl implements PropertyChangeListener {
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
 
+            OrderThread orderThread = new OrderThread(imagePanel, background);
+            orderThread.start();
+
             displayMenu(imagePanel, background);
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background);
-
             displayClient(imagePanel);
-
             displayOrder(imagePanel, background);
         });
     }
 
     private void displayOrder(final ImagePanel imagePanel, final JFrame background){
-        //Pair<String, Optional<String>> order = controller.getClientThread().getOrder();
         String pizzaOrder1 = controller.getClientThread().getOrder().getLeft().getName();
         Optional<String> pizzaOrder2 = Optional.empty();
         if (controller.getClientThread().getOrder().getRight().isPresent()){
@@ -192,8 +194,6 @@ public class GUIHallImpl implements PropertyChangeListener {
 
     private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background){
         setPanelAttributes(balancePanel);
-        this.controller.getAdderManagerModel().addPropertyChangeListener(this);
-        this.controller.getSubtractorManagerModel().addPropertyChangeListener(this);
         
         balanceDayLabel.setFont(new Font(FONT, Font.BOLD, 25));
         balanceTotLabel.setFont(new Font(FONT, Font.BOLD, 25));
@@ -273,4 +273,42 @@ public class GUIHallImpl implements PropertyChangeListener {
                 break;
         }
     }
+
+    public class OrderThread extends Thread{
+        private static final Lock lock = new ReentrantLock();
+        private static final Condition condition = lock.newCondition();
+        private ImagePanel imagePanel;
+        private JFrame background;
+
+        public OrderThread(ImagePanel imagePanel, JFrame background){
+            this.imagePanel = imagePanel;
+            this.background = background;
+        }
+
+        @Override
+        public void run(){
+            while(true){
+                lock.lock();
+                try{
+                    condition.await(); // go in waiting mode
+                    // show order
+                    displayOrder(imagePanel, background);
+
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }finally{
+                    lock.unlock();
+                }
+            }
+        }
+
+        public static void wakeUp(){
+            lock.lock();
+            try{
+                condition.signal();
+            }finally{
+                lock.unlock();
+            }
+        }
+    } 
 }

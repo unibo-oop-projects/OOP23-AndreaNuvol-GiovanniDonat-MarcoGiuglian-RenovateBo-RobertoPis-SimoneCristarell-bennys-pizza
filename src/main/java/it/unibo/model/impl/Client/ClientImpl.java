@@ -5,7 +5,6 @@ import it.unibo.model.api.Client;
 import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.Menu.MenuImpl;
-import it.unibo.model.impl.Management.AbstractManager;
 import it.unibo.model.impl.Management.AdderManager; // The client can only add money to the balance
 
 import org.apache.commons.lang3.tuple.Pair;
