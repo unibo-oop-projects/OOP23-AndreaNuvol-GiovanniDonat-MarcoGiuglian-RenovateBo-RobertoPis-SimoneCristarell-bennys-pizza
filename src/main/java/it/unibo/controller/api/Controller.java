@@ -1,5 +1,10 @@
 package it.unibo.controller.api;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import it.unibo.model.api.PreparationZone;
 
 /**
@@ -47,4 +52,51 @@ public interface Controller {
      */
     void bakingPizza();
 
+    /**
+     * It gets the total balance
+     * @return the total balance
+     */
+    double getBalanceTot();
+
+
+    /**
+     * It gets the day balance
+     * @return the day balance
+     */
+    double getBalanceDay();
+
+
+    /**
+     * It adds the amount to balance
+     * @param amount the value to add
+     */
+    void addToBalance(double amount);
+
+
+    /**
+     * It subtracts the amount to balance
+     * @param amount the value to subtract
+     */
+    void subtractToBalance(double amount);
+
+    /**
+     * It does the order of the client
+     * @return a pair of two strings, second string can be empty if the client ordered only 1 pizza
+     */
+    Pair<String, Optional<String>> order();
+
+    /**
+     * It pays the amount to pay
+     */
+    void pay();
+
+    /*
+     * It generates the menu as list of class Pizza 
+     */
+    void generateMenu();
+
+    /**
+     * @return a list of string with name, ingredients and cost for each pizza in menu
+     */
+    public List<String> getMenu();
 }
