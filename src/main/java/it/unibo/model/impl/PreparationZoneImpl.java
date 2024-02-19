@@ -68,9 +68,6 @@ public class PreparationZoneImpl implements PreparationZone {
     @Override
     public Optional<PizzaFactory> getPizza2() throws IllegalStateException {
         ifNumOfPizzasUnsetOp();
-        // if (this.pizza2.isEmpty()) {
-        //     throw new IllegalStateException("Pizza n. 2 is not requested from this client.");
-        // }
         return this.pizza2;
     }
 
@@ -129,12 +126,15 @@ public class PreparationZoneImpl implements PreparationZone {
                     }
                     this.supplier.supply(ingredient, management);
                 } else {
-                    if (isPizza1) {
-                        this.pizza1.addIngredient(this, (IngredientImpl)ingredient);
-                    } else {
-                        this.pizza2.get().addIngredient(this, (IngredientImpl)ingredient);
-                    }
-                }
+                        if (ingredient.getQuantity() == 0) {
+                            throw new IllegalStateException("The quantity of this ingredient is already the maximum possible.");
+                        }
+                        if (isPizza1) {
+                            this.pizza1.addIngredient(this, (IngredientImpl)ingredient);
+                        } else {
+                            this.pizza2.get().addIngredient(this, (IngredientImpl)ingredient);
+                        }
+                } 
                 this.ingredientsQuantities.replace(ingredient, ingredient.getQuantity());
             });
     }
