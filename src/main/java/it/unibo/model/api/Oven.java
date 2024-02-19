@@ -17,11 +17,7 @@ public interface Oven {
      */
     void bakingPizza();
 
-    /**
-     * this method check if pizza is cooked
-     * @return true if pizza is cooked
-     */
-    boolean isPizzaCooked();
+
 
 
 

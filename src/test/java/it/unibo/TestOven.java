@@ -31,27 +31,11 @@ public class TestOven {
     }
 
         // calling isPizzaCooked() on an OvenImpl instance before bakingPizza() is called returns false
-        @Test
-        public void testIsPizzaCookedBeforeBakingReturnsFalse() {
-            OvenImpl oven = new OvenImpl();
-            assertFalse(oven.isPizzaCooked());
-        }
+        
 
             // calling isPizzaCooked() on an OvenImpl instance before the cooking time has elapsed returns false
-    @Test
-    public void testIsPizzaCookedBeforeTimeElapsedReturnsFalse() {
-        OvenImpl oven = new OvenImpl();
-        oven.bakingPizza();
-        assertFalse(oven.isPizzaCooked());
-    }
+   
 
         // calling bakingPizza() on an OvenImpl instance twice in a row sets the oven as not empty and resets the cooking time
-        @Test
-        public void testBakingPizzaTwiceSetsOvenNotEmptyAndResetsCookingTime() {
-            OvenImpl oven = new OvenImpl();
-            oven.bakingPizza();
-            oven.bakingPizza();
-            assertFalse(oven.isOvenEmpty());
-            assertFalse(oven.isPizzaCooked());
-        }
+        
 }

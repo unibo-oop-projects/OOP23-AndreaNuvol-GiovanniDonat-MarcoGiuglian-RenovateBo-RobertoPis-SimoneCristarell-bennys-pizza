@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
@@ -28,12 +30,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.Controller;
 
-public class GUIKitchen {
+public class GUIKitchen implements PropertyChangeListener {
 
     private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
@@ -118,7 +121,7 @@ public class GUIKitchen {
         final JButton btnOven = new JButton("Bake");
         btnOven.setBackground(new Color(181, 151, 106, 255));
         centralSouthPanel.add(btnOven);
-        displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel);
+        displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel, controller);
         centralPanel.add(centralSouthPanel, BorderLayout.SOUTH);
 
         final JPanel lowWestPanel = new JPanel();
@@ -163,7 +166,7 @@ public class GUIKitchen {
                 displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowEastPanel);
                 displaySupplyComponents(width, height, comboBox, btnSupply, btnAdd, centralNorthPanel);
                 displayEndingKitchen(btnEndingKitchen, width, height, rightPanel);
-                displayOven(btnOven, width, height, centralSouthPanel);
+                displayOven(btnOven, width, height, centralSouthPanel, controller);
                 displayClean(btnClean, width, height, lowWestPanel);
             }
         });
@@ -243,7 +246,8 @@ public class GUIKitchen {
             }
             
         });
-
+        
+        controller.getOvenModel().addPropertyChangeListener(this);
         btnOven.addActionListener(new ActionListener() {
 
             @Override
@@ -252,13 +256,12 @@ public class GUIKitchen {
                 try {
                     if (pizza1.isSelected()) {
                         disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
-                        controller.bakingPizza();
-                        JOptionPane.showMessageDialog(frame, "Pizza number 1 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+                        controller.bakingPizza();                       
                     }
                     if (pizza2.isSelected()) {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
                         controller.bakingPizza();
-                        JOptionPane.showMessageDialog(frame, "Pizza number 2 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+                        
                     }
                 } catch (Exception bottonOvenException) {
                     JOptionPane.showMessageDialog(frame, bottonOvenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -379,10 +382,10 @@ public class GUIKitchen {
         rightPanel.validate();
     }
 
-    private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel) {
+    private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel, final Controller controller) {
         ovenButton.setSize(new Dimension((int)(width*0.08), (int)(height*0.05)));
         centralSouthPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.77), (int)(height*0.02), (int)(width*0.42)));
-        centralSouthPanel.validate();
+        centralSouthPanel.validate();    
     }
 
     private void displayClean(final JButton cleanerButton, final int width, final int height, final JPanel lowWestPanel) {
@@ -394,6 +397,14 @@ public class GUIKitchen {
 
     public void start() {
         frame.setVisible(true);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("baked")) {
+            SwingUtilities.invokeLater(() -> System.out.println("baked"));//JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null));
+        }
+        
     }
 
 }
