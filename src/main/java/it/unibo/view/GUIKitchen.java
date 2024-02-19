@@ -15,6 +15,7 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
@@ -167,7 +168,7 @@ public class GUIKitchen {
             }
         });
 
-        // pizza2.setEnabled(controller.get);
+        pizza2.setEnabled(controller.getPreparationZone().getPizza2().equals(Optional.empty()) ? false : true);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
