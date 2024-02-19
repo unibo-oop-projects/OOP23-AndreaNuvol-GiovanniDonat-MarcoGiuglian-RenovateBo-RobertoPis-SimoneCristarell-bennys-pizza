@@ -15,7 +15,9 @@ import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
+import it.unibo.model.impl.Time.TimeImpl;
 
+import java.beans.*;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -28,13 +30,26 @@ public class ControllerImpl implements Controller {
     private final PreparationZone preparationZone;
     private final Client client = new ClientImpl();
     private ClientImpl.Order order;
+    private TimeImpl time = new TimeImpl();
     private final ClientThread clientThread;
+    private PropertyChangeSupport support;
+    private PropertyChangeSupport propertyChangeSupport;
     
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
+        MenuImpl.generateMenu();
+        this.propertyChangeSupport = new PropertyChangeSupport(this);
         this.clientThread = new ClientThread(this);
         this.clientThread.start();
-        MenuImpl.generateMenu();
+    }
+
+    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+        propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
+    }
+
+    @Override
+    public ClientThread getClientThread(){
+        return this.clientThread;
     }
 
     @Override
@@ -77,6 +92,7 @@ public class ControllerImpl implements Controller {
         return -1;
     }
 
+    @Override
     public double getBalanceTot() {
         return this.subtractorManager.getBalanceTot();
     }
@@ -94,6 +110,16 @@ public class ControllerImpl implements Controller {
     @Override
     public void subtractToBalance(final double amount) {
         this.subtractorManager.updateBalance(amount);
+    }
+
+    @Override
+    public AdderManager getAdderManagerModel() {
+        return this.adderManager;
+    }
+
+    @Override
+    public SubtractorManager getSubtractorManagerModel() {
+        return this.subtractorManager;
     }
 
     @Override
@@ -126,4 +152,30 @@ public class ControllerImpl implements Controller {
         }
         return menu;
     }
+
+    @Override
+    public int getWorkingDay() {
+        return TimeImpl.getWorkingDay();
+    }
+
+    @Override
+    public String getHourAndMin() {
+        return time.getHourAndMin();
+    }
+
+    @Override
+    public TimeImpl getTimeModel() {
+        return this.time;
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    @Override
+    public void newDay() {
+        this.time.newDay();
+    }
+
 }

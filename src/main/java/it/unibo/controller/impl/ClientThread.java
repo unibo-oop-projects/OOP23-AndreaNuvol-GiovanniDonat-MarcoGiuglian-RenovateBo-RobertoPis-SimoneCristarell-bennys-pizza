@@ -10,11 +10,10 @@ public class ClientThread extends Thread{
     private final ControllerImpl controller;
     private final Lock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
-    private boolean isWaiting;
+    private Pair<String, Optional<String>> orderedPizzas;
 
     public ClientThread(ControllerImpl controller){
         this.controller = controller;
-        this.isWaiting = false;
     }
 
     @Override
@@ -22,23 +21,21 @@ public class ClientThread extends Thread{
         while(true){
             lock.lock();
             try{
-                if(isWaiting) {
-                    condition.await();
-                }
-                Thread.sleep(50000);
-                Pair<String, Optional<String>> orderedPizzas = controller.order();
-
-                isWaiting = true;
+                orderedPizzas = controller.order();
+                condition.await(); // go in waiting mode
+                controller.pay(); // when terminated the waiting, he pay
 
             }catch(InterruptedException e){
                 e.printStackTrace();
             }finally{
                 lock.unlock();
             }
-
-            controller.pay();
-            isWaiting = false;
         }
+    }
+
+
+    public Pair<String, Optional<String>> getOrder(){
+        return orderedPizzas;
     }
 
     public void wakeUp(){
@@ -49,6 +46,4 @@ public class ClientThread extends Thread{
             lock.unlock();
         }
     }
-
-    
 }

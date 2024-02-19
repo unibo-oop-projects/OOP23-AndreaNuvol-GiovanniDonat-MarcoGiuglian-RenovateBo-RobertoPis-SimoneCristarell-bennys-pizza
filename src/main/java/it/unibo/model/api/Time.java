@@ -5,6 +5,16 @@ public interface Time {
     /**
      * Reset time and start a new day
      */
-    public void newDay();
+    void newDay();
+
+    /**
+     * Allows to increase the time by "virtual" 15 minutes every 15 real seconds 
+     */
+    void incrementTime();
+
+    /**
+     * @return a string with the "virtual" time
+     */
+    String getHourAndMin();
 
 }

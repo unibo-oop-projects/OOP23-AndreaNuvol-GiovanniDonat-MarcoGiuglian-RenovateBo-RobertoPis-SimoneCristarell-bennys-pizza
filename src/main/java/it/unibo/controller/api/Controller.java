@@ -1,11 +1,16 @@
 package it.unibo.controller.api;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import it.unibo.controller.impl.ClientThread;
 import it.unibo.model.api.PreparationZone;
+import it.unibo.model.impl.Management.AdderManager;
+import it.unibo.model.impl.Management.SubtractorManager;
+import it.unibo.model.impl.Time.TimeImpl;
 
 /**
  * Controller interface
@@ -80,6 +85,16 @@ public interface Controller {
     void subtractToBalance(double amount);
 
     /**
+     * @return the adderManager to add money to balance
+     */
+    AdderManager getAdderManagerModel();
+
+    /**
+     * @return the subtractorManager to subtract money to balance
+     */
+    SubtractorManager getSubtractorManagerModel();
+
+    /**
      * It does the order of the client
      * @return a pair of two strings, second string can be empty if the client ordered only 1 pizza
      */
@@ -98,5 +113,35 @@ public interface Controller {
     /**
      * @return a list of string with name, ingredients and cost for each pizza in menu
      */
-    public List<String> getMenu();
+    List<String> getMenu();
+    
+    /**
+     * @return the thread of the client
+     */
+    ClientThread getClientThread();
+
+    /**
+     * @return the number of days Benny worked
+     */
+    int getWorkingDay();
+
+    /**
+     * @return a string to show hour and minutes of the day
+     */
+    String getHourAndMin();
+
+    /**
+     * @return the model of time
+     */
+    TimeImpl getTimeModel();
+
+    /**
+     * It sets everything for a new day
+     */
+    void newDay();
+
+    /**
+     * It allows to update the view when the model changes
+     */
+    void addPropertyChangeListener(PropertyChangeListener pcl);
 }

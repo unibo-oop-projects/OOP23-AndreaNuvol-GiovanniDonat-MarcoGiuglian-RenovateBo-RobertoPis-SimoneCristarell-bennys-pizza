@@ -1,10 +1,12 @@
 package it.unibo.model.impl.Time;
 
 import java.util.*;
+import java.beans.*;
 
+import it.unibo.model.api.Time;
 import it.unibo.model.impl.Management.AbstractManager;
 
-public class TimeImpl {
+public class TimeImpl implements Time {
 
     final static int TIME_FOR_15_MINUTES = 15_000;
 
@@ -18,35 +20,43 @@ public class TimeImpl {
     private int hour;
     private int min;
     private Timer timer;
+    private PropertyChangeSupport support;
+
+    @Override
+    public void incrementTime() {
+        if(min == 45) {
+            min = 0;
+            hour++;
+        } else {
+            min += 15;
+        }
+        
+        if(isEndOfDay()) {
+            timer.cancel();
+            if(AbstractManager.levelPassed()) {
+                workingDays++;
+                AbstractManager.addBalanceTot();
+                support.firePropertyChange("day", null, TimeImpl.getWorkingDay());
+            }
+            AbstractManager.resetBalanceDay();
+        }
+        support.firePropertyChange("time", null, this.getHourAndMin());
+    }
 
     private void startTimeForNewDay() {
-        TimerTask task = new TimerTask() {
+        timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
-                if(min == 45) {
-                    min = 0;
-                    hour++;
-                } else {
-                    min += 15;
-                }
-
-                if(isEndOfDay()) {
-                    timer.cancel();
-                    if(AbstractManager.levelPassed()) {
-                        workingDays++;
-                        AbstractManager.addBalanceTot();
-                    }
-                    AbstractManager.resetBalanceDay();
-                }
+                incrementTime();
             }
             
-        };
-
-        timer.scheduleAtFixedRate(task, 0, TIME_FOR_15_MINUTES);
+        }, 0, TIME_FOR_15_MINUTES);
     }
 
+    @Override
     public void newDay() {
+        this.support = new PropertyChangeSupport(this);
         this.hour = STARTING_HOUR;
         this.min = STARTING_MIN;
         this.timer = new Timer();
@@ -61,11 +71,24 @@ public class TimeImpl {
         return workingDays;
     }
 
-    public int getHour() {
+    private int getHour() {
         return this.hour;
     }
 
-    public int getMin() {
+    private int getMin() {
         return this.min;
     }
+
+    public String getHourAndMin() {
+        if(this.min == 0) {
+            return new String(this.getHour() + " : 00 ");
+        } else {
+            return new String(this.getHour() + " : " + this.getMin());
+        }
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
 }

@@ -1,6 +1,12 @@
 package it.unibo.view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
@@ -8,16 +14,19 @@ import javax.swing.*;
 import java.util.Random;
 import javax.swing.border.EmptyBorder;
 import java.util.Optional;
-import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
-
 import org.apache.commons.lang3.tuple.Pair;
 
-public class GUIHallImpl {
+public class GUIHallImpl implements PropertyChangeListener {
 
     final static String SEP = File.separator;
-    private static final String BALANCE_TOT = "Balance tot: ";
-    private static final String BALANCE_DAY = "Balance day: ";
+    private ControllerImpl controller;
+    private static final String TITLE = "BENNY'S PIZZA";
+    private static final String BALANCE_TOT = "Total balance : ";
+    private static final String BALANCE_DAY = "Daily balance : ";
+    private static final String MENU_STRING = "MENU - " + TITLE;
+    private static final String FONT = "Arial";
+    private static final String CURRENCY = "$";
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String FILE_PATH_IN_COMMON = SEP         +
                                                     "src"       + SEP +
@@ -25,18 +34,39 @@ public class GUIHallImpl {
                                                     "resources" + SEP;
     private static final String FILE_PATH_BACKGROUND = FILE_PATH_IN_COMMON + "front.png";
     private static final String FILE_PATH_CLIENT = FILE_PATH_IN_COMMON + "clientsImages" + SEP;
+    
+    private StringBuilder sb = new StringBuilder();
     private static int lastClientShowed = 0;
 
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     static int width = (int) screenSize.getWidth();
     static int height = (int) screenSize.getHeight();
 
-    final static int MENU_WIDTH = (int)(width * 0.1);
-    final static int MENU_HEIGHT = (int)(height * 0.08);
+    final static int MENU_BUTTON_WIDTH = (int)(width * 0.1);
+    final static int MENU_BUTTON_HEIGHT = (int)(height * 0.08);
+    final static int MENU_TXTAREA_WIDTH = (int)(width * 0.85);
+    final static int MENU_TXTAREA_HEIGHT = (int)(height * 0.63);
 
-    public GUIHallImpl(final Controller controller) {
+    final static int CLOCK_LABEL_WIDTH = (int)(width * 0.1);
+    final static int CLOCK_LABEL_HEIGHT = (int)(height * 0.05);
+    
+    private JLabel balanceTotLabel = new JLabel();
+    private JLabel balanceDayLabel = new JLabel();
+    private JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+    private JLabel clockLabel = new JLabel();
+    private JPanel clockPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+    private JLabel dayLabel = new JLabel();
+    private JPanel dayImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+
+    public GUIHallImpl(final ControllerImpl controller) {
+        this.controller = controller;
+        createStringBuilderMenu();
+        
         SwingUtilities.invokeLater(() -> {
-            JFrame background = new JFrame("BENNY'S PIZZA");
+            JFrame background = new JFrame(TITLE);
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
             ImagePanel imagePanel = new ImagePanel(backgroundImage);
             background.getContentPane().add(imagePanel);
@@ -47,77 +77,86 @@ public class GUIHallImpl {
             displayMenu(imagePanel, background);
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
-            displayBalanceLabels(imagePanel, background, controller);
+            displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
-
-            controller.generateMenu();// generation of menu
-            Pair<String, Optional<String>> order = controller.order();
-            String pizzaOrder = order.getLeft();
-            Optional<String> optionalSecondPizza = order.getRight();
-            if(optionalSecondPizza.isPresent()){
-                pizzaOrder += "\n" + optionalSecondPizza.get();
-            }
-            Object[] options = {"OK"};
-            int res = JOptionPane.showOptionDialog(
-                null,
-                pizzaOrder,
-                "ORDER",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                options,
-                options[0]
-            );
-            if(res == JOptionPane.OK_OPTION){
-                // qui passa alla cucina 
-            }
-
+            displayOrder(imagePanel, background);
         });
     }
 
-    public void displayMenu(final ImagePanel imagePanel, final JFrame background) {
+    private void displayOrder(final ImagePanel imagePanel, final JFrame background){
+        Pair<String, Optional<String>> order = controller.getClientThread().getOrder();
+        String pizzaOrder = order.getLeft();
+        Optional<String> optionalSecondPizza = order.getRight();
+        JPanel pizzaPanel = new JPanel();
+        pizzaPanel.setLayout(new BoxLayout(pizzaPanel, BoxLayout.Y_AXIS));
+        JLabel pizzaLabel1 = new JLabel(pizzaOrder);
+        pizzaPanel.add(pizzaLabel1);
+        
+        if(optionalSecondPizza.isPresent()){
+            JLabel pizzaLabel2 = new JLabel(optionalSecondPizza.get());
+            pizzaPanel.add(pizzaLabel2);
+        }
+
+        CustomDialog dialog = new CustomDialog(null, "Order", "");
+        dialog.add(pizzaPanel, BorderLayout.CENTER);
+        dialog.setCloseListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                new GUIKitchen(controller).start();
+                background.setVisible(false);
+                controller.addToBalance(55);
+            }
+        });
+        dialog.setVisible(true);
+    }
+
+    private void createStringBuilderMenu() {
+        for(final String pizza : controller.getMenu()) {
+            this.sb.append(pizza + "\n");
+        }
+    }
+
+    private void displayMenu(final ImagePanel imagePanel, final JFrame background) {
         JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
         JButton menuButton = new JButton("Menu");
         setMenuButtonAttributes(menuButton);
         menuPanel.add(menuButton, BorderLayout.EAST);
         imagePanel.add(menuPanel, BorderLayout.SOUTH);
-        background.setVisible(true); // da mettere false quando si passa alla schermata della cucina 
+        background.setVisible(true); // to be set to false when switching to the kitchen screen
+        menuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JOptionPane.showOptionDialog(
+                    null,
+                    sb,
+                    MENU_STRING,
+                    JOptionPane.CLOSED_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null, 
+                    null,
+                    null
+                );
+            }
+        });
     }
 
-    public static void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background, final Controller controller){
-        JPanel balanceLabelsPanel = new JPanel();
-        balanceLabelsPanel.setLayout(new BoxLayout(balanceLabelsPanel, BoxLayout.Y_AXIS));
-        setPanelAttributes(balanceLabelsPanel);
-        controller.addToBalance(5);
-        JLabel balanceTotLabel = new JLabel(BALANCE_TOT + Double.toString(controller.getBalanceTot()));
-        JLabel balanceDayLabel = new JLabel(BALANCE_DAY + Double.toString(controller.getBalanceDay()));
-        Font fontLabelBalanceTot = balanceTotLabel.getFont().deriveFont(Font.BOLD, 20);
-        Font fontLabelBalanceDay = balanceDayLabel.getFont().deriveFont(Font.BOLD, 25);
-        balanceTotLabel.setFont(fontLabelBalanceTot);
-        balanceDayLabel.setFont(fontLabelBalanceDay);
-        balanceLabelsPanel.add(balanceTotLabel);
-        balanceLabelsPanel.add(balanceDayLabel);
-        imagePanel.add(balanceLabelsPanel, BorderLayout.NORTH);
-        background.setVisible(true);
-    }
-
-    private static void setPanelAttributes(final JPanel panel) {
+    private void setPanelAttributes(final JPanel panel) {
         panel.setOpaque(false);
         panel.setBackground(new Color(0, 0, 0, 0));
         panel.setBorder(new EmptyBorder(10, 10, 50, 10));
     }
 
-    private static void setMenuButtonAttributes(final JButton menuButton) {
+    private void setMenuButtonAttributes(final JButton menuButton) {
         menuButton.setBackground(new Color(Integer.parseInt("FF7F50", 16)));
         menuButton.setBorderPainted(false);
         menuButton.setFocusPainted(false);
-        menuButton.setFont(new Font("Arial", Font.BOLD, 30));
-        menuButton.setSize(MENU_WIDTH, MENU_WIDTH);
+        menuButton.setFont(new Font(FONT, Font.BOLD, 30));
+        menuButton.setSize(MENU_BUTTON_WIDTH, MENU_BUTTON_WIDTH);
     }
 
     // Show a client different from the last showed, it return the index 
-    private static int showNewClient(){
+    private int showNewClient(){
         int indexClient;
         if(lastClientShowed != 0){
             do{
@@ -130,38 +169,49 @@ public class GUIHallImpl {
         return indexClient;
     }
 
-    public static void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
-        JPanel clockPanel = new JPanel(new BorderLayout());
+    private void displayClockLabels(final ImagePanel imagePanel, final JFrame background){
         setPanelAttributes(clockPanel);
+        
+        this.controller.newDay();
+        this.controller.getTimeModel().addPropertyChangeListener(this);
 
-        JLabel clockLabel = new JLabel("Ora : Minuti");
-        clockLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        clockLabel.setSize(300, 300); // da rendere portabile!!
+        clockLabel.setFont(new Font(FONT, Font.BOLD, 25));
+        clockLabel.setSize(CLOCK_LABEL_WIDTH, CLOCK_LABEL_HEIGHT);
 
-        clockPanel.add(clockLabel, BorderLayout.EAST);
+        clockPanel.add(clockLabel); 
         imagePanel.add(clockPanel, BorderLayout.NORTH);
         
         background.setVisible(true);
     }
 
+    private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background){
+        setPanelAttributes(balancePanel);
+        this.controller.getAdderManagerModel().addPropertyChangeListener(this);
+        this.controller.getSubtractorManagerModel().addPropertyChangeListener(this);
+        
+        balanceDayLabel.setFont(new Font(FONT, Font.BOLD, 25));
+        balanceTotLabel.setFont(new Font(FONT, Font.BOLD, 25));
+        balanceTotLabel.setText(BALANCE_TOT + this.controller.getBalanceTot() + CURRENCY);
+        balanceDayLabel.setText(BALANCE_DAY + this.controller.getBalanceDay() + CURRENCY);
+        balancePanel.add(balanceTotLabel);
+        balancePanel.add(balanceDayLabel);
+        imagePanel.add(balancePanel, BorderLayout.NORTH);
+        background.setVisible(true);
+    }
+
+    private void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
+        setPanelAttributes(dayImagePanel);
     
-    public static void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background){
-        JPanel workingDayPanel = new JPanel(new GridBagLayout());
-        setPanelAttributes(workingDayPanel);
-    
-        JLabel workingDayLabel = new JLabel("Numero giornata");
-        workingDayLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        workingDayLabel.setSize(300, 300); // da rendere portabile!!
-    
-        GridBagConstraints gbc = new GridBagConstraints();
-    
-        workingDayPanel.add(workingDayLabel, gbc);
-        imagePanel.add(workingDayPanel, BorderLayout.NORTH);
+        dayLabel.setText("Day " + String.valueOf(this.controller.getWorkingDay()));
+        dayLabel.setFont(new Font(FONT, Font.BOLD, 25));
+        
+        dayImagePanel.add(dayLabel);
+        imagePanel.add(dayImagePanel, BorderLayout.NORTH);
         
         background.setVisible(true);
     }
 
-    public static void displayClient(final ImagePanel imagePanel){
+    private void displayClient(final ImagePanel imagePanel){
         int indexClient = showNewClient();
         String imagePath = PATH_TO_THE_ROOT + FILE_PATH_CLIENT + "ClientImage" + indexClient + ".png";
         Image clientImage = Toolkit.getDefaultToolkit().getImage(imagePath);
@@ -187,13 +237,33 @@ public class GUIHallImpl {
         imagePanel.add(clientLabel);
     }
 
-    private static int randomIndexClientImage(){
+    private int randomIndexClientImage(){
         Random random = new Random();
         return random.nextInt(3) + 1;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        switch (evt.getPropertyName()) {
+            case "time":
+                SwingUtilities.invokeLater(() -> clockLabel.setText(controller.getHourAndMin()));
+                break;
+
+            case "day" :
+                SwingUtilities.invokeLater(() -> dayLabel.setText((String.valueOf(controller.getWorkingDay()))));
+                break;
+        
+            case "balanceDay" :
+                SwingUtilities.invokeLater(() -> balanceDayLabel.setText(BALANCE_DAY + String.valueOf(controller.getBalanceDay()) + CURRENCY));
+                break;
+
+            case "balanceTot" :
+                SwingUtilities.invokeLater(() -> balanceTotLabel.setText(BALANCE_TOT + String.valueOf(controller.getBalanceTot()) + CURRENCY));
+                break;
+        }
     }
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         new GUIHallImpl(new ControllerImpl());
     }
-
 }
