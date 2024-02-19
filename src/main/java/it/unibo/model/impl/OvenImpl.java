@@ -2,8 +2,6 @@ package it.unibo.model.impl;
 
 import it.unibo.model.api.Oven;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -11,23 +9,24 @@ import java.util.*;
 public class OvenImpl implements Oven{
 
     final static long COOKNING_TIME_IN_SECONDS = 5;
-    final static long COOKNING_TIME_IN_MICROSECONDS = 5000;
+    final static long COOKNING_TIME_IN_MILLISECONDS = 5000;
 
     private static boolean emptyOven;
-    private static Timer ovenTimer;
+    private static boolean isCooked;
+    private static Timer ovenTimer = new Timer();
     private static LocalTime finishBakingTime;
-    private PropertyChangeSupport support;
+    private static LocalTime currentTime;
 
 
     public OvenImpl(){
         resetOven();
-        support = new PropertyChangeSupport(this);
     }
 
     public static void resetOven(){
         emptyOven = true;
-        ovenTimer = new Timer();
-        finishBakingTime = LocalTime.now().plusSeconds(COOKNING_TIME_IN_SECONDS);
+        //ovenTimer = new Timer();
+        isCooked = false;
+        //finishBakingTime = LocalTime.now().plusSeconds(COOKNING_TIME_IN_SECONDS);
     }
 
     @Override
@@ -42,38 +41,22 @@ public class OvenImpl implements Oven{
 
     private void baking() {
         emptyOven = false;
-
+        ovenTimer = new Timer();
+        currentTime = LocalTime.now();
+        finishBakingTime = currentTime.plusSeconds(COOKNING_TIME_IN_SECONDS);
         TimerTask ovenTask = new TimerTask() {
-
             @Override
             public void run() {
-
-                if (LocalTime.now().getSecond() >= finishBakingTime.getSecond()){
-                    //support.firePropertyChange("baked", null, true);
-                    
-                    ovenTimer.cancel();
+                if (currentTime.getSecond() >= finishBakingTime.getSecond()){
+                    isCooked = true;
                 }
             }
-           
         };
-
-        ovenTimer.scheduleAtFixedRate(ovenTask, 0, COOKNING_TIME_IN_MICROSECONDS);
+        ovenTimer.scheduleAtFixedRate(ovenTask,0, COOKNING_TIME_IN_MILLISECONDS);
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-
-    public static class ThreadOven extends Thread {
-        private OvenImpl oven = new OvenImpl();
-
-        public void run() {
-            oven.baking();
-            synchronized(this) {
-                this.notify();
-            }
-        }
+    @Override
+    public boolean isPizzaCooked() {
+        return isCooked;
     }
 }
-

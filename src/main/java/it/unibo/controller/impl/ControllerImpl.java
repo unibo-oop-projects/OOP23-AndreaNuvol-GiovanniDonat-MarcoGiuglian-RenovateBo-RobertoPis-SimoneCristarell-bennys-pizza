@@ -16,7 +16,6 @@ import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
-import it.unibo.model.impl.OvenImpl.ThreadOven;
 import it.unibo.model.impl.Time.TimeImpl;
 
 import java.beans.*;
@@ -190,14 +189,6 @@ public class ControllerImpl implements Controller {
     @Override
     public void resetPizzas() {
         this.preparationZone.resetPizzaPreparation();
-    }
-
-    private ThreadOven threadOven = new OvenImpl.ThreadOven();
-
-
-    @Override
-    public ThreadOven getThreadOVen() {
-        return this.threadOven;
     }
 }
 

@@ -29,13 +29,5 @@ public class TestOven {
         oven.bakingPizza();
         assertFalse(oven.isOvenEmpty());
     }
-
-        // calling isPizzaCooked() on an OvenImpl instance before bakingPizza() is called returns false
-        
-
-            // calling isPizzaCooked() on an OvenImpl instance before the cooking time has elapsed returns false
-   
-
-        // calling bakingPizza() on an OvenImpl instance twice in a row sets the oven as not empty and resets the cooking time
         
 }

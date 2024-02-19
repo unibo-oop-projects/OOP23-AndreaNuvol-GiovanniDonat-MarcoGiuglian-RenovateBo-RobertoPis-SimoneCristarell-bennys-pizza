@@ -11,8 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-//import java.beans.PropertyChangeEvent;
-//import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
@@ -30,13 +28,12 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-//import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.Controller;
 
-public class GUIKitchen {//implements PropertyChangeListener {
+public class GUIKitchen {
 
     private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
@@ -229,9 +226,7 @@ public class GUIKitchen {//implements PropertyChangeListener {
                 } catch (Exception bottonEndingKitchenException) {
                     JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                    
-            }
-            
+            }  
         });
 
         btnSupply.addActionListener(new ActionListener() {
@@ -243,11 +238,9 @@ public class GUIKitchen {//implements PropertyChangeListener {
                 } catch (Exception bottonSupplyException) {
                     JOptionPane.showMessageDialog(frame, bottonSupplyException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }
-            
+            } 
         });
         
-        //controller.getOvenModel().addPropertyChangeListener(this);
         btnOven.addActionListener(new ActionListener() {
 
             @Override
@@ -256,28 +249,26 @@ public class GUIKitchen {//implements PropertyChangeListener {
                 try {
                     if (pizza1.isSelected()) {
                         disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
-                        //controller.bakingPizza();
+                        controller.bakingPizza();
 
-                        controller.getThreadOVen().start();
-                        synchronized(controller.getThreadOVen()) {
-                            try {
-                                controller.getThreadOVen().wait();
-                            } catch (InterruptedException exc) {
-                                exc.printStackTrace();
-                            }
+                        if (controller.getPreparationZone().getOven().isPizzaCooked()) {
+                            JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);   
+                            pizza1.setEnabled(false);
                         }
-                        JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                        
                     }
                     if (pizza2.isSelected()) {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
-                        //controller.bakingPizza();
-                        
+                        controller.bakingPizza();
+                        if (controller.getPreparationZone().getOven().isPizzaCooked()) {
+                            JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);   
+                            pizza2.setEnabled(false);
+                        }
                     }
                 } catch (Exception bottonOvenException) {
                     JOptionPane.showMessageDialog(frame, bottonOvenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            
         });
     }
 
@@ -358,7 +349,6 @@ public class GUIKitchen {//implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(frame, order, "ORDER", JOptionPane.INFORMATION_MESSAGE);
             }
-            
         });
     }
 
@@ -408,13 +398,4 @@ public class GUIKitchen {//implements PropertyChangeListener {
     public void start() {
         frame.setVisible(true);
     }
-
-   // @Override
-    //public void propertyChange(PropertyChangeEvent evt) {
-        //if (evt.getPropertyName().equals("baked")) {
-           // SwingUtilities.invokeLater(() -> System.out.println("baked"));//JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null));
-        //}
-        
-   // }
-
 }

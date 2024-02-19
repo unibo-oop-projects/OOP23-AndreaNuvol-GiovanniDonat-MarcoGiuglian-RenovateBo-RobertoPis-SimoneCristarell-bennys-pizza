@@ -12,7 +12,6 @@ import it.unibo.model.impl.OvenImpl;
 import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
-import it.unibo.model.impl.OvenImpl.ThreadOven;
 import it.unibo.model.impl.Time.TimeImpl;
 
 /**
@@ -158,6 +157,4 @@ public interface Controller {
      * It allows to update the view when the model changes
      */
     void addPropertyChangeListener(PropertyChangeListener pcl);
-
-    ThreadOven getThreadOVen();
 }
