@@ -19,9 +19,4 @@ public interface Client {
      */
     void pay(PizzaFactory pizzaFactoryImpl1, Optional<PizzaFactory> pizzaFactoryImpl2);
 
-    /**
-     * @return the client's order
-     */
-    Order getOrder();
-
 }

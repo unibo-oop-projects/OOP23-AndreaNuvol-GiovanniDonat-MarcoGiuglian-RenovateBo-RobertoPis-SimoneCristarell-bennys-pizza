@@ -130,14 +130,14 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public Pair<String, Optional<String>> order() {
-        Pair<String, Optional<String>> orderedPizzas;
+    public Pair<Pizza, Optional<Pizza>> order() {
+        Pair<Pizza, Optional<Pizza>> orderedPizzas;
         order = this.client.order();
         this.preparationZone.setNumberOfPizzasToPrepare(order.getNumberPizzasToOrder());
         if(order.getNumberPizzasToOrder() == 1){
-            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft().getName(), Optional.empty());
+            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft(), Optional.empty());
         }else{
-            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft().getName(), Optional.of(order.getOrderPizzas().getRight().get().getName()));
+            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft(), Optional.of(order.getOrderPizzas().getRight().get()));
         }
         return orderedPizzas;
     }
@@ -189,11 +189,6 @@ public class ControllerImpl implements Controller {
     @Override
     public void resetPizzas() {
         this.preparationZone.resetPizzaPreparation();
-    }
-
-    @Override
-    public Pair<Pizza, Optional<Pizza>> getOrder() {
-        return this.client.getOrder().getOrderPizzas();
     }
 
 }

@@ -15,7 +15,6 @@ import java.util.Random;
 import javax.swing.border.EmptyBorder;
 import java.util.Optional;
 import it.unibo.controller.impl.ControllerImpl;
-import org.apache.commons.lang3.tuple.Pair;
 
 public class GUIHallImpl implements PropertyChangeListener {
 
@@ -84,16 +83,19 @@ public class GUIHallImpl implements PropertyChangeListener {
     }
 
     private void displayOrder(final ImagePanel imagePanel, final JFrame background){
-        Pair<String, Optional<String>> order = controller.getClientThread().getOrder();
-        String pizzaOrder = order.getLeft();
-        Optional<String> optionalSecondPizza = order.getRight();
+        //Pair<String, Optional<String>> order = controller.getClientThread().getOrder();
+        String pizzaOrder1 = controller.getClientThread().getOrder().getLeft().getName();
+        Optional<String> pizzaOrder2 = Optional.empty();
+        if (controller.getClientThread().getOrder().getRight().isPresent()){
+            pizzaOrder2 = Optional.of(controller.getClientThread().getOrder().getRight().get().getName());
+        }
         JPanel pizzaPanel = new JPanel();
         pizzaPanel.setLayout(new BoxLayout(pizzaPanel, BoxLayout.Y_AXIS));
-        JLabel pizzaLabel1 = new JLabel(pizzaOrder);
+        JLabel pizzaLabel1 = new JLabel(pizzaOrder1);
         pizzaPanel.add(pizzaLabel1);
         
-        if(optionalSecondPizza.isPresent()){
-            JLabel pizzaLabel2 = new JLabel(optionalSecondPizza.get());
+        if(pizzaOrder2.isPresent()){
+            JLabel pizzaLabel2 = new JLabel(pizzaOrder2.get());
             pizzaPanel.add(pizzaLabel2);
         }
 
