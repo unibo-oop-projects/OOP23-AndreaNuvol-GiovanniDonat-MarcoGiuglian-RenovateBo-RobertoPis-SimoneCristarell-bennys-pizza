@@ -16,21 +16,22 @@ import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import java.awt.*;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.*;
+import java.util.Random;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import it.unibo.controller.impl.ControllerImpl;
+import it.unibo.view.GUIHallImpl.OrderThread;
 import it.unibo.controller.api.Controller;
 
 public class GUIKitchen {
@@ -57,6 +58,8 @@ public class GUIKitchen {
         imagePanel.setLayout(new BorderLayout());
 
         displayInfoLabels(imagePanel, frame.getWidth(), controller);
+        OvenThread orderThread = new OvenThread();
+        orderThread.start();
 
         final JPanel lowPanel = new JPanel(new BorderLayout());
         lowPanel.setOpaque(false);
@@ -118,7 +121,7 @@ public class GUIKitchen {
         final JButton btnOven = new JButton("Bake");
         btnOven.setBackground(new Color(181, 151, 106, 255));
         centralSouthPanel.add(btnOven);
-        displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel);
+        displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel, controller);
         centralPanel.add(centralSouthPanel, BorderLayout.SOUTH);
 
         final JPanel lowWestPanel = new JPanel();
@@ -163,7 +166,7 @@ public class GUIKitchen {
                 displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowEastPanel);
                 displaySupplyComponents(width, height, comboBox, btnSupply, btnAdd, centralNorthPanel);
                 displayEndingKitchen(btnEndingKitchen, width, height, rightPanel);
-                displayOven(btnOven, width, height, centralSouthPanel);
+                displayOven(btnOven, width, height, centralSouthPanel, controller);
                 displayClean(btnClean, width, height, lowWestPanel);
             }
         });
@@ -227,9 +230,7 @@ public class GUIKitchen {
                 } catch (Exception bottonEndingKitchenException) {
                     JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                    
-            }
-            
+            }  
         });
 
         btnSupply.addActionListener(new ActionListener() {
@@ -241,10 +242,9 @@ public class GUIKitchen {
                 } catch (Exception bottonSupplyException) {
                     JOptionPane.showMessageDialog(frame, bottonSupplyException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }
-            
+            } 
         });
-
+        
         btnOven.addActionListener(new ActionListener() {
 
             @Override
@@ -254,18 +254,26 @@ public class GUIKitchen {
                     if (pizza1.isSelected()) {
                         disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
                         controller.bakingPizza();
-                        JOptionPane.showMessageDialog(frame, "Pizza number 1 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+
+
+                        if (controller.getPreparationZone().getOven().isPizzaCooked()) {
+                            JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);   
+                            pizza1.setEnabled(false);
+                        }
+                        
                     }
                     if (pizza2.isSelected()) {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
                         controller.bakingPizza();
-                        JOptionPane.showMessageDialog(frame, "Pizza number 2 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
+                        if (controller.getPreparationZone().getOven().isPizzaCooked()) {
+                            JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);   
+                            pizza2.setEnabled(false);
+                        }
                     }
                 } catch (Exception bottonOvenException) {
                     JOptionPane.showMessageDialog(frame, bottonOvenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            
         });
     }
 
@@ -346,7 +354,6 @@ public class GUIKitchen {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(frame, order, "ORDER", JOptionPane.INFORMATION_MESSAGE);
             }
-            
         });
     }
 
@@ -380,10 +387,10 @@ public class GUIKitchen {
         rightPanel.validate();
     }
 
-    private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel) {
+    private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel, final Controller controller) {
         ovenButton.setSize(new Dimension((int)(width*0.08), (int)(height*0.05)));
         centralSouthPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.77), (int)(height*0.02), (int)(width*0.42)));
-        centralSouthPanel.validate();
+        centralSouthPanel.validate();    
     }
 
     private void displayClean(final JButton cleanerButton, final int width, final int height, final JPanel lowWestPanel) {
@@ -393,8 +400,46 @@ public class GUIKitchen {
         lowWestPanel.validate();
     }
 
+    
+
     public void start() {
         frame.setVisible(true);
     }
 
+    public class OvenThread extends Thread {
+
+        private final Lock lock = new ReentrantLock();
+        private final Condition condition = lock.newCondition();
+
+        public OvenThread(){
+
+        }
+
+        @Override
+        public void run(){
+            while(true){
+                lock.lock();
+                try{
+                    condition.await(); // go in waiting mode
+                    JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+
+
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }finally{
+                    lock.unlock();
+                }
+            }
+        }
+
+        public void wakeUp(){
+            lock.lock();
+            try{
+                condition.signal();
+            }finally{
+                lock.unlock();
+            }
+        }
+        
+    }
 }

@@ -311,4 +311,5 @@ public class GUIHallImpl implements PropertyChangeListener {
             }
         }
     } 
+
 }
