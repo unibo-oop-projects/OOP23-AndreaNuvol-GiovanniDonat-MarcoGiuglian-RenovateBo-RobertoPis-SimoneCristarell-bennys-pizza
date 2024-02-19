@@ -27,7 +27,6 @@ public class OvenImpl implements Oven{
     public static void resetOven(){
         emptyOven = true;
         ovenTimer = new Timer();
-        //isCooked = false;
         finishBakingTime = LocalTime.now().plusSeconds(COOKNING_TIME_IN_SECONDS);
     }
 
@@ -50,7 +49,8 @@ public class OvenImpl implements Oven{
             public void run() {
 
                 if (LocalTime.now().getSecond() >= finishBakingTime.getSecond()){
-                    support.firePropertyChange("baked", null, true);
+                    //support.firePropertyChange("baked", null, true);
+                    
                     ovenTimer.cancel();
                 }
             }
@@ -63,4 +63,17 @@ public class OvenImpl implements Oven{
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
+
+
+    public static class ThreadOven extends Thread {
+        private OvenImpl oven = new OvenImpl();
+
+        public void run() {
+            oven.baking();
+            synchronized(this) {
+                this.notify();
+            }
+        }
+    }
 }
+
