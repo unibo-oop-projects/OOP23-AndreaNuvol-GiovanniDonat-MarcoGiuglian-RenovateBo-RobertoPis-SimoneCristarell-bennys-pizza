@@ -66,12 +66,12 @@ public class PreparationZoneImpl implements PreparationZone {
     }
 
     @Override
-    public PizzaFactory getPizza2() throws IllegalStateException {
+    public Optional<PizzaFactory> getPizza2() throws IllegalStateException {
         ifNumOfPizzasUnsetOp();
-        if (this.pizza2.isEmpty()) {
-            throw new IllegalStateException("Pizza n. 2 is not requested from this client.");
-        }
-        return this.pizza2.get();
+        // if (this.pizza2.isEmpty()) {
+        //     throw new IllegalStateException("Pizza n. 2 is not requested from this client.");
+        // }
+        return this.pizza2;
     }
 
     @Override

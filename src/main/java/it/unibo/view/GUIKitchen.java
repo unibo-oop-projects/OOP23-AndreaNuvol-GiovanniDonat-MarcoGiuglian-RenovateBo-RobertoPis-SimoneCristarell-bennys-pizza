@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +31,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.Controller;
-import it.unibo.controller.impl.ControllerImpl;
 
 public class GUIKitchen {
 
@@ -49,7 +47,7 @@ public class GUIKitchen {
     private final Map<String, JLabel> ingredientLabelsMapPizza1 = new HashMap<>();
     private final Map<String, JLabel> ingredientLabelsMapPizza2 = new HashMap<>();
 
-    public GUIKitchen(final Controller controller) {
+    public GUIKitchen(final Controller controller, final JFrame backgroundHall) {
         frame.setSize(screenWidth, screenHeight);
         final Image background = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "Preparation_Zone.png");
         ImagePanel imagePanel = new ImagePanel(background);
@@ -169,6 +167,8 @@ public class GUIKitchen {
             }
         });
 
+        // pizza2.setEnabled(controller.get);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         btnGarbageBin.addActionListener(new ActionListener() {
@@ -185,7 +185,7 @@ public class GUIKitchen {
                     controller.throwPizzaInGarbageBin(true);
                 }
                 if (pizza2.isSelected()) {
-                    for (var ingredient : controller.getPreparationZone().getPizza2().getAddedIngredients()) {
+                    for (var ingredient : controller.getPreparationZone().getPizza2().get().getAddedIngredients()) {
                         if(ingredientLabelsMapPizza2.get(ingredient.toString()).isVisible()) {
                             ingredientLabelsMapPizza2.get(ingredient.toString()).setVisible(false);
                         }
@@ -217,7 +217,9 @@ public class GUIKitchen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                controller.getClientThread().wakeUp();
                 frame.dispose();
+                backgroundHall.setVisible(true);
             }
             
         });
@@ -346,10 +348,6 @@ public class GUIKitchen {
 
     public void start() {
         frame.setVisible(true);
-    }
-
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        new GUIKitchen(new ControllerImpl()).start();
     }
 
 }

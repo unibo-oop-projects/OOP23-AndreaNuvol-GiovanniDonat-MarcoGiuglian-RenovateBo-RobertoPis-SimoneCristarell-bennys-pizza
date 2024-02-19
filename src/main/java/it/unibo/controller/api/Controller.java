@@ -58,6 +58,11 @@ public interface Controller {
     void bakingPizza();
 
     /**
+     * It resets the two pizzas before you can prepare others
+     */
+    void resetPizzas();
+
+    /**
      * It gets the total balance
      * @return the total balance
      */

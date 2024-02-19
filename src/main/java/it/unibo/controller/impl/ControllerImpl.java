@@ -126,6 +126,7 @@ public class ControllerImpl implements Controller {
     public Pair<String, Optional<String>> order() {
         Pair<String, Optional<String>> orderedPizzas;
         order = this.client.order();
+        this.preparationZone.setNumberOfPizzasToPrepare(order.getNumberPizzasToOrder());
         if(order.getNumberPizzasToOrder() == 1){
             orderedPizzas = Pair.of(order.getOrderPizzas().getLeft().getName(), Optional.empty());
         }else{
@@ -136,7 +137,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void pay() {
-        this.client.pay(this.preparationZone.getPizza1(), Optional.of(this.preparationZone.getPizza2()));
+        this.client.pay(this.preparationZone.getPizza1(), this.preparationZone.getPizza2());
     }
 
     @Override
@@ -176,6 +177,11 @@ public class ControllerImpl implements Controller {
     @Override
     public void newDay() {
         this.time.newDay();
+    }
+
+    @Override
+    public void resetPizzas() {
+        this.preparationZone.resetPizzaPreparation();
     }
 
 }
