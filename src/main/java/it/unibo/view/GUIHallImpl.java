@@ -63,6 +63,7 @@ public class GUIHallImpl implements PropertyChangeListener {
     public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
         createStringBuilderMenu();
+        this.controller.getClientThread().start();
         
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame(TITLE);
@@ -262,9 +263,5 @@ public class GUIHallImpl implements PropertyChangeListener {
                 SwingUtilities.invokeLater(() -> balanceTotLabel.setText(BALANCE_TOT + String.valueOf(controller.getBalanceTot()) + CURRENCY));
                 break;
         }
-    }
-
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        new GUIHallImpl(new ControllerImpl());
     }
 }

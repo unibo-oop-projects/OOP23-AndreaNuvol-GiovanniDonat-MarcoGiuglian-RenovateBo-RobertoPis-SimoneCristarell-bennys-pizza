@@ -325,7 +325,7 @@ public class GUIKitchen {
         final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int)(width / 15), 10));
         final JLabel lblDay = new JLabel("Day: 16/02/2024");
         final JLabel lblTime = new JLabel("18:15");
-        final JLabel lblBalance = new JLabel("Balance: 50€");
+        final JLabel lblBalance = new JLabel("Balance: 50" );
         final JButton btnShowOrder = new JButton("Show client's order");
         btnShowOrder.setPreferredSize(new Dimension(150, 21));
         btnShowOrder.setBackground(Color.WHITE);

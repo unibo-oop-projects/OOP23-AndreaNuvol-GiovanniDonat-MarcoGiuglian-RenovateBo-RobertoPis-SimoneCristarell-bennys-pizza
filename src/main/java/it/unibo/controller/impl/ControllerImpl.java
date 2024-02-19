@@ -40,7 +40,7 @@ public class ControllerImpl implements Controller {
         MenuImpl.generateMenu();
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         this.clientThread = new ClientThread(this);
-        this.clientThread.start();
+        // this.clientThread.start();
     }
 
     protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {

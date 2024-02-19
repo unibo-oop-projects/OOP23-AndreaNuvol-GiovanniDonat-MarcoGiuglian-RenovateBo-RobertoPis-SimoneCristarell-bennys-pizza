@@ -3,7 +3,6 @@ package it.unibo.model.api;
 import java.util.Optional;
 
 import it.unibo.model.impl.Client.ClientImpl;
-import it.unibo.model.impl.Client.ClientImpl.Order;
 
 public interface Client {
     
