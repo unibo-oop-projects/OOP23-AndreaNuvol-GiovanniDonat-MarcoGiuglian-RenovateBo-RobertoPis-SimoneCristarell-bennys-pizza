@@ -263,8 +263,8 @@ public class GUIKitchen {
                     controller.bakingPizza();
                     JOptionPane.showMessageDialog(frame, "Pizza number 2 is baked!", "Baked!", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } catch (Exception bottonOvException) {
-                JOptionPane.showMessageDialog(frame, bottonOvException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception bottonOvenException) {
+                JOptionPane.showMessageDialog(frame, bottonOvenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
             
