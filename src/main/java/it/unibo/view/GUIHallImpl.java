@@ -8,7 +8,6 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystems;
 import javax.swing.*;
 import java.util.Random;
@@ -69,6 +68,8 @@ public class GUIHallImpl implements PropertyChangeListener {
             JFrame background = new JFrame(TITLE);
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
             ImagePanel imagePanel = new ImagePanel(backgroundImage);
+            UpdateThread updateThread = new UpdateThread(this, controller);
+            updateThread.start();
             background.getContentPane().add(imagePanel);
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             background.setSize(width, height);
@@ -78,7 +79,9 @@ public class GUIHallImpl implements PropertyChangeListener {
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background);
+
             displayClient(imagePanel);
+
             displayOrder(imagePanel, background);
         });
     }
@@ -104,8 +107,9 @@ public class GUIHallImpl implements PropertyChangeListener {
         dialog.add(pizzaPanel, BorderLayout.CENTER);
         dialog.setCloseListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                new GUIKitchen(controller, background).start();
-                background.setVisible(false);
+                
+                new GUIKitchen(controller, background, dayLabel).start();
+                // background.setVisible(false);
             }
         });
         dialog.setVisible(true);
@@ -237,6 +241,11 @@ public class GUIHallImpl implements PropertyChangeListener {
         clientLabel.setBounds(clientX, clientY, clientImage.getWidth(null), clientImage.getHeight(null));
         imagePanel.setLayout(null);
         imagePanel.add(clientLabel);
+    }
+
+    public void updateBalanceLabels(double balanceTot, double balanceDay) {
+        balanceTotLabel.setText(BALANCE_TOT + Double.toString(balanceTot));
+        balanceDayLabel.setText(BALANCE_DAY + Double.toString(balanceDay));
     }
 
     private int randomIndexClientImage(){

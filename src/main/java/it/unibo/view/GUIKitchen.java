@@ -48,7 +48,7 @@ public class GUIKitchen {
     private final Map<String, JLabel> ingredientLabelsMapPizza1 = new HashMap<>();
     private final Map<String, JLabel> ingredientLabelsMapPizza2 = new HashMap<>();
 
-    public GUIKitchen(final Controller controller, final JFrame backgroundHall) {
+    public GUIKitchen(final Controller controller, final JFrame backgroundHall, final JLabel dayLabel) {
         frame.setSize(screenWidth, screenHeight);
         final Image background = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "Preparation_Zone.png");
         ImagePanel imagePanel = new ImagePanel(background);
@@ -221,8 +221,9 @@ public class GUIKitchen {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.getClientThread().wakeUp();
-                    frame.dispose();
+                    dayLabel.repaint();
                     backgroundHall.setVisible(true);
+                    frame.dispose();
                 } catch (Exception bottonEndingKitchenException) {
                     JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }

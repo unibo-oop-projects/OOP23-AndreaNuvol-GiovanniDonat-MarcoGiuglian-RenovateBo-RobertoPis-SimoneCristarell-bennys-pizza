@@ -40,7 +40,7 @@ public class ClientImpl implements Client{
     @Override
     public void pay(final PizzaFactory pizzaFactoryImpl1, final Optional<PizzaFactory> pizzaFactoryImpl2) {
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzas = this.order.getOrderPizzas();
-        final AbstractManager manager = new AdderManager();
+        final AdderManager manager = new AdderManager();
         double amountToAdd = 0;
         // checking first pizza
         if(pizzaFactoryImpl1.equals(pizzas.getLeft().getIngredients())){
