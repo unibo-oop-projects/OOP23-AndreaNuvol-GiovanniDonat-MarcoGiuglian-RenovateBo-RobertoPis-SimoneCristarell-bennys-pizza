@@ -51,7 +51,11 @@ public class TimeImpl implements Time {
         support.firePropertyChange("end", null, this.getResult());
     }
 
-    public String getResult(){
+    /**
+     * @return the resoult of the working day.
+     */
+    @Override
+    public String getResult() {
         return this.res;
     }
 

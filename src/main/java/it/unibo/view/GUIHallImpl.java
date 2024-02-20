@@ -303,7 +303,6 @@ public class GUIHallImpl implements PropertyChangeListener {
 
     /**
      * It updates total and daily balance after each payment, made or received.
-     * @param balanceTot
      * @param balanceDay
      */
     public void updateBalanceLabels(final double balanceDay) {

@@ -18,4 +18,9 @@ public interface Time {
      * @return a string with the "virtual" time.
      */
     String getHourAndMin();
+
+    /**
+     * @return the resoult of the working day.
+     */
+    public String getResult();
 }

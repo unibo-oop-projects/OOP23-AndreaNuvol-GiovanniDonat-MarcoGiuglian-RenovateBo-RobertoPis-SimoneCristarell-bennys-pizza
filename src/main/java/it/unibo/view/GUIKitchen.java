@@ -470,9 +470,7 @@ public class GUIKitchen {
 
     /**
      * It updates total and daily balance after each payment, made or received.
-     * @param lblBalanceTot
      * @param lblBalanceDay
-     * @param balanceDay
      * @param balanceTot
      */
     public void updateBalanceLabels(final JLabel lblBalanceDay,
