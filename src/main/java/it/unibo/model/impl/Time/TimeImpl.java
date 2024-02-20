@@ -25,8 +25,8 @@ public class TimeImpl implements Time {
     private static int workingDays = 1;
     private int hour;
     private int min;
-    private Timer timer;
-    private PropertyChangeSupport support;
+    private Timer timer = new Timer();
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
      * It increments the current time of the day.
@@ -71,6 +71,7 @@ public class TimeImpl implements Time {
         this.support = new PropertyChangeSupport(this);
         this.hour = STARTING_HOUR;
         this.min = STARTING_MIN;
+        this.timer.cancel();
         this.timer = new Timer();
         startTimeForNewDay();
     }
