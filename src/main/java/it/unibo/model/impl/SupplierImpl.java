@@ -8,7 +8,7 @@ import it.unibo.model.impl.Management.SubtractorManager;
  * Class that implement the supplier interface to manage the supply of ingredients.
  */
 public class SupplierImpl implements Supplier {
-    private static final double AMOUNT_TO_PAY = 5;
+    private static final double AMOUNT_TO_PAY = 4;
 
     /**
      * method to supply the ingredient.

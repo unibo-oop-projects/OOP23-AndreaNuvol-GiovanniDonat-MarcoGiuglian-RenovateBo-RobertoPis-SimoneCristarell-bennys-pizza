@@ -71,7 +71,8 @@ public class GUIKitchen {
                     ImageIcon icon = new ImageIcon(itemImageMap.get((String) value).getImage().getScaledInstance(80, 80, 0));
                     // Set the icon and text for the label
                     label.setIcon(icon);
-                    label.setText((String) value + "  Q: " + controller.getIngredientQuantity((String)value));
+                    final int quantity = controller.getIngredientQuantity((String)value);
+                    label.setText((String) value + "  Q: " + (quantity >= 0 ? quantity : 0));
                     return label;
                 }
         });
