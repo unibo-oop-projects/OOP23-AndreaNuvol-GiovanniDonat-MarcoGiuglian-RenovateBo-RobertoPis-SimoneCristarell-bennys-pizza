@@ -5,6 +5,9 @@ package it.unibo.model.impl.Management;
  */
 public class SubtractorManager extends AbstractManager {
 
+    /**
+     * update the field balance subtracting the amount.
+     */
     @Override
     public void updateBalance(final double amount) {
         if (isWithdrawAllowed(amount)) {

@@ -85,7 +85,6 @@ public class GUIHallImpl implements PropertyChangeListener {
     public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
         createStringBuilderMenu();
-        
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame(TITLE);
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT
@@ -115,17 +114,17 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @param imagePanel
      * @param background
      */
-    private void displayOrder(final ImagePanel imagePanel, final JFrame background){
+    private void displayOrder(final ImagePanel imagePanel, final JFrame background) {
         String pizzaOrder1 = controller.getClientThread().getOrder().getLeft().getName();
         Optional<String> pizzaOrder2 = Optional.empty();
-        if (controller.getClientThread().getOrder().getRight().isPresent()){
+        if (controller.getClientThread().getOrder().getRight().isPresent()) {
             pizzaOrder2 = Optional.of(controller.getClientThread().getOrder().getRight().get().getName());
         }
         JPanel pizzaPanel = new JPanel();
         pizzaPanel.setLayout(new BoxLayout(pizzaPanel, BoxLayout.Y_AXIS));
         JLabel pizzaLabel1 = new JLabel(pizzaOrder1);
         pizzaPanel.add(pizzaLabel1);
-        if (pizzaOrder2.isPresent()){
+        if (pizzaOrder2.isPresent()) {
             JLabel pizzaLabel2 = new JLabel(pizzaOrder2.get());
             pizzaPanel.add(pizzaLabel2);
         }
@@ -357,12 +356,17 @@ public class GUIHallImpl implements PropertyChangeListener {
      * Thread to simulate clients that make orders.
      */
     public class OrderThread extends Thread {
-        private static final Lock lock = new ReentrantLock();
-        private static final Condition condition = lock.newCondition();
+        private static final Lock LOCK = new ReentrantLock();
+        private static final Condition COND = LOCK.newCondition();
         private ImagePanel imagePanel;
         private JFrame background;
 
-        public OrderThread(final ImagePanel imagePanel, final JFrame background){
+        /**
+         * Constructor of OrderThread.
+         * @param imagePanel panel that contains the image.
+         * @param background frame with background.
+         */
+        public OrderThread(final ImagePanel imagePanel, final JFrame background) {
             this.imagePanel = imagePanel;
             this.background = background;
         }
@@ -373,14 +377,14 @@ public class GUIHallImpl implements PropertyChangeListener {
         @Override
         public void run() {
             while (true) {
-                lock.lock();
+                LOCK.lock();
                 try {
-                    condition.await();
+                    COND.await();
                     displayOrder(imagePanel, background);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    lock.unlock();
+                    LOCK.unlock();
                 }
             }
         }
@@ -389,11 +393,11 @@ public class GUIHallImpl implements PropertyChangeListener {
          * Method to wakeUp this thread.
          */
         public static void wakeUp() {
-            lock.lock();
+            LOCK.lock();
             try {
-                condition.signal();
+                COND.signal();
             } finally {
-                lock.unlock();
+                LOCK.unlock();
             }
         }
     } 

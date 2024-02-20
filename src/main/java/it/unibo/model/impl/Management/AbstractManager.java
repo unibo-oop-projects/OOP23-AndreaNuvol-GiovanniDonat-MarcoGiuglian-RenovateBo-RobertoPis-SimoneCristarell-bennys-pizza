@@ -14,21 +14,21 @@ public abstract class AbstractManager implements Management {
     protected static double balanceDay = 0;
 
     /**
-     * @return the total balance
+     * @return the total balance.
      */
     public double getBalanceTot() {
         return balanceTot;
     }
 
     /**
-     * @return the balance of the day
+     * @return the balance of the day.
      */
     public double getBalanceDay() {
         return balanceDay;
     }
 
     /**
-     * @return true if the player passed the level
+     * @return true if the player passed the level.
      */
     public static boolean levelPassed() {
         if (TimeImpl.getWorkingDay() != 1) {
@@ -38,14 +38,14 @@ public abstract class AbstractManager implements Management {
     }
 
     /**
-     * reset to 0 the balance day
+     * reset to 0 the balance day.
      */
     public static void resetBalanceDay() {
         balanceDay = 0;
     }
 
     /**
-     * adds the daily balance into the total balance 
+     * adds the daily balance into the total balance.
      */
     public static void addBalanceTot() {
         balanceTot += balanceDay;

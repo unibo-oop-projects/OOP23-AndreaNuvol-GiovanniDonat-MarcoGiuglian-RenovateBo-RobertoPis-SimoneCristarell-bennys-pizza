@@ -6,24 +6,30 @@ import it.unibo.model.impl.Management.AbstractManager;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Test the subtractor manager class
+ */
 public class TestAdderManager {
     private static final double DELTA = 0.001;
-    AdderManager manager = new AdderManager();
+    private static final double POSITIVE_AMOUNT = 10;
+    private static final double NEGATIVE_AMOUNT = -10;
+    private static final double DECIMAL_AMOUNT = 3.14;
+    private AdderManager manager = new AdderManager();
     
     // Can add positive amounts to balance
     @Test
     public void testAddPositiveAmountsToBalance() {
         AbstractManager.resetBalanceDay();
-        manager.updateBalance(10);
-        assertEquals(10, manager.getBalanceDay(), DELTA);
+        manager.updateBalance(POSITIVE_AMOUNT);
+        assertEquals(POSITIVE_AMOUNT, manager.getBalanceDay(), DELTA);
     }
 
     // Can add decimal amounts to balance
     @Test
     public void testAddDecimalAmountsToBalance() {
         AbstractManager.resetBalanceDay();
-        manager.updateBalance(3.14);
-        assertEquals(3.14, manager.getBalanceDay(), DELTA);
+        manager.updateBalance(DECIMAL_AMOUNT);
+        assertEquals(DECIMAL_AMOUNT, manager.getBalanceDay(), DELTA);
     }
 
     // Cannot add negative amounts to balance
@@ -31,7 +37,7 @@ public class TestAdderManager {
     public void testAddNegativeAmountsToBalance() {
         AbstractManager.resetBalanceDay();
         assertThrows(IllegalArgumentException.class, () -> {
-            manager.updateBalance(-10);
+            manager.updateBalance(NEGATIVE_AMOUNT);
         });
 
     }

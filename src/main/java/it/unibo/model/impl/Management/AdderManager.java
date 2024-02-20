@@ -6,7 +6,7 @@ package it.unibo.model.impl.Management;
 public class AdderManager extends AbstractManager {
 
     /**
-     * update the field balance adding the amount
+     * update the field balance adding the amount.
      */
     @Override
     public void updateBalance(final double amount) {

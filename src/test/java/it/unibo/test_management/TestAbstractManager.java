@@ -8,9 +8,12 @@ import it.unibo.model.impl.Management.AdderManager;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Test the abstract class manager
+ */
 public class TestAbstractManager {
     private static final double DELTA = 0;
-    AbstractManager manager = new AdderManager();
+    private AbstractManager manager = new AdderManager();
      // AbstractManager can be instantiated
     @Test
     public void testInstantiation() {
@@ -20,6 +23,6 @@ public class TestAbstractManager {
     // balance is initialized to 0
     @Test
     public void testBalanceInitialization() {
-        assertEquals(0, manager.getBalanceTot(), DELTA);
+        assertEquals(DELTA, manager.getBalanceTot(), DELTA);
     }
 }

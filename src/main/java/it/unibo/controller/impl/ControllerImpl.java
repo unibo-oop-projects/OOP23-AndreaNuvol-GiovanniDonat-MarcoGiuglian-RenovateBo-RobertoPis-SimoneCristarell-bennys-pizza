@@ -22,7 +22,7 @@ import java.beans.*;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
- * Implementation of the controller interface
+ * Implementation of the controller interface.
  */
 public class ControllerImpl implements Controller {
     
