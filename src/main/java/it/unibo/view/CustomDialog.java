@@ -24,7 +24,7 @@ public class CustomDialog extends JDialog {
         super(parent, title, false);
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JLabel(message), BorderLayout.CENTER);
-        getContentPane().add(panel);
+        super.getContentPane().add(panel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(panel);
