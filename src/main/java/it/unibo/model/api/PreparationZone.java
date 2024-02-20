@@ -15,6 +15,11 @@ public interface PreparationZone {
      */
     void setNumberOfPizzasToPrepare(int numberOfPizzas);
 
+    /** 
+     * @return if number of pizzas to prepare is set.  
+     */
+    boolean isNumberOfPizzasToPrepareSet();
+
     /**
      * @return pizza number 1.
      */
