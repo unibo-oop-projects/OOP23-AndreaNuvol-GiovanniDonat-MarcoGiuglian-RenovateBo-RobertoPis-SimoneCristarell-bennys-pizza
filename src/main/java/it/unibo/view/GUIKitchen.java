@@ -18,9 +18,21 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.*;
+
 import it.unibo.controller.api.Controller;
 
 public class GUIKitchen {
@@ -30,8 +42,8 @@ public class GUIKitchen {
     private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP;
 
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private static final int screenWidth = (int)screenSize.getWidth();
-    private static final int screenHeight = (int)screenSize.getHeight();
+    private static final int screenWidth = (int) screenSize.getWidth();
+    private static final int screenHeight = (int) screenSize.getHeight();
 
     private static final String FONT = "Arial";
     private static final int FONT_SIZE = 25;

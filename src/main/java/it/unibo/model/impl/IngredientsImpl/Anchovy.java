@@ -23,5 +23,5 @@ public class Anchovy extends IngredientImpl {
     @Override
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);
-    }  
+    }
 }

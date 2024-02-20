@@ -28,7 +28,7 @@ import it.unibo.model.impl.IngredientsImpl.TomatoSauce;
 /**
  * Test PizzaFactory class.
  */
-public class TestPizzaFactory {    
+public class TestPizzaFactory {
     private PreparationZoneImpl p;
     @BeforeEach
     public void initialize() throws ClassNotFoundException, 
