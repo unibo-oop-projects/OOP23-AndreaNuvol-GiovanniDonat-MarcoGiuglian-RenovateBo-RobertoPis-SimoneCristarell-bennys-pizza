@@ -19,6 +19,8 @@ public class MenuImpl {
     private static final String FILE_PATH = SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "menu.json";
     private static List<Pizza> pizzas;
 
+    private MenuImpl() {}
+
     /**
      * This method generate the menu.
      */
