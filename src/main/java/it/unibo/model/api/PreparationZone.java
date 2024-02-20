@@ -3,6 +3,8 @@ package it.unibo.model.api;
 import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.model.impl.PizzaFactoryImpl;
+
 /**
  * Interface of the zone in which the pizza is prepared.
  */
@@ -16,13 +18,13 @@ public interface PreparationZone {
     /**
      * @return pizza number 1.
      */
-    PizzaFactory getPizza1();
+    PizzaFactoryImpl getPizza1();
 
     /**
      * @return pizza number 2, only if is there.
      * @throws IllegalStateException if the pizza n. 2 is not requested.
      */
-    Optional<PizzaFactory> getPizza2() throws IllegalStateException;
+    Optional<PizzaFactoryImpl> getPizza2() throws IllegalStateException;
 
     /**
      * @return a map with the Ingredient as Key and the quantity of this as Value.

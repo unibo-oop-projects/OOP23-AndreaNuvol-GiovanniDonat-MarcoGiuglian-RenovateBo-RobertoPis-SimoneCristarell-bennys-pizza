@@ -12,7 +12,22 @@ import it.unibo.model.impl.IngredientsImpl.Dough;
  */
 public class PizzaFactoryImpl implements PizzaFactory {
 
-    private final List<IngredientImpl> addedIngredients = new ArrayList<>();
+    private List<IngredientImpl> addedIngredients;
+
+    /**
+     * Constructor of a pizzaFactoryImpl taking another pizza factory as parameter.
+     * @param p the other pizza factory.
+     */
+    public PizzaFactoryImpl(final PizzaFactoryImpl p) {
+        this.addedIngredients = new ArrayList<>(p.getAddedIngredients());
+    }
+
+    /**
+     * Default constructor of pizzaFactoryImpl.
+     */
+    public PizzaFactoryImpl() {
+        this.addedIngredients = new ArrayList<>();
+    }
 
     /**
      * It adds an ingredient on the pizza.

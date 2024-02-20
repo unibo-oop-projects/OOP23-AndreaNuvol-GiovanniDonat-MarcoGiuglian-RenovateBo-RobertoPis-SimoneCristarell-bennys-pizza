@@ -10,7 +10,6 @@ import java.util.Optional;
 import it.unibo.model.api.GarbageBin;
 import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.Oven;
-import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.api.Supplier;
 import it.unibo.model.impl.Management.SubtractorManager;
@@ -26,8 +25,8 @@ public class PreparationZoneImpl implements PreparationZone {
     private boolean isNumberOfPizzasToPrepareSet = false;
     private final Supplier supplier = new SupplierImpl();
     private final SubtractorManager management;
-    private PizzaFactory pizza1;
-    private Optional<PizzaFactory> pizza2 = Optional.empty();
+    private PizzaFactoryImpl pizza1;
+    private Optional<PizzaFactoryImpl> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     private final GarbageBin garbageBin = new GarbageBinImpl();
@@ -81,9 +80,9 @@ public class PreparationZoneImpl implements PreparationZone {
      * It returns the prepared pizza n. 1.
      */
     @Override
-    public PizzaFactory getPizza1() {
+    public PizzaFactoryImpl getPizza1() {
         ifNumOfPizzasUnsetOp();
-        return this.pizza1;
+        return new PizzaFactoryImpl(this.pizza1);
     }
 
     private void ifNumOfPizzasUnsetOp() {
@@ -96,7 +95,7 @@ public class PreparationZoneImpl implements PreparationZone {
      * It returns the prepared pizza n. 2.
      */
     @Override
-    public Optional<PizzaFactory> getPizza2() {
+    public Optional<PizzaFactoryImpl> getPizza2() {
         ifNumOfPizzasUnsetOp();
         return this.pizza2;
     }

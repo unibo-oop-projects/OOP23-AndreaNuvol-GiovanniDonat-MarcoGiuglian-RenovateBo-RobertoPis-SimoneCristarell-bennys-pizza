@@ -1,6 +1,8 @@
 package it.unibo.model.api;
 
 import java.util.Optional;
+
+import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.Client.ClientImpl;
 
 /**
@@ -18,5 +20,5 @@ public interface Client {
      * @param pizzaFactoryImpl1
      * @param pizzaFactoryImpl2
      */
-    void pay(PizzaFactory pizzaFactoryImpl1, Optional<PizzaFactory> pizzaFactoryImpl2);
+    void pay(PizzaFactoryImpl pizzaFactoryImpl1, Optional<PizzaFactoryImpl> pizzaFactoryImpl2);
 }

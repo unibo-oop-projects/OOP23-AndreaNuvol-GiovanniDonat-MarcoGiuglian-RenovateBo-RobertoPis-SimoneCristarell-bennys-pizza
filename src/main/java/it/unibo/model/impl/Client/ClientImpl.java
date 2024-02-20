@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.List;
 import it.unibo.model.api.Client;
 import it.unibo.model.api.Ingredient;
-import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.Menu.MenuImpl;
+import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.Management.AdderManager;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -45,7 +45,7 @@ public class ClientImpl implements Client {
      * The client pays.
      */
     @Override
-    public void pay(final PizzaFactory pizzaFactoryImpl1, final Optional<PizzaFactory> pizzaFactoryImpl2) {
+    public void pay(final PizzaFactoryImpl pizzaFactoryImpl1, final Optional<PizzaFactoryImpl> pizzaFactoryImpl2) {
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzas = this.order.getOrderPizzas();
         final AdderManager manager = new AdderManager();
         double amountToAdd = 0;
