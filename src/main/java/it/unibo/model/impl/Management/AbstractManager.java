@@ -10,14 +10,28 @@ public abstract class AbstractManager implements Management {
     private static final double MIN_AMOUNT_TO_PASS_LEVEL = 10;
     private static final double FACTORY_FOR_DAY_NOT_ONE = 1.5;
     private static double factoryMultiple = 1;
-    protected static double balanceTot = 0;
-    protected static double balanceDay = 0;
+    private static double balanceTot = 0;
+    private static double balanceDay = 0;
 
     /**
      * @return the total balance.
      */
     public double getBalanceTot() {
         return balanceTot;
+    }
+
+    /**
+     * @param newBalanceTot is the new balance tot to set.
+     */
+    public static void setBalanceTot(final double newBalanceTot) {
+        balanceTot = newBalanceTot;
+    }
+
+    /**
+     * @param newBalanceDay is the new balance day to set.
+     */
+    public static void setBalanceDay(final double newBalanceDay) {
+        balanceDay = newBalanceDay;
     }
 
     /**

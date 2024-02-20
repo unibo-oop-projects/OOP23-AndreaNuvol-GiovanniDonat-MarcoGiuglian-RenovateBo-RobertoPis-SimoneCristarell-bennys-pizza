@@ -10,7 +10,9 @@ public class AdderManager extends AbstractManager {
     @Override
     public void updateBalance(final double amount) {
         if (isDepositAllowed(amount)) {
+            double balanceDay = getBalanceDay();
             balanceDay += amount;
+            AbstractManager.setBalanceDay(balanceDay);
         } else {
             throw new IllegalArgumentException("Can't add negative or null value to balance.");
         }
