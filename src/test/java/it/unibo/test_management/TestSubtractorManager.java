@@ -9,30 +9,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestSubtractorManager {
+
+    private static final String DELTA = "0.001";
     AdderManager adderManager = new AdderManager(); // we need it to start with a balance different from 0
     AbstractManager manager = new SubtractorManager();
 
     // Can subtract positive amounts to balance
     @Test
-    public void test_subtract_positive_numbers_to_amount() {
+    public void testSubtractPositiveNumbersToAmount() {
         adderManager.updateBalance(100);
         manager.updateBalance(10.0);
-        assertEquals(90.0, manager.getBalanceDay(), 0.001);
+        assertEquals(90.0, manager.getBalanceDay(), DELTA);
         AbstractManager.resetBalanceDay();
     }
 
     // Can subtract decimal positive amounts to balance
     @Test
-    public void test_subtract_decimal_amounts_to_balance(){
+    public void testSubtractDecimalAmountsToBalance() {
         adderManager.updateBalance(100);
         manager.updateBalance(14.4);
-        assertEquals(85.6, manager.getBalanceDay(), 0.001);
+        assertEquals(85.6, manager.getBalanceDay(), DELTA);
         AbstractManager.resetBalanceDay();
     }
 
     // Cannot subtract negative amounts to balance
     @Test
-    public void test_subtract_negative_amounts_to_balance(){
+    public void testSubtractNegativeAmountsToBalance() {
         assertThrows(IllegalArgumentException.class, () -> {
             manager.updateBalance(-14.4);
         });
@@ -41,7 +43,7 @@ public class TestSubtractorManager {
 
     // Cannot subtract NaN to balance
     @Test
-    public void test_add_nan_to_balance() {
+    public void testAddNanToBalance() {
         assertThrows(IllegalArgumentException.class, () -> {
             manager.updateBalance(Double.NaN);
         });

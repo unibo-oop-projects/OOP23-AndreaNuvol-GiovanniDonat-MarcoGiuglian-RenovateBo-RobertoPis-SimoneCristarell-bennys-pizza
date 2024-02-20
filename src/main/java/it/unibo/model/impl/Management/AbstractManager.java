@@ -3,7 +3,10 @@ package it.unibo.model.impl.Management;
 import it.unibo.model.api.Management;
 import it.unibo.model.impl.Time.TimeImpl;
 
-public abstract class AbstractManager implements Management{
+/**
+ * Abstract class of Management that implement the interface Management
+ */
+public abstract class AbstractManager implements Management {
     private static final double minAmountToPassTheLevel = 10;
     private static double factoryMultiple = 1;
     protected static double balanceTot = 0;

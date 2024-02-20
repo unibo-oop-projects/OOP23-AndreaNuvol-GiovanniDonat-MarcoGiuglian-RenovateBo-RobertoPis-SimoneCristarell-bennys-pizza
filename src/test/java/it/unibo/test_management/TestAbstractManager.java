@@ -9,16 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestAbstractManager {
+    private static final double DELTA = 0;
     AbstractManager manager = new AdderManager();
      // AbstractManager can be instantiated
     @Test
-    public void test_instantiation() {
+    public void testInstantiation() {
         assertNotNull(manager);
     }
 
     // balance is initialized to 0
     @Test
-    public void test_balance_initialization() {
-        assertEquals(0, manager.getBalanceTot(), 0);
+    public void testBalanceInitialization() {
+        assertEquals(0, manager.getBalanceTot(), DELTA);
     }
 }
