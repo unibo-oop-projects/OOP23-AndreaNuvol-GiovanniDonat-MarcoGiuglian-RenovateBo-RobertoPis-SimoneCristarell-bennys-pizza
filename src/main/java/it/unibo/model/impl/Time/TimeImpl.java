@@ -95,7 +95,7 @@ public class TimeImpl implements Time {
     }
 
     /**
-     * It returns the current hour and minute.
+     * @return current hour and minute.
      */
     public String getHourAndMin() {
         if (this.min == 0) {

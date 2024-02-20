@@ -3,7 +3,6 @@ package it.unibo.model.impl;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.regex.Pattern;
-
 import it.unibo.model.api.Ingredient;
 
 /**
@@ -24,7 +23,7 @@ public abstract class IngredientImpl implements Ingredient {
                                                     + SEP
                                                     + "ingredientsImages"
                                                     + SEP;
-    public static final int MAX_QUANTITY = 100;
+    private static final int MAX_QUANTITY = 100;
     private int quantity;
     private double price;
     private String imagePath;

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import it.unibo.model.api.GarbageBin;
 import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.Oven;
@@ -16,10 +15,14 @@ import it.unibo.model.api.PreparationZone;
 import it.unibo.model.api.Supplier;
 import it.unibo.model.impl.Management.SubtractorManager;
 
+/**
+ * Implementation class of PreparationZone interface.
+ */
 public class PreparationZoneImpl implements PreparationZone {
 
     private static final int MIN_PIZZAS_TO_PREPARE = 1;
     private static final int MAX_PIZZAS_TO_PREPARE = 2;
+    private static final int MAX_QUANTITY = 100;
     private boolean isNumberOfPizzasToPrepareSet = false;
     private final Supplier supplier = new SupplierImpl();
     private final SubtractorManager management;
@@ -50,9 +53,8 @@ public class PreparationZoneImpl implements PreparationZone {
 
         for (final var cl: ingredientsClassesNames) {
             final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
-            this.ingredientsQuantities.put((Ingredient) clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
+            this.ingredientsQuantities.put((Ingredient) clazz.getConstructor().newInstance(), MAX_QUANTITY);
         }
-
     }
 
     /**
@@ -62,7 +64,7 @@ public class PreparationZoneImpl implements PreparationZone {
     public void setNumberOfPizzasToPrepare(final int numberOfPizzas) {
         if (numberOfPizzas < MIN_PIZZAS_TO_PREPARE || numberOfPizzas > MAX_PIZZAS_TO_PREPARE) {
             throw new IllegalArgumentException("The number of pizzas to prepare can be only 1 or 2.");
-        } 
+        }
         if (numberOfPizzas == MAX_PIZZAS_TO_PREPARE) {
             this.pizza2 = Optional.of(new PizzaFactoryImpl());
         }
@@ -128,7 +130,7 @@ public class PreparationZoneImpl implements PreparationZone {
             .filter(ingredient -> ingredient.toString().equals(ingredientName))
             .forEach(ingredient -> {
                 if (isASupply) {
-                    if (ingredient.getQuantity() == IngredientImpl.MAX_QUANTITY) {
+                    if (ingredient.getQuantity() == MAX_QUANTITY) {
                         throw new IllegalStateException("The quantity of this ingredient is already the maximum possible.");
                     }
                     this.supplier.supply(ingredient, management);

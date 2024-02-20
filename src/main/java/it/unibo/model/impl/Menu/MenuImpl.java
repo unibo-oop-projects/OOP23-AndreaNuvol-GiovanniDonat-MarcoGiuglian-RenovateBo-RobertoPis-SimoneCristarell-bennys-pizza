@@ -64,7 +64,7 @@ public class MenuImpl {
     /**
      * Class that emulates a pizza on the menu.
      */
-    public static class Pizza {
+    public static final class Pizza {
         private final String name;
         private final float cost;
         private final List<String> ingredients;
