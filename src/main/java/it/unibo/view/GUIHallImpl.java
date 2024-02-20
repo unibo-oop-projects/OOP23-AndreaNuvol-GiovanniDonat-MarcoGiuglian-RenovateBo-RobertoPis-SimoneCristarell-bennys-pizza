@@ -47,7 +47,7 @@ public class GUIHallImpl implements PropertyChangeListener {
     private static final String MENU_STRING = "MENU - " + TITLE;
     private static final String FONT = "Arial";
     private static final String CURRENCY = "$";
-    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
+    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
     private static final String FILE_PATH_IN_COMMON = SEP
                                                       + "src"
                                                       + SEP
@@ -61,6 +61,7 @@ public class GUIHallImpl implements PropertyChangeListener {
                                                     + "clientsImages"
                                                     + SEP;
     private static final int FONT_SIZE = 25;
+    private static final Random RANDOM = new Random();
     private StringBuilder sb = new StringBuilder();
     private static int lastClientShowed = 0;
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -322,8 +323,7 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @return a random integer between 1 and 3.
      */
     private int randomIndexClientImage() {
-        Random random = new Random();
-        return random.nextInt(3) + 1;
+        return RANDOM.nextInt(3) + 1;
     }
 
     /**
