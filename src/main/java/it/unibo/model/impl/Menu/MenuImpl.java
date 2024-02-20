@@ -58,7 +58,7 @@ public final class  MenuImpl {
      * @return a list which contains the pizzas of the menu.
      */
     public static List<Pizza> getPizzas() {
-        return pizzas;
+        return new ArrayList<>(pizzas);
     }
 
     /**

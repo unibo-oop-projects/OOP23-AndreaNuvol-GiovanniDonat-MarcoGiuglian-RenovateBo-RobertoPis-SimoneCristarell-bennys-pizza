@@ -100,9 +100,9 @@ public class TimeImpl implements Time {
      */
     public String getHourAndMin() {
         if (this.min == 0) {
-            return new String(this.getHour() + " : 00 ");
+            return (this.getHour() + " : 00 ");
         } else {
-            return new String(this.getHour() + " : " + this.getMin());
+            return (this.getHour() + " : " + this.getMin());
         }
     }
 
