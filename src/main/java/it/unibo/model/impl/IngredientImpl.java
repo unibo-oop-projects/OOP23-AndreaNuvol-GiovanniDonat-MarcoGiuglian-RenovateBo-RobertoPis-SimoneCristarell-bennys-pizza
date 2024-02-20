@@ -11,7 +11,7 @@ import it.unibo.model.api.Ingredient;
 public abstract class IngredientImpl implements Ingredient {
     private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault()
-                                                                .getPath(new String())
+                                                                .getPath("")
                                                                 .toAbsolutePath()
                                                                 .toString();
     private static final String PATH_TO_RESOURCES = SEP
@@ -92,7 +92,7 @@ public abstract class IngredientImpl implements Ingredient {
      */
     @Override
     public boolean equals(final Object o) {
-        return this.imagePath.equals(((Ingredient) o).getImagePath());
+        return o == null ? false : this.imagePath.equals(((Ingredient) o).getImagePath());
     }
 
     /**
