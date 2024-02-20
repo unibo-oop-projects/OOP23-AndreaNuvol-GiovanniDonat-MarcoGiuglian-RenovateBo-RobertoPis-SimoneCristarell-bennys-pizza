@@ -81,14 +81,14 @@ public interface Controller {
 
 
     /**
-     * It subtracts the amount to balance
-     * @param amount the value to subtract
+     * It subtracts the amount to balance.
+     * @param amount the value to subtract.
      */
     void subtractToBalance(double amount);
 
 
-    /** this method return an OvenImpl
-     * @return return OvenImpl
+    /** this method return an OvenImpl.
+     * @return return OvenImpl.
      */
     OvenImpl getOvenModel();
 

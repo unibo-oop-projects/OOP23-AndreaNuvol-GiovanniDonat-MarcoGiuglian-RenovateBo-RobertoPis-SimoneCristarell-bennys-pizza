@@ -4,9 +4,8 @@ package it.unibo.model.impl.Management;
  * Class of SubtractorManager it only allows to remove quantities from the balance.
  */
 public class SubtractorManager extends AbstractManager {
-
     /**
-     * update the field balance subtracting the amount.
+     * Update the field balance subtracting the amount.
      */
     @Override
     public void updateBalance(final double amount) {
@@ -20,5 +19,4 @@ public class SubtractorManager extends AbstractManager {
     private boolean isWithdrawAllowed(final double amount) {
        return amount >= 0 && amount <= balanceDay;
     }
-
 }

@@ -1,16 +1,14 @@
 package it.unibo.model.impl.Menu;
 
 import java.io.*;
+import java.util.List;
 import java.nio.file.FileSystems;
-import java.util.*;
-
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MenuImpl {
-
     final static String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String FILE_PATH = SEP         +

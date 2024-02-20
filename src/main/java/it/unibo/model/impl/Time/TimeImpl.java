@@ -55,7 +55,7 @@ public class TimeImpl implements Time {
                 incrementTime();
             }
             
-        }, 0, 200);
+        }, 0, TIME_FOR_15_MINUTES);
     }
 
     @Override
