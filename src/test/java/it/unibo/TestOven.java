@@ -27,5 +27,5 @@ public class TestOven {
         OvenImpl oven = new OvenImpl();
         oven.bakingPizza();
         assertFalse(oven.isOvenEmpty());
-    }       
+    }
 }
