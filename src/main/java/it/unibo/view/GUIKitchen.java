@@ -34,6 +34,8 @@ import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.Controller;
 
+//CHECKSTYLE: MagicNumber OFF
+
 /**
  * This is the view of the Kitchen of Benny's pizzeria.
  */
@@ -494,4 +496,13 @@ public class GUIKitchen {
     public void start() {
         frame.setVisible(true);
     }
+
+    //CHECKSTYLE: MagicNumber ON
+    /*
+     * We have decided to set the MagicNumber to OFF only for this GUI,
+     * because all the MagicNumbers that are present are fundamental for the graphics
+     * and in our opinion, being too many and all different from each other,
+     * so it was inappropriate to include so many constants.
+     */
+
 }
