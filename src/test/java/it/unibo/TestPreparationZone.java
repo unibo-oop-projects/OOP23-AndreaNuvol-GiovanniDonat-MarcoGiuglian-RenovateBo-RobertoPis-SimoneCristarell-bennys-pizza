@@ -1,10 +1,12 @@
 package it.unibo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.Test;
 import it.unibo.model.api.Ingredient;
+import java.util.Optional;
 import it.unibo.model.api.Management;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
@@ -38,28 +40,47 @@ public class TestPreparationZone {
 
     /**
      * Test the number of pizzas.
-     * @param number
-     * @param string
+     * @param number the number passed to check.
+     * @throws SecurityException 
+     * @throws NoSuchMethodException 
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     * @throws ClassNotFoundException 
      */
-    private void testNumberOfPizzas(final int number, final String string) {
-        try {
-            final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
+    private void testWrongNumberOfPizzas(final int number) throws ClassNotFoundException, InstantiationException,
+     IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
+        assertThrows(IllegalArgumentException.class, () -> {
             preparationZone.setNumberOfPizzasToPrepare(number);
-            preparationZone.getPizza1();
-            preparationZone.getPizza2();
-        } catch (Exception e) {
-            assertEquals(string, e.getMessage());
-        }
+        });
+    }
+
+    private void testCorrectNumberOfPizzas(final int number) throws ClassNotFoundException, InstantiationException,
+     IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
+        preparationZone.setNumberOfPizzasToPrepare(number);
+        preparationZone.getPizza1();
+        assertEquals(Optional.empty(), preparationZone.getPizza2());
     }
 
     /**
      * Test the getter of pizzas.
+     * @throws SecurityException 
+     * @throws NoSuchMethodException 
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     * @throws ClassNotFoundException 
      */
     @Test
-    public void testPizzasGetter() {
-        testNumberOfPizzas(MIN_PIZZAS, "Pizza n. 2 is not requested from this client.");
-        testNumberOfPizzas(BIGGER_NUMBER_OF_PIZZAS, "The number of pizzas to prepare can be only 1 or 2.");
-        testNumberOfPizzas(LOWER_NUMBER_OF_PIZZAS, "The number of pizzas to prepare can be only 1 or 2.");
+    public void testPizzasGetter() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+     IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        testCorrectNumberOfPizzas(MIN_PIZZAS);
+        testWrongNumberOfPizzas(BIGGER_NUMBER_OF_PIZZAS);
+        testWrongNumberOfPizzas(LOWER_NUMBER_OF_PIZZAS);
     }
 
     /**

@@ -22,9 +22,8 @@ public interface PreparationZone {
 
     /**
      * @return pizza number 2, only if is there.
-     * @throws IllegalStateException if the pizza n. 2 is not requested.
      */
-    Optional<PizzaFactoryImpl> getPizza2() throws IllegalStateException;
+    Optional<PizzaFactoryImpl> getPizza2();
 
     /**
      * @return a map with the Ingredient as Key and the quantity of this as Value.
