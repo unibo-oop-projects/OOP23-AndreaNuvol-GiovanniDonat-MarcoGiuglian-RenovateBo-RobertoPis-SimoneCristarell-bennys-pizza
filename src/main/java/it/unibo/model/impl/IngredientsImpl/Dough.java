@@ -3,14 +3,16 @@ package it.unibo.model.impl.IngredientsImpl;
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates the dough
+ * Class that emulates the dough.
  */
-public class Dough extends IngredientImpl{
-
-    private final static int QUANTITY_TO_REDUCE = 18;
-    private final static double PRICE = 0.2;
-    private final static String IMAGE_NAME = "Dough.png";
-
+public class Dough extends IngredientImpl {
+    private static final int QUANTITY_TO_REDUCE = 18;
+    private static final double PRICE = 0.2;
+    private static final String IMAGE_NAME = "Dough.png";
+    
+    /**
+     * The constructor of the class Dough.
+     */
     public Dough() {
         super(PRICE, IMAGE_NAME);
     }
@@ -19,5 +21,4 @@ public class Dough extends IngredientImpl{
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);
     }
-    
 }

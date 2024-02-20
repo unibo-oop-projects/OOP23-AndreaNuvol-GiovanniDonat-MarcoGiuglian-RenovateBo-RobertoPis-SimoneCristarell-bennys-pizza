@@ -3,14 +3,16 @@ package it.unibo.model.impl.IngredientsImpl;
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates the cheese called 'Gorgonzola'
+ * Class that emulates the cheese called 'Gorgonzola'.
  */
-public class Gorgonzola extends IngredientImpl{
+public class Gorgonzola extends IngredientImpl {
+    private static final int QUANTITY_TO_REDUCE = 10;
+    private static final double PRICE = 1.2;
+    private static final String IMAGE_NAME = "Gorgonzola.png";
 
-    private final static int QUANTITY_TO_REDUCE = 10;
-    private final static double PRICE = 1.2;
-    private final static String IMAGE_NAME = "Gorgonzola.png";
-
+    /**
+     * The constructor of the class Gorgonzola.
+     */
     public Gorgonzola() {
         super(PRICE, IMAGE_NAME);
     }
@@ -19,5 +21,4 @@ public class Gorgonzola extends IngredientImpl{
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);
     }
-    
 }

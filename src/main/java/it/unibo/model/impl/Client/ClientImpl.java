@@ -7,13 +7,13 @@ import it.unibo.model.api.Client;
 import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.Menu.MenuImpl;
-import it.unibo.model.impl.Management.AdderManager; // The client can only add money to the balance
-
+import it.unibo.model.impl.Management.AdderManager;
 import org.apache.commons.lang3.tuple.Pair;
 
-
+/**
+ * The implementation of a normal client
+ */
 public class ClientImpl implements Client {
-
     private Random random = new Random();
     private Order order;
 
@@ -21,7 +21,6 @@ public class ClientImpl implements Client {
     public ClientImpl.Order order() {
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzasToOrder;
         final int max = MenuImpl.getNumPizzasInMenu() - 1, min = 0;
-        
         final List<MenuImpl.Pizza> menu = MenuImpl.getPizzas();
         MenuImpl.Pizza pizza1 = null;
         Optional<MenuImpl.Pizza> pizza2 = Optional.empty();
@@ -43,12 +42,10 @@ public class ClientImpl implements Client {
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzas = this.order.getOrderPizzas();
         final AdderManager manager = new AdderManager();
         double amountToAdd = 0;
-        // checking first pizza
         if (pizzaFactoryImpl1.equals(pizzas.getLeft().getIngredients())) {
             amountToAdd = pizzas.getLeft().getCost();
         } else {
-            // If the pizzas are not exactly the same I charge for the ingredients that are correct
-            for (final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()) {
+                for (final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()) {
                 if (pizzas.getLeft().getIngredients().contains(ingredient.toString())) {
                     amountToAdd += ingredient.getPrice();
                 }
@@ -56,9 +53,8 @@ public class ClientImpl implements Client {
         }
         manager.updateBalance(amountToAdd);
         amountToAdd = 0;
-        // checking second pizza
         if (pizzas.getRight().isPresent()) {
-            if (pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())){
+            if (pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())) {
                 amountToAdd = pizzas.getRight().get().getCost();
             } else {
                 for (final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()) {
@@ -71,25 +67,41 @@ public class ClientImpl implements Client {
         }
     }
 
+    /**
+     * @return the number of pizzas in the order.
+     */
     private int nPizzeToOrder() {
         final int min = 1, max = 2;
         return random.nextInt(max + 1 - min) + min;
     }
 
+    /**
+     * The class for the orders.
+     */
     public static class Order {
         private Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizze;
-    
+        
+        /**
+         * The constructor of the class Order.
+         * @param pizze
+         */
         public Order(final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizze) {
             this.pizze = pizze;
         }
 
+        /**
+         * @return the number of pizzas ordered by the client.
+         */
         public int getNumberPizzasToOrder() {
-            if(pizze.getRight().isPresent()){
+            if (pizze.getRight().isPresent()) {
                 return 2;
             }
             return 1;
         }
 
+        /**
+         * @return one or two pizzas ordered by the client.
+         */
         public Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> getOrderPizzas() {
             return this.pizze;
         }

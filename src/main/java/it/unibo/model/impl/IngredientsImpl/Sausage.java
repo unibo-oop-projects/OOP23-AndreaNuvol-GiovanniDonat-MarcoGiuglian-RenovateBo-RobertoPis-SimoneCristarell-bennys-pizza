@@ -3,14 +3,16 @@ package it.unibo.model.impl.IngredientsImpl;
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates a piece of sausage
+ * Class that emulates a piece of sausage.
  */
-public class Sausage extends IngredientImpl{
+public class Sausage extends IngredientImpl {
+    private static final int QUANTITY_TO_REDUCE = 14;
+    private static final double PRICE = 1.4;
+    private static final String IMAGE_NAME = "Sausages.png";
 
-    private final static int QUANTITY_TO_REDUCE = 14;
-    private final static double PRICE = 1.4;
-    private final static String IMAGE_NAME = "Sausages.png";
-
+    /**
+     * The constructor of the class Sausage.
+     */
     public Sausage() {
         super(PRICE, IMAGE_NAME);
     }
@@ -19,5 +21,4 @@ public class Sausage extends IngredientImpl{
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);
     }
-    
 }

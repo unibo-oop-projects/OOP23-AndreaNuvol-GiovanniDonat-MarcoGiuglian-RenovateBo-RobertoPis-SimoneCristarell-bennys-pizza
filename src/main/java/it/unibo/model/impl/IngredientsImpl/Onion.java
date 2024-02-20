@@ -3,14 +3,16 @@ package it.unibo.model.impl.IngredientsImpl;
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates an onion
+ * Class that emulates an onion.
  */
-public class Onion extends IngredientImpl{
+public class Onion extends IngredientImpl {
+    private static final int QUANTITY_TO_REDUCE = 8;
+    private static final double PRICE = 1;
+    private static final String IMAGE_NAME = "Onions.png";
 
-    private final static int QUANTITY_TO_REDUCE = 8;
-    private final static double PRICE = 1;
-    private final static String IMAGE_NAME = "Onions.png";
-
+    /**
+     * The constructor of the class Onion.
+     */
     public Onion() {
         super(PRICE, IMAGE_NAME);
     }
@@ -19,5 +21,4 @@ public class Onion extends IngredientImpl{
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);
     }
-    
 }

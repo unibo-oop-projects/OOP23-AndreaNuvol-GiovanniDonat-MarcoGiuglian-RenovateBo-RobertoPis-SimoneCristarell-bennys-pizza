@@ -3,14 +3,16 @@ package it.unibo.model.impl.IngredientsImpl;
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates an olive
+ * Class that emulates an olive.
  */
-public class Olive extends IngredientImpl{
+public class Olive extends IngredientImpl {
+    private static final int QUANTITY_TO_REDUCE = 15;
+    private static final double PRICE = 1;
+    private static final String IMAGE_NAME = "Olives.png";
 
-    private final static int QUANTITY_TO_REDUCE = 15;
-    private final static double PRICE = 1;
-    private final static String IMAGE_NAME = "Olives.png";
-
+    /**
+     * The constructor of the class Olive.
+     */
     public Olive() {
         super(PRICE, IMAGE_NAME);
     }
@@ -19,5 +21,4 @@ public class Olive extends IngredientImpl{
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);
     }
-    
 }

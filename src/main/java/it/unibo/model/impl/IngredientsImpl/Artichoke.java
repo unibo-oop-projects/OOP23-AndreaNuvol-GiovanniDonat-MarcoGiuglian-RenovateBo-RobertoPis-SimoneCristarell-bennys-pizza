@@ -3,14 +3,16 @@ package it.unibo.model.impl.IngredientsImpl;
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates an artichoke
+ * Class that emulates an artichoke.
  */
-public class Artichoke extends IngredientImpl{
-
-    private final static int QUANTITY_TO_REDUCE = 6;
-    private final static double PRICE = 1.1;
-    private final static String IMAGE_NAME = "Artichokes.png";
-
+public class Artichoke extends IngredientImpl {
+    private static final int QUANTITY_TO_REDUCE = 6;
+    private static final double PRICE = 1.1;
+    private static final String IMAGE_NAME = "Artichokes.png";
+    
+    /**
+     * The constructor of the class Artichokes.
+     */
     public Artichoke() {
         super(PRICE, IMAGE_NAME);
     }
@@ -19,5 +21,4 @@ public class Artichoke extends IngredientImpl{
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);
     }
-    
 }
