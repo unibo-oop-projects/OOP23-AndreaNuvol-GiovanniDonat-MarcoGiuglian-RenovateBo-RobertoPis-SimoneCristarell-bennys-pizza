@@ -14,9 +14,9 @@ public class OvenImpl implements Oven {
     private static final long COOKNING_TIME_IN_SECONDS = 5;
     private static final long COOKNING_TIME_IN_MILLISECONDS = 5000;
 
-    private static boolean emptyOven;
-    private static boolean isCooked;
-    private static Timer ovenTimer;
+    private boolean emptyOven;
+    private boolean isCooked;
+    private Timer ovenTimer;
     private static LocalTime finishBakingTime;
     private static LocalTime currentTime;
 
@@ -32,9 +32,9 @@ public class OvenImpl implements Oven {
      * emptyOven is setted to true, so the oven is empty.
      * isCooked is setted to false, so the pizza is not cooked.
      */
-    public static void resetOven() {
-        emptyOven = true;
-        isCooked = false;
+    public final void resetOven() {
+        this.emptyOven = true;
+        this.isCooked = false;
     }
 
     /**
