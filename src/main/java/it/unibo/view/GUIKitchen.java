@@ -31,7 +31,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import it.unibo.controller.api.Controller;
 
 //CHECKSTYLE: MagicNumber OFF

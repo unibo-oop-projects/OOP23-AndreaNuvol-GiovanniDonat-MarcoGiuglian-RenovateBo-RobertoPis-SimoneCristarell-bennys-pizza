@@ -32,6 +32,8 @@ import java.util.Optional;
 import java.text.DecimalFormat;
 import it.unibo.controller.impl.ControllerImpl;
 
+//CHECKSTYLE: MagicNumber OFF
+
 /**
  * This is the view for the Hall of Benny's pizzeria.
  */
@@ -401,5 +403,11 @@ public class GUIHallImpl implements PropertyChangeListener {
             }
         }
     } 
-
 }
+//CHECKSTYLE: MagicNumber ON
+/*
+ * We have decided to set the MagicNumber to OFF only for this GUI,
+ * because all the MagicNumbers that are present are fundamental for the graphics
+ * and in our opinion, being too many and all different from each other,
+ * so it was inappropriate to include so many constants.
+*/

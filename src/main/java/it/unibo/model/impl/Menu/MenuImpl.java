@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public final class  MenuImpl {
     private static final String SEP = File.separator;
-    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
+    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
     private static final String FILE_PATH = SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "menu.json";
     private static List<Pizza> pizzas;
 
@@ -31,13 +31,10 @@ public final class  MenuImpl {
             pizzas = mapper.readValue(new File(PATH_TO_THE_ROOT + FILE_PATH), new TypeReference<List<Pizza>>() { });
         } catch (StreamReadException e) {
             System.out.println(e.toString());
-            System.exit(1);
         } catch (DatabindException e) {
             System.out.println(e.toString());
-            System.exit(1);
         } catch (IOException e) {
             System.out.println(e.toString());
-            System.exit(1);
         }
     }
 
