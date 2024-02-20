@@ -399,5 +399,4 @@ public class GUIKitchen {
     public void start() {
         frame.setVisible(true);
     }
-
 }

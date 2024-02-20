@@ -11,10 +11,13 @@ import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Management.SubtractorManager;
 
+/**
+ * Test the Garbage Bin class.
+ */
 public class TestGarbageBin {
     /**
-     * can throw a pizza in the garbage bin
-     * 
+     * can throw a pizza in the garbage bin.
+     * the exceptions are used in PreprarationZoneImpl
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException

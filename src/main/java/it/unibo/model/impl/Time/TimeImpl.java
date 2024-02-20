@@ -34,10 +34,10 @@ public class TimeImpl implements Time {
         } else {
             min += 15;
         }
-        
+
         if (isEndOfDay()) {
             timer.cancel();
-            if(AbstractManager.levelPassed()) {
+            if (AbstractManager.levelPassed()) {
                 workingDays++;
                 AbstractManager.addBalanceTot();
                 support.firePropertyChange("day", null, TimeImpl.getWorkingDay());
@@ -54,7 +54,7 @@ public class TimeImpl implements Time {
             public void run() {
                 incrementTime();
             }
-            
+
         }, 0, TIME_FOR_15_MINUTES);
     }
 
@@ -84,7 +84,7 @@ public class TimeImpl implements Time {
     }
 
     public String getHourAndMin() {
-        if(this.min == 0) {
+        if (this.min == 0) {
             return new String(this.getHour() + " : 00 ");
         } else {
             return new String(this.getHour() + " : " + this.getMin());
