@@ -29,6 +29,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import javax.swing.border.EmptyBorder;
 import java.util.Optional;
+import java.text.DecimalFormat;
 import it.unibo.controller.impl.ControllerImpl;
 
 /**
@@ -309,10 +310,11 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @param balanceDay
      */
     public void updateBalanceLabels(final double balanceTot, final double balanceDay) {
+        DecimalFormat df = new DecimalFormat("#.###");
         balanceTotLabel.setText(BALANCE_TOT
-                                + Double.toString(balanceTot));
+                                + df.format(balanceTot));
         balanceDayLabel.setText(BALANCE_DAY 
-                                + Double.toString(balanceDay));
+                                + df.format(balanceDay));
     }
 
     /**
@@ -352,7 +354,7 @@ public class GUIHallImpl implements PropertyChangeListener {
     }
 
     /**
-     * OK.
+     * Thread to simulate clients that make orders.
      */
     public class OrderThread extends Thread {
         private static final Lock lock = new ReentrantLock();
@@ -366,7 +368,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         }
 
         /**
-         * Manca la javadoc qua
+         * Method to run this thread.
          */
         @Override
         public void run() {
@@ -384,7 +386,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         }
 
         /**
-         * Manca la javadoc qua
+         * Method to wakeUp this thread.
          */
         public static void wakeUp() {
             lock.lock();

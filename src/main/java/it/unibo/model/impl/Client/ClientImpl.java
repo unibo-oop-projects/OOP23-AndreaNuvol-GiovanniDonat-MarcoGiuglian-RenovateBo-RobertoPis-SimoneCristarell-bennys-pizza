@@ -1,6 +1,8 @@
 package it.unibo.model.impl.Client;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Optional;
+import java.util.List;
 import it.unibo.model.api.Client;
 import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.PizzaFactory;
@@ -10,7 +12,7 @@ import it.unibo.model.impl.Management.AdderManager; // The client can only add m
 import org.apache.commons.lang3.tuple.Pair;
 
 
-public class ClientImpl implements Client{
+public class ClientImpl implements Client {
 
     private Random random = new Random();
     private Order order;
@@ -23,10 +25,10 @@ public class ClientImpl implements Client{
         final List<MenuImpl.Pizza> menu = MenuImpl.getPizzas();
         MenuImpl.Pizza pizza1 = null;
         Optional<MenuImpl.Pizza> pizza2 = Optional.empty();
-        for(int i = 0; i < nPizzeToOrder(); i++){
+        for (int i = 0; i < nPizzeToOrder(); i++) {
             int indexPizza = random.nextInt(max + 1 - min ) + min;
             pizza1 = menu.get(indexPizza);
-            if(i == 1){
+            if (i == 1) {
                 indexPizza = random.nextInt(max + 1 - min ) + min;
                 pizza2 = Optional.of(menu.get(indexPizza));
             }
@@ -42,12 +44,12 @@ public class ClientImpl implements Client{
         final AdderManager manager = new AdderManager();
         double amountToAdd = 0;
         // checking first pizza
-        if(pizzaFactoryImpl1.equals(pizzas.getLeft().getIngredients())){
+        if (pizzaFactoryImpl1.equals(pizzas.getLeft().getIngredients())) {
             amountToAdd = pizzas.getLeft().getCost();
-        }else{
+        } else {
             // If the pizzas are not exactly the same I charge for the ingredients that are correct
-            for(final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()){
-                if(pizzas.getLeft().getIngredients().contains(ingredient.toString())){
+            for (final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()) {
+                if (pizzas.getLeft().getIngredients().contains(ingredient.toString())) {
                     amountToAdd += ingredient.getPrice();
                 }
             }
@@ -55,42 +57,40 @@ public class ClientImpl implements Client{
         manager.updateBalance(amountToAdd);
         amountToAdd = 0;
         // checking second pizza
-        if(pizzas.getRight().isPresent()){
-            if(pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())){
+        if (pizzas.getRight().isPresent()) {
+            if (pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())){
                 amountToAdd = pizzas.getRight().get().getCost();
-            }else{
-                for(final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()){
-                    if(pizzas.getRight().get().getIngredients().contains(ingredient.toString())){
+            } else {
+                for (final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()) {
+                    if (pizzas.getRight().get().getIngredients().contains(ingredient.toString())) {
                         amountToAdd += ingredient.getPrice();
                     }
                 }
             }
             manager.updateBalance(amountToAdd);
         }
-        
     }
 
-    private int nPizzeToOrder(){
+    private int nPizzeToOrder() {
         final int min = 1, max = 2;
         return random.nextInt(max + 1 - min) + min;
     }
 
     public static class Order {
-    
         private Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizze;
     
         public Order(final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizze) {
             this.pizze = pizze;
         }
 
-        public int getNumberPizzasToOrder(){
+        public int getNumberPizzasToOrder() {
             if(pizze.getRight().isPresent()){
                 return 2;
             }
             return 1;
         }
 
-        public Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> getOrderPizzas(){
+        public Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> getOrderPizzas() {
             return this.pizze;
         }
     }

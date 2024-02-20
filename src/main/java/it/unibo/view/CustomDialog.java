@@ -1,7 +1,10 @@
 package it.unibo.view;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 
 /**
@@ -12,7 +15,7 @@ public class CustomDialog extends JDialog {
     private static final int HEIGHT = 100;
 
     /**
-     * it create a custom dialog to show the order
+     * It create a custom dialog to show the order.
      * @param parent is the father frame
      * @param title is the title of the customDialog
      * @param message is the message to show
@@ -29,7 +32,11 @@ public class CustomDialog extends JDialog {
         setResizable(false);
     }
 
-    public void setCloseListener(WindowAdapter listener) {
+
+    /**
+     * @param listener for the close button of the message dialog.
+     */
+    public void setCloseListener(final WindowAdapter listener) {
         addWindowListener(listener);
     }
 }

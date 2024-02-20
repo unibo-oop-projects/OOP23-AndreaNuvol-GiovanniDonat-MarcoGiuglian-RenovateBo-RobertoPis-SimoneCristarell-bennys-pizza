@@ -1,9 +1,11 @@
 package it.unibo.model.api;
 
 import java.util.Optional;
-
 import it.unibo.model.impl.Client.ClientImpl;
 
+/**
+ * Interface of Client
+ */
 public interface Client {
     
     
