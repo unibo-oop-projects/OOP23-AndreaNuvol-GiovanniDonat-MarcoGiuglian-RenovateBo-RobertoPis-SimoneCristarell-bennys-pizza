@@ -14,6 +14,9 @@ public class PizzaFactoryImpl implements PizzaFactory {
 
     private final List<IngredientImpl> addedIngredients = new ArrayList<>();
 
+    /**
+     * It adds an ingredient on the pizza.
+     */
     @Override
     public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) throws IllegalStateException {
         if (!this.addedIngredients.contains(new Dough()) && isNotDough(ingredientToAdd)) {

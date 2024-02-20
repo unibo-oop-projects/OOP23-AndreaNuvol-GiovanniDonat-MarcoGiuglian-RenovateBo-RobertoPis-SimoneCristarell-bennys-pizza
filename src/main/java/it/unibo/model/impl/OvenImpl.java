@@ -37,11 +37,17 @@ public class OvenImpl implements Oven {
         isCooked = false;
     }
 
+    /**
+     * Returns if the oven is empty.
+     */
     @Override
     public boolean isOvenEmpty() {
-        return emptyOven ? true : false;
+        return emptyOven;
     }
 
+    /**
+     * It starts the baking of the pizza.
+     */
     @Override
     public void bakingPizza() {
         baking();
@@ -63,6 +69,9 @@ public class OvenImpl implements Oven {
         ovenTimer.scheduleAtFixedRate(ovenTask, 0, COOKNING_TIME_IN_MILLISECONDS);
     }
 
+    /**
+     * Returns true if the pizza is cooked.
+     */
     @Override
     public boolean isPizzaCooked() {
         return isCooked;
