@@ -6,8 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Class to start the program.
  */
-class App {
-
+public class App {
     /**
      * main method to start the program.
      * @param args

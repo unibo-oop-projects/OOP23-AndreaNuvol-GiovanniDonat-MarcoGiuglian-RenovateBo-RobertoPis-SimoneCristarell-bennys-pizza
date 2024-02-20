@@ -79,6 +79,9 @@ public class TimeImpl implements Time {
         return this.hour == ENDING_HOUR && this.min == ENDING_MIN;
     }
 
+    /**
+     * @return the number of the working days.
+     */
     public static int getWorkingDay() {
         return workingDays;
     }
@@ -91,6 +94,9 @@ public class TimeImpl implements Time {
         return this.min;
     }
 
+    /**
+     * It returns the current hour and minute.
+     */
     public String getHourAndMin() {
         if (this.min == 0) {
             return new String(this.getHour() + " : 00 ");
@@ -99,6 +105,10 @@ public class TimeImpl implements Time {
         }
     }
 
+    /**
+     * It adds a property change listener to the support.
+     * @param listener the property change listener.
+     */
     public void addPropertyChangeListener(final PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
