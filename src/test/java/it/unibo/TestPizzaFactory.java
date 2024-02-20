@@ -25,6 +25,9 @@ import it.unibo.model.impl.IngredientsImpl.Mushroom;
 import it.unibo.model.impl.IngredientsImpl.Olive;
 import it.unibo.model.impl.IngredientsImpl.TomatoSauce;
 
+/**
+ * Test for the PizzaFactoryImpl class.
+ */
 public class TestPizzaFactory {    
     private PreparationZoneImpl p;
 
@@ -64,5 +67,4 @@ public class TestPizzaFactory {
         pizza.addIngredient(p, new Olive());
         assertFalse(pizza.equals(ingredientsRequested));
     }
-
 }

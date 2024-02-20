@@ -1,7 +1,6 @@
 package it.unibo.test_management;
 
 import org.junit.jupiter.api.Test;
-
 import it.unibo.model.impl.Management.AbstractManager;
 import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
@@ -9,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Test the subtractor manager class
+ * Test the subtractor manager class.
  */
 public class TestSubtractorManager {
 
@@ -18,10 +17,12 @@ public class TestSubtractorManager {
     private static final double DECIMAL_AMOUNT = 14.4;
     private static final double NEGATIVE_AMOUNT = -10;
     private static final double STARTING_AMOUNT = 100;
-    private AdderManager adderManager = new AdderManager(); // we need it to start with a balance different from 0
+    private AdderManager adderManager = new AdderManager();
     private AbstractManager manager = new SubtractorManager();
 
-    // Can subtract positive amounts to balance
+    /**
+     * Test that can subtract positive amounts to balance.
+     */
     @Test
     public void testSubtractPositiveNumbersToAmount() {
         adderManager.updateBalance(STARTING_AMOUNT);
@@ -30,7 +31,9 @@ public class TestSubtractorManager {
         AbstractManager.resetBalanceDay();
     }
 
-    // Can subtract decimal positive amounts to balance
+    /**
+     * Test that can subtract decimal positive amounts to balance.
+     */
     @Test
     public void testSubtractDecimalAmountsToBalance() {
         adderManager.updateBalance(STARTING_AMOUNT);
@@ -39,7 +42,9 @@ public class TestSubtractorManager {
         AbstractManager.resetBalanceDay();
     }
 
-    // Cannot subtract negative amounts to balance
+    /**
+     * Test cannot subtract negative amounts to balance.
+     */
     @Test
     public void testSubtractNegativeAmountsToBalance() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -48,7 +53,9 @@ public class TestSubtractorManager {
         AbstractManager.resetBalanceDay();
     }
 
-    // Cannot subtract NaN to balance
+    /**
+     * Test the fact that cannot subtract NaN to balance.
+     */
     @Test
     public void testAddNanToBalance() {
         assertThrows(IllegalArgumentException.class, () -> {

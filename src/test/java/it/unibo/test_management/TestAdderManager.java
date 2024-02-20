@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Test the subtractor manager class
+ * Test the subtractor manager class.
  */
 public class TestAdderManager {
     private static final double DELTA = 0.001;
@@ -16,7 +16,9 @@ public class TestAdderManager {
     private static final double DECIMAL_AMOUNT = 3.14;
     private AdderManager manager = new AdderManager();
     
-    // Can add positive amounts to balance
+    /**
+     * Test if can add positive amounts to balance.
+     */
     @Test
     public void testAddPositiveAmountsToBalance() {
         AbstractManager.resetBalanceDay();
@@ -24,7 +26,9 @@ public class TestAdderManager {
         assertEquals(POSITIVE_AMOUNT, manager.getBalanceDay(), DELTA);
     }
 
-    // Can add decimal amounts to balance
+    /**
+     * Test if can add decimal amounts to balance.
+     */
     @Test
     public void testAddDecimalAmountsToBalance() {
         AbstractManager.resetBalanceDay();
@@ -39,10 +43,11 @@ public class TestAdderManager {
         assertThrows(IllegalArgumentException.class, () -> {
             manager.updateBalance(NEGATIVE_AMOUNT);
         });
-
     }
 
-    // Cannot add NaN to balance
+    /**
+     * Test the fact that cannot add Nan to balance.
+     */
     @Test
     public void testAddNanToBalance() {
         AbstractManager.resetBalanceDay();
@@ -50,5 +55,4 @@ public class TestAdderManager {
             manager.updateBalance(Double.NaN);
         });
     }
-
 }
