@@ -1,16 +1,7 @@
 package it.unibo.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
@@ -18,11 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import javax.swing.*;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
 import it.unibo.controller.api.Controller;
 
 public class GUIKitchen {
@@ -49,8 +36,6 @@ public class GUIKitchen {
         imagePanel.setLayout(new BorderLayout());
 
         displayInfoLabels(imagePanel, frame.getWidth(), controller);
-        OvenThread orderThread = new OvenThread();
-        orderThread.start();
 
         final JPanel lowPanel = new JPanel(new BorderLayout());
         lowPanel.setOpaque(false);
@@ -103,6 +88,7 @@ public class GUIKitchen {
         rightPanel.setOpaque(false);
         final JButton btnEndingKitchen = new JButton("Ready");
         btnEndingKitchen.setBackground(new Color(255, 255, 255, 255));
+        btnEndingKitchen.setEnabled(false);
         rightPanel.add(btnEndingKitchen);
         displayEndingKitchen(btnEndingKitchen, frame.getWidth(), frame.getHeight(), rightPanel);
         imagePanel.add(rightPanel ,BorderLayout.EAST);
@@ -137,7 +123,6 @@ public class GUIKitchen {
         blockPizza2.setLayout(new BoxLayout(blockPizza2, BoxLayout.Y_AXIS));
         final JCheckBox pizza1 = new JCheckBox();
         final JCheckBox pizza2 = new JCheckBox();
-
 
         displayIngredients(items, blockPizza1, pizza1);
         displayIngredients(items, blockPizza2, pizza2);
@@ -244,22 +229,17 @@ public class GUIKitchen {
                 try {
                     if (pizza1.isSelected()) {
                         disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
-                        controller.bakingPizza();
-
-
-                        if (controller.getPreparationZone().getOven().isPizzaCooked()) {
-                            JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);   
-                            pizza1.setEnabled(false);
-                        }
-                        
+                        pizza1.setEnabled(false);
                     }
                     if (pizza2.isSelected()) {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
-                        controller.bakingPizza();
-                        if (controller.getPreparationZone().getOven().isPizzaCooked()) {
-                            JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);   
-                            pizza2.setEnabled(false);
-                        }
+                        pizza2.setEnabled(false);
+                    }
+                    controller.bakingPizza();
+                    Thread.sleep(1500);
+                    JOptionPane.showMessageDialog(frame, "Pizza is baked!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    if (!pizza1.isEnabled() && !pizza2.isEnabled()) {
+                        btnEndingKitchen.setEnabled(true);
                     }
                 } catch (Exception bottonOvenException) {
                     JOptionPane.showMessageDialog(frame, bottonOvenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -391,46 +371,8 @@ public class GUIKitchen {
         lowWestPanel.validate();
     }
 
-    
-
     public void start() {
         frame.setVisible(true);
     }
 
-    public class OvenThread extends Thread {
-
-        private final Lock lock = new ReentrantLock();
-        private final Condition condition = lock.newCondition();
-
-        public OvenThread(){
-
-        }
-
-        @Override
-        public void run(){
-            while(true){
-                lock.lock();
-                try{
-                    condition.await(); // go in waiting mode
-                    JOptionPane.showOptionDialog(null, "Pizza is baked!", "baked!", JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-
-
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    lock.unlock();
-                }
-            }
-        }
-
-        public void wakeUp(){
-            lock.lock();
-            try{
-                condition.signal();
-            }finally{
-                lock.unlock();
-            }
-        }
-        
-    }
 }

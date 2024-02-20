@@ -126,8 +126,8 @@ public class PreparationZoneImpl implements PreparationZone {
                     }
                     this.supplier.supply(ingredient, management);
                 } else {
-                        if (ingredient.getQuantity() == 0) {
-                            throw new IllegalStateException("The quantity of this ingredient is already the maximum possible.");
+                        if (ingredient.getQuantity() < 0) {
+                            throw new IllegalStateException("This ingredient is finished.");
                         }
                         if (isPizza1) {
                             this.pizza1.addIngredient(this, (IngredientImpl)ingredient);
