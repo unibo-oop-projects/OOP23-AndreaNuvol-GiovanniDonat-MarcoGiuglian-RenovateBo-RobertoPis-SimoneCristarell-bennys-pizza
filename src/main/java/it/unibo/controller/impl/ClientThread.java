@@ -9,46 +9,46 @@ import org.apache.commons.lang3.tuple.Pair;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
 import it.unibo.view.GUIHallImpl;
 
-public class ClientThread extends Thread{
+public class ClientThread extends Thread {
     private final ControllerImpl controller;
     private final Lock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
     private Pair<Pizza, Optional<Pizza>> orderedPizzas;
     
 
-    public ClientThread(final ControllerImpl controller){
+    public ClientThread(final ControllerImpl controller) {
         this.controller = controller;
     }
 
     @Override
     public void run() {
-        while(true){
-            lock.lock();
+        while(true) {
+            this.lock.lock();
             try{
-                orderedPizzas = controller.order();
+                this.orderedPizzas = controller.order();
                 // sveglia altro thread
                 GUIHallImpl.OrderThread.wakeUp();
-                condition.await(); // go in waiting mode
-                controller.pay(); // when terminated the waiting, he pay
+                this.condition.await(); // go in waiting mode
+                this.controller.pay(); // when terminated the waiting, he pay
 
-            }catch(InterruptedException e){
+            }catch(InterruptedException e) {
                 e.printStackTrace();
             }finally{
-                lock.unlock();
+                this.lock.unlock();
             }
         }
     }
 
-    public Pair<Pizza, Optional<Pizza>> getOrder(){
-        return orderedPizzas;
+    public Pair<Pizza, Optional<Pizza>> getOrder() {
+        return this.orderedPizzas;
     }
 
-    public void wakeUp(){
-        lock.lock();
+    public void wakeUp() {
+        this.lock.lock();
         try{
-            condition.signal();
+            this.condition.signal();
         }finally{
-            lock.unlock();
+            this.lock.unlock();
         }
     }
 }

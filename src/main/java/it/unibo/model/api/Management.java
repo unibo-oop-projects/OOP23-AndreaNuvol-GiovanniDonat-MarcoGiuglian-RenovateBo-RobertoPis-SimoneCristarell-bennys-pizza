@@ -1,5 +1,8 @@
 package it.unibo.model.api;
 
+/**
+ * Interface to manage the balance
+ */
 public interface Management {
 
     /**

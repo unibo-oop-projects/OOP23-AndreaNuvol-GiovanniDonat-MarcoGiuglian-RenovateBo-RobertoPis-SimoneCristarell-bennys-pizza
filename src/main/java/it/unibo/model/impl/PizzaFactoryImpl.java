@@ -3,8 +3,6 @@ package it.unibo.model.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 
 import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.IngredientsImpl.Dough;
@@ -12,21 +10,18 @@ import it.unibo.model.impl.IngredientsImpl.Dough;
 /**
  * Implementation of 'PizzaFactory' interface
  */
-public class PizzaFactoryImpl implements PizzaFactory{
+public class PizzaFactoryImpl implements PizzaFactory {
 
     private final List<IngredientImpl> addedIngredients = new ArrayList<>();
 
     @Override
-    public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) throws IllegalStateException{
+    public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) throws IllegalStateException {
         if (!this.addedIngredients.contains(new Dough()) && isNotDough(ingredientToAdd)) {
             throw new IllegalStateException("You have to put the dough before putting the ingredients.");
         }
         if (!this.addedIngredients.contains(ingredientToAdd)) {
             this.addedIngredients.add(ingredientToAdd);
             ingredientToAdd.reduce();
-            if (hasMadeAMess() && isNotDough(ingredientToAdd)) {
-                zone.manageDirtyIngredients(Optional.of(ingredientToAdd));
-            }
         }
     }
 
@@ -48,10 +43,6 @@ public class PizzaFactoryImpl implements PizzaFactory{
     @Override
     public List<IngredientImpl> getAddedIngredients() {
         return Collections.unmodifiableList(this.addedIngredients);
-    }
-
-    private boolean hasMadeAMess() {
-        return new Random().nextInt(2) == 0 ? true : false;
     }
 
 }

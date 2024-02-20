@@ -15,16 +15,13 @@ public class PreparationZoneImpl implements PreparationZone {
 
     private static final int MIN_PIZZAS_TO_PREPARE = 1;
     private static final int MAX_PIZZAS_TO_PREPARE = 2;
-    private static final int MAX_DIRTY_INGREDIENTS = 4;
     private boolean isNumberOfPizzasToPrepareSet = false;
     private final Supplier supplier = new SupplierImpl();
-    private SubtractorManager management;
+    private final SubtractorManager management;
     private PizzaFactory pizza1;
     private Optional<PizzaFactory> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
-    private final List<Ingredient> dirtyIngredients = new ArrayList<>();
-    private final Cleaner cleaner = new CleanerImpl();
     private final GarbageBin garbageBin = new GarbageBinImpl();
     
     public PreparationZoneImpl(final SubtractorManager management) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -82,36 +79,8 @@ public class PreparationZoneImpl implements PreparationZone {
     }
 
     @Override
-    public Cleaner getCleaner() {
-        return this.cleaner;
-    }
-
-    @Override
     public GarbageBin getGarbageBin() {
         return this.garbageBin;
-    }
-
-    @Override
-    public boolean isDirty() {
-        return !this.dirtyIngredients.isEmpty();
-    }
-
-    @Override
-    public void manageDirtyIngredients(final Optional<Ingredient> dirtyIngredient) {
-        if (dirtyIngredient.isEmpty()) {
-            this.dirtyIngredients.clear();
-        } else if (this.dirtyIngredients.size() < MAX_DIRTY_INGREDIENTS) {
-            this.dirtyIngredients.add(dirtyIngredient.get());
-        }
-    }
-
-    public List<String> getDirtyImagePath() {
-        if (!isDirty()) {
-            throw new IllegalStateException("The preparation zone is not dirty.");
-        }
-        final List<String> output = new ArrayList<>();
-        this.dirtyIngredients.forEach(i -> output.add(i.getImagePath()));
-        return output;
     }
 
     @Override

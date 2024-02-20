@@ -25,8 +25,7 @@ import it.unibo.model.impl.IngredientsImpl.Mushroom;
 import it.unibo.model.impl.IngredientsImpl.Olive;
 import it.unibo.model.impl.IngredientsImpl.TomatoSauce;
 
-public class TestPizzaFactory {
-    
+public class TestPizzaFactory {    
     private PreparationZoneImpl p;
 
     @BeforeEach

@@ -33,11 +33,6 @@ public interface Controller {
     void supply(String ingredientStringToAdd);
 
     /**
-     * It cleans the preparation zone
-     */
-    void clean();
-
-    /**
      * It gets the preparation zone where you are working
      * @return the preparation zone where you are working
      */

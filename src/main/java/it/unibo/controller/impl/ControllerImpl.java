@@ -31,11 +31,11 @@ public class ControllerImpl implements Controller {
     private final PreparationZone preparationZone;
     private final Client client = new ClientImpl();
     private ClientImpl.Order order;
-    private TimeImpl time = new TimeImpl();
+    private final TimeImpl time = new TimeImpl();
     private final ClientThread clientThread;
     private PropertyChangeSupport support;
     private PropertyChangeSupport propertyChangeSupport;
-    private OvenImpl oven = new OvenImpl();
+    private final OvenImpl oven = new OvenImpl();
     
     
     public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -46,8 +46,8 @@ public class ControllerImpl implements Controller {
         this.clientThread.start();
     }
 
-    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-        propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
+    protected void firePropertyChange(final String propertyName, final Object oldValue, final Object newValue) {
+        this.propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
 
     @Override
@@ -71,11 +71,6 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void clean() {
-        this.preparationZone.getCleaner().clean(this.preparationZone);
-    }
-
-    @Override
     public void throwPizzaInGarbageBin(final boolean isPizza1) {
         this.preparationZone.getGarbageBin().throwPizzaInGarbageBin(this.preparationZone, isPizza1);
     }
@@ -86,7 +81,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public int getIngredientQuantity(String ingredientName) {
+    public int getIngredientQuantity(final String ingredientName) {
         for (final var ingredient: this.preparationZone.getIngredientsQuantities().keySet()) {
             if (ingredient.toString().equals(ingredientName)) {
                 return ingredient.getQuantity();
@@ -132,12 +127,12 @@ public class ControllerImpl implements Controller {
     @Override
     public Pair<Pizza, Optional<Pizza>> order() {
         Pair<Pizza, Optional<Pizza>> orderedPizzas;
-        order = this.client.order();
+        this.order = this.client.order();
         this.preparationZone.setNumberOfPizzasToPrepare(order.getNumberPizzasToOrder());
-        if(order.getNumberPizzasToOrder() == 1){
-            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft(), Optional.empty());
+        if(this.order.getNumberPizzasToOrder() == 1){
+            orderedPizzas = Pair.of(this.order.getOrderPizzas().getLeft(), Optional.empty());
         }else{
-            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft(), Optional.of(order.getOrderPizzas().getRight().get()));
+            orderedPizzas = Pair.of(this.order.getOrderPizzas().getLeft(), Optional.of(order.getOrderPizzas().getRight().get()));
         }
         return orderedPizzas;
     }
@@ -154,7 +149,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public List<String> getMenu() {
-        List<String> menu = new ArrayList<>();
+        final List<String> menu = new ArrayList<>();
         for(final Pizza pizza : MenuImpl.getPizzas()) {
             menu.add(pizza.toString());
         }
@@ -168,7 +163,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public String getHourAndMin() {
-        return time.getHourAndMin();
+        return this.time.getHourAndMin();
     }
 
     @Override
@@ -177,8 +172,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
-        support.addPropertyChangeListener(pcl);
+    public void addPropertyChangeListener(final PropertyChangeListener pcl) {
+        this.support.addPropertyChangeListener(pcl);
     }
 
     @Override

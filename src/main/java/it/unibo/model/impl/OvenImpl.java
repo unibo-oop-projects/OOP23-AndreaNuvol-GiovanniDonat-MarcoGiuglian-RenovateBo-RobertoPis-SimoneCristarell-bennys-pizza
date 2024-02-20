@@ -6,27 +6,25 @@ import java.time.LocalTime;
 import java.util.*;
 
 
-public class OvenImpl implements Oven{
+public class OvenImpl implements Oven {
 
-    final static long COOKNING_TIME_IN_SECONDS = 5;
-    final static long COOKNING_TIME_IN_MILLISECONDS = 5000;
+    private static final long COOKNING_TIME_IN_SECONDS = 5;
+    private static final long COOKNING_TIME_IN_MILLISECONDS = 5000;
 
     private static boolean emptyOven;
     private static boolean isCooked;
-    private static Timer ovenTimer = new Timer();
+    private static Timer ovenTimer;
     private static LocalTime finishBakingTime;
     private static LocalTime currentTime;
 
 
-    public OvenImpl(){
+    public OvenImpl() {
         resetOven();
     }
 
     public static void resetOven(){
         emptyOven = true;
-        //ovenTimer = new Timer();
         isCooked = false;
-        //finishBakingTime = LocalTime.now().plusSeconds(COOKNING_TIME_IN_SECONDS);
     }
 
     @Override
@@ -35,7 +33,7 @@ public class OvenImpl implements Oven{
     }
 
     @Override
-    public void bakingPizza(){
+    public void bakingPizza() {
         baking();
     }
 
@@ -47,7 +45,7 @@ public class OvenImpl implements Oven{
         TimerTask ovenTask = new TimerTask() {
             @Override
             public void run() {
-                if (currentTime.getSecond() >= finishBakingTime.getSecond()){
+                if (currentTime.getSecond() >= finishBakingTime.getSecond()) {
                     isCooked = true;
                 }
             }
