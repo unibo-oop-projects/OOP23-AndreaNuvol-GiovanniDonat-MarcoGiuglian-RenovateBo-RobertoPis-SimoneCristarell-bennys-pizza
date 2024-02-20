@@ -132,14 +132,6 @@ public class ControllerImpl implements Controller {
     }
 
     /**
-     * It returns the oven.
-     */
-    @Override
-    public OvenImpl getOvenModel() {
-        return this.oven;
-    }
-
-    /**
      * It returns the total balance.
      */
     @Override
