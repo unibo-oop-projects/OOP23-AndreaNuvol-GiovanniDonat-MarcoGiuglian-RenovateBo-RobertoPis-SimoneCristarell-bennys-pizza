@@ -1,7 +1,7 @@
 package it.unibo.model.impl.Management;
 
 /**
- * Class of SubtractorManager it only allows to remove quantities from the balance
+ * Class of SubtractorManager it only allows to remove quantities from the balance.
  */
 public class SubtractorManager extends AbstractManager {
 

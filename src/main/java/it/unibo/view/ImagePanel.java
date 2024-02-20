@@ -1,26 +1,33 @@
 package it.unibo.view;
 
-import java.awt.*;
 import javax.swing.JPanel;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Dimension;
 
+/**
+ * JPanel modified to contains a background image.
+ */
 public class ImagePanel extends JPanel {
     private Image backgroundImage;
 
-    public ImagePanel(Image backgroundImage) {
+    /**
+     * Constructor of ImagePanel.
+     * @param backgroundImage the image to put in background
+     */
+    public ImagePanel(final Image backgroundImage) {
         this.backgroundImage = backgroundImage;
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        // Disegna l'immagine come sfondo
         Dimension size = getSize();
         g.drawImage(backgroundImage, 0, 0, size.width, size.height, this);
     }
 
     @Override
     public Dimension getPreferredSize() {
-        // Restituisce le dimensioni dell'immagine come dimensioni preferite della JPanel
         return new Dimension(backgroundImage.getWidth(this), backgroundImage.getHeight(this));
     }
 }
