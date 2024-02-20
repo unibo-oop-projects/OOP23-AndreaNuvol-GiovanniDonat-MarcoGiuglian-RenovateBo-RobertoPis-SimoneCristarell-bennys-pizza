@@ -32,6 +32,16 @@ public class ControllerImpl implements Controller {
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private PropertyChangeSupport propertyChangeSupport;
 
+    /** 
+     * Constructor for ControllerImpl by a ControllerImpl.
+     * @param controller 
+     */
+    public ControllerImpl(final ControllerImpl controller) {
+        this.preparationZone = controller.getPreparationZone();
+        this.order = controller.order;
+        this.clientThread = controller.getClientThread();
+    }
+
     /**
      * The constructor of the controller.
      * @throws ClassNotFoundException
