@@ -43,13 +43,13 @@ public class GUIHallImpl implements PropertyChangeListener {
     static int width = (int) screenSize.getWidth();
     static int height = (int) screenSize.getHeight();
 
-    final static int MENU_BUTTON_WIDTH = (int)(width * 0.1);
-    final static int MENU_BUTTON_HEIGHT = (int)(height * 0.08);
-    final static int MENU_TXTAREA_WIDTH = (int)(width * 0.85);
-    final static int MENU_TXTAREA_HEIGHT = (int)(height * 0.63);
+    final static int MENU_BUTTON_WIDTH = (int) (width * 0.1);
+    final static int MENU_BUTTON_HEIGHT = (int) (height * 0.08);
+    final static int MENU_TXTAREA_WIDTH = (int) (width * 0.85);
+    final static int MENU_TXTAREA_HEIGHT = (int) (height * 0.63);
 
-    final static int CLOCK_LABEL_WIDTH = (int)(width * 0.1);
-    final static int CLOCK_LABEL_HEIGHT = (int)(height * 0.05);
+    final static int CLOCK_LABEL_WIDTH = (int) (width * 0.1);
+    final static int CLOCK_LABEL_HEIGHT = (int) (height * 0.05);
     
     private JLabel balanceTotLabel = new JLabel();
     private JLabel balanceDayLabel = new JLabel();
@@ -70,8 +70,8 @@ public class GUIHallImpl implements PropertyChangeListener {
             JFrame background = new JFrame(TITLE);
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + FILE_PATH_BACKGROUND);
             ImagePanel imagePanel = new ImagePanel(backgroundImage);
-            UpdateThread updateThread = new UpdateThread(this, controller);
-            updateThread.start();
+            //UpdateThread updateThread = new UpdateThread(this, controller);
+            //updateThread.start();
             background.getContentPane().add(imagePanel);
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             background.setSize(width, height);
@@ -226,16 +226,16 @@ public class GUIHallImpl implements PropertyChangeListener {
         int clientY = 0;
         switch (indexClient) {
             case 1:
-                clientX = (int)(width * 0.26);
-                clientY = (int)(height * 0.32);
+                clientX = (int) (width * 0.26);
+                clientY = (int) (height * 0.32);
                 break; 
             case 2:
-                clientX = (int)(width * 0.24);
-                clientY = (int)(height * 0.40);
+                clientX = (int) (width * 0.24);
+                clientY = (int) (height * 0.40);
                 break;
             case 3:
-                clientX = (int)(width * 0.25);
-                clientY = (int)(height * 0.41);
+                clientX = (int) (width * 0.25);
+                clientY = (int) (height * 0.41);
                 break;
         }
         clientLabel.setBounds(clientX, clientY, clientImage.getWidth(null), clientImage.getHeight(null));
@@ -248,7 +248,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         balanceDayLabel.setText(BALANCE_DAY + Double.toString(balanceDay));
     }
 
-    private int randomIndexClientImage(){
+    private int randomIndexClientImage() {
         Random random = new Random();
         return random.nextInt(3) + 1;
     }
@@ -274,39 +274,39 @@ public class GUIHallImpl implements PropertyChangeListener {
         }
     }
 
-    public class OrderThread extends Thread{
+    public class OrderThread extends Thread {
         private static final Lock lock = new ReentrantLock();
         private static final Condition condition = lock.newCondition();
         private ImagePanel imagePanel;
         private JFrame background;
 
-        public OrderThread(ImagePanel imagePanel, JFrame background){
+        public OrderThread(ImagePanel imagePanel, JFrame background) {
             this.imagePanel = imagePanel;
             this.background = background;
         }
 
         @Override
-        public void run(){
-            while(true){
+        public void run() {
+            while(true) {
                 lock.lock();
-                try{
+                try {
                     condition.await(); // go in waiting mode
                     // show order
                     displayOrder(imagePanel, background);
 
-                }catch(InterruptedException e){
+                } catch(InterruptedException e) {
                     e.printStackTrace();
-                }finally{
+                } finally {
                     lock.unlock();
                 }
             }
         }
 
-        public static void wakeUp(){
+        public static void wakeUp() {
             lock.lock();
-            try{
+            try {
                 condition.signal();
-            }finally{
+            } finally {
                 lock.unlock();
             }
         }
