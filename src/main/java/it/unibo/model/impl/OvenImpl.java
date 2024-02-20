@@ -3,9 +3,12 @@ package it.unibo.model.impl;
 import it.unibo.model.api.Oven;
 
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
-
+/**
+ * Implementation of Oven interface.
+ */
 public class OvenImpl implements Oven {
 
     private static final long COOKNING_TIME_IN_SECONDS = 5;
@@ -17,12 +20,19 @@ public class OvenImpl implements Oven {
     private static LocalTime finishBakingTime;
     private static LocalTime currentTime;
 
-
+    /**
+     * Cunstructor, it calls resetOven method.
+     */
     public OvenImpl() {
         resetOven();
     }
 
-    public static void resetOven(){
+    /**
+     * Reset the boolenas fields.
+     * emptyOven is setted to true, so the oven is empty.
+     * isCooked is setted to false, so the pizza is not cooked.
+     */
+    public static void resetOven() {
         emptyOven = true;
         isCooked = false;
     }
@@ -50,7 +60,7 @@ public class OvenImpl implements Oven {
                 }
             }
         };
-        ovenTimer.scheduleAtFixedRate(ovenTask,0, COOKNING_TIME_IN_MILLISECONDS);
+        ovenTimer.scheduleAtFixedRate(ovenTask, 0, COOKNING_TIME_IN_MILLISECONDS);
     }
 
     @Override
