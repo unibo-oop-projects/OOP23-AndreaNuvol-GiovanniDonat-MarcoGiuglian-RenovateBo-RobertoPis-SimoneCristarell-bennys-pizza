@@ -369,7 +369,7 @@ public class GUIHallImpl implements PropertyChangeListener {
          * @param background frame with background.
          */
         public OrderThread(final ImagePanel imagePanel, final JFrame background) {
-            this.imagePanel = imagePanel;
+            this.imagePanel = new ImagePanel(imagePanel);
             this.background = background;
         }
 

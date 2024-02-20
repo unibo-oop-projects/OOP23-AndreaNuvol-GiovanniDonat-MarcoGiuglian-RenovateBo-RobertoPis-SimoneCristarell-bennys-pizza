@@ -1,5 +1,6 @@
 package it.unibo.view;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.Image;
 import java.awt.Graphics;
@@ -12,11 +13,20 @@ public class ImagePanel extends JPanel {
     private Image backgroundImage;
 
     /**
+     * Constructor of ImagePanel by an ImagePanel.
+     * @param imagePanel
+     */
+    public ImagePanel(final ImagePanel imagePanel) {
+        this.backgroundImage = imagePanel.getBackgroundImage();
+    }
+
+
+    /**
      * Constructor of ImagePanel.
      * @param backgroundImage the image to put in background.
      */
     public ImagePanel(final Image backgroundImage) {
-        this.backgroundImage = backgroundImage;
+        this.backgroundImage = new ImageIcon(backgroundImage).getImage();
     }
 
     /**
@@ -40,5 +50,12 @@ public class ImagePanel extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(backgroundImage.getWidth(this), backgroundImage.getHeight(this));
+    }
+
+    /**
+     * @return The background image of this ImagePanel.
+     */
+    public Image getBackgroundImage() {
+        return new ImageIcon(backgroundImage).getImage();
     }
 }
