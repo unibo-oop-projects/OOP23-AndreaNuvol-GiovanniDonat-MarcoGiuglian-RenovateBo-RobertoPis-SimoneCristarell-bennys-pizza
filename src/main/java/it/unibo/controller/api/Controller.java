@@ -113,7 +113,7 @@ public interface Controller {
      * @return a list of string with name, ingredients and cost for each pizza in menu.
      */
     List<String> getMenu();
-    
+
     /**
      * @return the thread of the client.
      */

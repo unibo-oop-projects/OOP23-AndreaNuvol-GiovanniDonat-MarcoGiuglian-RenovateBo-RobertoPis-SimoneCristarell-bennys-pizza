@@ -31,7 +31,7 @@ public class ControllerImpl implements Controller {
     private final ClientThread clientThread;
     private PropertyChangeSupport support;
     private PropertyChangeSupport propertyChangeSupport;
-    
+
     /**
      * The constructor of the controller.
      * @throws ClassNotFoundException
@@ -131,6 +131,9 @@ public class ControllerImpl implements Controller {
         return -1;
     }
 
+    /**
+     * @return the total balance.
+     */
     @Override
     public double getBalanceTot() {
         return this.subtractorManager.getBalanceTot();
