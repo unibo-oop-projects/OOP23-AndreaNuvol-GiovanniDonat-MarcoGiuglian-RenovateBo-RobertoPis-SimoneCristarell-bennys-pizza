@@ -86,7 +86,7 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @param controller
      */
     public GUIHallImpl(final ControllerImpl controller) {
-        this.controller = new ControllerImpl(controller);
+        this.controller = controller;
         createStringBuilderMenu();
         this.controller.startClientThread();
         SwingUtilities.invokeLater(() -> {
