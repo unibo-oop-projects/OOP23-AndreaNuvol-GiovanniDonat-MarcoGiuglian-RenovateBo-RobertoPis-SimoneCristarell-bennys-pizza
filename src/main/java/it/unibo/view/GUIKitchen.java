@@ -40,7 +40,7 @@ import it.unibo.controller.api.Controller;
 public class GUIKitchen {
 
     private static final String SEP = File.separator;
-    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
+    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP;
 
     private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
@@ -336,13 +336,6 @@ public class GUIKitchen {
                                                                 .getImage()
                                                                 .getScaledInstance((int) (frame.getWidth() * 0.16), 
                                                                                     (int) (frame.getHeight() * 0.25),
-                                                                                    0)));
-                }
-                case "TomatoSauce" -> {
-                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon
-                                                                .getImage()
-                                                                .getScaledInstance((int) (frame.getWidth() * 0.18), 
-                                                                                    (int) (frame.getHeight() * 0.28), 
                                                                                     0)));
                 }
                 default -> {
