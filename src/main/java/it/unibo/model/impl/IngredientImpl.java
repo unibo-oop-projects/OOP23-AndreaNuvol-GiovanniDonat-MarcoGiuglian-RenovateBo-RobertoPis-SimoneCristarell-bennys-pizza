@@ -7,18 +7,27 @@ import java.util.regex.Pattern;
 import it.unibo.model.api.Ingredient;
 
 /**
- * Abstract implementation of the 'Ingredient' interface
+ * Abstract implementation of the 'Ingredient' interface.
  */
 public abstract class IngredientImpl implements Ingredient {
 
     private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
-    private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "ingredientsImages" + SEP;
+    private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP 
+        + "resources" + SEP + "ingredientsImages" + SEP;
+    /**
+     * The max quantity for each ingredient.
+     */
     public static final int MAX_QUANTITY = 100;
     private int quantity;
     private double price;
     private String imagePath;
 
+    /**
+     * Protected constructor of IngredientImpl, called by its subclasses.
+     * @param price the price of the specific ingredient.
+     * @param imageName the image name of the specific ingredient.
+     */
     protected IngredientImpl(final double price, final String imageName) {
         this.quantity = MAX_QUANTITY;
         this.price = price;
