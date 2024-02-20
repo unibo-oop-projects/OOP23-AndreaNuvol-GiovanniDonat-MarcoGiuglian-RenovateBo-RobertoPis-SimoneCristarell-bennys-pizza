@@ -54,7 +54,7 @@ public class TimeImpl implements Time {
     /**
      * @return the result of the game.
      */
-    public String getResult(){
+    public String getResult() {
         return this.res;
     }
 

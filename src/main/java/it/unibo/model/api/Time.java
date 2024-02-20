@@ -22,5 +22,5 @@ public interface Time {
     /**
      * @return the resoult of the working day.
      */
-    public String getResult();
+    String getResult();
 }
