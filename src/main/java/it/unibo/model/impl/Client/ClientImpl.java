@@ -44,8 +44,10 @@ public class ClientImpl implements Client {
         double amountToAdd = 0;
         if (pizzaFactoryImpl1.equals(pizzas.getLeft().getIngredients())) {
             amountToAdd = pizzas.getLeft().getCost();
+        } else if (pizzas.getRight().isPresent() && pizzaFactoryImpl1.equals(pizzas.getRight().get().getIngredients())) {
+            amountToAdd = pizzas.getRight().get().getCost();
         } else {
-                for (final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()) {
+            for (final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()) {
                 if (pizzas.getLeft().getIngredients().contains(ingredient.toString())) {
                     amountToAdd += ingredient.getPrice();
                 }
@@ -54,7 +56,9 @@ public class ClientImpl implements Client {
         manager.updateBalance(amountToAdd);
         amountToAdd = 0;
         if (pizzas.getRight().isPresent()) {
-            if (pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())) {
+            if (pizzaFactoryImpl2.get().equals(pizzas.getLeft().getIngredients())) {
+                amountToAdd = pizzas.getLeft().getCost();
+            } else if (pizzas.getRight().isPresent() && pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())) {
                 amountToAdd = pizzas.getRight().get().getCost();
             } else {
                 for (final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()) {
@@ -63,8 +67,8 @@ public class ClientImpl implements Client {
                     }
                 }
             }
-            manager.updateBalance(amountToAdd);
         }
+        manager.updateBalance(amountToAdd);
     }
 
     /**

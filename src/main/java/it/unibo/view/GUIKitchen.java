@@ -101,14 +101,6 @@ public class GUIKitchen {
         displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel, controller);
         centralPanel.add(centralSouthPanel, BorderLayout.SOUTH);
 
-        final JPanel lowWestPanel = new JPanel();
-        lowWestPanel.setOpaque(false);
-        final JButton btnClean = new JButton("Clean");
-        btnClean.setBackground(new Color(195, 195, 195, 255));
-        lowWestPanel.add(btnClean);
-        displayClean(btnClean, frame.getWidth(), frame.getHeight(), lowWestPanel);
-        lowPanel.add(lowWestPanel, BorderLayout.WEST);
-
         final JPanel centralCentralPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         centralCentralPanel.setOpaque(false);
         centralPanel.add(centralCentralPanel, BorderLayout.CENTER);
@@ -143,7 +135,6 @@ public class GUIKitchen {
                 displaySupplyComponents(width, height, comboBox, btnSupply, btnAdd, centralNorthPanel);
                 displayEndingKitchen(btnEndingKitchen, width, height, rightPanel);
                 displayOven(btnOven, width, height, centralSouthPanel, controller);
-                displayClean(btnClean, width, height, lowWestPanel);
             }
         });
 
@@ -230,14 +221,20 @@ public class GUIKitchen {
                     if (pizza1.isSelected()) {
                         disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
                         pizza1.setEnabled(false);
+                        pizza1.setSelected(false);
+                        controller.bakingPizza();
+                        Thread.sleep(1500);
+                        JOptionPane.showMessageDialog(frame, "Pizza is baked!", "INFO", JOptionPane.INFORMATION_MESSAGE);
                     }
                     if (pizza2.isSelected()) {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
                         pizza2.setEnabled(false);
+                        pizza2.setSelected(false);
+                        controller.bakingPizza();
+                        Thread.sleep(1500);
+                        JOptionPane.showMessageDialog(frame, "Pizza is baked!", "INFO", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    controller.bakingPizza();
-                    Thread.sleep(1500);
-                    JOptionPane.showMessageDialog(frame, "Pizza is baked!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    
                     if (!pizza1.isEnabled() && !pizza2.isEnabled()) {
                         btnEndingKitchen.setEnabled(true);
                     }
@@ -333,7 +330,7 @@ public class GUIKitchen {
         bin.setIcon(new ImageIcon(garbageBin
             .getScaledInstance((int)(bin.getWidth()-10), (int)(bin.getHeight()-5), 0)));
         lowPanel.setBorder(new EmptyBorder((int)(height*0.01), (int)(width*0.05),
-            (int)(height*0.04), (int)(width*0.14)));
+            (int)(height*0.1), (int)(width*0.14)));
         bin.setBackground(new Color(195, 195, 195, 255));
         bin.setBorderPainted(false);
         lowPanel.validate();
@@ -360,15 +357,9 @@ public class GUIKitchen {
 
     private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel, final Controller controller) {
         ovenButton.setSize(new Dimension((int)(width*0.08), (int)(height*0.05)));
-        centralSouthPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.77), (int)(height*0.02), (int)(width*0.42)));
+        centralSouthPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.77), 0, (int)(width*0.42)));
         centralSouthPanel.validate();    
-    }
-
-    private void displayClean(final JButton cleanerButton, final int width, final int height, final JPanel lowWestPanel) {
-        cleanerButton.setSize(new Dimension((int)(width*0.1), (int)(height*0.05)));
-        lowWestPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.07), 
-            (int)(height*0.20), (int)(width*0.1)));
-        lowWestPanel.validate();
+        centralSouthPanel.setBackground(Color.RED);
     }
 
     public void start() {
