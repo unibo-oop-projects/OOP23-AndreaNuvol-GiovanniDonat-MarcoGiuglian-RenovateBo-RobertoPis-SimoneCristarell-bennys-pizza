@@ -19,15 +19,12 @@ public class TestOven {
     public void testInitiallyEmpty() {
         OvenImpl oven = new OvenImpl();
         assertTrue(oven.isOvenEmpty());
-    }
-
-    
-    // Test if baking a pizza sets oven to not empty
+    }    
+        // Test if baking a pizza sets oven to not empty
     @Test
     public void testBakingPizzaSetsOvenNotEmpty() {
         OvenImpl oven = new OvenImpl();
         oven.bakingPizza();
         assertFalse(oven.isOvenEmpty());
-    }
-        
+    }       
 }

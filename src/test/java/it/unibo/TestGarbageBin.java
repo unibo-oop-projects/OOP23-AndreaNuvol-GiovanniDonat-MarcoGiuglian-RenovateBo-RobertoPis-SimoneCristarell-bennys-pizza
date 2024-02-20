@@ -13,7 +13,6 @@ import it.unibo.model.impl.*;
 import it.unibo.model.impl.Management.SubtractorManager;
 
 public class TestGarbageBin {
-    
         // can throw a pizza in the garbage bin
     @Test
     public void testThrowPizzaInGarbageBin() throws ClassNotFoundException, InstantiationException, IllegalAccessError, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -23,7 +22,5 @@ public class TestGarbageBin {
         assertTrue(p.getPizza1().equals(new ArrayList<>(List.of("Dough"))));
         p.getGarbageBin().throwPizzaInGarbageBin(p, true);
         assertTrue(p.getPizza1().equals(new ArrayList<>(List.of())));
-
-        
     }
 }
