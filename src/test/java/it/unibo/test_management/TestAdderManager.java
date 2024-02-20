@@ -7,15 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Test the subtractor manager class
+ * Test the subtractor manager class.
  */
 public class TestAdderManager {
     private static final double DELTA = 0.001;
     private static final double POSITIVE_AMOUNT = 10;
     private static final double NEGATIVE_AMOUNT = -10;
     private static final double DECIMAL_AMOUNT = 3.14;
-    private AdderManager manager = new AdderManager();
-    
+    private AdderManager manager = new AdderManager();    
     // Can add positive amounts to balance
     @Test
     public void testAddPositiveAmountsToBalance() {

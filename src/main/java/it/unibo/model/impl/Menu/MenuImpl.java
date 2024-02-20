@@ -39,7 +39,7 @@ public class MenuImpl {
         for(final Pizza pizza : pizzas) {
             System.out.println(pizza.getName()          + " " +
                                 pizza.getIngredients()  + " " +
-                                pizza.getCost()         + "\n" );
+                                pizza.getCost()         + "\n");
         }
     }
 
@@ -51,13 +51,12 @@ public class MenuImpl {
         return pizzas;
     }
 
-    public static class Pizza {
-    
+    public static class Pizza {    
         private final String name;
         private final float cost;
         private List<String> ingredients;
-    
-        public Pizza(String name, float cost, List<String> ingredients) {
+
+        public Pizza(final String name, final float cost, final List<String> ingredients) {
             this.name = name;
             this.cost = cost;
             this.ingredients = ingredients;
@@ -65,12 +64,13 @@ public class MenuImpl {
         
         public Pizza() {
             this.name = "";
-            this.cost = 0;}
-    
+            this.cost = 0;
+        }
+
         public String getName() {
             return this.name;
         }
-    
+
         public List<String> getIngredients() {
             return this.ingredients;
         }
@@ -78,7 +78,7 @@ public class MenuImpl {
         public int getNumIngredientsOfPizza() {
             return this.ingredients.size();
         }
-    
+            
         public float getCost() {
             return this.cost;
         }
