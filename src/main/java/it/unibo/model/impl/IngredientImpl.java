@@ -8,6 +8,7 @@ import it.unibo.model.api.Ingredient;
 
 /**
  * Abstract implementation of the 'Ingredient' interface.
+ * Abstract implementation of the 'Ingredient' interface.
  */
 public abstract class IngredientImpl implements Ingredient {
     private static final String SEP = File.separator;
@@ -30,9 +31,9 @@ public abstract class IngredientImpl implements Ingredient {
     private String imagePath;
 
     /**
-     * The constructor of the garbage.
-     * @param price
-     * @param imagaName
+     * Protected constructor of IngredientImpl, called by its subclasses.
+     * @param price the price of the specific ingredient.
+     * @param imageName the image name of the specific ingredient.
      */
     protected IngredientImpl(final double price, final String imageName) {
         this.quantity = MAX_QUANTITY;
@@ -83,3 +84,4 @@ public abstract class IngredientImpl implements Ingredient {
         return strings[strings.length - 1].split(Pattern.quote("."))[0];
     }
 }
+

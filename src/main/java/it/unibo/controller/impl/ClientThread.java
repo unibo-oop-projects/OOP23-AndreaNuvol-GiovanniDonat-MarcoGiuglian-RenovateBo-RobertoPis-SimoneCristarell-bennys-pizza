@@ -19,12 +19,16 @@ public class ClientThread extends Thread {
 
     /**
      * Constructor of the class ClientThread.
-     * @param controller
+     * @param controller the controller of the app.
      */
     public ClientThread(final ControllerImpl controller) {
         this.controller = controller;
     }
 
+    /**
+     * The client makes his/her order and wakes up the thread that shows it, then it waits until
+     * the kitchen hasn't made the pizzas.
+     */
     @Override
     public void run() {
         while (true) {

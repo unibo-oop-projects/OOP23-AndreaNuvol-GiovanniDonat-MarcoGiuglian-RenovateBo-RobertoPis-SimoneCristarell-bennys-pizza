@@ -1,5 +1,8 @@
 package it.unibo.model.api;
 
+/**
+ * Interface of the time.
+ */
 public interface Time {
     /**
      * Reset time and start a new day.

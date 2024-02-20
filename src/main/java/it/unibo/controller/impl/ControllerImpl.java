@@ -49,6 +49,7 @@ public class ControllerImpl implements Controller {
                                     InvocationTargetException,
                                     NoSuchMethodException,
                                     SecurityException {
+                                    SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
         MenuImpl.generateMenu();
         this.propertyChangeSupport = new PropertyChangeSupport(this);
@@ -66,16 +67,25 @@ public class ControllerImpl implements Controller {
         this.propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
 
+    /**
+     * It returns the client thread.
+     */
     @Override
-    public ClientThread getClientThread() {
+    public ClientThread getClientThread()  {
         return this.clientThread;
     }
 
+    /**
+     * It returns the preparation zone.
+     */
     @Override
     public PreparationZone getPreparationZone() {
         return this.preparationZone;
     }
 
+    /**
+     * It adds an ingredient on the pizza.
+     */
     @Override
     public void addIngredient(final String ingredientStringToAdd, final boolean isPizza1) {
         this.preparationZone.actionsOnIngredients(ingredientStringToAdd,
@@ -83,6 +93,9 @@ public class ControllerImpl implements Controller {
                                                     false);
     }
 
+    /**
+     * It supplies an ingredient.
+     */
     @Override
     public void supply(final String ingredientStringToAdd) {
         this.preparationZone.actionsOnIngredients(ingredientStringToAdd,
@@ -90,16 +103,25 @@ public class ControllerImpl implements Controller {
                                                     true);
     }
 
+    /**
+     * It throws a pizza in the garbage bin.
+     */
     @Override
     public void throwPizzaInGarbageBin(final boolean isPizza1) {
         this.preparationZone.getGarbageBin().throwPizzaInGarbageBin(this.preparationZone, isPizza1);
     }
 
+    /**
+     * It bakes a pizza in the oven.
+     */
     @Override
     public void bakingPizza() {
         this.preparationZone.getOven().bakingPizza();
     }
 
+    /**
+     * It gets an ingredient quantity.
+     */
     @Override
     public int getIngredientQuantity(final String ingredientName) {
         for (final var ingredient: this.preparationZone.getIngredientsQuantities().keySet()) {
@@ -115,31 +137,49 @@ public class ControllerImpl implements Controller {
         return this.subtractorManager.getBalanceTot();
     }
 
+    /**
+     * It returns the daily balance.
+     */
     @Override
     public double getBalanceDay() {
         return this.subtractorManager.getBalanceDay();
     }
 
+    /**
+     * It adds an amount to the balance.
+     */
     @Override
     public void addToBalance(final double amount) {
         this.adderManager.updateBalance(amount);
     }
 
+    /**
+     * It subtracts an amount to the balance.
+     */
     @Override
     public void subtractToBalance(final double amount) {
         this.subtractorManager.updateBalance(amount);
     }
 
+    /**
+     * It returns the adder manager.
+     */
     @Override
     public AdderManager getAdderManagerModel() {
         return this.adderManager;
     }
 
+    /**
+     * It returns the subtractor manager.
+     */
     @Override
     public SubtractorManager getSubtractorManagerModel() {
         return this.subtractorManager;
     }
 
+    /**
+     * It returns the ordered pizzas.
+     */
     @Override
     public Pair<Pizza, Optional<Pizza>> order() {
         Pair<Pizza, Optional<Pizza>> orderedPizzas;
@@ -157,16 +197,25 @@ public class ControllerImpl implements Controller {
         return orderedPizzas;
     }
 
+    /**
+     * The client pays.
+     */
     @Override
     public void pay() {
         this.client.pay(this.preparationZone.getPizza1(), this.preparationZone.getPizza2());
     }
 
+    /**
+     * It generates the menu.
+     */
     @Override
     public void generateMenu() {
         MenuImpl.generateMenu();
     }
 
+    /**
+     * It returns the menu.
+     */
     @Override
     public List<String> getMenu() {
         final List<String> menu = new ArrayList<>();
@@ -176,31 +225,49 @@ public class ControllerImpl implements Controller {
         return menu;
     }
 
+    /**
+     * It returns the working day.
+     */
     @Override
     public int getWorkingDay() {
         return TimeImpl.getWorkingDay();
     }
 
+    /**
+     * It returns the current hour and minute.
+     */
     @Override
     public String getHourAndMin() {
         return this.time.getHourAndMin();
     }
 
+    /**
+     * It returns the time object.
+     */
     @Override
     public TimeImpl getTimeModel() {
         return this.time;
     }
 
+    /**
+     * It calls the addPropertyChangeListener of the support.
+     */
     @Override
     public void addPropertyChangeListener(final PropertyChangeListener pcl) {
         this.support.addPropertyChangeListener(pcl);
     }
 
+    /**
+     * It starts a new day.
+     */
     @Override
     public void newDay() {
         this.time.newDay();
     }
 
+    /**
+     * It resets the two pizza factories after the deliver of the order.
+     */
     @Override
     public void resetPizzas() {
         this.preparationZone.resetPizzaPreparation();

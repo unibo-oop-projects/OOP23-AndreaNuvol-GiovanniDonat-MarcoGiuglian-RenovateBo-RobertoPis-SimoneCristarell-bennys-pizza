@@ -12,11 +12,15 @@ import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * The implementation of a normal client.
+ * The implementation of a normal client.
  */
 public class ClientImpl implements Client {
     private Random random = new Random();
     private Order order;
 
+    /**
+     * This method makes the client's order.
+     */
     @Override
     public ClientImpl.Order order() {
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzasToOrder;
@@ -37,6 +41,9 @@ public class ClientImpl implements Client {
         return this.order;
     }
 
+    /**
+     * The client pays.
+     */
     @Override
     public void pay(final PizzaFactory pizzaFactoryImpl1, final Optional<PizzaFactory> pizzaFactoryImpl2) {
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzas = this.order.getOrderPizzas();
@@ -58,15 +65,14 @@ public class ClientImpl implements Client {
         if (pizzas.getRight().isPresent()) {
             if (pizzaFactoryImpl2.get().equals(pizzas.getLeft().getIngredients())) {
                 amountToAdd = pizzas.getLeft().getCost();
+            } else if (pizzas.getRight().isPresent() 
+                    && pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())) {
+                amountToAdd = pizzas.getRight().get().getCost();
             } else {
-                if (pizzas.getRight().isPresent() && pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())) {
-                    amountToAdd = pizzas.getRight().get().getCost();
-                } else {
-                    for (final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()) {
-                        if (pizzas.getRight().get().getIngredients().contains(ingredient.toString())) {
-                            amountToAdd += ingredient.getPrice();
-                        }
-                    } 
+                for (final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()) {
+                    if (pizzas.getRight().get().getIngredients().contains(ingredient.toString())) {
+                        amountToAdd += ingredient.getPrice();
+                    }
                 }
             }
         }
@@ -86,6 +92,7 @@ public class ClientImpl implements Client {
      */
     public static class Order {
         private Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizze;
+
         /**
          * The constructor of the class Order.
          * @param pizze
