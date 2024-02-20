@@ -111,6 +111,7 @@ public class MenuImpl {
 
         /**
          * Return a description of the pizza.
+         * @return a string that contains the description of the pizza.
          */
         public String toString() {
             String output;

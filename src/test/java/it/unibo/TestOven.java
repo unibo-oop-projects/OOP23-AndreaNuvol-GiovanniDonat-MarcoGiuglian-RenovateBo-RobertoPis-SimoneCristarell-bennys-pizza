@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.impl.OvenImpl;
 
 /**
- * Test Oven class 
+ * Test Oven class.
  */
 public class TestOven {
     /**
