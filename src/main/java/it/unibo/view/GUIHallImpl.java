@@ -88,6 +88,7 @@ public class GUIHallImpl implements PropertyChangeListener {
     public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
         createStringBuilderMenu();
+        this.controller.startClientThread();
         SwingUtilities.invokeLater(() -> {
             JFrame background = new JFrame(TITLE);
             Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT

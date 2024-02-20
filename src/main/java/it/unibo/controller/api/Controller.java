@@ -50,6 +50,11 @@ public interface Controller {
     void throwPizzaInGarbageBin(boolean isPizza1);
 
     /**
+     * It start the thread of the client.
+     */
+    void startClientThread();
+
+    /**
      * It cooks the pizza you have prepared.
      */
     void bakingPizza();

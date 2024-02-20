@@ -53,6 +53,13 @@ public class ControllerImpl implements Controller {
         MenuImpl.generateMenu();
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         this.clientThread = new ClientThread(this);
+    }
+
+    /**
+     * It start the thread of the client.
+     */
+    @Override
+    public void startClientThread() {
         this.clientThread.start();
     }
 

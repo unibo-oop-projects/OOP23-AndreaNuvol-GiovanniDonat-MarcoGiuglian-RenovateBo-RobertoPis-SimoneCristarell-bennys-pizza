@@ -100,7 +100,7 @@ public class PreparationZoneImpl implements PreparationZone {
     }
 
     /**
-     * It returns if the number of pizzas to prepare is set
+     * It returns if the number of pizzas to prepare is set.
      */
     @Override
     public boolean isNumberOfPizzasToPrepareSet() {
