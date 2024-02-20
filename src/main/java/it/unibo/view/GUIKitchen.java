@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.nio.file.FileSystems;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -18,9 +19,17 @@ public class GUIKitchen {
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP;
 
-    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final int screenWidth = (int)screenSize.getWidth();
-    private final int screenHeight = (int)screenSize.getHeight();
+    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final int screenWidth = (int)screenSize.getWidth();
+    private static final int screenHeight = (int)screenSize.getHeight();
+
+    private static final String FONT = "Arial";
+    private static final int FONT_SIZE = 25;
+    private static final String BALANCE_TOT = "Total balance : ";
+    private static final String BALANCE_DAY = "Daily balance : ";
+    private static final String CURRENCY = "$";
+    static final int CLOCK_LABEL_WIDTH = (int) (screenWidth * 0.1);
+    static final int CLOCK_LABEL_HEIGHT = (int) (screenHeight * 0.05);
 
     private final JFrame frame = new JFrame("KITCHEN");
 
@@ -301,9 +310,22 @@ public class GUIKitchen {
 
     private void displayInfoLabels(final ImagePanel imagePanel, final int width, final Controller controller) {
         final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int)(width / 15), 10));
-        final JLabel lblDay = new JLabel("Day: 16/02/2024");
-        final JLabel lblTime = new JLabel("18:15");
-        final JLabel lblBalance = new JLabel("Balance: 50" );
+        final JLabel lblDay = new JLabel();
+        final JLabel lblTime = new JLabel();
+        final JLabel lblBalanceDay = new JLabel();
+        final JLabel lblBalanceTot = new JLabel();
+        lblBalanceDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        lblBalanceDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        lblBalanceTot.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        lblBalanceTot.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        updateBalanceLabels(lblBalanceTot, lblBalanceDay, controller.getBalanceDay(), controller.getBalanceTot());
+        
+        lblDay.setText("Day " + String.valueOf(controller.getWorkingDay()));
+        lblDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+
+        lblTime.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        lblTime.setSize(CLOCK_LABEL_WIDTH, CLOCK_LABEL_HEIGHT);
+        lblTime.setText(controller.getHourAndMin());
         final JButton btnShowOrder = new JButton("Show client's order");
         btnShowOrder.setPreferredSize(new Dimension(150, 21));
         btnShowOrder.setBackground(Color.WHITE);
@@ -311,7 +333,8 @@ public class GUIKitchen {
         highPanel.add(btnShowOrder);
         highPanel.add(lblDay);
         highPanel.add(lblTime);
-        highPanel.add(lblBalance);
+        highPanel.add(lblBalanceDay);
+        highPanel.add(lblBalanceTot);
         imagePanel.add(highPanel, BorderLayout.NORTH);
 
         final String order = controller.getClientThread().getOrder().getLeft() + "\n\n" +
@@ -361,6 +384,16 @@ public class GUIKitchen {
         centralSouthPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.77), 0, (int)(width*0.42)));
         centralSouthPanel.validate();    
         centralSouthPanel.setBackground(Color.RED);
+    }
+
+        public void updateBalanceLabels(final JLabel lblbalanceTot, final JLabel lblbalanceDay, double balanceDay, double balanceTot) {
+        DecimalFormat df = new DecimalFormat("#.###");
+        lblbalanceTot.setText(BALANCE_TOT
+                                + df.format(balanceTot)
+                                + CURRENCY);
+        lblbalanceDay.setText(BALANCE_DAY 
+                                + df.format(balanceDay)
+                                + CURRENCY);
     }
 
     public void start() {

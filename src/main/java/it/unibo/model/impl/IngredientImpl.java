@@ -8,7 +8,6 @@ import it.unibo.model.api.Ingredient;
 
 /**
  * Abstract implementation of the 'Ingredient' interface.
- * Abstract implementation of the 'Ingredient' interface.
  */
 public abstract class IngredientImpl implements Ingredient {
     private static final String SEP = File.separator;
@@ -42,7 +41,7 @@ public abstract class IngredientImpl implements Ingredient {
     }
 
     /**
-     * It returns the ingredient's current quantity.
+     * @return the quantity of the ingredient.
      */
     @Override
     public int getQuantity() {
@@ -50,7 +49,7 @@ public abstract class IngredientImpl implements Ingredient {
     }
 
     /**
-     * It returns the ingredient's price.
+     * @return the price of the ingredient.
      */
     @Override
     public double getPrice() {
@@ -58,18 +57,24 @@ public abstract class IngredientImpl implements Ingredient {
     }
 
     /**
-     * It returns the path of the ingredient's image.
+     * @return the path for the image of the ingredient.
      */
     @Override
     public String getImagePath() {
         return this.imagePath;
     }
 
+    /**
+     * It supplies the ingredient.
+     */
     @Override
     public final void supply() {
         this.quantity = MAX_QUANTITY;
     }
 
+    /**
+     * It reduces the quantity of the ingredient.
+     */
     @Override
     public abstract void reduce();
 
@@ -83,7 +88,8 @@ public abstract class IngredientImpl implements Ingredient {
     }
 
     /**
-     * It returns true if two 'ingredient' object are equal.
+     * It checks if two objects are the same or not.
+     * @return true or false.
      */
     @Override
     public boolean equals(final Object o) {
