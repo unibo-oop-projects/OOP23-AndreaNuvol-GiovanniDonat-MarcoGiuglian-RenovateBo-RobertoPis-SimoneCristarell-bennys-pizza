@@ -44,9 +44,7 @@ public class TestPreparationZone {
         } catch (Exception e) {
             assertEquals(string, e.getMessage());
         }
-    }
-
-    
+    }    
     @Test
     public void testPizzasGetter() {
         testNumberOfPizzas(MIN_PIZZAS, "Pizza n. 2 is not requested from this client.");
@@ -64,7 +62,7 @@ public class TestPreparationZone {
 
             for (final var cl: ingredients) {
                 final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
-                ingredientsQuantities.put((Ingredient)clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
+                ingredientsQuantities.put((Ingredient) clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
         }
             final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
             assertEquals(preparationZone.getIngredientsQuantities(), ingredientsQuantities);
@@ -85,10 +83,8 @@ public class TestPreparationZone {
             }
         } catch (Exception e) {
             assertEquals("The quantity of this ingredient is already the maximum possible.", e.getMessage());
-        }
-        
+        }        
     }
-
     @Test
     public void testUpdateQuantities() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
