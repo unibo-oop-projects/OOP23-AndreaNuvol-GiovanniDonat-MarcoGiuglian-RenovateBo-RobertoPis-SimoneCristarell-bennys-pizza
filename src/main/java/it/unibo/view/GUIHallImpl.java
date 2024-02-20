@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.BoxLayout;
@@ -42,7 +43,6 @@ public class GUIHallImpl implements PropertyChangeListener {
     static final String SEP = File.separator;
     private ControllerImpl controller;
     private static final String TITLE = "BENNY'S PIZZA";
-    private static final String BALANCE_TOT = "Total balance : ";
     private static final String BALANCE_DAY = "Daily balance : ";
     private static final String MENU_STRING = "MENU - " + TITLE;
     private static final String FONT = "Arial";
@@ -100,10 +100,8 @@ public class GUIHallImpl implements PropertyChangeListener {
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
-
             OrderThread orderThread = new OrderThread(imagePanel, background);
             orderThread.start();
-
             displayMenu(imagePanel, background);
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
@@ -244,10 +242,6 @@ public class GUIHallImpl implements PropertyChangeListener {
     private void displayBalanceLabels(final ImagePanel imagePanel, final JFrame background) {
         setPanelAttributes(balancePanel);
         balanceDayLabel.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
-        balanceTotLabel.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
-        balanceTotLabel.setText(BALANCE_TOT
-                                + this.controller.getBalanceTot()
-                                + CURRENCY);
         balanceDayLabel.setText(BALANCE_DAY
                                 + this.controller.getBalanceDay()
                                 + CURRENCY);
@@ -264,7 +258,7 @@ public class GUIHallImpl implements PropertyChangeListener {
      */
     private void displayWorkingDayLabels(final ImagePanel imagePanel, final JFrame background) {
         setPanelAttributes(dayImagePanel);
-        dayLabel.setText("Day " + String.valueOf(this.controller.getWorkingDay()));
+        dayLabel.setText("Day 1");
         dayLabel.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
         dayImagePanel.add(dayLabel);
         imagePanel.add(dayImagePanel, BorderLayout.NORTH);
@@ -312,10 +306,8 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @param balanceTot
      * @param balanceDay
      */
-    public void updateBalanceLabels(final double balanceTot, final double balanceDay) {
+    public void updateBalanceLabels(final double balanceDay) {
         DecimalFormat df = new DecimalFormat("#.###");
-        balanceTotLabel.setText(BALANCE_TOT
-                                + df.format(balanceTot));
         balanceDayLabel.setText(BALANCE_DAY 
                                 + df.format(balanceDay));
     }
@@ -337,18 +329,28 @@ public class GUIHallImpl implements PropertyChangeListener {
             case "time":
                 SwingUtilities.invokeLater(() -> clockLabel.setText(controller.getHourAndMin()));
                 break;
-            case "day":
-                SwingUtilities.invokeLater(() -> dayLabel.setText((String.valueOf(controller.getWorkingDay()))));
-                break;
             case "balanceDay":
                 SwingUtilities.invokeLater(() -> balanceDayLabel.setText(BALANCE_DAY
                                                                         + String.valueOf(controller.getBalanceDay())
                                                                         + CURRENCY));
                 break;
-            case "balanceTot":
-                SwingUtilities.invokeLater(() -> balanceTotLabel.setText(BALANCE_TOT
-                                                                        + String.valueOf(controller.getBalanceTot())
-                                                                        + CURRENCY));
+            case "end":
+                SwingUtilities.invokeLater(() -> {
+                    JOptionPane pane = new JOptionPane(controller.getResult(), JOptionPane.INFORMATION_MESSAGE);
+                    JDialog dialog = pane.createDialog("Result");
+                    dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                    dialog.setAlwaysOnTop(true);
+                    pane.setOptions(new Object[]{});
+                    pane.addPropertyChangeListener(e -> {
+                        String prop = e.getPropertyName();
+                        if (dialog.isVisible() && e.getSource() == pane && prop.equals(JOptionPane.VALUE_PROPERTY)) {
+                            dialog.setVisible(false);
+                            dialog.dispose();
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+                });
                 break;
             default:
                 break;

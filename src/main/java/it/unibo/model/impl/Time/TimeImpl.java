@@ -12,17 +12,16 @@ import it.unibo.model.impl.Management.AbstractManager;
  * Implementation of Time interface.
  */
 public class TimeImpl implements Time {
-
-    static final int TIME_FOR_15_MINUTES = 15_000;
-
+    static final String WIN_STRING = "You win!";
+    static final String LOSE_STRING = "You lose!";
+    static final int TIME_FOR_15_MINUTES = 5_000;
     static final int STARTING_HOUR = 10;
     static final int STARTING_MIN = 0;
     static final int ENDING_HOUR = 22;
     static final int ENDING_MIN = 30;
     static final int LAST_HOUR_MIN = 45;
     static final int MIN_TO_ADD = 15;
-
-    private static int workingDays = 1;
+    private String res = "";
     private int hour;
     private int min;
     private Timer timer = new Timer();
@@ -42,14 +41,18 @@ public class TimeImpl implements Time {
 
         if (isEndOfDay()) {
             timer.cancel();
-            if (AbstractManager.levelPassed()) {
-                workingDays++;
-                AbstractManager.addBalanceTot();
-                support.firePropertyChange("day", null, TimeImpl.getWorkingDay());
-            }
-            AbstractManager.resetBalanceDay();
+            setResult();
         }
         support.firePropertyChange("time", null, this.getHourAndMin());
+    }
+
+    private void setResult() {
+        this.res = AbstractManager.levelPassed() ? WIN_STRING : LOSE_STRING;
+        support.firePropertyChange("end", null, this.getResult());
+    }
+
+    public String getResult(){
+        return this.res;
     }
 
     private void startTimeForNewDay() {
@@ -62,7 +65,6 @@ public class TimeImpl implements Time {
 
         }, 0, TIME_FOR_15_MINUTES);
     }
-
     /**
      * It starts a new day.
      */
@@ -78,13 +80,6 @@ public class TimeImpl implements Time {
 
     private boolean isEndOfDay() {
         return this.hour == ENDING_HOUR && this.min == ENDING_MIN;
-    }
-
-    /**
-     * @return the number of the working days.
-     */
-    public static int getWorkingDay() {
-        return workingDays;
     }
 
     private int getHour() {

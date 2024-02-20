@@ -28,6 +28,6 @@ public class TestAbstractManager {
      */
     @Test
     public void testBalanceInitialization() {
-        assertEquals(DELTA, manager.getBalanceTot(), DELTA);
+        assertEquals(DELTA, manager.getBalanceDay(), DELTA);
     }
 }

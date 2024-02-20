@@ -50,7 +50,6 @@ public class GUIKitchen {
 
     private static final String FONT = "Arial";
     private static final int FONT_SIZE = 25;
-    private static final String BALANCE_TOT = "Total balance : ";
     private static final String BALANCE_DAY = "Daily balance : ";
     private static final String CURRENCY = "$";
     static final int CLOCK_LABEL_WIDTH = (int) (SCREEN_WIDTH * 0.1);
@@ -378,9 +377,9 @@ public class GUIKitchen {
         lblBalanceDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
         lblBalanceTot.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
         lblBalanceTot.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
-        updateBalanceLabels(lblBalanceTot, lblBalanceDay, controller.getBalanceDay(), controller.getBalanceTot());
+        updateBalanceLabels(lblBalanceDay, controller.getBalanceDay());
 
-        lblDay.setText("Day " + String.valueOf(controller.getWorkingDay()));
+        lblDay.setText("Day 1");
         lblDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
 
         lblTime.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
@@ -476,14 +475,9 @@ public class GUIKitchen {
      * @param balanceDay
      * @param balanceTot
      */
-    public void updateBalanceLabels(final JLabel lblBalanceTot,
-                                    final JLabel lblBalanceDay,
-                                    final double balanceDay,
-                                    final double balanceTot) {
+    public void updateBalanceLabels(final JLabel lblBalanceDay,
+                                    final double balanceDay) {
         DecimalFormat df = new DecimalFormat("#.###");
-        lblBalanceTot.setText(BALANCE_TOT
-                                + df.format(balanceTot)
-                                + CURRENCY);
         lblBalanceDay.setText(BALANCE_DAY 
                                 + df.format(balanceDay)
                                 + CURRENCY);

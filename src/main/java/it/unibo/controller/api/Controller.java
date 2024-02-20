@@ -65,12 +65,6 @@ public interface Controller {
     void resetPizzas();
 
     /**
-     * It gets the total balance.
-     * @return the total balance.
-     */
-    double getBalanceTot();
-
-    /**
      * It gets the day balance.
      * @return the day balance.
      */
@@ -125,11 +119,6 @@ public interface Controller {
     ClientThread getClientThread();
 
     /**
-     * @return the number of days Benny worked.
-     */
-    int getWorkingDay();
-
-    /**
      * @return a string to show hour and minutes of the day.
      */
     String getHourAndMin();
@@ -140,13 +129,19 @@ public interface Controller {
     TimeImpl getTimeModel();
 
     /**
+     * It allows to update the view when the model changes.
+     * @param pcl the property change listener
+     */
+    void addPropertyChangeListener(PropertyChangeListener pcl);
+
+    /**
      * It sets everything for a new day.
      */
     void newDay();
 
     /**
-     * It allows to update the view when the model changes.
-     * @param pcl the property change listener
+     * 
+     * @return
      */
-    void addPropertyChangeListener(PropertyChangeListener pcl);
+    String getResult();
 }

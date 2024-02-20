@@ -27,11 +27,10 @@ public class UpdateThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            double balanceTot = controller.getBalanceTot();
             double balanceDay = controller.getBalanceDay();
 
             SwingUtilities.invokeLater(() -> {
-                gui.updateBalanceLabels(balanceTot, balanceDay);
+                gui.updateBalanceLabels(balanceDay);
             });
 
             try {

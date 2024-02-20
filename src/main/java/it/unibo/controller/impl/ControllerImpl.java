@@ -139,14 +139,6 @@ public class ControllerImpl implements Controller {
     }
 
     /**
-     * @return the total balance.
-     */
-    @Override
-    public double getBalanceTot() {
-        return this.subtractorManager.getBalanceTot();
-    }
-
-    /**
      * It returns the daily balance.
      */
     @Override
@@ -235,14 +227,6 @@ public class ControllerImpl implements Controller {
     }
 
     /**
-     * It returns the working day.
-     */
-    @Override
-    public int getWorkingDay() {
-        return TimeImpl.getWorkingDay();
-    }
-
-    /**
      * It returns the current hour and minute.
      */
     @Override
@@ -267,6 +251,14 @@ public class ControllerImpl implements Controller {
     }
 
     /**
+     * It resets the two pizza factories after the deliver of the order.
+     */
+    @Override
+    public void resetPizzas() {
+        this.preparationZone.resetPizzaPreparation();
+    }
+
+    /**
      * It starts a new day.
      */
     @Override
@@ -274,11 +266,12 @@ public class ControllerImpl implements Controller {
         this.time.newDay();
     }
 
+
     /**
-     * It resets the two pizza factories after the deliver of the order.
+     * @return
      */
     @Override
-    public void resetPizzas() {
-        this.preparationZone.resetPizzaPreparation();
+    public String getResult(){
+        return this.time.getResult();
     }
 }
