@@ -1,7 +1,7 @@
 package it.unibo.model.api;
 
 /**
- * Interface of an ingredient
+ * Interface of an ingredient.
  */
 public interface Ingredient {
     /**
@@ -16,17 +16,17 @@ public interface Ingredient {
     void reduce();
 
     /**
-     * @return the price of the ingredient
+     * @return the price of the ingredient.
      */
     double getPrice();
 
     /**
-     * @return the path of the image of the ingredient
+     * @return the path of the image of the ingredient.
      */
     String getImagePath();
-
+    
     /**
-     * @return the current quantity of the ingredient
+     * @return the current quantity of the ingredient.
      */
     int getQuantity();
 }
