@@ -8,7 +8,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.controller.impl.ClientThread;
 import it.unibo.model.api.PreparationZone;
-import it.unibo.model.impl.OvenImpl;
 import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
@@ -18,7 +17,6 @@ import it.unibo.model.impl.Time.TimeImpl;
  * Controller interface.
  */
 public interface Controller {
-    
     /**
      * It adds an ingredient to the pizza you are preparing.
      * @param ingredientStringToAdd the string of the ingredient to add.
@@ -46,6 +44,7 @@ public interface Controller {
 
     /**
      * It brings back pizza without ingredients.
+     * @param isPizza1
      */
     void throwPizzaInGarbageBin(boolean isPizza1);
 
@@ -65,13 +64,11 @@ public interface Controller {
      */
     double getBalanceTot();
 
-
     /**
      * It gets the day balance.
      * @return the day balance.
      */
     double getBalanceDay();
-
 
     /**
      * It adds the amount to balance.
@@ -79,18 +76,11 @@ public interface Controller {
      */
     void addToBalance(double amount);
 
-
     /**
      * It subtracts the amount to balance.
      * @param amount the value to subtract.
      */
     void subtractToBalance(double amount);
-
-
-    /** this method return an OvenImpl.
-     * @return return OvenImpl.
-     */
-    OvenImpl getOvenModel();
 
     /**
      * @return the adderManager to add money to balance.
@@ -150,6 +140,7 @@ public interface Controller {
 
     /**
      * It allows to update the view when the model changes.
+     * @param pcl
      */
     void addPropertyChangeListener(PropertyChangeListener pcl);
 }

@@ -11,7 +11,7 @@ import it.unibo.model.impl.Management.AdderManager;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
- * The implementation of a normal client
+ * The implementation of a normal client.
  */
 public class ClientImpl implements Client {
     private Random random = new Random();
@@ -25,10 +25,10 @@ public class ClientImpl implements Client {
         MenuImpl.Pizza pizza1 = null;
         Optional<MenuImpl.Pizza> pizza2 = Optional.empty();
         for (int i = 0; i < nPizzeToOrder(); i++) {
-            int indexPizza = random.nextInt(max + 1 - min ) + min;
+            int indexPizza = random.nextInt(max + 1 - min) + min;
             pizza1 = menu.get(indexPizza);
             if (i == 1) {
-                indexPizza = random.nextInt(max + 1 - min ) + min;
+                indexPizza = random.nextInt(max + 1 - min) + min;
                 pizza2 = Optional.of(menu.get(indexPizza));
             }
         }
@@ -58,13 +58,15 @@ public class ClientImpl implements Client {
         if (pizzas.getRight().isPresent()) {
             if (pizzaFactoryImpl2.get().equals(pizzas.getLeft().getIngredients())) {
                 amountToAdd = pizzas.getLeft().getCost();
-            } else if (pizzas.getRight().isPresent() && pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())) {
-                amountToAdd = pizzas.getRight().get().getCost();
             } else {
-                for (final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()) {
-                    if (pizzas.getRight().get().getIngredients().contains(ingredient.toString())) {
-                        amountToAdd += ingredient.getPrice();
-                    }
+                if (pizzas.getRight().isPresent() && pizzaFactoryImpl2.get().equals(pizzas.getRight().get().getIngredients())) {
+                    amountToAdd = pizzas.getRight().get().getCost();
+                } else {
+                    for (final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()) {
+                        if (pizzas.getRight().get().getIngredients().contains(ingredient.toString())) {
+                            amountToAdd += ingredient.getPrice();
+                        }
+                    } 
                 }
             }
         }
@@ -84,7 +86,6 @@ public class ClientImpl implements Client {
      */
     public static class Order {
         private Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizze;
-        
         /**
          * The constructor of the class Order.
          * @param pizze

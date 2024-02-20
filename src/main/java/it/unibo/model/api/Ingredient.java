@@ -17,7 +17,7 @@ public interface Ingredient {
 
     /**
      * @return the price of the ingredient.
-     */
+     */ 
     double getPrice();
 
     /**

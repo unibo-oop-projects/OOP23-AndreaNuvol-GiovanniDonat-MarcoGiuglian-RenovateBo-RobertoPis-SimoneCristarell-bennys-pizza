@@ -7,7 +7,6 @@ import java.util.Optional;
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Client;
 import it.unibo.model.api.PreparationZone;
-import it.unibo.model.impl.OvenImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Client.ClientImpl;
 import it.unibo.model.impl.Management.AdderManager;
@@ -23,7 +22,6 @@ import org.apache.commons.lang3.tuple.Pair;
  * Implementation of the controller interface.
  */
 public class ControllerImpl implements Controller {
-    
     private final SubtractorManager subtractorManager = new SubtractorManager();
     private final AdderManager adderManager = new AdderManager();
     private final PreparationZone preparationZone;
@@ -33,10 +31,9 @@ public class ControllerImpl implements Controller {
     private final ClientThread clientThread;
     private PropertyChangeSupport support;
     private PropertyChangeSupport propertyChangeSupport;
-    private final OvenImpl oven = new OvenImpl();
     
     /**
-     * The constructor of the controller
+     * The constructor of the controller.
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
@@ -51,8 +48,7 @@ public class ControllerImpl implements Controller {
                                     IllegalArgumentException,
                                     InvocationTargetException,
                                     NoSuchMethodException,
-                                    SecurityException
-                                    {
+                                    SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
         MenuImpl.generateMenu();
         this.propertyChangeSupport = new PropertyChangeSupport(this);
@@ -71,7 +67,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public ClientThread getClientThread(){
+    public ClientThread getClientThread() {
         return this.clientThread;
     }
 
@@ -114,10 +110,6 @@ public class ControllerImpl implements Controller {
         return -1;
     }
 
-    public OvenImpl getOvenModel() {
-        return this.oven;
-    }
-    
     @Override
     public double getBalanceTot() {
         return this.subtractorManager.getBalanceTot();
