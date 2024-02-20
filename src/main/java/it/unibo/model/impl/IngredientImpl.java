@@ -92,7 +92,10 @@ public abstract class IngredientImpl implements Ingredient {
      */
     @Override
     public boolean equals(final Object o) {
-        return this.imagePath.equals(((Ingredient) o).getImagePath());
+        if (IngredientImpl.class.isInstance(o)) {
+            return o != null ? this.imagePath.equals(((IngredientImpl) o).getImagePath()) : false;
+        }
+        return false;
     }
 
     /**

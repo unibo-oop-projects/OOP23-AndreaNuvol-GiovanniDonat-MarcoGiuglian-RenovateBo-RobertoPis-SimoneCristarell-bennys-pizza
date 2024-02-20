@@ -495,7 +495,7 @@ public class GUIKitchen {
                                 + CURRENCY);
     }
 
-    /*
+    /**
      * It starts the GUI setting true the visibility of the frame.
      */
     public void start() {

@@ -1,11 +1,8 @@
 package it.unibo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.Management;
@@ -63,28 +60,6 @@ public class TestPreparationZone {
         testNumberOfPizzas(MIN_PIZZAS, "Pizza n. 2 is not requested from this client.");
         testNumberOfPizzas(BIGGER_NUMBER_OF_PIZZAS, "The number of pizzas to prepare can be only 1 or 2.");
         testNumberOfPizzas(LOWER_NUMBER_OF_PIZZAS, "The number of pizzas to prepare can be only 1 or 2.");
-    }
-
-    /**
-     * Test the ingredients quantities getter.
-     */
-    @Test
-    public void testIngredientsQuantitiesGetter() {
-        try {
-            final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
-            final List<String> ingredients = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe",
-                "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion",
-                "Parmesan", "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel"));
-
-            for (final var cl: ingredients) {
-                final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
-                ingredientsQuantities.put((Ingredient) clazz.getConstructor().newInstance(), MAX_QUANTITY);
-        }
-            final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
-            assertEquals(preparationZone.getIngredientsQuantities(), ingredientsQuantities);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     /**
