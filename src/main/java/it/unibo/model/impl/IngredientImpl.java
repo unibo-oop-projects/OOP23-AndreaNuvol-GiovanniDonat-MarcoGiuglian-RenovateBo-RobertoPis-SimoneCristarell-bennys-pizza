@@ -8,7 +8,6 @@ import it.unibo.model.api.Ingredient;
 
 /**
  * Abstract implementation of the 'Ingredient' interface.
- * Abstract implementation of the 'Ingredient' interface.
  */
 public abstract class IngredientImpl implements Ingredient {
     private static final String SEP = File.separator;
@@ -41,26 +40,41 @@ public abstract class IngredientImpl implements Ingredient {
         this.imagePath = PATH_TO_THE_ROOT + PATH_TO_RESOURCES + imageName;
     }
 
+    /**
+     * @return the quantity of the ingredient.
+     */
     @Override
     public int getQuantity() {
         return this.quantity;
     }
 
+    /**
+     * @return the price of the ingredient.
+     */
     @Override
     public double getPrice() {
         return this.price;
     }
 
+    /**
+     * @return the path for the image of the ingredient.
+     */
     @Override
     public String getImagePath() {
         return this.imagePath;
     }
 
+    /**
+     * It supplies the ingredient.
+     */
     @Override
     public final void supply() {
         this.quantity = MAX_QUANTITY;
     }
 
+    /**
+     * It reduces the quantity of the ingredient.
+     */
     @Override
     public abstract void reduce();
 
@@ -73,15 +87,29 @@ public abstract class IngredientImpl implements Ingredient {
         this.quantity = this.quantity - toReduce;
     }
 
+    /**
+     * It checks if two objects are the same or not.
+     * @return true or false.
+     */
     @Override
     public boolean equals(final Object o) {
-        return this.imagePath.equals(((Ingredient)o).getImagePath());
+        return this.imagePath.equals(((Ingredient) o).getImagePath());
     }
 
+    /**
+     * It returns the hash code.
+     */
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    /**
+     * It returns the name of the specific ingredient.
+     */
     @Override
     public String toString() {
         String[] strings = this.imagePath.split(Pattern.quote(SEP));
         return strings[strings.length - 1].split(Pattern.quote("."))[0];
     }
 }
-

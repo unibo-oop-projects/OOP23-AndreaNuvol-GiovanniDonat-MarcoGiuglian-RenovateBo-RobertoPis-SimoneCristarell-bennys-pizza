@@ -1,15 +1,38 @@
 package it.unibo.view;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.nio.file.FileSystems;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.*;
+
 import it.unibo.controller.api.Controller;
 
 public class GUIKitchen {
@@ -18,9 +41,17 @@ public class GUIKitchen {
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP;
 
-    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final int screenWidth = (int)screenSize.getWidth();
-    private final int screenHeight = (int)screenSize.getHeight();
+    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final int screenWidth = (int) screenSize.getWidth();
+    private static final int screenHeight = (int) screenSize.getHeight();
+
+    private static final String FONT = "Arial";
+    private static final int FONT_SIZE = 25;
+    private static final String BALANCE_TOT = "Total balance : ";
+    private static final String BALANCE_DAY = "Daily balance : ";
+    private static final String CURRENCY = "$";
+    static final int CLOCK_LABEL_WIDTH = (int) (screenWidth * 0.1);
+    static final int CLOCK_LABEL_HEIGHT = (int) (screenHeight * 0.05);
 
     private final JFrame frame = new JFrame("KITCHEN");
 
@@ -301,9 +332,22 @@ public class GUIKitchen {
 
     private void displayInfoLabels(final ImagePanel imagePanel, final int width, final Controller controller) {
         final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int)(width / 15), 10));
-        final JLabel lblDay = new JLabel("Day: 16/02/2024");
-        final JLabel lblTime = new JLabel("18:15");
-        final JLabel lblBalance = new JLabel("Balance: 50" );
+        final JLabel lblDay = new JLabel();
+        final JLabel lblTime = new JLabel();
+        final JLabel lblBalanceDay = new JLabel();
+        final JLabel lblBalanceTot = new JLabel();
+        lblBalanceDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        lblBalanceDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        lblBalanceTot.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        lblBalanceTot.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        updateBalanceLabels(lblBalanceTot, lblBalanceDay, controller.getBalanceDay(), controller.getBalanceTot());
+        
+        lblDay.setText("Day " + String.valueOf(controller.getWorkingDay()));
+        lblDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+
+        lblTime.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
+        lblTime.setSize(CLOCK_LABEL_WIDTH, CLOCK_LABEL_HEIGHT);
+        lblTime.setText(controller.getHourAndMin());
         final JButton btnShowOrder = new JButton("Show client's order");
         btnShowOrder.setPreferredSize(new Dimension(150, 21));
         btnShowOrder.setBackground(Color.WHITE);
@@ -311,7 +355,8 @@ public class GUIKitchen {
         highPanel.add(btnShowOrder);
         highPanel.add(lblDay);
         highPanel.add(lblTime);
-        highPanel.add(lblBalance);
+        highPanel.add(lblBalanceDay);
+        highPanel.add(lblBalanceTot);
         imagePanel.add(highPanel, BorderLayout.NORTH);
 
         final String order = controller.getClientThread().getOrder().getLeft() + "\n\n" +
@@ -363,8 +408,17 @@ public class GUIKitchen {
         centralSouthPanel.setBackground(Color.RED);
     }
 
+        public void updateBalanceLabels(final JLabel lblbalanceTot, final JLabel lblbalanceDay, double balanceDay, double balanceTot) {
+        DecimalFormat df = new DecimalFormat("#.###");
+        lblbalanceTot.setText(BALANCE_TOT
+                                + df.format(balanceTot)
+                                + CURRENCY);
+        lblbalanceDay.setText(BALANCE_DAY 
+                                + df.format(balanceDay)
+                                + CURRENCY);
+    }
+
     public void start() {
         frame.setVisible(true);
     }
-
 }

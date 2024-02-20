@@ -106,6 +106,7 @@ public class TestPreparationZone {
         } catch (Exception e) {
             assertEquals("The quantity of this ingredient is already the maximum possible.", e.getMessage());
         }
+        }
     }
 
     /**

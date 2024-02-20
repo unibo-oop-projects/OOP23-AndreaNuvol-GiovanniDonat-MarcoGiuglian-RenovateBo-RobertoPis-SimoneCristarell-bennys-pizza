@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import it.unibo.model.impl.OvenImpl;
+import it.unibo.model.impl.OvenImpl;
 
 /**
  * Test of the OvenImpl class.

@@ -8,12 +8,15 @@ import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.IngredientsImpl.Dough;
 
 /**
- * Implementation of 'PizzaFactory' interface
+ * Implementation of 'PizzaFactory' interface.
  */
 public class PizzaFactoryImpl implements PizzaFactory {
 
     private final List<IngredientImpl> addedIngredients = new ArrayList<>();
 
+    /**
+     * It adds an ingredient on the pizza.
+     */
     @Override
     public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) throws IllegalStateException {
         if (!this.addedIngredients.contains(new Dough()) && isNotDough(ingredientToAdd)) {
@@ -29,6 +32,9 @@ public class PizzaFactoryImpl implements PizzaFactory {
         return !Dough.class.isInstance(ingredientToAdd);
     }
 
+    /**
+     * It returns if two pizzas have the same ingredients.
+     */
     @Override
     public boolean equals(final List<String> requestedIngredients) {
         final var ingredientsStrings = new ArrayList<String>();
@@ -40,6 +46,9 @@ public class PizzaFactoryImpl implements PizzaFactory {
                 .count() == requestedIngredients.size();
     }
 
+    /**
+     * It returns a list of the current added ingredients.
+     */
     @Override
     public List<IngredientImpl> getAddedIngredients() {
         return Collections.unmodifiableList(this.addedIngredients);

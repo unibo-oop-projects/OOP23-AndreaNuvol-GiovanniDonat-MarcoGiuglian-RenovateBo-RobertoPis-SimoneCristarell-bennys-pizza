@@ -8,7 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import it.unibo.model.api.*;
+import it.unibo.model.api.GarbageBin;
+import it.unibo.model.api.Ingredient;
+import it.unibo.model.api.Oven;
+import it.unibo.model.api.PizzaFactory;
+import it.unibo.model.api.PreparationZone;
+import it.unibo.model.api.Supplier;
 import it.unibo.model.impl.Management.SubtractorManager;
 
 public class PreparationZoneImpl implements PreparationZone {
@@ -23,21 +28,36 @@ public class PreparationZoneImpl implements PreparationZone {
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     private final GarbageBin garbageBin = new GarbageBinImpl();
-    
-    public PreparationZoneImpl(final SubtractorManager management) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+
+    /**
+     * Constrcutor of PreparationZoneImpl.
+     * @param management the management we use to set the current balance after a supply.
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     */
+    public PreparationZoneImpl(final SubtractorManager management) throws ClassNotFoundException, InstantiationException, 
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.management = management;
 
-        final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe", 
-            "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion", 
+        final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe",
+            "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion",
             "Parmesan", "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel"));
 
         for (final var cl: ingredientsClassesNames) {
             final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
-            this.ingredientsQuantities.put((Ingredient)clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
+            this.ingredientsQuantities.put((Ingredient) clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
         }
 
     }
 
+    /**
+     * It sets the number of pizzas to prepare.
+     */
     @Override
     public void setNumberOfPizzasToPrepare(final int numberOfPizzas) {
         if (numberOfPizzas < MIN_PIZZAS_TO_PREPARE || numberOfPizzas > MAX_PIZZAS_TO_PREPARE) {
@@ -50,6 +70,9 @@ public class PreparationZoneImpl implements PreparationZone {
         this.isNumberOfPizzasToPrepareSet = true;
     }
 
+    /**
+     * It returns the prepared pizza n. 1.
+     */
     @Override
     public PizzaFactory getPizza1() {
         ifNumOfPizzasUnsetOp();
@@ -62,27 +85,42 @@ public class PreparationZoneImpl implements PreparationZone {
         }
     }
 
+    /**
+     * It returns the prepared pizza n. 2.
+     */
     @Override
     public Optional<PizzaFactory> getPizza2() throws IllegalStateException {
         ifNumOfPizzasUnsetOp();
         return this.pizza2;
     }
 
+    /**
+     * It returns a map with the ingredient as key and its current quantity as value.
+     */
     @Override
     public Map<Ingredient, Integer> getIngredientsQuantities() {
         return Collections.unmodifiableMap(this.ingredientsQuantities);
     }
 
+    /**
+     * It returns the oven.
+     */
     @Override
     public Oven getOven() {
         return this.oven;
     }
 
+    /**
+     * It returns the garbage bin.
+     */
     @Override
     public GarbageBin getGarbageBin() {
         return this.garbageBin;
     }
 
+    /**
+     * It adds or supplies an ingredient. This depends from 'isASupply'.
+     */
     @Override
     public void actionsOnIngredients(final String ingredientName, final boolean isPizza1, final boolean isASupply) {
         ifNumOfPizzasUnsetOp();
@@ -99,15 +137,18 @@ public class PreparationZoneImpl implements PreparationZone {
                             throw new IllegalStateException("This ingredient is finished.");
                         }
                         if (isPizza1) {
-                            this.pizza1.addIngredient(this, (IngredientImpl)ingredient);
+                            this.pizza1.addIngredient(this, (IngredientImpl) ingredient);
                         } else {
-                            this.pizza2.get().addIngredient(this, (IngredientImpl)ingredient);
+                            this.pizza2.get().addIngredient(this, (IngredientImpl) ingredient);
                         }
                 } 
                 this.ingredientsQuantities.replace(ingredient, ingredient.getQuantity());
             });
     }
 
+    /**
+     * It resets a single pizza between the two.
+     */
     @Override
     public void resetPizza(final boolean isPizza1) {
         if (isPizza1) {
@@ -117,6 +158,9 @@ public class PreparationZoneImpl implements PreparationZone {
         this.pizza2 = this.pizza2.isPresent() ? Optional.of(new PizzaFactoryImpl()) : Optional.empty();
     }
 
+    /**
+     * It resets the two pizzas and puts the number of pizzas to prepare at 0.
+     */
     @Override
     public void resetPizzaPreparation() {
         resetPizza(true);

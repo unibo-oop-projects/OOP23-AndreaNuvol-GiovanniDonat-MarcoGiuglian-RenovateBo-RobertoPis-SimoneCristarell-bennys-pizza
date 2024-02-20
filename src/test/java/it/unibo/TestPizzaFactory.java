@@ -39,7 +39,13 @@ public class TestPizzaFactory {
      * @throws SecurityException
      */
     @BeforeEach
-    public void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public void initialize() throws ClassNotFoundException, 
+                                    InstantiationException, 
+                                    IllegalAccessException, 
+                                    IllegalArgumentException, 
+                                    InvocationTargetException, 
+                                    NoSuchMethodException, 
+                                    SecurityException {
         this.p = new PreparationZoneImpl(new SubtractorManager());
     }
 

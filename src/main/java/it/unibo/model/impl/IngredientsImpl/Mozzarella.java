@@ -17,6 +17,9 @@ public class Mozzarella extends IngredientImpl {
         super(PRICE, IMAGE_NAME);
     }
 
+    /**
+     * It reduces this ingredient's quantity with the given number.
+     */
     @Override
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);

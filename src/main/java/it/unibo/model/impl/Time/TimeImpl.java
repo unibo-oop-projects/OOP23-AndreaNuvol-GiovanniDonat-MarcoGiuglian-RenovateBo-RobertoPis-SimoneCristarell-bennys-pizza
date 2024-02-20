@@ -19,25 +19,30 @@ public class TimeImpl implements Time {
     static final int STARTING_MIN = 0;
     static final int ENDING_HOUR = 22;
     static final int ENDING_MIN = 30;
-    
+    static final int LAST_HOUR_MIN = 45;
+    static final int MIN_TO_ADD = 15;
+
     private static int workingDays = 1;
     private int hour;
     private int min;
     private Timer timer;
     private PropertyChangeSupport support;
 
+    /**
+     * It increments the current time of the day.
+     */
     @Override
     public void incrementTime() {
-        if (min == 45) {
+        if (min == LAST_HOUR_MIN) {
             min = 0;
             hour++;
         } else {
-            min += 15;
+            min += MIN_TO_ADD;
         }
-        
+
         if (isEndOfDay()) {
             timer.cancel();
-            if(AbstractManager.levelPassed()) {
+            if (AbstractManager.levelPassed()) {
                 workingDays++;
                 AbstractManager.addBalanceTot();
                 support.firePropertyChange("day", null, TimeImpl.getWorkingDay());
@@ -54,10 +59,13 @@ public class TimeImpl implements Time {
             public void run() {
                 incrementTime();
             }
-            
+
         }, 0, TIME_FOR_15_MINUTES);
     }
 
+    /**
+     * It starts a new day.
+     */
     @Override
     public void newDay() {
         this.support = new PropertyChangeSupport(this);
@@ -68,7 +76,7 @@ public class TimeImpl implements Time {
     }
 
     private boolean isEndOfDay() {
-        return this.hour == ENDING_HOUR && this.min == ENDING_MIN ? true : false;
+        return this.hour == ENDING_HOUR && this.min == ENDING_MIN;
     }
 
     public static int getWorkingDay() {
@@ -84,7 +92,7 @@ public class TimeImpl implements Time {
     }
 
     public String getHourAndMin() {
-        if(this.min == 0) {
+        if (this.min == 0) {
             return new String(this.getHour() + " : 00 ");
         } else {
             return new String(this.getHour() + " : " + this.getMin());
