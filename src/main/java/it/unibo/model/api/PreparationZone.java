@@ -35,28 +35,10 @@ public interface PreparationZone {
      */
     Oven getOven();
 
-    /**
-     * @return the clenear 
-     */
-    Cleaner getCleaner();
-
      /**
      * @return the garbage bin
      */
     GarbageBin getGarbageBin();
-
-    /**
-     * It checks if the preparation zone is dirty
-     * @return true if the preparation zone is dirty, false otherwise
-     */
-    boolean isDirty();
-
-    /**
-     * It adds an ingredient that is dirtying the preparation zone or it 'cleans' it
-     * @param dirtyIngredient if this optional is not empty, then it will be added an ingredient to the dirty ingredients,
-     * otherwise all the dirty ingredients will be removed
-     */
-    void manageDirtyIngredients(Optional<Ingredient> dirtyIngredient);
 
     /**
      * It update quantities of an ingredient in the map when this is changed

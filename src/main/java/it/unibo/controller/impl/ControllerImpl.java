@@ -71,11 +71,6 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void clean() {
-        this.preparationZone.getCleaner().clean(this.preparationZone);
-    }
-
-    @Override
     public void throwPizzaInGarbageBin(final boolean isPizza1) {
         this.preparationZone.getGarbageBin().throwPizzaInGarbageBin(this.preparationZone, isPizza1);
     }

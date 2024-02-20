@@ -7,6 +7,7 @@ import it.unibo.model.impl.Management.SubtractorManager;
  */
 
 public interface Supplier {
+    
     /**
      * It increases the quantity of the ingredient that you choose.
      */

@@ -45,6 +45,7 @@ public abstract class IngredientImpl implements Ingredient {
         this.quantity = MAX_QUANTITY;
     }
 
+    @Override
     public abstract void reduce();
 
     /**
