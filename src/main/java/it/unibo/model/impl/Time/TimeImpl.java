@@ -52,10 +52,9 @@ public class TimeImpl implements Time {
     }
 
     /**
-     * @return the resoult of the working day.
+     * @return the result of the game.
      */
-    @Override
-    public String getResult() {
+    public String getResult(){
         return this.res;
     }
 

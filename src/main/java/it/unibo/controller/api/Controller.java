@@ -140,8 +140,7 @@ public interface Controller {
     void newDay();
 
     /**
-     * 
-     * @return
+     * @return a string that describe the result of the game.
      */
     String getResult();
 }
