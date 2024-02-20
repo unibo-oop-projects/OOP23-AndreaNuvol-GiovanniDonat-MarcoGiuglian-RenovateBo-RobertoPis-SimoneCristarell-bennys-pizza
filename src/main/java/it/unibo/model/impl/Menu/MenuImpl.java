@@ -1,5 +1,6 @@
 package it.unibo.model.impl.Menu;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.io.File;
@@ -94,7 +95,7 @@ public final class  MenuImpl {
          * @return a list with the ingredients' names.
          */
         public List<String> getIngredients() {
-            return this.ingredients;
+            return new ArrayList<>(this.ingredients);
         }
 
         /**

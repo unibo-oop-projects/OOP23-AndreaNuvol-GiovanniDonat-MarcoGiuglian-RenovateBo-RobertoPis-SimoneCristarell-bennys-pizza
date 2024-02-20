@@ -34,13 +34,15 @@ import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.Controller;
 
+//CHECKSTYLE: MagicNumber OFF
+
 /**
  * This is the view of the Kitchen of Benny's pizzeria.
  */
 public class GUIKitchen {
 
     private static final String SEP = File.separator;
-    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
+    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP;
 
     private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
@@ -338,13 +340,6 @@ public class GUIKitchen {
                                                                                     (int) (frame.getHeight() * 0.25),
                                                                                     0)));
                 }
-                case "TomatoSauce" -> {
-                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon
-                                                                .getImage()
-                                                                .getScaledInstance((int) (frame.getWidth() * 0.18), 
-                                                                                    (int) (frame.getHeight() * 0.28), 
-                                                                                    0)));
-                }
                 default -> {
                     ingredientLabel = new JLabel(new ImageIcon(ingredientIcon
                                                                 .getImage()
@@ -501,4 +496,13 @@ public class GUIKitchen {
     public void start() {
         frame.setVisible(true);
     }
+
+    //CHECKSTYLE: MagicNumber ON
+    /*
+     * We have decided to set the MagicNumber to OFF only for this GUI,
+     * because all the MagicNumbers that are present are fundamental for the graphics
+     * and in our opinion, being too many and all different from each other,
+     * so it was inappropriate to include so many constants.
+     */
+
 }
