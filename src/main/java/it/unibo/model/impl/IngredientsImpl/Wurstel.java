@@ -20,5 +20,5 @@ public class Wurstel extends IngredientImpl {
     @Override
     public void reduce() {
         super.reduceIngredient(QUANTITY_TO_REDUCE);
-    }  
+    }
 }

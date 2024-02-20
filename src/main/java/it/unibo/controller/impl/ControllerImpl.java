@@ -49,7 +49,6 @@ public class ControllerImpl implements Controller {
                                     InvocationTargetException,
                                     NoSuchMethodException,
                                     SecurityException {
-                                    SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
         MenuImpl.generateMenu();
         this.propertyChangeSupport = new PropertyChangeSupport(this);

@@ -84,4 +84,3 @@ public abstract class IngredientImpl implements Ingredient {
         return strings[strings.length - 1].split(Pattern.quote("."))[0];
     }
 }
-
