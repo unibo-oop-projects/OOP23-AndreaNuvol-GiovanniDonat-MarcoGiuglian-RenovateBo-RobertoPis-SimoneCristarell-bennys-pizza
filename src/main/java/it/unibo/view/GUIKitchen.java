@@ -18,20 +18,11 @@ import java.util.Map;
 import java.util.Optional;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import java.awt.*;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
-import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
-import it.unibo.controller.impl.ControllerImpl;
-import it.unibo.view.GUIHallImpl.OrderThread;
 import it.unibo.controller.api.Controller;
 
 public class GUIKitchen {
