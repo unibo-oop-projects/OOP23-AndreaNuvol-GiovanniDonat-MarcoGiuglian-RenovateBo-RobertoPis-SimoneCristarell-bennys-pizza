@@ -49,7 +49,7 @@ public class ClientThread extends Thread {
     /**
      * @return one and sometimes two pizzas.
      */
-    public Pair<Pizza,Optional<Pizza>> getOrder() {
+    public Pair<Pizza, Optional<Pizza>> getOrder() {
         return this.orderedPizzas;
     }
 

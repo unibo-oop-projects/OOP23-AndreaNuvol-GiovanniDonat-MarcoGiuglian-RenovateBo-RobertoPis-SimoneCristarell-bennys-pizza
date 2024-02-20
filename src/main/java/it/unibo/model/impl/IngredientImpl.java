@@ -34,16 +34,25 @@ public abstract class IngredientImpl implements Ingredient {
         this.imagePath = PATH_TO_THE_ROOT + PATH_TO_RESOURCES + imageName;
     }
 
+    /**
+     * It returns the ingredient's current quantity.
+     */
     @Override
     public int getQuantity() {
         return this.quantity;
     }
 
+    /**
+     * It returns the ingredient's price.
+     */
     @Override
     public double getPrice() {
         return this.price;
     }
 
+    /**
+     * It returns the path of the ingredient's image.
+     */
     @Override
     public String getImagePath() {
         return this.imagePath;
@@ -59,18 +68,32 @@ public abstract class IngredientImpl implements Ingredient {
 
     /**
      * Method in common among all the classes that inherit from 'IngredientImpl'.
-     * It is used in the method 'reduce()' of these classes
-     * @param toReduce the quantity of the ingredient to reduce
+     * It is used in the method 'reduce()' of these classes.
+     * @param toReduce the quantity of the ingredient to reduce.
      */
     protected void reduceIngredient(final int toReduce) {
         this.quantity = this.quantity - toReduce;
     }
 
+    /**
+     * It returns true if two 'ingredient' object are equal.
+     */
     @Override
     public boolean equals(final Object o) {
-        return this.imagePath.equals(((Ingredient)o).getImagePath());
+        return this.imagePath.equals(((Ingredient) o).getImagePath());
     }
 
+    /**
+     * It returns the hash code.
+     */
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    /**
+     * It returns the name of the specific ingredient.
+     */
     @Override
     public String toString() {
         String[] strings = this.imagePath.split(Pattern.quote(SEP));

@@ -139,7 +139,7 @@ public class ControllerImpl implements Controller {
     public OvenImpl getOvenModel() {
         return this.oven;
     }
-    
+
     /**
      * It returns the total balance.
      */
