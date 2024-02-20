@@ -12,6 +12,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * The implementation of a normal client.
+ * The implementation of a normal client.
  */
 public class ClientImpl implements Client {
     private Random random = new Random();

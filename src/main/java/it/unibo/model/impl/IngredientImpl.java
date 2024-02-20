@@ -8,16 +8,23 @@ import it.unibo.model.api.Ingredient;
 
 /**
  * Abstract implementation of the 'Ingredient' interface.
+ * Abstract implementation of the 'Ingredient' interface.
  */
 public abstract class IngredientImpl implements Ingredient {
-
     private static final String SEP = File.separator;
-    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
-    private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP 
-        + "resources" + SEP + "ingredientsImages" + SEP;
-    /**
-     * The max quantity for each ingredient.
-     */
+    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault()
+                                                                .getPath(new String())
+                                                                .toAbsolutePath()
+                                                                .toString();
+    private static final String PATH_TO_RESOURCES = SEP
+                                                    + "src"
+                                                    + SEP
+                                                    + "main"
+                                                    + SEP
+                                                    + "resources"
+                                                    + SEP
+                                                    + "ingredientsImages"
+                                                    + SEP;
     public static final int MAX_QUANTITY = 100;
     private int quantity;
     private double price;
@@ -59,8 +66,8 @@ public abstract class IngredientImpl implements Ingredient {
 
     /**
      * Method in common among all the classes that inherit from 'IngredientImpl'.
-     * It is used in the method 'reduce()' of these classes
-     * @param toReduce the quantity of the ingredient to reduce
+     * It is used in the method 'reduce()' of these classes.
+     * @param toReduce the quantity of the ingredient to reduce.
      */
     protected void reduceIngredient(final int toReduce) {
         this.quantity = this.quantity - toReduce;
@@ -76,5 +83,5 @@ public abstract class IngredientImpl implements Ingredient {
         String[] strings = this.imagePath.split(Pattern.quote(SEP));
         return strings[strings.length - 1].split(Pattern.quote("."))[0];
     }
-
 }
+

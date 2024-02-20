@@ -7,7 +7,6 @@ import java.util.Optional;
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Client;
 import it.unibo.model.api.PreparationZone;
-import it.unibo.model.impl.OvenImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Client.ClientImpl;
 import it.unibo.model.impl.Management.AdderManager;
@@ -32,7 +31,7 @@ public class ControllerImpl implements Controller {
     private final ClientThread clientThread;
     private PropertyChangeSupport support;
     private PropertyChangeSupport propertyChangeSupport;
-    private final OvenImpl oven = new OvenImpl();
+    
     /**
      * The constructor of the controller.
      * @throws ClassNotFoundException
@@ -49,6 +48,7 @@ public class ControllerImpl implements Controller {
                                     IllegalArgumentException,
                                     InvocationTargetException,
                                     NoSuchMethodException,
+                                    SecurityException {
                                     SecurityException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
         MenuImpl.generateMenu();
@@ -71,7 +71,7 @@ public class ControllerImpl implements Controller {
      * It returns the client thread.
      */
     @Override
-    public ClientThread getClientThread() {
+    public ClientThread getClientThread()  {
         return this.clientThread;
     }
 
@@ -132,17 +132,6 @@ public class ControllerImpl implements Controller {
         return -1;
     }
 
-    /**
-     * It returns the oven.
-     */
-    @Override
-    public OvenImpl getOvenModel() {
-        return this.oven;
-    }
-    
-    /**
-     * It returns the total balance.
-     */
     @Override
     public double getBalanceTot() {
         return this.subtractorManager.getBalanceTot();

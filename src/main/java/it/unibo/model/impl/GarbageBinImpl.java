@@ -14,5 +14,4 @@ public class GarbageBinImpl implements GarbageBin {
     public void throwPizzaInGarbageBin(final PreparationZone zone, final boolean isPizza1) {
         zone.resetPizza(isPizza1);
     }
-
 }
