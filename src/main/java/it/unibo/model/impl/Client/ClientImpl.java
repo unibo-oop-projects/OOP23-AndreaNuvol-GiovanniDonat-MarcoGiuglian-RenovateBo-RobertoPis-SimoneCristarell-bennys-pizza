@@ -16,7 +16,7 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class ClientImpl implements Client {
     private Random random = new Random();
-    private Order order;
+    private Order order = null;
 
     /**
      * This method makes the client's order.
