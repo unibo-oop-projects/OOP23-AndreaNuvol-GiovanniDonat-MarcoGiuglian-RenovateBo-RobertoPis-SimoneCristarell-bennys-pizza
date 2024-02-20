@@ -4,15 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
@@ -28,14 +25,27 @@ import it.unibo.model.impl.IngredientsImpl.TomatoSauce;
 /**
  * Test for the PizzaFactoryImpl class.
  */
-public class TestPizzaFactory {    
+public class TestPizzaFactory {
     private PreparationZoneImpl p;
 
+    /**
+     * Initialing for the test.
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     */
     @BeforeEach
     public void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.p = new PreparationZoneImpl(new SubtractorManager());
     }
 
+    /**
+     * Test the method addIngredient of PizzaFactory.
+     */
     @Test
     public void testAddingIngredients() {
         final PizzaFactory pizza = new PizzaFactoryImpl();
@@ -50,6 +60,9 @@ public class TestPizzaFactory {
             pizza.getAddedIngredients());
     }
 
+    /**
+     * Test the method equal of PizzaFactory.
+     */
     @Test
     public void testPreparedPizzaEqualToTheRequestedOne() {
         final var ingredientsRequested = new ArrayList<>(List.of(new Dough().toString(), new TomatoSauce().toString(), 

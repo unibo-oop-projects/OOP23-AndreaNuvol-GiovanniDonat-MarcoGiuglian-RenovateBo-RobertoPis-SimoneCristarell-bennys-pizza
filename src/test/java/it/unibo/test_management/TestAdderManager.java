@@ -15,7 +15,6 @@ public class TestAdderManager {
     private static final double NEGATIVE_AMOUNT = -10;
     private static final double DECIMAL_AMOUNT = 3.14;
     private AdderManager manager = new AdderManager();
-    
     /**
      * Test if can add positive amounts to balance.
      */
@@ -36,7 +35,9 @@ public class TestAdderManager {
         assertEquals(DECIMAL_AMOUNT, manager.getBalanceDay(), DELTA);
     }
 
-    // Cannot add negative amounts to balance
+    /**
+     * Test the fact that cannot add negative amounts to balance.
+     */
     @Test
     public void testAddNegativeAmountsToBalance() {
         AbstractManager.resetBalanceDay();

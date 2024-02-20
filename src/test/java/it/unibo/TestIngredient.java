@@ -18,6 +18,8 @@ import it.unibo.model.impl.IngredientsImpl.Wurstel;
 public class TestIngredient {
 
     private static final String SEP = File.separator;
+    private static final int EXPECTED_ONE = 92;
+    private static final int EXPECTED_TWO = 76;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = SEP
                                                     + "src"
@@ -50,15 +52,15 @@ public class TestIngredient {
         final Ingredient cherryTomatoes = new CherryTomatoe();
         assertEquals(IngredientImpl.MAX_QUANTITY, cherryTomatoes.getQuantity());
         cherryTomatoes.reduce();
-        assertEquals(92, cherryTomatoes.getQuantity());
+        assertEquals(EXPECTED_ONE, cherryTomatoes.getQuantity());
         cherryTomatoes.supply();
         assertEquals(IngredientImpl.MAX_QUANTITY, cherryTomatoes.getQuantity());
         cherryTomatoes.reduce();
         cherryTomatoes.reduce();
         cherryTomatoes.reduce();
-        assertEquals(76, cherryTomatoes.getQuantity());
+        assertEquals(EXPECTED_TWO, cherryTomatoes.getQuantity());
     }
-    
+
     /**
      * Test the methods equals and toString of Ingredient.
      */

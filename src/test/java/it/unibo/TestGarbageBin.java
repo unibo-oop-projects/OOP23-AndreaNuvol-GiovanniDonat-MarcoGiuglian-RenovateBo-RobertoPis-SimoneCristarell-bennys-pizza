@@ -13,7 +13,7 @@ import it.unibo.model.impl.Management.SubtractorManager;
  * Test for the GarbageBinImpl.
  */
 public class TestGarbageBin {
-    
+
     /**
      * Test if pizza is correctly garbaged.
      * @throws ClassNotFoundException

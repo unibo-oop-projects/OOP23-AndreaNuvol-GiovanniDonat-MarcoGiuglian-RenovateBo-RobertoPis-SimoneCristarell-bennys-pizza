@@ -23,6 +23,7 @@ public class TestPreparationZone {
     private static final int MIN_PIZZAS = 1;
     private static final int BIGGER_NUMBER_OF_PIZZAS = 3;
     private static final int LOWER_NUMBER_OF_PIZZAS = 0;
+    private static final int EXPTECTED_VALUE = 82;
 
     /**
      * Test unset number of pizzas to prepare.
@@ -104,9 +105,9 @@ public class TestPreparationZone {
             }
         } catch (Exception e) {
             assertEquals("The quantity of this ingredient is already the maximum possible.", e.getMessage());
-        }        
+        }
     }
-    
+
     /**
      * Test the update of quantities of ingredients.
      * @throws ClassNotFoundException
@@ -118,10 +119,16 @@ public class TestPreparationZone {
      * @throws SecurityException
      */
     @Test
-    public void testUpdateQuantities() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public void testUpdateQuantities() throws ClassNotFoundException,
+                                                InstantiationException,
+                                                IllegalAccessException,
+                                                IllegalArgumentException,
+                                                InvocationTargetException,
+                                                NoSuchMethodException,
+                                                SecurityException {
         PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
         p.setNumberOfPizzasToPrepare(MIN_PIZZAS);
-        testActionIngredient(p, false, 82);
+        testActionIngredient(p, false, EXPTECTED_VALUE);
         testActionIngredient(p, true, IngredientImpl.MAX_QUANTITY);
         testActionIngredient(p, true, IngredientImpl.MAX_QUANTITY);
     }

@@ -14,7 +14,6 @@ public class TestAbstractManager {
     private static final double DELTA = 0;
     private AbstractManager manager = new AdderManager();
     private AbstractManager manager2 = new SubtractorManager();
-    
     /**
      * Test the instatation of manager.
      */
