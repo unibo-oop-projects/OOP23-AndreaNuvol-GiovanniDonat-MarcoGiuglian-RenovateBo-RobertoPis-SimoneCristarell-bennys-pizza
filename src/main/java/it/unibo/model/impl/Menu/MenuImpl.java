@@ -116,7 +116,7 @@ public class MenuImpl {
             String output;
             output = getName() + " " + getIngredients() + " " + getCost() + "$\n";
             return output;
-        }        
+        }
     }
 
 }
