@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Client;
 import it.unibo.model.api.PreparationZone;
@@ -17,12 +15,12 @@ import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
 import it.unibo.model.impl.Time.TimeImpl;
-
-import java.beans.*;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
- * Implementation of the controller interface
+ * Implementation of the controller interface.
  */
 public class ControllerImpl implements Controller {
     
@@ -37,8 +35,24 @@ public class ControllerImpl implements Controller {
     private PropertyChangeSupport propertyChangeSupport;
     private final OvenImpl oven = new OvenImpl();
     
-    
-    public ControllerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    /**
+     * The constructor of the controller
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     */
+    public ControllerImpl() throws ClassNotFoundException,
+                                    InstantiationException,
+                                    IllegalAccessException,
+                                    IllegalArgumentException,
+                                    InvocationTargetException,
+                                    NoSuchMethodException,
+                                    SecurityException
+                                    {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
         MenuImpl.generateMenu();
         this.propertyChangeSupport = new PropertyChangeSupport(this);
@@ -46,6 +60,12 @@ public class ControllerImpl implements Controller {
         this.clientThread.start();
     }
 
+    /**
+     * It receives a signal with these properties.
+     * @param propertyName the name of the signal.
+     * @param oldValue
+     * @param newValue
+     */
     protected void firePropertyChange(final String propertyName, final Object oldValue, final Object newValue) {
         this.propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
@@ -62,12 +82,16 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addIngredient(final String ingredientStringToAdd, final boolean isPizza1) {
-        this.preparationZone.actionsOnIngredients(ingredientStringToAdd, isPizza1, false);
+        this.preparationZone.actionsOnIngredients(ingredientStringToAdd,
+                                                    isPizza1,
+                                                    false);
     }
 
     @Override
     public void supply(final String ingredientStringToAdd) {
-        this.preparationZone.actionsOnIngredients(ingredientStringToAdd, false, true);
+        this.preparationZone.actionsOnIngredients(ingredientStringToAdd,
+                                                    false,
+                                                    true);
     }
 
     @Override
@@ -129,10 +153,14 @@ public class ControllerImpl implements Controller {
         Pair<Pizza, Optional<Pizza>> orderedPizzas;
         this.order = this.client.order();
         this.preparationZone.setNumberOfPizzasToPrepare(order.getNumberPizzasToOrder());
-        if(this.order.getNumberPizzasToOrder() == 1){
-            orderedPizzas = Pair.of(this.order.getOrderPizzas().getLeft(), Optional.empty());
-        }else{
-            orderedPizzas = Pair.of(this.order.getOrderPizzas().getLeft(), Optional.of(order.getOrderPizzas().getRight().get()));
+        if (this.order.getNumberPizzasToOrder() == 1) {
+            orderedPizzas = Pair.of(this.order.getOrderPizzas().getLeft(),
+                                    Optional.empty()
+                                    );
+        } else {
+            orderedPizzas = Pair.of(this.order.getOrderPizzas().getLeft(),
+                                    Optional.of(order.getOrderPizzas().getRight().get())
+                                    );
         }
         return orderedPizzas;
     }
@@ -143,14 +171,14 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void generateMenu(){
+    public void generateMenu() {
         MenuImpl.generateMenu();
     }
 
     @Override
     public List<String> getMenu() {
         final List<String> menu = new ArrayList<>();
-        for(final Pizza pizza : MenuImpl.getPizzas()) {
+        for (final Pizza pizza : MenuImpl.getPizzas()) {
             menu.add(pizza.toString());
         }
         return menu;
@@ -186,8 +214,3 @@ public class ControllerImpl implements Controller {
         this.preparationZone.resetPizzaPreparation();
     }
 }
-
-    
-
-    
-
