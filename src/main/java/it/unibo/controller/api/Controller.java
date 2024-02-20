@@ -18,7 +18,7 @@ import it.unibo.model.impl.Time.TimeImpl;
  * Controller interface.
  */
 public interface Controller {
-    
+
     /**
      * It adds an ingredient to the pizza you are preparing.
      * @param ingredientStringToAdd the string of the ingredient to add.
@@ -46,6 +46,7 @@ public interface Controller {
 
     /**
      * It brings back pizza without ingredients.
+     * @param isPizza1 true if the pizza to throw is the n. 1, false otherwise
      */
     void throwPizzaInGarbageBin(boolean isPizza1);
 
@@ -113,7 +114,7 @@ public interface Controller {
      */
     void pay();
 
-    /*
+    /**
      * It generates the menu as list of class Pizza.
      */
     void generateMenu();
@@ -150,6 +151,7 @@ public interface Controller {
 
     /**
      * It allows to update the view when the model changes.
+     * @param pcl the property change listener
      */
     void addPropertyChangeListener(PropertyChangeListener pcl);
 }
