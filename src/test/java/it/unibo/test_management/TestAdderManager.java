@@ -7,28 +7,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAdderManager {
-
+    private static final double DELTA = 0.001;
     AdderManager manager = new AdderManager();
     
     // Can add positive amounts to balance
     @Test
-    public void test_add_positive_amounts_to_balance() {
+    public void testAddPositiveAmountsToBalance() {
         AbstractManager.resetBalanceDay();
         manager.updateBalance(10);
-        assertEquals(10, manager.getBalanceDay(), 0.001);
+        assertEquals(10, manager.getBalanceDay(), DELTA);
     }
 
     // Can add decimal amounts to balance
     @Test
-    public void test_add_decimal_amounts_to_balance() {
+    public void testAddDecimalAmountsToBalance() {
         AbstractManager.resetBalanceDay();
         manager.updateBalance(3.14);
-        assertEquals(3.14, manager.getBalanceDay(), 0.001);
+        assertEquals(3.14, manager.getBalanceDay(), DELTA);
     }
 
     // Cannot add negative amounts to balance
     @Test
-    public void test_add_negative_amounts_to_balance() {
+    public void testAddNegativeAmountsToBalance() {
         AbstractManager.resetBalanceDay();
         assertThrows(IllegalArgumentException.class, () -> {
             manager.updateBalance(-10);
@@ -38,7 +38,7 @@ public class TestAdderManager {
 
     // Cannot add NaN to balance
     @Test
-    public void test_add_nan_to_balance() {
+    public void testAddNanToBalance() {
         AbstractManager.resetBalanceDay();
         assertThrows(IllegalArgumentException.class, () -> {
             manager.updateBalance(Double.NaN);

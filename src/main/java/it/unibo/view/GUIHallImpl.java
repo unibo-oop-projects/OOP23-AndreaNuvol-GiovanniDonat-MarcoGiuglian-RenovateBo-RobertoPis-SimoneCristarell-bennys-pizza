@@ -243,7 +243,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         imagePanel.add(clientLabel);
     }
 
-    public void updateBalanceLabels(double balanceTot, double balanceDay) {
+    public void updateBalanceLabels(final double balanceTot, final double balanceDay) {
         balanceTotLabel.setText(BALANCE_TOT + Double.toString(balanceTot));
         balanceDayLabel.setText(BALANCE_DAY + Double.toString(balanceDay));
     }
@@ -280,7 +280,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         private ImagePanel imagePanel;
         private JFrame background;
 
-        public OrderThread(ImagePanel imagePanel, JFrame background){
+        public OrderThread(final ImagePanel imagePanel, final JFrame background){
             this.imagePanel = imagePanel;
             this.background = background;
         }
@@ -289,14 +289,14 @@ public class GUIHallImpl implements PropertyChangeListener {
         public void run(){
             while(true){
                 lock.lock();
-                try{
+                try {
                     condition.await(); // go in waiting mode
                     // show order
                     displayOrder(imagePanel, background);
 
-                }catch(InterruptedException e){
+                } catch (InterruptedException e){
                     e.printStackTrace();
-                }finally{
+                } finally {
                     lock.unlock();
                 }
             }
@@ -304,9 +304,9 @@ public class GUIHallImpl implements PropertyChangeListener {
 
         public static void wakeUp(){
             lock.lock();
-            try{
+            try {
                 condition.signal();
-            }finally{
+            } finally {
                 lock.unlock();
             }
         }
