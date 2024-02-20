@@ -271,7 +271,7 @@ public class ControllerImpl implements Controller {
      * @return
      */
     @Override
-    public String getResult(){
+    public String getResult() {
         return this.time.getResult();
     }
 }

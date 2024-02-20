@@ -51,6 +51,9 @@ public class TimeImpl implements Time {
         support.firePropertyChange("end", null, this.getResult());
     }
 
+    /**
+     * @return the result of the game.
+     */
     public String getResult(){
         return this.res;
     }
