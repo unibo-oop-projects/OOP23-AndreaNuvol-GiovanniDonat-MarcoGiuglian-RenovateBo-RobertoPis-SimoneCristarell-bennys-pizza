@@ -83,7 +83,7 @@ public class TestPreparationZone {
             }
         } catch (Exception e) {
             assertEquals("The quantity of this ingredient is already the maximum possible.", e.getMessage());
-        }        
+        }
     }
     @Test
     public void testUpdateQuantities() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {

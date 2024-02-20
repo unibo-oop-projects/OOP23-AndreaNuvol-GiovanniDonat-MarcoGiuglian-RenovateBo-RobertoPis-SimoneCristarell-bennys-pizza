@@ -8,7 +8,7 @@ import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.IngredientsImpl.Dough;
 
 /**
- * Implementation of 'PizzaFactory' interface
+ * Implementation of 'PizzaFactory' interface.
  */
 public class PizzaFactoryImpl implements PizzaFactory {
 

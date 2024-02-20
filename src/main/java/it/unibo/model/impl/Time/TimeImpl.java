@@ -18,8 +18,7 @@ public class TimeImpl implements Time {
     static final int STARTING_HOUR = 10;
     static final int STARTING_MIN = 0;
     static final int ENDING_HOUR = 22;
-    static final int ENDING_MIN = 30;
-    
+    static final int ENDING_MIN = 30;    
     private static int workingDays = 1;
     private int hour;
     private int min;

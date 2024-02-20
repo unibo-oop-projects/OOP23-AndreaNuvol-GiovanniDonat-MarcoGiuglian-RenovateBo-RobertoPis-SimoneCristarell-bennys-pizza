@@ -15,12 +15,18 @@ import it.unibo.model.impl.IngredientsImpl.Gorgonzola;
 import it.unibo.model.impl.IngredientsImpl.Onion;
 import it.unibo.model.impl.IngredientsImpl.Wurstel;
 
+/**
+ * Test Ingredient class.
+ */
 public class TestIngredient {
 
     private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "ingredientsImages" + SEP;
 
+    /**
+     * Test class fields.
+     */
     @Test
     public void testFields() {
         final Ingredient wurstel = new Wurstel();

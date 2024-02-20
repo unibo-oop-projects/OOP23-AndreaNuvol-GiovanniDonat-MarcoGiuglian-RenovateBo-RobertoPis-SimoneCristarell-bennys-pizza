@@ -23,7 +23,7 @@ public class PreparationZoneImpl implements PreparationZone {
     private final Oven oven = new OvenImpl();
     private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     private final GarbageBin garbageBin = new GarbageBinImpl();
-    
+
     public PreparationZoneImpl(final SubtractorManager management) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         this.management = management;
 
@@ -33,7 +33,7 @@ public class PreparationZoneImpl implements PreparationZone {
 
         for (final var cl: ingredientsClassesNames) {
             final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
-            this.ingredientsQuantities.put((Ingredient)clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
+            this.ingredientsQuantities.put((Ingredient) clazz.getConstructor().newInstance(), IngredientImpl.MAX_QUANTITY);
         }
 
     }
@@ -99,9 +99,9 @@ public class PreparationZoneImpl implements PreparationZone {
                             throw new IllegalStateException("This ingredient is finished.");
                         }
                         if (isPizza1) {
-                            this.pizza1.addIngredient(this, (IngredientImpl)ingredient);
+                            this.pizza1.addIngredient(this, (IngredientImpl) ingredient);
                         } else {
-                            this.pizza2.get().addIngredient(this, (IngredientImpl)ingredient);
+                            this.pizza2.get().addIngredient(this, (IngredientImpl) ingredient);
                         }
                 } 
                 this.ingredientsQuantities.replace(ingredient, ingredient.getQuantity());

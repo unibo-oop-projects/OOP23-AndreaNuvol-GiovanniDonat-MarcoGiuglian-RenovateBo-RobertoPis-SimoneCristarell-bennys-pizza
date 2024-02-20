@@ -25,11 +25,19 @@ import it.unibo.model.impl.IngredientsImpl.Mushroom;
 import it.unibo.model.impl.IngredientsImpl.Olive;
 import it.unibo.model.impl.IngredientsImpl.TomatoSauce;
 
+/**
+ * Test PizzaFactory class.
+ */
 public class TestPizzaFactory {    
     private PreparationZoneImpl p;
-
     @BeforeEach
-    public void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public void initialize() throws ClassNotFoundException, 
+                                    InstantiationException, 
+                                    IllegalAccessException, 
+                                    IllegalArgumentException, 
+                                    InvocationTargetException, 
+                                    NoSuchMethodException, 
+                                    SecurityException {
         this.p = new PreparationZoneImpl(new SubtractorManager());
     }
 
