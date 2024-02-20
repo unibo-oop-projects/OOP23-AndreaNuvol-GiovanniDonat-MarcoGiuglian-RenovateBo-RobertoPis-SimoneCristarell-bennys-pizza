@@ -14,7 +14,7 @@ public class TestAdderManager {
     private static final double DELTA = 0.001;
     private static final double POSITIVE_AMOUNT = 10;
     private static final double NEGATIVE_AMOUNT = -10;
-    private static final double DECIMAL_AMOUNT = 3.14;
+    private static final double DECIMAL_AMOUNT = 3.15;
     private AdderManager manager = new AdderManager();
     /**
      * Test if can add positive amounts to balance.

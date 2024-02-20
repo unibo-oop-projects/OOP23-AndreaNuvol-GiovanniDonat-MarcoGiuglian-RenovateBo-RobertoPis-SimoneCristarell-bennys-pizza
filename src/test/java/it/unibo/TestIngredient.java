@@ -20,7 +20,7 @@ public class TestIngredient {
     private static final int MAX_QUANTITY = 100;
     private static final int EXPECTED_ONE = 92;
     private static final int EXPECTED_TWO = 76;
-    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
+    private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = SEP
                                                     + "src"
                                                     + SEP

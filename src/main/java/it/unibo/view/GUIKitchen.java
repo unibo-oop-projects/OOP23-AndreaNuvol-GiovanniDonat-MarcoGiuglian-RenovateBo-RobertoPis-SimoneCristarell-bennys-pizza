@@ -34,32 +34,45 @@ import javax.swing.border.LineBorder;
 
 import it.unibo.controller.api.Controller;
 
+/**
+ * This is the view of the Kitchen of Benny's pizzeria.
+ */
 public class GUIKitchen {
 
     private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String PATH_TO_RESOURCES = SEP + "src" + SEP + "main" + SEP + "resources" + SEP;
 
-    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private static final int screenWidth = (int) screenSize.getWidth();
-    private static final int screenHeight = (int) screenSize.getHeight();
+    private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final int SCREEN_WIDTH = (int) SCREEN_SIZE.getWidth();
+    private static final int SCREEN_HEIGHT = (int) SCREEN_SIZE.getHeight();
 
     private static final String FONT = "Arial";
     private static final int FONT_SIZE = 25;
     private static final String BALANCE_TOT = "Total balance : ";
     private static final String BALANCE_DAY = "Daily balance : ";
     private static final String CURRENCY = "$";
-    static final int CLOCK_LABEL_WIDTH = (int) (screenWidth * 0.1);
-    static final int CLOCK_LABEL_HEIGHT = (int) (screenHeight * 0.05);
+    static final int CLOCK_LABEL_WIDTH = (int) (SCREEN_WIDTH * 0.1);
+    static final int CLOCK_LABEL_HEIGHT = (int) (SCREEN_HEIGHT * 0.05);
+
+    static final int NUMBER_OF_INGREDIENTS = 18;
 
     private final JFrame frame = new JFrame("KITCHEN");
 
     private final Map<String, JLabel> ingredientLabelsMapPizza1 = new HashMap<>();
     private final Map<String, JLabel> ingredientLabelsMapPizza2 = new HashMap<>();
 
+    /**
+     * The constructor for the view of the kitchen.
+     * @param controller
+     * @param backgroundHall
+     * @param dayLabel
+     */
     public GUIKitchen(final Controller controller, final JFrame backgroundHall, final JLabel dayLabel) {
-        frame.setSize(screenWidth, screenHeight);
-        final Image background = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "Preparation_Zone.png");
+        frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        final Image background = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT 
+                                                                        + PATH_TO_RESOURCES 
+                                                                        + "Preparation_Zone.png");
         ImagePanel imagePanel = new ImagePanel(background);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(imagePanel, BorderLayout.CENTER);
@@ -72,7 +85,11 @@ public class GUIKitchen {
 
         final JPanel lowEastPanel = new JPanel();
         lowEastPanel.setOpaque(false);
-        final Image garbageBin = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + "GarbageBin.png");
+        final Image garbageBin = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT 
+                                                                        + PATH_TO_RESOURCES 
+                                                                        + "KitchenComponentsImages" 
+                                                                        + SEP 
+                                                                        + "GarbageBin.png");
         final JButton btnGarbageBin = new JButton();
         displayGarbageBinButton(btnGarbageBin, garbageBin, frame.getWidth(), frame.getHeight(), lowEastPanel);
         lowEastPanel.add(btnGarbageBin);
@@ -81,27 +98,38 @@ public class GUIKitchen {
         final JPanel centralPanel = new JPanel(new BorderLayout());
         centralPanel.setOpaque(false);
 
-        final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, (int)(frame.getWidth()*0.002), (int)(frame.getHeight()*0.01)));
+        final JPanel centralNorthPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 
+            (int) (frame.getWidth() * 0.002), (int) (frame.getHeight() * 0.01)));
         centralNorthPanel.setOpaque(false);
         final JLabel lblSelect = new JLabel("Select the ingredient to supply:");
         centralNorthPanel.add(lblSelect);
-        final String[] items = { "Anchovies", "Artichokes", "CherryTomatoes", "Fontina", "FrenchFries", "Gorgonzola",
-            "Ham", "Wurstel", "Mushrooms", "Olives", "Onions", "Parmesan", "Salami", "Sausages", "Tuna", "Mozzarella", "TomatoeSauce", "Dough" };
+        final String[] items = { "Anchovies", "Artichokes", "CherryTomatoes", "Fontina", 
+                                "FrenchFries", "Gorgonzola", "Ham", 
+                                "Wurstel", "Mushrooms", "Olives", "Onions", 
+                                "Parmesan", "Salami", "Sausages", "Tuna", 
+                                "Mozzarella", "TomatoeSauce", "Dough" };
         final JComboBox<String> comboBox = new JComboBox<>(items);
 
         final Map<String, ImageIcon> itemImageMap = new HashMap<>();
         for (int i = 0; i < items.length; i++) {
-            itemImageMap.put(items[i], new ImageIcon(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "IngredientsButtonsIcons" + SEP + items[i] + ".png"));
+            itemImageMap.put(items[i], new ImageIcon(PATH_TO_THE_ROOT 
+                                                        + PATH_TO_RESOURCES 
+                                                        + "IngredientsButtonsIcons" 
+                                                        + SEP + items[i] + ".png"));
         }
         comboBox.setRenderer(new DefaultListCellRenderer() {
                 @Override
-                public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                public Component getListCellRendererComponent(final JList<?> list, 
+                                                                final Object value,
+                                                                final int index, 
+                                                                final boolean isSelected,
+                                                                final boolean cellHasFocus) {
                     JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                     // Get the icon for the current item
                     ImageIcon icon = new ImageIcon(itemImageMap.get((String) value).getImage().getScaledInstance(80, 80, 0));
                     // Set the icon and text for the label
                     label.setIcon(icon);
-                    final int quantity = controller.getIngredientQuantity((String)value);
+                    final int quantity = controller.getIngredientQuantity((String) value);
                     label.setText((String) value + "  Q: " + (quantity >= 0 ? quantity : 0));
                     return label;
                 }
@@ -122,7 +150,7 @@ public class GUIKitchen {
         btnEndingKitchen.setEnabled(false);
         rightPanel.add(btnEndingKitchen);
         displayEndingKitchen(btnEndingKitchen, frame.getWidth(), frame.getHeight(), rightPanel);
-        imagePanel.add(rightPanel ,BorderLayout.EAST);
+        imagePanel.add(rightPanel, BorderLayout.EAST);
 
         final JPanel centralSouthPanel = new JPanel();
         centralSouthPanel.setOpaque(false);
@@ -139,8 +167,8 @@ public class GUIKitchen {
         final JPanel blockPizza1 = new JPanel();
         blockPizza1.setOpaque(false);
         final JPanel blockPizza2 = new JPanel();
-        blockPizza1.setBorder(new EmptyBorder(0, 0, (int)(frame.getHeight()*0.1), 0));
-        blockPizza2.setBorder(new EmptyBorder(0, 0, (int)(frame.getHeight()*0.1), 0));
+        blockPizza1.setBorder(new EmptyBorder(0, 0, (int) (frame.getHeight() * 0.1), 0));
+        blockPizza2.setBorder(new EmptyBorder(0, 0, (int) (frame.getHeight() * 0.1), 0));
         blockPizza2.setOpaque(false);
         blockPizza1.setLayout(new BoxLayout(blockPizza1, BoxLayout.Y_AXIS));
         blockPizza2.setLayout(new BoxLayout(blockPizza2, BoxLayout.Y_AXIS));
@@ -149,10 +177,10 @@ public class GUIKitchen {
 
         displayIngredients(items, blockPizza1, pizza1);
         displayIngredients(items, blockPizza2, pizza2);
-        
+
         centralCentralPanel.add(blockPizza1);
         centralCentralPanel.add(blockPizza2);
-        centralCentralPanel.setBorder(new EmptyBorder(0, (int)(frame.getWidth()*0.07), 200, 0));
+        centralCentralPanel.setBorder(new EmptyBorder(0, (int) (frame.getWidth() * 0.07), 200, 0));
         imagePanel.add(centralPanel, BorderLayout.CENTER);
         imagePanel.add(lowPanel, BorderLayout.SOUTH);
 
@@ -173,10 +201,10 @@ public class GUIKitchen {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        
+
         btnGarbageBin.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 checkSelectedBox(pizza1, pizza2);
                 try {
                     if (pizza1.isSelected()) {
@@ -188,17 +216,16 @@ public class GUIKitchen {
                         controller.throwPizzaInGarbageBin(false);
                     }
                 } catch (Exception bottonGarbageBinException) {
-                    JOptionPane.showMessageDialog(frame, bottonGarbageBinException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+                    JOptionPane.showMessageDialog(frame, bottonGarbageBinException.getMessage(),
+                                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            
         });
 
         btnAdd.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 checkSelectedBox(pizza1, pizza2);
                 try {
                     if (pizza1.isSelected()) {
@@ -213,26 +240,26 @@ public class GUIKitchen {
                     JOptionPane.showMessageDialog(frame, bottonAddException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            
         });
 
         btnEndingKitchen.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.getClientThread().wakeUp();
                     frame.dispose();
                 } catch (Exception bottonEndingKitchenException) {
-                    JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(),
+                                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }  
+            }
         });
 
         btnSupply.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.supply(comboBox.getSelectedItem().toString());
                 } catch (Exception bottonSupplyException) {
@@ -244,8 +271,8 @@ public class GUIKitchen {
         btnOven.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                checkSelectedBox(pizza1, pizza2);   
+            public void actionPerformed(final ActionEvent e) {
+                checkSelectedBox(pizza1, pizza2);
                 try {
                     if (pizza1.isSelected()) {
                         disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
@@ -255,7 +282,6 @@ public class GUIKitchen {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
                         bakingOp(pizza2, controller);
                     }
-                    
                     if (!pizza1.isEnabled() && !pizza2.isEnabled()) {
                         btnEndingKitchen.setEnabled(true);
                     }
@@ -278,7 +304,7 @@ public class GUIKitchen {
         for (var ingredient : isPizza1 
                 ? controller.getPreparationZone().getPizza1().getAddedIngredients() 
                 : controller.getPreparationZone().getPizza2().get().getAddedIngredients()) {
-            if(map.get(ingredient.toString()).isVisible()) {
+            if (map.get(ingredient.toString()).isVisible()) {
                 map.get(ingredient.toString()).setVisible(false);
             }
         }
@@ -291,36 +317,57 @@ public class GUIKitchen {
     }
 
     private void displayIngredients(final String[] items, final JPanel blockPizza, final JCheckBox pizza) {
-        ImageIcon choppingBoardIcon = new ImageIcon(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "KitchenComponentsImages" + SEP + 
-        "ChoppingBoard.png");
+        ImageIcon choppingBoardIcon = new ImageIcon(PATH_TO_THE_ROOT 
+                                                    + PATH_TO_RESOURCES 
+                                                    + "KitchenComponentsImages" 
+                                                    + SEP + "ChoppingBoard.png");
         final JPanel ingredientsPanel = new JPanel(null);
-        ingredientsPanel.setPreferredSize(new Dimension((int)(frame.getWidth()*0.2), (int)(frame.getHeight()*0.32)));
+        ingredientsPanel.setPreferredSize(new Dimension((int) (frame.getWidth() * 0.2), (int) (frame.getHeight() * 0.32)));
         ingredientsPanel.setOpaque(false);
         for (final var name: items) {
-            final ImageIcon ingredientIcon = new ImageIcon(PATH_TO_THE_ROOT + PATH_TO_RESOURCES + "ingredientsImages" + SEP + name + ".png");
+            final ImageIcon ingredientIcon = new ImageIcon(PATH_TO_THE_ROOT 
+                                                            + PATH_TO_RESOURCES 
+                                                            + "ingredientsImages" 
+                                                            + SEP + name + ".png");
             final JLabel ingredientLabel;
             switch (name) {
                 case "Dough" -> { 
-                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.16), (int)(frame.getHeight()*0.25), 0)));
+                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon
+                                                                .getImage()
+                                                                .getScaledInstance((int) (frame.getWidth() * 0.16), 
+                                                                                    (int) (frame.getHeight() * 0.25),
+                                                                                    0)));
                 }
                 case "TomatoSauce" -> {
-                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.18), (int)(frame.getHeight()*0.28), 0)));
+                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon
+                                                                .getImage()
+                                                                .getScaledInstance((int) (frame.getWidth() * 0.18), 
+                                                                                    (int) (frame.getHeight() * 0.28), 
+                                                                                    0)));
                 }
                 default -> {
-                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.18), (int)(frame.getHeight()*0.28), 0)));
+                    ingredientLabel = new JLabel(new ImageIcon(ingredientIcon
+                                                                .getImage()
+                                                                .getScaledInstance((int) (frame.getWidth() * 0.18), 
+                                                                                    (int) (frame.getHeight() * 0.28),
+                                                                                    0)));
                 }
             }
-            if (ingredientLabelsMapPizza1.size() < 18) {
+            if (ingredientLabelsMapPizza1.size() < NUMBER_OF_INGREDIENTS) {
                 ingredientLabelsMapPizza1.put(name, ingredientLabel);
             } else {
                 ingredientLabelsMapPizza2.put(name, ingredientLabel);
             }
-            ingredientLabel.setBounds(0, 0, (int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3));
+            ingredientLabel.setBounds(0, 0, (int) (frame.getWidth() * 0.19), (int) (frame.getHeight() * 0.3));
             ingredientsPanel.add(ingredientLabel);
             ingredientLabel.setVisible(false);
         }
-        JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardIcon.getImage().getScaledInstance((int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3), 0)));
-        lblChoppingBoard.setBounds(0, 0, (int)(frame.getWidth()*0.19), (int)(frame.getHeight()*0.3));
+        JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardIcon
+                                                            .getImage()
+                                                            .getScaledInstance((int) (frame.getWidth() * 0.19), 
+                                                                                (int) (frame.getHeight() * 0.3),
+                                                                                0)));
+        lblChoppingBoard.setBounds(0, 0, (int) (frame.getWidth() * 0.19), (int) (frame.getHeight() * 0.3));
         ingredientsPanel.add(lblChoppingBoard);
         blockPizza.add(ingredientsPanel);
         pizza.setOpaque(false);
@@ -328,7 +375,7 @@ public class GUIKitchen {
     }
 
     private void displayInfoLabels(final ImagePanel imagePanel, final int width, final Controller controller) {
-        final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int)(width / 15), 10));
+        final JPanel highPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, (int) (width / 15), 10));
         final JLabel lblDay = new JLabel();
         final JLabel lblTime = new JLabel();
         final JLabel lblBalanceDay = new JLabel();
@@ -338,7 +385,7 @@ public class GUIKitchen {
         lblBalanceTot.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
         lblBalanceTot.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
         updateBalanceLabels(lblBalanceTot, lblBalanceDay, controller.getBalanceDay(), controller.getBalanceTot());
-        
+
         lblDay.setText("Day " + String.valueOf(controller.getWorkingDay()));
         lblDay.setFont(new Font(FONT, Font.BOLD, FONT_SIZE));
 
@@ -356,65 +403,101 @@ public class GUIKitchen {
         highPanel.add(lblBalanceTot);
         imagePanel.add(highPanel, BorderLayout.NORTH);
 
-        final String order = controller.getClientThread().getOrder().getLeft() + "\n\n" +
-            (controller.getClientThread().getOrder().getRight().isPresent() ? controller.getClientThread().getOrder().getRight().get() + "\n" : "");
+        final String order = controller.getClientThread().getOrder().getLeft() 
+                                    + "\n\n" 
+                                    + (controller.getClientThread()
+                                                    .getOrder()
+                                                    .getRight()
+                                                    .isPresent() ? controller.getClientThread()
+                                                                                .getOrder()
+                                                                                .getRight()
+                                                                                .get() + "\n" : "");
 
         btnShowOrder.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 JOptionPane.showMessageDialog(frame, order, "ORDER", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }
 
-    private void displayGarbageBinButton(final JButton bin, final Image garbageBin, final int width, final int height, final JPanel lowPanel) {
-        bin.setSize(new Dimension((int)(width * 0.08), (int)(height * 0.15)));
+    private void displayGarbageBinButton(final JButton bin,
+                                            final Image garbageBin, 
+                                            final int width, 
+                                            final int height, 
+                                            final JPanel lowPanel) {
+        bin.setSize(new Dimension((int) (width * 0.08), (int) (height * 0.15)));
         bin.setIcon(new ImageIcon(garbageBin
-            .getScaledInstance((int)(bin.getWidth()-10), (int)(bin.getHeight()-5), 0)));
-        lowPanel.setBorder(new EmptyBorder((int)(height*0.01), (int)(width*0.05),
-            (int)(height*0.1), (int)(width*0.14)));
+            .getScaledInstance((int) (bin.getWidth() - 10), (int) (bin.getHeight() - 5), 0)));
+        lowPanel.setBorder(new EmptyBorder((int) (height * 0.01), (int) (width * 0.05),
+            (int) (height * 0.1), (int) (width * 0.14)));
         bin.setBackground(new Color(195, 195, 195, 255));
         bin.setBorderPainted(false);
         lowPanel.validate();
     }
 
-    private void displaySupplyComponents(final int width, final int height, final JComboBox<String> comboBox, final JButton btnSupply, final JButton btnAdd, final JPanel centralNorthPanel) {
-        comboBox.setPreferredSize(new Dimension((int)(width * 0.18), (int)(height * 0.035)));
+    private void displaySupplyComponents(final int width, 
+                                            final int height, 
+                                            final JComboBox<String> comboBox,
+                                            final JButton btnSupply,
+                                            final JButton btnAdd,
+                                            final JPanel centralNorthPanel) {
+        comboBox.setPreferredSize(new Dimension((int) (width * 0.18), (int) (height * 0.035)));
         btnSupply.setBackground(new Color(252, 211, 147, 255));
-        btnSupply.setPreferredSize(new Dimension((int)(width * 0.04), (int)(height * 0.035)));
+        btnSupply.setPreferredSize(new Dimension((int) (width * 0.04), (int) (height * 0.035)));
         btnSupply.setBorder(new LineBorder(Color.DARK_GRAY, 1));
         btnAdd.setBackground(new Color(252, 211, 147, 255));
-        btnAdd.setPreferredSize(new Dimension((int)(width * 0.04), (int)(height * 0.035)));
+        btnAdd.setPreferredSize(new Dimension((int) (width * 0.04), (int) (height * 0.035)));
         btnAdd.setBorder(new LineBorder(Color.DARK_GRAY, 1));
-        centralNorthPanel.setBorder(new EmptyBorder((int)(height*0.012), (int)(width*0.04), 
-        (int)(height*0.05), (int)(width*0.12)));
+        centralNorthPanel.setBorder(new EmptyBorder((int) (height * 0.012), (int) (width * 0.04), 
+        (int) (height * 0.05), (int) (width * 0.12)));
     }
 
     private void displayEndingKitchen(final JButton endButton, final int width, final int height, final JPanel rightPanel) {
-        endButton.setSize(new Dimension((int)(width*0.1), (int)(height*1.2)));
-        rightPanel.setBorder(new EmptyBorder((int)(height*0.475), (int)(width*0.08), (int)(height*0.18), (int)(width*0.155)));
+        endButton.setSize(new Dimension((int) (width * 0.1), (int) (height * 1.2)));
+        rightPanel.setBorder(new EmptyBorder((int) (height * 0.475),
+                                                (int) (width * 0.08),
+                                                (int) (height * 0.18),
+                                                (int) (width * 0.155)));
         endButton.validate();
         rightPanel.validate();
     }
 
-    private void displayOven(final JButton ovenButton, final int width, final int height, final JPanel centralSouthPanel, final Controller controller) {
-        ovenButton.setSize(new Dimension((int)(width*0.08), (int)(height*0.05)));
-        centralSouthPanel.setBorder(new EmptyBorder((int)(height*0), (int)(width*0.77), 0, (int)(width*0.42)));
-        centralSouthPanel.validate();    
+    private void displayOven(final JButton ovenButton,
+                                final int width,
+                                final int height,
+                                final JPanel centralSouthPanel,
+                                final Controller controller) {
+        ovenButton.setSize(new Dimension((int) (width * 0.08), (int) (height * 0.05)));
+        centralSouthPanel.setBorder(new EmptyBorder((int) (height * 0), (int) (width * 0.77), 0, (int) (width * 0.42)));
+        centralSouthPanel.validate();
         centralSouthPanel.setBackground(Color.RED);
     }
 
-        public void updateBalanceLabels(final JLabel lblbalanceTot, final JLabel lblbalanceDay, double balanceDay, double balanceTot) {
+    /**
+     * It updates total and daily balance after each payment, made or received.
+     * @param lblBalanceTot
+     * @param lblBalanceDay
+     * @param balanceDay
+     * @param balanceTot
+     */
+    public void updateBalanceLabels(final JLabel lblBalanceTot,
+                                    final JLabel lblBalanceDay,
+                                    final double balanceDay,
+                                    final double balanceTot) {
         DecimalFormat df = new DecimalFormat("#.###");
-        lblbalanceTot.setText(BALANCE_TOT
+        lblBalanceTot.setText(BALANCE_TOT
                                 + df.format(balanceTot)
                                 + CURRENCY);
-        lblbalanceDay.setText(BALANCE_DAY 
+        lblBalanceDay.setText(BALANCE_DAY 
                                 + df.format(balanceDay)
                                 + CURRENCY);
     }
 
+    /*
+     * It starts the GUI setting true the visibility of the frame.
+     */
     public void start() {
         frame.setVisible(true);
     }

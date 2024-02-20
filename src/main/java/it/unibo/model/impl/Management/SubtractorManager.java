@@ -10,13 +10,15 @@ public class SubtractorManager extends AbstractManager {
     @Override
     public void updateBalance(final double amount) {
         if (isWithdrawAllowed(amount)) {
+            double balanceDay = getBalanceDay();
             balanceDay -= amount;
+            AbstractManager.setBalanceDay(balanceDay);
         } else {
             throw new IllegalArgumentException("Can't subtract negative, null, or less value than the balance.");
         }
     }
 
     private boolean isWithdrawAllowed(final double amount) {
-       return amount >= 0 && amount <= balanceDay;
+       return amount >= 0 && amount <= getBalanceDay();
     }
 }

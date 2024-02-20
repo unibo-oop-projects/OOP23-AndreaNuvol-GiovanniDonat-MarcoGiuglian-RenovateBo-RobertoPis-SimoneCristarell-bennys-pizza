@@ -13,11 +13,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Implementation of the menu's interface.
  */
-public class MenuImpl {
+public final class  MenuImpl {
     private static final String SEP = File.separator;
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath(new String()).toAbsolutePath().toString();
     private static final String FILE_PATH = SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "menu.json";
     private static List<Pizza> pizzas;
+
+    private MenuImpl() { }
 
     /**
      * This method generate the menu.
