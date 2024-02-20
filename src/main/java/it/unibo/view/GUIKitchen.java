@@ -17,7 +17,6 @@ import java.nio.file.FileSystems;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
@@ -170,7 +169,7 @@ public class GUIKitchen {
             }
         });
 
-        pizza2.setEnabled(controller.getPreparationZone().getPizza2().equals(Optional.empty()) ? false : true);
+        pizza2.setEnabled(controller.getClientThread().getOrder().getRight().isPresent());
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -223,8 +222,6 @@ public class GUIKitchen {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.getClientThread().wakeUp();
-                    dayLabel.repaint();
-                    backgroundHall.setVisible(true);
                     frame.dispose();
                 } catch (Exception bottonEndingKitchenException) {
                     JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -243,7 +240,7 @@ public class GUIKitchen {
                 }
             } 
         });
-        
+
         btnOven.addActionListener(new ActionListener() {
 
             @Override
@@ -252,19 +249,11 @@ public class GUIKitchen {
                 try {
                     if (pizza1.isSelected()) {
                         disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
-                        pizza1.setEnabled(false);
-                        pizza1.setSelected(false);
-                        controller.bakingPizza();
-                        Thread.sleep(1500);
-                        JOptionPane.showMessageDialog(frame, "Pizza is baked!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                        bakingOp(pizza1, controller);
                     }
                     if (pizza2.isSelected()) {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
-                        pizza2.setEnabled(false);
-                        pizza2.setSelected(false);
-                        controller.bakingPizza();
-                        Thread.sleep(1500);
-                        JOptionPane.showMessageDialog(frame, "Pizza is baked!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                        bakingOp(pizza2, controller);
                     }
                     
                     if (!pizza1.isEnabled() && !pizza2.isEnabled()) {
@@ -275,6 +264,14 @@ public class GUIKitchen {
                 }
             }
         });
+    }
+
+    private void bakingOp(final JCheckBox pizza, final Controller controller) throws InterruptedException {
+        pizza.setEnabled(false);
+        pizza.setSelected(false);
+        controller.bakingPizza();
+        Thread.sleep(1500);
+        JOptionPane.showMessageDialog(frame, "Pizza is baked!", "INFO", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void disenableIngredientsLabels(final Controller controller, final boolean isPizza1, final Map<String, JLabel> map) {

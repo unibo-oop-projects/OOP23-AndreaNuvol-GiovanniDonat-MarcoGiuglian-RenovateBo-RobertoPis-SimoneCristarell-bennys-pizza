@@ -91,7 +91,7 @@ public class PreparationZoneImpl implements PreparationZone {
      * It returns the prepared pizza n. 2.
      */
     @Override
-    public Optional<PizzaFactory> getPizza2() throws IllegalStateException {
+    public Optional<PizzaFactory> getPizza2() {
         ifNumOfPizzasUnsetOp();
         return this.pizza2;
     }
@@ -165,8 +165,8 @@ public class PreparationZoneImpl implements PreparationZone {
      */
     @Override
     public void resetPizzaPreparation() {
-        resetPizza(true);
-        resetPizza(false);
+        this.pizza1 = new PizzaFactoryImpl();
+        this.pizza2 = Optional.empty();
         this.isNumberOfPizzasToPrepareSet = false;
     }
 
