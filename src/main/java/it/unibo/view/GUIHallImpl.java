@@ -37,7 +37,7 @@ import it.unibo.controller.impl.ControllerImpl;
  */
 public class GUIHallImpl implements PropertyChangeListener {
 
-    final static String SEP = File.separator;
+    static final String SEP = File.separator;
     private ControllerImpl controller;
     private static final String TITLE = "BENNY'S PIZZA";
     private static final String BALANCE_TOT = "Total balance : ";
@@ -64,12 +64,12 @@ public class GUIHallImpl implements PropertyChangeListener {
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static int width = (int) screenSize.getWidth();
     private static int height = (int) screenSize.getHeight();
-    final static int MENU_BUTTON_WIDTH = (int) (width * 0.1);
-    final static int MENU_BUTTON_HEIGHT = (int) (height * 0.08);
-    final static int MENU_TXTAREA_WIDTH = (int) (width * 0.85);
-    final static int MENU_TXTAREA_HEIGHT = (int) (height * 0.63);
-    final static int CLOCK_LABEL_WIDTH = (int) (width * 0.1);
-    final static int CLOCK_LABEL_HEIGHT = (int) (height * 0.05);
+    static final int MENU_BUTTON_WIDTH = (int) (width * 0.1);
+    static final int MENU_BUTTON_HEIGHT = (int) (height * 0.08);
+    static final int MENU_TXTAREA_WIDTH = (int) (width * 0.85);
+    static final int MENU_TXTAREA_HEIGHT = (int) (height * 0.63);
+    static final int CLOCK_LABEL_WIDTH = (int) (width * 0.1);
+    static final int CLOCK_LABEL_HEIGHT = (int) (height * 0.05);
     private JLabel balanceTotLabel = new JLabel();
     private JLabel balanceDayLabel = new JLabel();
     private JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));

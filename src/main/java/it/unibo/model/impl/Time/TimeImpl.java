@@ -1,20 +1,24 @@
 package it.unibo.model.impl.Time;
 
-import java.util.*;
-import java.beans.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
 
 import it.unibo.model.api.Time;
 import it.unibo.model.impl.Management.AbstractManager;
 
+/**
+ * Implementation of Time interface.
+ */
 public class TimeImpl implements Time {
 
-    final static int TIME_FOR_15_MINUTES = 15_000;
+    static final int TIME_FOR_15_MINUTES = 15_000;
 
-    final static int STARTING_HOUR = 10;
-    final static int STARTING_MIN = 0;
-
-    final static int ENDING_HOUR = 22;
-    final static int ENDING_MIN = 30;
+    static final int STARTING_HOUR = 10;
+    static final int STARTING_MIN = 0;
+    static final int ENDING_HOUR = 22;
+    static final int ENDING_MIN = 30;
     
     private static int workingDays = 1;
     private int hour;
@@ -24,14 +28,14 @@ public class TimeImpl implements Time {
 
     @Override
     public void incrementTime() {
-        if(min == 45) {
+        if (min == 45) {
             min = 0;
             hour++;
         } else {
             min += 15;
         }
         
-        if(isEndOfDay()) {
+        if (isEndOfDay()) {
             timer.cancel();
             if(AbstractManager.levelPassed()) {
                 workingDays++;
@@ -87,8 +91,7 @@ public class TimeImpl implements Time {
         }
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
+    public void addPropertyChangeListener(final PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-
 }
