@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Test the subtractor manager class
+ * Test the subtractor manager class.
  */
 public class TestSubtractorManager {
 

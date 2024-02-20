@@ -7,15 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import it.unibo.model.api.*;
-import it.unibo.model.impl.*;
+import it.unibo.model.api.PreparationZone;
+import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Management.SubtractorManager;
 
 public class TestGarbageBin {
-        // can throw a pizza in the garbage bin
+    /**
+     * can throw a pizza in the garbage bin
+     * 
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     */
     @Test
-    public void testThrowPizzaInGarbageBin() throws ClassNotFoundException, InstantiationException, IllegalAccessError, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public void testThrowPizzaInGarbageBin() throws ClassNotFoundException, 
+                                                    InstantiationException, 
+                                                    IllegalAccessException, 
+                                                    IllegalArgumentException, 
+                                                    InvocationTargetException, 
+                                                    NoSuchMethodException, 
+                                                    SecurityException {
         final PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
         p.setNumberOfPizzasToPrepare(1);
         p.actionsOnIngredients("Dough", true, false);

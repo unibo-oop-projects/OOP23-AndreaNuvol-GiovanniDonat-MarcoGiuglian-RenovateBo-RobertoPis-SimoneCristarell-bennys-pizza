@@ -1,6 +1,6 @@
 package it.unibo;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class TestPreparationZone {
         } catch (Exception e) {
             assertEquals(string, e.getMessage());
         }
-    }    
+    }
     @Test
     public void testPizzasGetter() {
         testNumberOfPizzas(MIN_PIZZAS, "Pizza n. 2 is not requested from this client.");
