@@ -28,8 +28,22 @@ public class PreparationZoneImpl implements PreparationZone {
     private PizzaFactoryImpl pizza1;
     private Optional<PizzaFactoryImpl> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
-    private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
+    private Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     private final GarbageBin garbageBin = new GarbageBinImpl();
+
+    /** 
+     * Constructor of PreparationZoneImpl by a PreparationZone.
+     * @param pZoneImpl
+     * @param management 
+     */
+    public PreparationZoneImpl(final PreparationZone pZoneImpl,
+                                final SubtractorManager management) {
+        this.management = management;
+        this.pizza1 = pZoneImpl.getPizza1();
+        this.pizza2 = pZoneImpl.getPizza2();
+        this.ingredientsQuantities = pZoneImpl.getIngredientsQuantities();
+        this.isNumberOfPizzasToPrepareSet = pZoneImpl.isNumberOfPizzasToPrepareSet();
+    }
 
     /**
      * Constrcutor of PreparationZoneImpl.
@@ -83,6 +97,14 @@ public class PreparationZoneImpl implements PreparationZone {
     public PizzaFactoryImpl getPizza1() {
         ifNumOfPizzasUnsetOp();
         return new PizzaFactoryImpl(this.pizza1);
+    }
+
+    /**
+     * It returns if the number of pizzas to prepare is set
+     */
+    @Override
+    public boolean isNumberOfPizzasToPrepareSet() {
+        return this.isNumberOfPizzasToPrepareSet;
     }
 
     private void ifNumOfPizzasUnsetOp() {

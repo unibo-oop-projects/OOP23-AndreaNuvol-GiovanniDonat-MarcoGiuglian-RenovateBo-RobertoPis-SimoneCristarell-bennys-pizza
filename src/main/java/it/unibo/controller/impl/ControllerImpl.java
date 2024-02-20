@@ -29,7 +29,7 @@ public class ControllerImpl implements Controller {
     private ClientImpl.Order order;
     private final TimeImpl time = new TimeImpl();
     private final ClientThread clientThread;
-    private PropertyChangeSupport support;
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private PropertyChangeSupport propertyChangeSupport;
 
     /**
@@ -79,7 +79,7 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public PreparationZone getPreparationZone() {
-        return this.preparationZone;
+        return new PreparationZoneImpl(this.preparationZone, this.subtractorManager);
     }
 
     /**
