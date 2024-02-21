@@ -51,7 +51,7 @@ public class PizzaFactoryImpl implements PizzaFactory {
      * It returns if two pizzas have the same ingredients.
      */
     @Override
-    public boolean equals(final List<String> requestedIngredients) {
+    public boolean isEqual(final List<String> requestedIngredients) {
         final var ingredientsStrings = new ArrayList<String>();
         this.addedIngredients.forEach(i -> ingredientsStrings.add(i.toString()));
         return this.addedIngredients.size() != requestedIngredients.size()

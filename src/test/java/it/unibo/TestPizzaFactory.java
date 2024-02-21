@@ -77,13 +77,13 @@ public class TestPizzaFactory {
         pizza.addIngredient(p, new Dough());
         pizza.addIngredient(p, new TomatoSauce());
         pizza.addIngredient(p, new Mozzarella());
-        assertFalse(pizza.equals(ingredientsRequested));
+        assertFalse(pizza.isEqual(ingredientsRequested));
         pizza.addIngredient(p, new Mushroom());
         pizza.addIngredient(p, new Ham());
-        assertTrue(pizza.equals(ingredientsRequested));
+        assertTrue(pizza.isEqual(ingredientsRequested));
         pizza.addIngredient(p, new Mushroom());
-        assertTrue(pizza.equals(ingredientsRequested));
+        assertTrue(pizza.isEqual(ingredientsRequested));
         pizza.addIngredient(p, new Olive());
-        assertFalse(pizza.equals(ingredientsRequested));
+        assertFalse(pizza.isEqual(ingredientsRequested));
     }
 }

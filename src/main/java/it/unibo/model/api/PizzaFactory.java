@@ -21,7 +21,7 @@ public interface PizzaFactory {
      * @return true if the ingredients of the prepared pizza are the same of the requested one's (i.e. the pizzas are equal), 
      * false otherwise.
      */
-    boolean equals(List<String> requestedIngredients);
+    boolean isEqual(List<String> requestedIngredients);
 
     /**
      * @return a list of the current ingredients added to the pizza you are preparing.
