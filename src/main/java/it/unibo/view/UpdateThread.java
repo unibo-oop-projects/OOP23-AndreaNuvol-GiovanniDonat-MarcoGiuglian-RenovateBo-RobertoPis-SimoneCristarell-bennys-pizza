@@ -40,9 +40,7 @@ public class UpdateThread extends Thread {
 
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e = new InterruptedException();
-            }
+            } catch (InterruptedException e) { }
         }
     }
 }

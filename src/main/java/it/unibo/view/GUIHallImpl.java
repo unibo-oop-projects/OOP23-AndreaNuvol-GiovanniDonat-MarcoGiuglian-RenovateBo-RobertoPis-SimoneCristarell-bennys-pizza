@@ -121,7 +121,6 @@ public class GUIHallImpl implements PropertyChangeListener {
 
     /**
      * It displays the order of the client.
-     * @param imagePanel
      * @param background
      */
     private void displayOrder(final JFrame background) {
