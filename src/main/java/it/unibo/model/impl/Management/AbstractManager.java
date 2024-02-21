@@ -1,4 +1,4 @@
-package it.unibo.model.impl.Management;
+package it.unibo.model.impl.management;
 
 import it.unibo.model.api.Management;
 

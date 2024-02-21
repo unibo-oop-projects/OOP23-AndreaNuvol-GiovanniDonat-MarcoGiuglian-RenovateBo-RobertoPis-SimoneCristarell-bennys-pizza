@@ -1,8 +1,10 @@
 package it.unibo.test_management;
 
 import org.junit.jupiter.api.Test;
-import it.unibo.model.impl.Management.AdderManager;
-import it.unibo.model.impl.Management.AbstractManager;
+
+import it.unibo.model.impl.management.AbstractManager;
+import it.unibo.model.impl.management.AdderManager;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

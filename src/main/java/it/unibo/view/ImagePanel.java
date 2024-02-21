@@ -10,7 +10,7 @@ import java.awt.Dimension;
  * JPanel modified to contains a background image.
  */
 public class ImagePanel extends JPanel {
-    private Image backgroundImage;
+    private final Image backgroundImage;
 
     /**
      * Constructor of ImagePanel by an ImagePanel.

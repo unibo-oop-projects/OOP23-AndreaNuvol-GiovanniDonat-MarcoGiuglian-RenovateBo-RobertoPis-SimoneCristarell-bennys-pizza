@@ -1,4 +1,4 @@
-package it.unibo.model.impl.Management;
+package it.unibo.model.impl.management;
 
 /**
  * Class of SubtractorManager it only allows to remove quantities from the balance.

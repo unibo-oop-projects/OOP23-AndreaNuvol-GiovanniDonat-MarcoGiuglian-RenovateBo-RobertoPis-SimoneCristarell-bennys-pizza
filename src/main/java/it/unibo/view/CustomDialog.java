@@ -22,7 +22,7 @@ public class CustomDialog extends JDialog {
      */
     public CustomDialog(final JFrame parent, final String title, final String message) {
         super(parent, title, false);
-        JPanel panel = new JPanel(new BorderLayout());
+        final JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JLabel(message), BorderLayout.CENTER);
         super.getContentPane().add(panel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

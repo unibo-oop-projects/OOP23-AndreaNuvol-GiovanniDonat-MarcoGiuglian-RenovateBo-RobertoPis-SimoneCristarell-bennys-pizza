@@ -6,12 +6,12 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
 import it.unibo.model.api.Time;
-import it.unibo.model.impl.Management.AbstractManager;
+import it.unibo.model.impl.management.AbstractManager;
 
 /**
  * Implementation of Time interface.
  */
-public class TimeImpl implements Time, Cloneable {
+public class TimeImpl implements Time {
     static final String WIN_STRING = "You win!";
     static final String LOSE_STRING = "You lose!";
     static final int TIME_FOR_15_MINUTES = 5_000;
@@ -102,7 +102,7 @@ public class TimeImpl implements Time, Cloneable {
         if (this.min == 0) {
             return (this.getHour() + " : 00 ");
         } else {
-            return (this.getHour() + " : " + this.getMin());
+            return this.getHour() + " : " + this.getMin();
         }
     }
 
@@ -120,12 +120,11 @@ public class TimeImpl implements Time, Cloneable {
     @Override
     public TimeImpl clone() {
         try {
-            TimeImpl copy = (TimeImpl) super.clone();
+            final TimeImpl copy = (TimeImpl) super.clone();
             copy.timer = new Timer();
             copy.support = new PropertyChangeSupport(copy);
             return copy;
         } catch (CloneNotSupportedException e) {
-            System.out.println(e.toString());
         }
         return null;
     }

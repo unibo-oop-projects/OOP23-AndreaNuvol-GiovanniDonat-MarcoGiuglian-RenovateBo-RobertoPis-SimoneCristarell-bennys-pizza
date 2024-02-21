@@ -24,20 +24,11 @@ public final class  MenuImpl {
      * This method generate the menu.
      */
     public static void generateMenu() {
-        ObjectMapper mapper = new ObjectMapper();
+        final ObjectMapper mapper = new ObjectMapper();
         try {
             pizzas = mapper.readValue(new File(PATH_TO_THE_ROOT + FILE_PATH), new TypeReference<List<Pizza>>() { });
         } catch (IOException e) {
             System.err.println(e.toString());
-        }
-    }
-
-    /**
-     * It shows the generated menu.
-     */
-    public static void show() {
-        for (final Pizza pizza : pizzas) {
-            System.out.println(pizza.getName() + " " + pizza.getIngredients()  + " " + pizza.getCost() + "\n");
         }
     }
 

@@ -9,10 +9,10 @@ import it.unibo.model.api.Client;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Client.ClientImpl;
-import it.unibo.model.impl.Management.AdderManager;
-import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
+import it.unibo.model.impl.management.AdderManager;
+import it.unibo.model.impl.management.SubtractorManager;
 import it.unibo.model.impl.time.TimeImpl;
 
 import java.beans.PropertyChangeSupport;
@@ -29,11 +29,10 @@ public class ControllerImpl implements Controller {
     private final AdderManager adderManager = new AdderManager();
     private final PreparationZone preparationZone;
     private final Client client = new ClientImpl();
-    private ClientImpl.Order order;
     private final TimeImpl time = new TimeImpl();
     private final ClientThread clientThread;
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private PropertyChangeSupport propertyChangeSupport;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private final PropertyChangeSupport propertyChangeSupport;
 
     /**
      * The constructor of the controller.
@@ -192,14 +191,14 @@ public class ControllerImpl implements Controller {
     @Override
     public Pair<Pizza, Optional<Pizza>> order() {
         Pair<Pizza, Optional<Pizza>> orderedPizzas;
-        this.order = this.client.order();
+        ClientImpl.Order order = this.client.order();
         this.preparationZone.setNumberOfPizzasToPrepare(order.getNumberPizzasToOrder());
-        if (this.order.getNumberPizzasToOrder() == 1) {
-            orderedPizzas = Pair.of(this.order.getOrderPizzas().getLeft(),
+        if (order.getNumberPizzasToOrder() == 1) {
+            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft(),
                                     Optional.empty()
                                     );
         } else {
-            orderedPizzas = Pair.of(this.order.getOrderPizzas().getLeft(),
+            orderedPizzas = Pair.of(order.getOrderPizzas().getLeft(),
                                     Optional.of(order.getOrderPizzas().getRight().get())
                                     );
         }
@@ -247,7 +246,7 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public TimeImpl getTimeModel() {
-        return this.time.clone();
+        return this.time;
     }
 
     /**

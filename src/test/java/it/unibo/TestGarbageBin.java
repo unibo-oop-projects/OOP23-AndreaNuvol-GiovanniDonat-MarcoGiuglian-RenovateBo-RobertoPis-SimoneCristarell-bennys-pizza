@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
-import it.unibo.model.impl.Management.SubtractorManager;
+import it.unibo.model.impl.management.SubtractorManager;
 
 /**
  * Test for the GarbageBinImpl.
@@ -31,8 +31,8 @@ public class TestGarbageBin {
         final PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
         p.setNumberOfPizzasToPrepare(1);
         p.actionsOnIngredients("Dough", true, false);
-        assertTrue(p.getPizza1().equals(new ArrayList<>(List.of("Dough"))));
+        assertTrue(p.getPizza1().isEqual(new ArrayList<>(List.of("Dough"))));
         p.getGarbageBin().throwPizzaInGarbageBin(p, true);
-        assertTrue(p.getPizza1().equals(new ArrayList<>(List.of())));
+        assertTrue(p.getPizza1().isEqual(new ArrayList<>(List.of())));
     }
 }

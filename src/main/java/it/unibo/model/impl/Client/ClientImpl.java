@@ -6,16 +6,17 @@ import java.util.List;
 import it.unibo.model.api.Client;
 import it.unibo.model.api.Ingredient;
 import it.unibo.model.impl.Menu.MenuImpl;
+import it.unibo.model.impl.management.AdderManager;
 import it.unibo.model.impl.PizzaFactoryImpl;
-import it.unibo.model.impl.Management.AdderManager;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * The implementation of a normal client.
  */
 public class ClientImpl implements Client {
-    private Random random = new Random();
-    private Order order = null;
+    private final Random random = new Random();
+    private Order order;
 
     /**
      * This method makes the client's order.
@@ -90,7 +91,7 @@ public class ClientImpl implements Client {
      * The class for the orders.
      */
     public static class Order {
-        private Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizze;
+        private final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizze;
 
         /**
          * The constructor of the class Order.

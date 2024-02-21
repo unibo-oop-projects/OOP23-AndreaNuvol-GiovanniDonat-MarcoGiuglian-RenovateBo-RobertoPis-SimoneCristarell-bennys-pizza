@@ -44,7 +44,7 @@ import it.unibo.controller.impl.ControllerImpl;
 public class GUIHallImpl implements PropertyChangeListener {
 
     static final String SEP = File.separator;
-    private ControllerImpl controller;
+    private final ControllerImpl controller;
     private static final String TITLE = "BENNY'S PIZZA";
     private static final String BALANCE_DAY = "Daily balance : ";
     private static final String MENU_STRING = "MENU - " + TITLE;
@@ -65,8 +65,8 @@ public class GUIHallImpl implements PropertyChangeListener {
                                                     + SEP;
     private static final int FONT_SIZE = 25;
     private static final Random RANDOM = new Random();
-    private StringBuilder sb = new StringBuilder();
-    private static int lastClientShowed = 0;
+    private final StringBuilder sb = new StringBuilder();
+    private static int lastClientShowed;
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static int width = (int) screenSize.getWidth();
     private static int height = (int) screenSize.getHeight();
@@ -76,13 +76,13 @@ public class GUIHallImpl implements PropertyChangeListener {
     static final int MENU_TXTAREA_HEIGHT = (int) (height * 0.63);
     static final int CLOCK_LABEL_WIDTH = (int) (width * 0.1);
     static final int CLOCK_LABEL_HEIGHT = (int) (height * 0.05);
-    private JLabel balanceTotLabel = new JLabel();
-    private JLabel balanceDayLabel = new JLabel();
-    private JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    private JLabel clockLabel = new JLabel();
-    private JPanel clockPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-    private JLabel dayLabel = new JLabel();
-    private JPanel dayImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    private final JLabel balanceTotLabel = new JLabel();
+    private final JLabel balanceDayLabel = new JLabel();
+    private final JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    private final JLabel clockLabel = new JLabel();
+    private final JPanel clockPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    private final JLabel dayLabel = new JLabel();
+    private final JPanel dayImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
     /**
      * The constructor for the view of the hall.
