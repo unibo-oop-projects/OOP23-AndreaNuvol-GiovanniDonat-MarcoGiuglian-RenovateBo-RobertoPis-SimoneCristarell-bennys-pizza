@@ -70,7 +70,7 @@ public class PreparationZoneImpl implements PreparationZone {
             "Parmesan", "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel"));
 
         for (final var cl: ingredientsClassesNames) {
-            final var clazz = Class.forName(this.getClass().getPackageName() + ".IngredientsImpl." + cl);
+            final var clazz = Class.forName(this.getClass().getPackageName() + ".ingredientsImpl." + cl);
             this.ingredientsQuantities.put((Ingredient) clazz.getConstructor().newInstance(), MAX_QUANTITY);
         }
     }
