@@ -5,6 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import org.apache.commons.lang3.tuple.Pair;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
 import it.unibo.view.GUIHallImpl;
 
@@ -21,6 +22,11 @@ public class ClientThread extends Thread {
      * Constructor of the class ClientThread.
      * @param controller the controller of the app.
      */
+    @SuppressFBWarnings(
+            value = { "EI_EXPOSE_REP2"},
+            justification = "trying to resolve the warning, we noticed that the game was"
+            + " causing several problems, for example labels etc. were not shown"
+        )
     public ClientThread(final ControllerImpl controller) {
         this.controller = controller;
     }
