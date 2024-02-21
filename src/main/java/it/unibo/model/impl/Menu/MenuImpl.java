@@ -28,7 +28,7 @@ public final class  MenuImpl {
         try {
             pizzas = mapper.readValue(new File(PATH_TO_THE_ROOT + FILE_PATH), new TypeReference<List<Pizza>>() { });
         } catch (IOException e) {
-            System.out.println(e.toString());
+            System.err.println(e.toString());
         }
     }
 
@@ -98,6 +98,7 @@ public final class  MenuImpl {
          * Return a description of the pizza.
          * @return a string that contains the description of the pizza.
          */
+        @Override
         public String toString() {
             String output;
             output = getName() + " " + getIngredients() + " " + getCost() + "$\n";

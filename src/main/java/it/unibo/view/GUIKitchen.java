@@ -68,12 +68,12 @@ public class GUIKitchen {
      * @param backgroundHall
      * @param dayLabel
      */
-    public GUIKitchen(final Controller controller, final JFrame backgroundHall, final JLabel dayLabel) {
+    public GUIKitchen(final Controller controller) {
         frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         final Image background = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT 
                                                                         + PATH_TO_RESOURCES 
                                                                         + "Preparation_Zone.png");
-        ImagePanel imagePanel = new ImagePanel(background);
+        final ImagePanel imagePanel = new ImagePanel(background);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(imagePanel, BorderLayout.CENTER);
         imagePanel.setLayout(new BorderLayout());
@@ -111,11 +111,11 @@ public class GUIKitchen {
         final JComboBox<String> comboBox = new JComboBox<>(items);
 
         final Map<String, ImageIcon> itemImageMap = new HashMap<>();
-        for (int i = 0; i < items.length; i++) {
-            itemImageMap.put(items[i], new ImageIcon(PATH_TO_THE_ROOT 
+        for (final String item: items) {
+            itemImageMap.put(item, new ImageIcon(PATH_TO_THE_ROOT 
                                                         + PATH_TO_RESOURCES 
                                                         + "IngredientsButtonsIcons" 
-                                                        + SEP + items[i] + ".png"));
+                                                        + SEP + item + ".png"));
         }
         comboBox.setRenderer(new DefaultListCellRenderer() {
                 @Override
@@ -124,9 +124,9 @@ public class GUIKitchen {
                                                                 final int index, 
                                                                 final boolean isSelected,
                                                                 final boolean cellHasFocus) {
-                    JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    final JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                     // Get the icon for the current item
-                    ImageIcon icon = new ImageIcon(itemImageMap.get((String) value).getImage().getScaledInstance(80, 80, 0));
+                    final ImageIcon icon = new ImageIcon(itemImageMap.get((String) value).getImage().getScaledInstance(80, 80, 0));
                     // Set the icon and text for the label
                     label.setIcon(icon);
                     final int quantity = controller.getIngredientQuantity((String) value);
@@ -187,8 +187,8 @@ public class GUIKitchen {
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
-                int width = frame.getContentPane().getWidth();
-                int height = frame.getContentPane().getHeight();
+                final int width = frame.getContentPane().getWidth();
+                final int height = frame.getContentPane().getHeight();
                 displayInfoLabels(imagePanel, width, controller);
                 displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowEastPanel);
                 displaySupplyComponents(width, height, comboBox, btnSupply, btnAdd, centralNorthPanel);
@@ -215,9 +215,9 @@ public class GUIKitchen {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
                         controller.throwPizzaInGarbageBin(false);
                     }
-                } catch (Exception bottonGarbageBinException) {
+                } catch (IllegalStateException bottonGarbageBinException) {
                     JOptionPane.showMessageDialog(frame, bottonGarbageBinException.getMessage(),
-                                            "Error", JOptionPane.ERROR_MESSAGE);
+                                            "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -236,7 +236,7 @@ public class GUIKitchen {
                         controller.addIngredient(comboBox.getSelectedItem().toString(), false);
                         ingredientLabelsMapPizza2.get(comboBox.getSelectedItem().toString()).setVisible(true);
                     }
-                } catch (Exception bottonAddException) {
+                } catch (IllegalStateException bottonAddException) {
                     JOptionPane.showMessageDialog(frame, bottonAddException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -249,7 +249,7 @@ public class GUIKitchen {
                 try {
                     controller.getClientThread().wakeUp();
                     frame.dispose();
-                } catch (Exception bottonEndingKitchenException) {
+                } catch (IllegalStateException bottonEndingKitchenException) {
                     JOptionPane.showMessageDialog(frame, bottonEndingKitchenException.getMessage(),
                                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -262,7 +262,7 @@ public class GUIKitchen {
             public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.supply(comboBox.getSelectedItem().toString());
-                } catch (Exception bottonSupplyException) {
+                } catch (IllegalStateException bottonSupplyException) {
                     JOptionPane.showMessageDialog(frame, bottonSupplyException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } 
@@ -285,7 +285,7 @@ public class GUIKitchen {
                     if (!pizza1.isEnabled() && !pizza2.isEnabled()) {
                         btnEndingKitchen.setEnabled(true);
                     }
-                } catch (Exception bottonOvenException) {
+                } catch (InterruptedException bottonOvenException) {
                     JOptionPane.showMessageDialog(frame, bottonOvenException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -312,7 +312,7 @@ public class GUIKitchen {
 
     private void checkSelectedBox(final JCheckBox pizza1, final JCheckBox pizza2) {
         if (!pizza1.isSelected() && !pizza2.isSelected()) {
-            JOptionPane.showMessageDialog(frame, "You have to select at least one pizza!", "Error!", JOptionPane.ERROR_MESSAGE);
+            throw new IllegalStateException("You have to select at least one checkbox.");
         }
     }
 
