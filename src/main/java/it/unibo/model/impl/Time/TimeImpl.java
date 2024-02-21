@@ -6,7 +6,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
 import it.unibo.model.api.Time;
-import it.unibo.model.impl.management.AbstractManager;
+import it.unibo.model.impl.Management.AbstractManager;
 
 /**
  * Implementation of Time interface.
@@ -112,20 +112,5 @@ public class TimeImpl implements Time {
      */
     public void addPropertyChangeListener(final PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-    }
-
-    /**
-     * It gives a defensive copy of TimeImpl object.
-     */
-    @Override
-    public TimeImpl clone() {
-        try {
-            final TimeImpl copy = (TimeImpl) super.clone();
-            copy.timer = new Timer();
-            copy.support = new PropertyChangeSupport(copy);
-            return copy;
-        } catch (CloneNotSupportedException e) {
-        }
-        return null;
     }
 }

@@ -9,10 +9,10 @@ import it.unibo.model.api.Client;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Client.ClientImpl;
+import it.unibo.model.impl.Management.AdderManager;
+import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
-import it.unibo.model.impl.management.AdderManager;
-import it.unibo.model.impl.management.SubtractorManager;
 import it.unibo.model.impl.time.TimeImpl;
 
 import java.beans.PropertyChangeSupport;
@@ -244,6 +244,11 @@ public class ControllerImpl implements Controller {
     /**
      * It returns the time object.
      */
+    @SuppressFBWarnings(
+        value = { "EI_EXPOSE_REP"},
+        justification = "trying to resolve the warning, we noticed that the game was"
+            + " causing several problems, for example labels etc. were not shown"
+    )
     @Override
     public TimeImpl getTimeModel() {
         return this.time;
