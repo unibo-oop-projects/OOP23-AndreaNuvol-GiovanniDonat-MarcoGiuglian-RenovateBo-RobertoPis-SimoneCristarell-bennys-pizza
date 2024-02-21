@@ -345,7 +345,12 @@ public class GUIHallImpl implements PropertyChangeListener {
                         if (dialog.isVisible() && e.getSource() == pane && prop.equals(JOptionPane.VALUE_PROPERTY)) {
                             dialog.setVisible(false);
                             dialog.dispose();
+                            //CHECKSTYLE: SpotBugs System.exit OFF
                             System.exit(0);
+                            //CHECKSTYLE: SpotBugs System.exit ON
+                            /*
+                            * we think it is the simplest and most effective way.
+                            */
                         }
                     });
                     dialog.setVisible(true);
