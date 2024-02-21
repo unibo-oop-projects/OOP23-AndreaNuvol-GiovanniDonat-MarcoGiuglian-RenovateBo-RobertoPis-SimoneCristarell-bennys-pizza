@@ -18,6 +18,8 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.apache.commons.lang3.tuple.Pair;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Implementation of the controller interface.
  */
@@ -76,6 +78,11 @@ public class ControllerImpl implements Controller {
     /**
      * It returns the client thread.
      */
+    @SuppressFBWarnings(
+        value = { "EI_EXPOSE_REP"},
+        justification = "trying to resolve the warning, we noticed that the game was"
+            + " causing several problems, for example labels etc. were not shown"
+    )
     @Override
     public ClientThread getClientThread()  {
         return this.clientThread;

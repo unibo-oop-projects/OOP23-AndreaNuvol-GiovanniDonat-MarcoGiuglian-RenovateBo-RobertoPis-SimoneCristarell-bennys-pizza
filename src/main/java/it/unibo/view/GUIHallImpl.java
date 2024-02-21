@@ -29,6 +29,9 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import javax.swing.border.EmptyBorder;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.Optional;
 import java.text.DecimalFormat;
 import it.unibo.controller.impl.ControllerImpl;
@@ -85,6 +88,11 @@ public class GUIHallImpl implements PropertyChangeListener {
      * The constructor for the view of the hall.
      * @param controller
      */
+    @SuppressFBWarnings(
+        value = { "EI_EXPOSE_REP2"},
+        justification = "trying to resolve the warning, we noticed that the game was"
+            + " causing several problems, for example labels etc. were not shown"
+    )
     public GUIHallImpl(final ControllerImpl controller) {
         this.controller = controller;
         createStringBuilderMenu();
@@ -345,12 +353,7 @@ public class GUIHallImpl implements PropertyChangeListener {
                         if (dialog.isVisible() && e.getSource() == pane && prop.equals(JOptionPane.VALUE_PROPERTY)) {
                             dialog.setVisible(false);
                             dialog.dispose();
-                            //CHECKSTYLE: SpotBugs System.exit OFF
-                            System.exit(0);
-                            //CHECKSTYLE: SpotBugs System.exit ON
-                            /*
-                            * we think it is the simplest and most effective way.
-                            */
+                            close();
                         }
                     });
                     dialog.setVisible(true);
@@ -359,6 +362,15 @@ public class GUIHallImpl implements PropertyChangeListener {
             default:
                 break;
         }
+    }
+
+    @SuppressFBWarnings(
+        value = {"DM_EXIT"},
+        justification = "trying to resolve the warning, we noticed that the game was"
+            + " causing several problems, for example labels etc. were not shown"
+    )
+    private void close() {
+        System.exit(0);
     }
 
     /**
@@ -375,6 +387,11 @@ public class GUIHallImpl implements PropertyChangeListener {
          * @param imagePanel panel that contains the image.
          * @param background frame with background.
          */
+        @SuppressFBWarnings(
+            value = { "EI_EXPOSE_REP"},
+            justification = "trying to resolve the warning, we noticed that the game was"
+                + " causing several problems, for example labels etc. were not shown"
+        )
         public OrderThread(final ImagePanel imagePanel, final JFrame background) {
             this.imagePanel = new ImagePanel(imagePanel);
             this.background = background;
@@ -409,7 +426,7 @@ public class GUIHallImpl implements PropertyChangeListener {
                 LOCK.unlock();
             }
         }
-    } 
+    }
 }
 //CHECKSTYLE: MagicNumber ON
 /*

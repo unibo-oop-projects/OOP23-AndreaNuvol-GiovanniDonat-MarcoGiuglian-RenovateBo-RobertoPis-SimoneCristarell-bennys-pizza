@@ -124,7 +124,6 @@ public class TimeImpl implements Time, Cloneable {
             return copy;
         } catch (CloneNotSupportedException e) {
             System.out.println(e.toString());
-            System.exit(1);
         }
         return null;
     }

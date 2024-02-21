@@ -1,7 +1,7 @@
 package it.unibo.view;
 
 import javax.swing.SwingUtilities;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.Controller;
 
 /**
@@ -16,6 +16,11 @@ public class UpdateThread extends Thread {
      * @param gui the gui to update
      * @param controller the controller
      */
+    @SuppressFBWarnings(
+        value = { "EI_EXPOSE_REP2"},
+        justification = "trying to resolve the warning, we noticed that the game was"
+            + " causing several problems, for example labels etc. were not shown"
+    )
     public UpdateThread(final GUIHallImpl gui, final Controller controller) {
         this.gui = gui;
         this.controller = controller;
