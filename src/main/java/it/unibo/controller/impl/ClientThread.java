@@ -2,6 +2,8 @@ package it.unibo.controller.impl;
 
 import java.util.Optional;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import org.apache.commons.lang3.tuple.Pair;
@@ -17,6 +19,7 @@ public class ClientThread extends Thread {
     private final Lock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
     private Pair<Pizza, Optional<Pizza>> orderedPizzas;
+    private final Logger logger = Logger.getLogger(ClientThread.class.getName());
 
     /**
      * Constructor of the class ClientThread.
@@ -45,7 +48,7 @@ public class ClientThread extends Thread {
                 this.condition.await();
                 this.controller.pay();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.log(Level.INFO, e.toString());
             } finally {
                 this.lock.unlock();
             }

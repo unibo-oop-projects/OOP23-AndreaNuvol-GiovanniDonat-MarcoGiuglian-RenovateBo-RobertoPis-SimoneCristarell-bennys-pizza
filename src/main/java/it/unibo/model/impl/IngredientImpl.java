@@ -25,8 +25,8 @@ public abstract class IngredientImpl implements Ingredient {
                                                     + SEP;
     private static final int MAX_QUANTITY = 100;
     private int quantity;
-    private double price;
-    private String imagePath;
+    private final double price;
+    private final String imagePath;
 
     /**
      * Protected constructor of IngredientImpl, called by its subclasses.
@@ -92,10 +92,7 @@ public abstract class IngredientImpl implements Ingredient {
      */
     @Override
     public boolean equals(final Object o) {
-        if (IngredientImpl.class.isInstance(o)) {
-            return o != null ? this.imagePath.equals(((IngredientImpl) o).getImagePath()) : false;
-        }
-        return false;
+        return IngredientImpl.class.isInstance(o) && o != null && this.imagePath.equals(((IngredientImpl) o).getImagePath());
     }
 
     /**
@@ -103,7 +100,7 @@ public abstract class IngredientImpl implements Ingredient {
      */
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return MAX_QUANTITY;
     }
 
     /**
@@ -111,7 +108,7 @@ public abstract class IngredientImpl implements Ingredient {
      */
     @Override
     public String toString() {
-        String[] strings = this.imagePath.split(Pattern.quote(SEP));
+        final String[] strings = this.imagePath.split(Pattern.quote(SEP));
         return strings[strings.length - 1].split(Pattern.quote("."))[0];
     }
 }

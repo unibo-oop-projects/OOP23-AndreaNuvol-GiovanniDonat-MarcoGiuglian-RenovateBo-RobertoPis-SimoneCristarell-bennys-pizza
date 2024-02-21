@@ -6,10 +6,11 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
-import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Implementation of the menu's interface.
@@ -19,6 +20,7 @@ public final class  MenuImpl {
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
     private static final String FILE_PATH = SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "menu.json";
     private static List<Pizza> pizzas;
+    private static Logger logger = Logger.getLogger(MenuImpl.class.getName());
 
     private MenuImpl() { }
 
@@ -26,15 +28,11 @@ public final class  MenuImpl {
      * This method generate the menu.
      */
     public static void generateMenu() {
-        ObjectMapper mapper = new ObjectMapper();
+        final ObjectMapper mapper = new ObjectMapper();
         try {
             pizzas = mapper.readValue(new File(PATH_TO_THE_ROOT + FILE_PATH), new TypeReference<List<Pizza>>() { });
-        } catch (StreamReadException e) {
-            System.out.println(e.toString());
-        } catch (DatabindException e) {
-            System.out.println(e.toString());
         } catch (IOException e) {
-            System.out.println(e.toString());
+            logger.log(Level.WARNING, e.toString());
         }
     }
 
@@ -43,7 +41,7 @@ public final class  MenuImpl {
      */
     public static void show() {
         for (final Pizza pizza : pizzas) {
-            System.out.println(pizza.getName() + " " + pizza.getIngredients()  + " " + pizza.getCost() + "\n");
+            logger.log(Level.INFO, pizza.getName() + " " + pizza.getIngredients()  + " " + pizza.getCost() + "\n");
         }
     }
 
@@ -113,6 +111,7 @@ public final class  MenuImpl {
          * Return a description of the pizza.
          * @return a string that contains the description of the pizza.
          */
+        @Override
         public String toString() {
             String output;
             output = getName() + " " + getIngredients() + " " + getCost() + "$\n";

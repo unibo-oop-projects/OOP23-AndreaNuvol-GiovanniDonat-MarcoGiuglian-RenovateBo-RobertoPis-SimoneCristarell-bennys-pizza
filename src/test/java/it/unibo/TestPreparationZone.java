@@ -16,7 +16,7 @@ import it.unibo.model.impl.Management.SubtractorManager;
 /**
  * Test for the PreparationZoneImpl class.
  */
-public class TestPreparationZone {
+class TestPreparationZone {
 
     private static final int MIN_PIZZAS = 1;
     private static final int MAX_QUANTITY = 100;
@@ -28,12 +28,13 @@ public class TestPreparationZone {
      * Test unset number of pizzas to prepare.
      */
     @Test
-    public void testUnsetNumberOfPizzasToPrepare() {
+    void testUnsetNumberOfPizzasToPrepare() {
         try {
             final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
             preparationZone.getPizza1();
             preparationZone.getPizza2();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+        | InvocationTargetException | NoSuchMethodException | IllegalStateException e) {
             assertEquals("The number of pizzas to prepare is unknown.", e.getMessage());
         }
     }
@@ -41,16 +42,14 @@ public class TestPreparationZone {
     /**
      * Test the number of pizzas.
      * @param number the number passed to check.
-     * @throws SecurityException 
      * @throws NoSuchMethodException 
      * @throws InvocationTargetException 
-     * @throws IllegalArgumentException 
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      * @throws ClassNotFoundException 
      */
     private void testWrongNumberOfPizzas(final int number) throws ClassNotFoundException, InstantiationException,
-     IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+     IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
         assertThrows(IllegalArgumentException.class, () -> {
             preparationZone.setNumberOfPizzasToPrepare(number);
@@ -58,7 +57,7 @@ public class TestPreparationZone {
     }
 
     private void testCorrectNumberOfPizzas(final int number) throws ClassNotFoundException, InstantiationException,
-     IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+     IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         final PreparationZone preparationZone = new PreparationZoneImpl(new SubtractorManager());
         preparationZone.setNumberOfPizzasToPrepare(number);
         preparationZone.getPizza1();
@@ -67,17 +66,15 @@ public class TestPreparationZone {
 
     /**
      * Test the getter of pizzas.
-     * @throws SecurityException 
-     * @throws NoSuchMethodException 
-     * @throws InvocationTargetException 
-     * @throws IllegalArgumentException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     * @throws ClassNotFoundException 
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testPizzasGetter() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
-     IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    void testPizzasGetter() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+     InvocationTargetException, NoSuchMethodException {
         testCorrectNumberOfPizzas(MIN_PIZZAS);
         testWrongNumberOfPizzas(BIGGER_NUMBER_OF_PIZZAS);
         testWrongNumberOfPizzas(LOWER_NUMBER_OF_PIZZAS);
@@ -94,12 +91,12 @@ public class TestPreparationZone {
         adder.updateBalance(10);
         try {
             pz.actionsOnIngredients("Dough", true, isASupply);
-            for (Ingredient i: pz.getIngredientsQuantities().keySet()) {
-                if (i.toString().equals("Dough")) {
+            for (final Ingredient i: pz.getIngredientsQuantities().keySet()) {
+                if ("Dough".equals(i.toString())) {
                     assertEquals(expectedQuantity, i.getQuantity());
                 }
             }
-        } catch (Exception e) {
+        } catch (IllegalStateException e) {
             assertEquals("The quantity of this ingredient is already the maximum possible.", e.getMessage());
         }
     }
@@ -109,20 +106,16 @@ public class TestPreparationZone {
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws IllegalArgumentException
      * @throws InvocationTargetException
      * @throws NoSuchMethodException
-     * @throws SecurityException
      */
     @Test
-    public void testUpdateQuantities() throws ClassNotFoundException,
+    void testUpdateQuantities() throws ClassNotFoundException,
                                                 InstantiationException,
                                                 IllegalAccessException,
-                                                IllegalArgumentException,
                                                 InvocationTargetException,
-                                                NoSuchMethodException,
-                                                SecurityException {
-        PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
+                                                NoSuchMethodException {
+        final PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
         p.setNumberOfPizzasToPrepare(MIN_PIZZAS);
         testActionIngredient(p, false, EXPTECTED_VALUE);
         testActionIngredient(p, true, MAX_QUANTITY);

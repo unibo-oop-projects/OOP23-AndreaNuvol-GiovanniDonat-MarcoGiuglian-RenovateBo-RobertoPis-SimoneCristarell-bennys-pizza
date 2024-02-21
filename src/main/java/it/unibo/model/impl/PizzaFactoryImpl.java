@@ -12,7 +12,7 @@ import it.unibo.model.impl.IngredientsImpl.Dough;
  */
 public class PizzaFactoryImpl implements PizzaFactory {
 
-    private List<IngredientImpl> addedIngredients;
+    private final List<IngredientImpl> addedIngredients;
 
     /**
      * Constructor of a pizzaFactoryImpl taking another pizza factory as parameter.
@@ -33,7 +33,7 @@ public class PizzaFactoryImpl implements PizzaFactory {
      * It adds an ingredient on the pizza.
      */
     @Override
-    public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) throws IllegalStateException {
+    public void addIngredient(final PreparationZoneImpl zone, final IngredientImpl ingredientToAdd) {
         if (!this.addedIngredients.contains(new Dough()) && isNotDough(ingredientToAdd)) {
             throw new IllegalStateException("You have to put the dough before putting the ingredients.");
         }
@@ -51,14 +51,15 @@ public class PizzaFactoryImpl implements PizzaFactory {
      * It returns if two pizzas have the same ingredients.
      */
     @Override
-    public boolean equals(final List<String> requestedIngredients) {
+    public boolean isEqual(final List<String> requestedIngredients) {
         final var ingredientsStrings = new ArrayList<String>();
         this.addedIngredients.forEach(i -> ingredientsStrings.add(i.toString()));
-        return this.addedIngredients.size() != requestedIngredients.size()
-            ? false 
-            : requestedIngredients.stream()
-                .filter(ingredientsStrings::contains)
-                .count() == requestedIngredients.size();
+        if (this.addedIngredients.size() != requestedIngredients.size()) {
+            return false;
+        }
+        return requestedIngredients.stream()
+            .filter(ingredientsStrings::contains)
+            .count() == requestedIngredients.size();
     }
 
     /**
@@ -68,5 +69,4 @@ public class PizzaFactoryImpl implements PizzaFactory {
     public List<IngredientImpl> getAddedIngredients() {
         return Collections.unmodifiableList(this.addedIngredients);
     }
-
 }

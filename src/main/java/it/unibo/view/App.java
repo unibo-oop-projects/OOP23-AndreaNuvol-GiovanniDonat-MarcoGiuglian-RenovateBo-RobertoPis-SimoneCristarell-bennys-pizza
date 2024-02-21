@@ -15,13 +15,11 @@ public final class App {
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws IllegalArgumentException
      * @throws InvocationTargetException
      * @throws NoSuchMethodException
-     * @throws SecurityException
      */
     public static void main(final String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
-     IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        InvocationTargetException, NoSuchMethodException {
         new GUIHallImpl(new ControllerImpl());
     }
 }

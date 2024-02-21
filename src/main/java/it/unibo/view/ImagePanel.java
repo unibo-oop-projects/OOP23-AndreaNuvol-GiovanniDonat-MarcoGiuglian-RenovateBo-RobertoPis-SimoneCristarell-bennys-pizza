@@ -10,7 +10,8 @@ import java.awt.Dimension;
  * JPanel modified to contains a background image.
  */
 public class ImagePanel extends JPanel {
-    private Image backgroundImage;
+    private static final long serialVersionUID = 1L;
+    private final transient Image backgroundImage;
 
     /**
      * Constructor of ImagePanel by an ImagePanel.
@@ -37,7 +38,7 @@ public class ImagePanel extends JPanel {
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        Dimension size = getSize();
+        final Dimension size = getSize();
         g.drawImage(backgroundImage, 0, 0, size.width, size.height, this);
     }
 

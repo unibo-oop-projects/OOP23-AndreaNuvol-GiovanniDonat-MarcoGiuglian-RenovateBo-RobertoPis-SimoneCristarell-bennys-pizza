@@ -99,7 +99,7 @@ public class TimeImpl implements Time {
     @Override
     public String getHourAndMin() {
         if (this.min == 0) {
-            return (this.getHour() + " : 00 ");
+            return this.getHour() + " : 00 ";
         } else {
             return this.getHour() + " : " + this.getMin();
         }

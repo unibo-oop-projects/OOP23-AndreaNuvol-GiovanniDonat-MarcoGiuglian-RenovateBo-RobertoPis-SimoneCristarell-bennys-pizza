@@ -16,7 +16,6 @@ public class OvenImpl implements Oven {
 
     private boolean emptyOven;
     private boolean isCooked;
-    private Timer ovenTimer;
     private static LocalTime finishBakingTime;
     private static LocalTime currentTime;
 
@@ -54,11 +53,11 @@ public class OvenImpl implements Oven {
     }
 
     private void baking() {
+        final Timer ovenTimer = new Timer();
         emptyOven = false;
-        ovenTimer = new Timer();
         currentTime = LocalTime.now();
         finishBakingTime = currentTime.plusSeconds(COOKNING_TIME_IN_SECONDS);
-        TimerTask ovenTask = new TimerTask() {
+        final TimerTask ovenTask = new TimerTask() {
             @Override
             public void run() {
                 if (currentTime.getSecond() >= finishBakingTime.getSecond()) {

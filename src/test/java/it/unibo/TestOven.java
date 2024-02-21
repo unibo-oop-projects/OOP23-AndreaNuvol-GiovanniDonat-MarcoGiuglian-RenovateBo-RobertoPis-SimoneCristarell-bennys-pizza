@@ -8,14 +8,14 @@ import it.unibo.model.impl.OvenImpl;
 /**
  * Test of the OvenImpl class.
  */
-public class TestOven {
+class TestOven {
 
     /**
      * Test the fact that initially Oven is empty.
      */
     @Test
-    public void testInitiallyEmpty() {
-        OvenImpl oven = new OvenImpl();
+    void testInitiallyEmpty() {
+        final OvenImpl oven = new OvenImpl();
         assertTrue(oven.isOvenEmpty());
     }
 
@@ -23,8 +23,8 @@ public class TestOven {
      * Test the fact that when Oven is baking a pizza, oven is not empty.
      */
     @Test
-    public void testBakingPizzaSetsOvenNotEmpty() {
-        OvenImpl oven = new OvenImpl();
+    void testBakingPizzaSetsOvenNotEmpty() {
+        final OvenImpl oven = new OvenImpl();
         oven.bakingPizza();
         assertFalse(oven.isOvenEmpty());
     }

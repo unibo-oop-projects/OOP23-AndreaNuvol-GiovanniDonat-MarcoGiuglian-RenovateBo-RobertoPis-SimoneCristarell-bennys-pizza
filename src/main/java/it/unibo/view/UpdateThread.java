@@ -1,5 +1,8 @@
 package it.unibo.view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.SwingUtilities;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.Controller;
@@ -32,7 +35,8 @@ public class UpdateThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            double balanceDay = controller.getBalanceDay();
+            final double balanceDay = controller.getBalanceDay();
+            final Logger logger = Logger.getLogger(UpdateThread.class.getName());
 
             SwingUtilities.invokeLater(() -> {
                 gui.updateBalanceLabels(balanceDay);
@@ -41,7 +45,7 @@ public class UpdateThread extends Thread {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.log(Level.INFO, e.toString());
             }
         }
     }

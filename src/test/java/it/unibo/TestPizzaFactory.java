@@ -25,7 +25,7 @@ import it.unibo.model.impl.IngredientsImpl.TomatoSauce;
 /**
  * Test for the PizzaFactoryImpl class.
  */
-public class TestPizzaFactory {
+class TestPizzaFactory {
     private PreparationZoneImpl p;
 
     /**
@@ -33,19 +33,15 @@ public class TestPizzaFactory {
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws IllegalArgumentException
      * @throws InvocationTargetException
      * @throws NoSuchMethodException
-     * @throws SecurityException
      */
     @BeforeEach
-    public void initialize() throws ClassNotFoundException, 
-                                    InstantiationException, 
-                                    IllegalAccessException, 
-                                    IllegalArgumentException, 
-                                    InvocationTargetException, 
-                                    NoSuchMethodException, 
-                                    SecurityException {
+    void initialize() throws ClassNotFoundException,
+                                    InstantiationException,
+                                    IllegalAccessException,
+                                    InvocationTargetException,
+                                    NoSuchMethodException {
         this.p = new PreparationZoneImpl(new SubtractorManager());
     }
 
@@ -53,7 +49,7 @@ public class TestPizzaFactory {
      * Test the method addIngredient of PizzaFactory.
      */
     @Test
-    public void testAddingIngredients() {
+    void testAddingIngredients() {
         final PizzaFactory pizza = new PizzaFactoryImpl();
         pizza.addIngredient(p, new Dough());
         assertEquals(Collections.unmodifiableList(List.of(new Dough())), pizza.getAddedIngredients());
@@ -70,20 +66,20 @@ public class TestPizzaFactory {
      * Test the method equal of PizzaFactory.
      */
     @Test
-    public void testPreparedPizzaEqualToTheRequestedOne() {
+    void testPreparedPizzaEqualToTheRequestedOne() {
         final var ingredientsRequested = new ArrayList<>(List.of(new Dough().toString(), new TomatoSauce().toString(), 
             new Mozzarella().toString(), new Ham().toString(), new Mushroom().toString()));
         final PizzaFactory pizza = new PizzaFactoryImpl();
         pizza.addIngredient(p, new Dough());
         pizza.addIngredient(p, new TomatoSauce());
         pizza.addIngredient(p, new Mozzarella());
-        assertFalse(pizza.equals(ingredientsRequested));
+        assertFalse(pizza.isEqual(ingredientsRequested));
         pizza.addIngredient(p, new Mushroom());
         pizza.addIngredient(p, new Ham());
-        assertTrue(pizza.equals(ingredientsRequested));
+        assertTrue(pizza.isEqual(ingredientsRequested));
         pizza.addIngredient(p, new Mushroom());
-        assertTrue(pizza.equals(ingredientsRequested));
+        assertTrue(pizza.isEqual(ingredientsRequested));
         pizza.addIngredient(p, new Olive());
-        assertFalse(pizza.equals(ingredientsRequested));
+        assertFalse(pizza.isEqual(ingredientsRequested));
     }
 }

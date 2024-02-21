@@ -51,9 +51,8 @@ public interface PreparationZone {
      * @param ingredientName the ingrediet of which we have to update quantities.
      * @param isPizza1 true if the ingredient is in pizza1, false if is in pizza2.
      * @param isASupply true if we have to supply, false if we have to reduce the quantity.
-     * @throws IllegalStateException when you want to supply an ingredient that is already at its maximum quantity.
      */
-    void actionsOnIngredients(String ingredientName, boolean isPizza1, boolean isASupply) throws IllegalStateException;
+    void actionsOnIngredients(String ingredientName, boolean isPizza1, boolean isASupply);
 
     /**
      * It resets the two pizza factories of the preparation zone.

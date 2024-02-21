@@ -7,7 +7,7 @@ import it.unibo.model.api.Management;
  */
 public abstract class AbstractManager implements Management {
     private static final double MIN_AMOUNT_TO_PASS_LEVEL = 10;
-    private static double balanceDay = 0;
+    private static double balanceDay;
 
     /**
      * @param newBalanceDay is the new balance day to set.
