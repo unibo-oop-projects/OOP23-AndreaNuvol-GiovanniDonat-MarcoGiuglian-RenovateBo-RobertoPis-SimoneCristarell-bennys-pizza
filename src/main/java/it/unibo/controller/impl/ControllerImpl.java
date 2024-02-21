@@ -9,11 +9,12 @@ import it.unibo.model.api.Client;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
 import it.unibo.model.impl.Client.ClientImpl;
-import it.unibo.model.impl.Management.AdderManager;
-import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
 import it.unibo.model.impl.Time.TimeImpl;
+import it.unibo.model.impl.management.AdderManager;
+import it.unibo.model.impl.management.SubtractorManager;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.apache.commons.lang3.tuple.Pair;
@@ -245,7 +246,7 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public TimeImpl getTimeModel() {
-        return this.time.clone();
+        return this.time;
     }
 
     /**

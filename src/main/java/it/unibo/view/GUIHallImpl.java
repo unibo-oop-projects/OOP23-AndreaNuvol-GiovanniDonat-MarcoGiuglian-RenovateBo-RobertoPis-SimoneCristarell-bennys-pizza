@@ -44,7 +44,7 @@ import it.unibo.controller.impl.ControllerImpl;
 public class GUIHallImpl implements PropertyChangeListener {
 
     static final String SEP = File.separator;
-    private ControllerImpl controller;
+    private final ControllerImpl controller;
     private static final String TITLE = "BENNY'S PIZZA";
     private static final String BALANCE_DAY = "Daily balance : ";
     private static final String MENU_STRING = "MENU - " + TITLE;
@@ -65,8 +65,8 @@ public class GUIHallImpl implements PropertyChangeListener {
                                                     + SEP;
     private static final int FONT_SIZE = 25;
     private static final Random RANDOM = new Random();
-    private StringBuilder sb = new StringBuilder();
-    private static int lastClientShowed = 0;
+    private final StringBuilder sb = new StringBuilder();
+    private static int lastClientShowed;
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static int width = (int) screenSize.getWidth();
     private static int height = (int) screenSize.getHeight();
@@ -76,13 +76,13 @@ public class GUIHallImpl implements PropertyChangeListener {
     static final int MENU_TXTAREA_HEIGHT = (int) (height * 0.63);
     static final int CLOCK_LABEL_WIDTH = (int) (width * 0.1);
     static final int CLOCK_LABEL_HEIGHT = (int) (height * 0.05);
-    private JLabel balanceTotLabel = new JLabel();
-    private JLabel balanceDayLabel = new JLabel();
-    private JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    private JLabel clockLabel = new JLabel();
-    private JPanel clockPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-    private JLabel dayLabel = new JLabel();
-    private JPanel dayImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    private final JLabel balanceTotLabel = new JLabel();
+    private final JLabel balanceDayLabel = new JLabel();
+    private final JPanel balancePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    private final JLabel clockLabel = new JLabel();
+    private final JPanel clockPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    private final JLabel dayLabel = new JLabel();
+    private final JPanel dayImagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
     /**
      * The constructor for the view of the hall.
@@ -98,24 +98,24 @@ public class GUIHallImpl implements PropertyChangeListener {
         createStringBuilderMenu();
         this.controller.startClientThread();
         SwingUtilities.invokeLater(() -> {
-            JFrame background = new JFrame(TITLE);
-            Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT
+            final JFrame background = new JFrame(TITLE);
+            final Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT
                                                                         + FILE_PATH_BACKGROUND);
-            ImagePanel imagePanel = new ImagePanel(backgroundImage);
-            UpdateThread updateThread = new UpdateThread(this, controller);
+            final ImagePanel imagePanel = new ImagePanel(backgroundImage);
+            final UpdateThread updateThread = new UpdateThread(this, controller);
             updateThread.start();
             background.getContentPane().add(imagePanel);
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
-            OrderThread orderThread = new OrderThread(imagePanel, background);
+            final OrderThread orderThread = new OrderThread(imagePanel, background);
             orderThread.start();
             displayMenu(imagePanel, background);
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
-            displayOrder(imagePanel, background);
+            displayOrder(background);
         });
     }
 
@@ -124,25 +124,26 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @param imagePanel
      * @param background
      */
-    private void displayOrder(final ImagePanel imagePanel, final JFrame background) {
-        String pizzaOrder1 = controller.getClientThread().getOrder().getLeft().getName();
+    private void displayOrder(final JFrame background) {
+        final String pizzaOrder1 = controller.getClientThread().getOrder().getLeft().getName();
         Optional<String> pizzaOrder2 = Optional.empty();
         if (controller.getClientThread().getOrder().getRight().isPresent()) {
             pizzaOrder2 = Optional.of(controller.getClientThread().getOrder().getRight().get().getName());
         }
-        JPanel pizzaPanel = new JPanel();
+        final JPanel pizzaPanel = new JPanel();
         pizzaPanel.setLayout(new BoxLayout(pizzaPanel, BoxLayout.Y_AXIS));
-        JLabel pizzaLabel1 = new JLabel(pizzaOrder1);
+        final JLabel pizzaLabel1 = new JLabel(pizzaOrder1);
         pizzaPanel.add(pizzaLabel1);
         if (pizzaOrder2.isPresent()) {
-            JLabel pizzaLabel2 = new JLabel(pizzaOrder2.get());
+            final JLabel pizzaLabel2 = new JLabel(pizzaOrder2.get());
             pizzaPanel.add(pizzaLabel2);
         }
-        CustomDialog dialog = new CustomDialog(null, "Order", "");
+        final CustomDialog dialog = new CustomDialog(null, "Order", "");
         dialog.add(pizzaPanel, BorderLayout.CENTER);
         dialog.setCloseListener(new WindowAdapter() {
+            @Override
             public void windowClosing(final WindowEvent e) {
-                new GUIKitchen(controller, background, dayLabel).start();
+                new GUIKitchen(controller).start();
             }
         });
         dialog.setVisible(true);
@@ -163,9 +164,9 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @param background
      */
     private void displayMenu(final ImagePanel imagePanel, final JFrame background) {
-        JPanel menuPanel = new JPanel(new BorderLayout());
+        final JPanel menuPanel = new JPanel(new BorderLayout());
         setPanelAttributes(menuPanel);
-        JButton menuButton = new JButton("Menu");
+        final JButton menuButton = new JButton("Menu");
         setMenuButtonAttributes(menuButton);
         menuPanel.add(menuButton, BorderLayout.EAST);
         imagePanel.add(menuPanel, BorderLayout.SOUTH);
@@ -278,14 +279,14 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @param imagePanel
      */
     private void displayClient(final ImagePanel imagePanel) {
-        int indexClient = showNewClient();
-        String imagePath = PATH_TO_THE_ROOT
+        final int indexClient = showNewClient();
+        final String imagePath = PATH_TO_THE_ROOT
                             + FILE_PATH_CLIENT
                             + "ClientImage"
                             + indexClient
                             + ".png";
-        Image clientImage = Toolkit.getDefaultToolkit().getImage(imagePath);
-        JLabel clientLabel = new JLabel(new ImageIcon(clientImage));
+        final Image clientImage = Toolkit.getDefaultToolkit().getImage(imagePath);
+        final JLabel clientLabel = new JLabel(new ImageIcon(clientImage));
         int clientX = 0;
         int clientY = 0;
         switch (indexClient) {
@@ -314,7 +315,7 @@ public class GUIHallImpl implements PropertyChangeListener {
      * @param balanceDay
      */
     public void updateBalanceLabels(final double balanceDay) {
-        DecimalFormat df = new DecimalFormat("#.###");
+        final DecimalFormat df = new DecimalFormat("#.###");
         balanceDayLabel.setText(BALANCE_DAY 
                                 + df.format(balanceDay));
     }
@@ -338,19 +339,19 @@ public class GUIHallImpl implements PropertyChangeListener {
                 break;
             case "balanceDay":
                 SwingUtilities.invokeLater(() -> balanceDayLabel.setText(BALANCE_DAY
-                                                                        + String.valueOf(controller.getBalanceDay())
+                                                                        + controller.getBalanceDay()
                                                                         + CURRENCY));
                 break;
             case "end":
                 SwingUtilities.invokeLater(() -> {
-                    JOptionPane pane = new JOptionPane(controller.getResult(), JOptionPane.INFORMATION_MESSAGE);
-                    JDialog dialog = pane.createDialog("Result");
+                    final JOptionPane pane = new JOptionPane(controller.getResult(), JOptionPane.INFORMATION_MESSAGE);
+                    final JDialog dialog = pane.createDialog("Result");
                     dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
                     dialog.setAlwaysOnTop(true);
                     pane.setOptions(new Object[]{});
                     pane.addPropertyChangeListener(e -> {
-                        String prop = e.getPropertyName();
-                        if (dialog.isVisible() && e.getSource() == pane && prop.equals(JOptionPane.VALUE_PROPERTY)) {
+                        final String prop = e.getPropertyName();
+                        if (dialog.isVisible() && pane == e.getSource() && prop.equals(JOptionPane.VALUE_PROPERTY)) {
                             dialog.setVisible(false);
                             dialog.dispose();
                             close();
@@ -379,7 +380,7 @@ public class GUIHallImpl implements PropertyChangeListener {
     public class OrderThread extends Thread {
         private static final Lock LOCK = new ReentrantLock();
         private static final Condition COND = LOCK.newCondition();
-        private ImagePanel imagePanel;
+        private final ImagePanel imagePanel;
         private JFrame background;
 
         /**
@@ -406,9 +407,9 @@ public class GUIHallImpl implements PropertyChangeListener {
                 LOCK.lock();
                 try {
                     COND.await();
-                    displayOrder(imagePanel, background);
+                    displayOrder(background);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 } finally {
                     LOCK.unlock();
                 }

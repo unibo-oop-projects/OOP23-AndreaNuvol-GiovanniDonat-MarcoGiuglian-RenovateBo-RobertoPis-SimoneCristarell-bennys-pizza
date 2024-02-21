@@ -1,4 +1,4 @@
-package it.unibo.model.impl.Management;
+package it.unibo.model.impl.management;
 
 /**
  * Class of AdderManager it only allows to add quantities from the balance.

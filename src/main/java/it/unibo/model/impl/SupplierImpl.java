@@ -1,8 +1,8 @@
 package it.unibo.model.impl;
 
 import it.unibo.model.api.Supplier;
+import it.unibo.model.impl.management.SubtractorManager;
 import it.unibo.model.api.Ingredient;
-import it.unibo.model.impl.Management.SubtractorManager;
 
 /**
  * Class that implement the supplier interface to manage the supply of ingredients.
