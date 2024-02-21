@@ -100,7 +100,7 @@ public class TimeImpl implements Time, Cloneable {
         if (this.min == 0) {
             return (this.getHour() + " : 00 ");
         } else {
-            return (this.getHour() + " : " + this.getMin());
+            return this.getHour() + " : " + this.getMin();
         }
     }
 
@@ -118,12 +118,11 @@ public class TimeImpl implements Time, Cloneable {
     @Override
     public TimeImpl clone() {
         try {
-            TimeImpl copy = (TimeImpl) super.clone();
+            final TimeImpl copy = (TimeImpl) super.clone();
             copy.timer = new Timer();
             copy.support = new PropertyChangeSupport(copy);
             return copy;
         } catch (CloneNotSupportedException e) {
-            System.out.println(e.toString());
         }
         return null;
     }
