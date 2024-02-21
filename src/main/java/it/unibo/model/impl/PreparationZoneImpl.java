@@ -12,7 +12,7 @@ import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.Oven;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.api.Supplier;
-import it.unibo.model.impl.Management.SubtractorManager;
+import it.unibo.model.impl.management.SubtractorManager;
 
 /**
  * Implementation class of PreparationZone interface.

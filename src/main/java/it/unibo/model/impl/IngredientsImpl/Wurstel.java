@@ -1,4 +1,4 @@
-package it.unibo.model.impl.IngredientsImpl;
+package it.unibo.model.impl.ingredientsImpl;
 
 import it.unibo.model.impl.IngredientImpl; 
 

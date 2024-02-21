@@ -157,7 +157,7 @@ public class GUIKitchen {
         final JButton btnOven = new JButton("Bake");
         btnOven.setBackground(new Color(181, 151, 106, 255));
         centralSouthPanel.add(btnOven);
-        displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel, controller);
+        displayOven(btnOven, frame.getWidth(), frame.getHeight(), centralSouthPanel);
         centralPanel.add(centralSouthPanel, BorderLayout.SOUTH);
 
         final JPanel centralCentralPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
@@ -193,7 +193,7 @@ public class GUIKitchen {
                 displayGarbageBinButton(btnGarbageBin, garbageBin, width, height, lowEastPanel);
                 displaySupplyComponents(width, height, comboBox, btnSupply, btnAdd, centralNorthPanel);
                 displayEndingKitchen(btnEndingKitchen, width, height, rightPanel);
-                displayOven(btnOven, width, height, centralSouthPanel, controller);
+                displayOven(btnOven, width, height, centralSouthPanel);
             }
         });
 
@@ -301,7 +301,7 @@ public class GUIKitchen {
     }
 
     private void disenableIngredientsLabels(final Controller controller, final boolean isPizza1, final Map<String, JLabel> map) {
-        for (var ingredient : isPizza1 
+        for (final var ingredient : isPizza1 
                 ? controller.getPreparationZone().getPizza1().getAddedIngredients() 
                 : controller.getPreparationZone().getPizza2().get().getAddedIngredients()) {
             if (map.get(ingredient.toString()).isVisible()) {
@@ -317,7 +317,7 @@ public class GUIKitchen {
     }
 
     private void displayIngredients(final String[] items, final JPanel blockPizza, final JCheckBox pizza) {
-        ImageIcon choppingBoardIcon = new ImageIcon(PATH_TO_THE_ROOT 
+        final ImageIcon choppingBoardIcon = new ImageIcon(PATH_TO_THE_ROOT 
                                                     + PATH_TO_RESOURCES 
                                                     + "KitchenComponentsImages" 
                                                     + SEP + "ChoppingBoard.png");
@@ -355,7 +355,7 @@ public class GUIKitchen {
             ingredientsPanel.add(ingredientLabel);
             ingredientLabel.setVisible(false);
         }
-        JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardIcon
+        final JLabel lblChoppingBoard = new JLabel(new ImageIcon(choppingBoardIcon
                                                             .getImage()
                                                             .getScaledInstance((int) (frame.getWidth() * 0.19), 
                                                                                 (int) (frame.getHeight() * 0.3),
@@ -460,8 +460,7 @@ public class GUIKitchen {
     private void displayOven(final JButton ovenButton,
                                 final int width,
                                 final int height,
-                                final JPanel centralSouthPanel,
-                                final Controller controller) {
+                                final JPanel centralSouthPanel) {
         ovenButton.setSize(new Dimension((int) (width * 0.08), (int) (height * 0.05)));
         centralSouthPanel.setBorder(new EmptyBorder((int) (height * 0), (int) (width * 0.77), 0, (int) (width * 0.42)));
         centralSouthPanel.validate();

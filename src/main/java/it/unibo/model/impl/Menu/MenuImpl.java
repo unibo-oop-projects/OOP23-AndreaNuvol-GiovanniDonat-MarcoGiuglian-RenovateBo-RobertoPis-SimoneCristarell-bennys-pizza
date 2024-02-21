@@ -6,9 +6,7 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
-import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -26,24 +24,11 @@ public final class  MenuImpl {
      * This method generate the menu.
      */
     public static void generateMenu() {
-        ObjectMapper mapper = new ObjectMapper();
+        final ObjectMapper mapper = new ObjectMapper();
         try {
             pizzas = mapper.readValue(new File(PATH_TO_THE_ROOT + FILE_PATH), new TypeReference<List<Pizza>>() { });
-        } catch (StreamReadException e) {
-            System.out.println(e.toString());
-        } catch (DatabindException e) {
-            System.out.println(e.toString());
         } catch (IOException e) {
             System.out.println(e.toString());
-        }
-    }
-
-    /**
-     * It shows the generated menu.
-     */
-    public static void show() {
-        for (final Pizza pizza : pizzas) {
-            System.out.println(pizza.getName() + " " + pizza.getIngredients()  + " " + pizza.getCost() + "\n");
         }
     }
 

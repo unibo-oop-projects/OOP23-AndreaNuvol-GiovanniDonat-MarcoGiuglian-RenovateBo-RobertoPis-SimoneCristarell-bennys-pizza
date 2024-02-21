@@ -32,7 +32,7 @@ public class UpdateThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            double balanceDay = controller.getBalanceDay();
+            final double balanceDay = controller.getBalanceDay();
 
             SwingUtilities.invokeLater(() -> {
                 gui.updateBalanceLabels(balanceDay);
@@ -41,7 +41,7 @@ public class UpdateThread extends Thread {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e = new InterruptedException();
             }
         }
     }
