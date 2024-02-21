@@ -244,6 +244,11 @@ public class ControllerImpl implements Controller {
     /**
      * It returns the time object.
      */
+    @SuppressFBWarnings(
+        value = { "EI_EXPOSE_REP"},
+        justification = "trying to resolve the warning, we noticed that the game was"
+            + " causing several problems, for example labels etc. were not shown"
+    )
     @Override
     public TimeImpl getTimeModel() {
         return this.time;
