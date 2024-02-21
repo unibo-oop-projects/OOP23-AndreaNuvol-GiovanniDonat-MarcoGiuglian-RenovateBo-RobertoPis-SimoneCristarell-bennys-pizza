@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import it.unibo.model.api.PizzaFactory;
-import it.unibo.model.impl.IngredientsImpl.Dough;
+import it.unibo.model.impl.ingredients.Dough;
 
 /**
  * Implementation of 'PizzaFactory' interface.

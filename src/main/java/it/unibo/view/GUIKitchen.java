@@ -15,6 +15,7 @@ import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BoxLayout;
@@ -274,11 +275,13 @@ public class GUIKitchen {
             public void actionPerformed(final ActionEvent e) {
                 try {
                     checkSelectedBox(pizza1, pizza2);
-                    if (pizza1.isSelected()) {
+                    if (pizza1.isSelected() 
+                    && !controller.getPreparationZone().getPizza1().getAddedIngredients().equals(Collections.EMPTY_LIST)) {
                         disenableIngredientsLabels(controller, true, ingredientLabelsMapPizza1);
                         bakingOp(pizza1, controller);
                     }
-                    if (pizza2.isSelected()) {
+                    if (pizza2.isSelected() 
+                    && !controller.getPreparationZone().getPizza2().get().getAddedIngredients().equals(Collections.EMPTY_LIST)) {
                         disenableIngredientsLabels(controller, false, ingredientLabelsMapPizza2);
                         bakingOp(pizza2, controller);
                     }

@@ -8,10 +8,10 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.controller.impl.ClientThread;
 import it.unibo.model.api.PreparationZone;
-import it.unibo.model.impl.Management.AdderManager;
-import it.unibo.model.impl.Management.SubtractorManager;
-import it.unibo.model.impl.Menu.MenuImpl.Pizza;
-import it.unibo.model.impl.Time.TimeImpl;
+import it.unibo.model.impl.TimeImpl;
+import it.unibo.model.impl.MenuImpl.Pizza;
+import it.unibo.model.impl.management.AdderManager;
+import it.unibo.model.impl.management.SubtractorManager;
 
 /**
  * Controller interface.

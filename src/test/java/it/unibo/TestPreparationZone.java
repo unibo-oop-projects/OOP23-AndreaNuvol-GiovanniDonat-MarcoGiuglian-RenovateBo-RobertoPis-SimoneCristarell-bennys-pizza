@@ -10,8 +10,8 @@ import java.util.Optional;
 import it.unibo.model.api.Management;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
-import it.unibo.model.impl.Management.AdderManager;
-import it.unibo.model.impl.Management.SubtractorManager;
+import it.unibo.model.impl.management.AdderManager;
+import it.unibo.model.impl.management.SubtractorManager;
 
 /**
  * Test for the PreparationZoneImpl class.

@@ -1,19 +1,19 @@
-package it.unibo.model.impl.IngredientsImpl;
+package it.unibo.model.impl.ingredients;
 
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates the cheese called 'Parmesan'.
+ * Class that emulates the cheese called 'Gorgonzola'.
  */
-public class Parmesan extends IngredientImpl {
+public class Gorgonzola extends IngredientImpl {
     private static final int QUANTITY_TO_REDUCE = 10;
-    private static final double PRICE = 0.8;
-    private static final String IMAGE_NAME = "Parmesan.png";
+    private static final double PRICE = 1.2;
+    private static final String IMAGE_NAME = "Gorgonzola.png";
 
     /**
-     * The constructor of the class Parmesan.
+     * The constructor of the class Gorgonzola.
      */
-    public Parmesan() {
+    public Gorgonzola() {
         super(PRICE, IMAGE_NAME);
     }
 

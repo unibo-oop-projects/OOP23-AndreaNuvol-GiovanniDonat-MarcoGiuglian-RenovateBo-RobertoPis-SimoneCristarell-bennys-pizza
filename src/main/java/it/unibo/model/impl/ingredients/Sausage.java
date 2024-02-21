@@ -1,19 +1,19 @@
-package it.unibo.model.impl.IngredientsImpl;
+package it.unibo.model.impl.ingredients;
 
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates a mushroom.
+ * Class that emulates a piece of sausage.
  */
-public class Mushroom extends IngredientImpl {
-    private static final int QUANTITY_TO_REDUCE = 13;
+public class Sausage extends IngredientImpl {
+    private static final int QUANTITY_TO_REDUCE = 14;
     private static final double PRICE = 1.4;
-    private static final String IMAGE_NAME = "Mushrooms.png";
+    private static final String IMAGE_NAME = "Sausages.png";
 
     /**
-     * The constructor of the class Mushroom.
+     * The constructor of the class Sausage.
      */
-    public Mushroom() {
+    public Sausage() {
         super(PRICE, IMAGE_NAME);
     }
 

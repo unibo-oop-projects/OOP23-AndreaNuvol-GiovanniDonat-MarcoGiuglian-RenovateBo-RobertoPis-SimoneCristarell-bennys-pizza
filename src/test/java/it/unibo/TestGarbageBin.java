@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.impl.PreparationZoneImpl;
-import it.unibo.model.impl.Management.SubtractorManager;
+import it.unibo.model.impl.management.SubtractorManager;
 
 /**
  * Test for the GarbageBinImpl.

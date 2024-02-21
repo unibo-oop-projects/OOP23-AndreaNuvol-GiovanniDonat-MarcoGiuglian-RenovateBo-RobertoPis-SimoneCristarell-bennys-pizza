@@ -1,19 +1,19 @@
-package it.unibo.model.impl.IngredientsImpl;
+package it.unibo.model.impl.ingredients;
 
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates a cherry tomatoe.
+ * Class that emulates an onion.
  */
-public class CherryTomatoe extends IngredientImpl {
+public class Onion extends IngredientImpl {
     private static final int QUANTITY_TO_REDUCE = 8;
-    private static final double PRICE = 0.9;
-    private static final String IMAGE_NAME = "CherryTomatoes.png";
+    private static final double PRICE = 1;
+    private static final String IMAGE_NAME = "Onions.png";
 
     /**
-     * The constructor of the class CherryTomatoe.
+     * The constructor of the class Onion.
      */
-    public CherryTomatoe() {
+    public Onion() {
         super(PRICE, IMAGE_NAME);
     }
 
