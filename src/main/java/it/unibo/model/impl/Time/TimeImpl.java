@@ -1,4 +1,4 @@
-package it.unibo.model.impl.Time;
+package it.unibo.model.impl.time;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -54,6 +54,7 @@ public class TimeImpl implements Time, Cloneable {
     /**
      * @return the result of the game.
      */
+    @Override
     public String getResult() {
         return this.res;
     }
@@ -96,6 +97,7 @@ public class TimeImpl implements Time, Cloneable {
     /**
      * @return current hour and minute.
      */
+    @Override
     public String getHourAndMin() {
         if (this.min == 0) {
             return (this.getHour() + " : 00 ");

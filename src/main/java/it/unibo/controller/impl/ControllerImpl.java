@@ -13,7 +13,8 @@ import it.unibo.model.impl.Management.AdderManager;
 import it.unibo.model.impl.Management.SubtractorManager;
 import it.unibo.model.impl.Menu.MenuImpl;
 import it.unibo.model.impl.Menu.MenuImpl.Pizza;
-import it.unibo.model.impl.Time.TimeImpl;
+import it.unibo.model.impl.time.TimeImpl;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import org.apache.commons.lang3.tuple.Pair;

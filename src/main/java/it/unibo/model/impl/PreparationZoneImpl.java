@@ -22,13 +22,13 @@ public class PreparationZoneImpl implements PreparationZone {
     private static final int MIN_PIZZAS_TO_PREPARE = 1;
     private static final int MAX_PIZZAS_TO_PREPARE = 2;
     private static final int MAX_QUANTITY = 100;
-    private boolean isNumberOfPizzasToPrepareSet = false;
+    private boolean isNumberOfPizzasToPrepareSet;
     private final Supplier supplier = new SupplierImpl();
     private final SubtractorManager management;
     private PizzaFactoryImpl pizza1;
     private Optional<PizzaFactoryImpl> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
-    private Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
+    private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     private final GarbageBin garbageBin = new GarbageBinImpl();
 
     /** 
@@ -59,10 +59,8 @@ public class PreparationZoneImpl implements PreparationZone {
     public PreparationZoneImpl(final SubtractorManager management) throws ClassNotFoundException,
                                                                             InstantiationException,
                                                                             IllegalAccessException,
-                                                                            IllegalArgumentException,
                                                                             InvocationTargetException,
-                                                                            NoSuchMethodException,
-                                                                            SecurityException {
+                                                                            NoSuchMethodException {
         this.management = management;
 
         final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe",

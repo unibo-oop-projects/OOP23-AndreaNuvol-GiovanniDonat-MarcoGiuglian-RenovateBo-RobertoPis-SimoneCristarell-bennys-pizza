@@ -23,6 +23,7 @@ public class SupplierImpl implements Supplier {
      * method to pay for the supply.
      * @param balance the current balance of the pizzeria.
      */
+    @Override
     public final void payment(final SubtractorManager balance) {
         balance.updateBalance(AMOUNT_TO_PAY);
     }
