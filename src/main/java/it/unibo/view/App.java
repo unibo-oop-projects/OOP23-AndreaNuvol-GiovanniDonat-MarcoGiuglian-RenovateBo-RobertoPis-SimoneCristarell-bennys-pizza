@@ -1,6 +1,7 @@
 package it.unibo.view;
 
 import it.unibo.controller.impl.ControllerImpl;
+
 import java.lang.reflect.InvocationTargetException;
 
 /**
