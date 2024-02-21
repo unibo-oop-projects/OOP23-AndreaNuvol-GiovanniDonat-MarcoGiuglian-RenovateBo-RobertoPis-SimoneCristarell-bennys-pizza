@@ -14,7 +14,7 @@ import it.unibo.model.impl.ingredientsImpl.Wurstel;
 /**
  * Test for the IngredientImpl class.
  */
-public class TestIngredient {
+class TestIngredient {
 
     private static final String SEP = File.separator;
     private static final int MAX_QUANTITY = 100;
@@ -35,7 +35,7 @@ public class TestIngredient {
      * Test the fields of the Ingredient.
      */
     @Test
-    public void testFields() {
+    void testFields() {
         final Ingredient wurstel = new Wurstel();
         assertEquals(MAX_QUANTITY, wurstel.getQuantity());
         final double wurstelQuantityToReduce = 1.1;
@@ -48,7 +48,7 @@ public class TestIngredient {
      * Test the reduction and the supply of Ingredients.
      */
     @Test
-    public void testReductionAndSupply() {
+    void testReductionAndSupply() {
         final Ingredient cherryTomatoes = new CherryTomatoe();
         assertEquals(MAX_QUANTITY, cherryTomatoes.getQuantity());
         cherryTomatoes.reduce();
@@ -65,7 +65,7 @@ public class TestIngredient {
      * Test the methods equals and toString of Ingredient.
      */
     @Test
-    public void testEqualsAndToString() {
+    void testEqualsAndToString() {
         final Ingredient onions = new Onion();
         final Ingredient gorgonzola = new Gorgonzola();
         assertNotEquals(onions, gorgonzola);

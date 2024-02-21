@@ -26,6 +26,8 @@ import javax.swing.BoxLayout;
 import java.nio.file.FileSystems;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import javax.swing.border.EmptyBorder;
@@ -65,7 +67,7 @@ public class GUIHallImpl implements PropertyChangeListener {
                                                     + SEP;
     private static final int FONT_SIZE = 25;
     private static final Random RANDOM = new Random();
-    private final StringBuilder sb = new StringBuilder();
+    private String sb;
     private static int lastClientShowed;
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static int width = (int) screenSize.getWidth();
@@ -108,22 +110,21 @@ public class GUIHallImpl implements PropertyChangeListener {
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
-            final OrderThread orderThread = new OrderThread(background);
+            final OrderThread orderThread = new OrderThread();
             orderThread.start();
             displayMenu(imagePanel, background);
             displayClockLabels(imagePanel, background);
             displayWorkingDayLabels(imagePanel, background);
             displayBalanceLabels(imagePanel, background);
             displayClient(imagePanel);
-            displayOrder(background);
+            displayOrder();
         });
     }
 
     /**
      * It displays the order of the client.
-     * @param background
      */
-    private void displayOrder(final JFrame background) {
+    private void displayOrder() {
         final String pizzaOrder1 = controller.getClientThread().getOrder().getLeft().getName();
         Optional<String> pizzaOrder2 = Optional.empty();
         if (controller.getClientThread().getOrder().getRight().isPresent()) {
@@ -153,7 +154,7 @@ public class GUIHallImpl implements PropertyChangeListener {
      */
     private void createStringBuilderMenu() {
         for (final String pizza : controller.getMenu()) {
-            this.sb.append(pizza + "\n");
+            this.sb += pizza + "\n";
         }
     }
 
@@ -350,7 +351,7 @@ public class GUIHallImpl implements PropertyChangeListener {
                     pane.setOptions(new Object[]{});
                     pane.addPropertyChangeListener(e -> {
                         final String prop = e.getPropertyName();
-                        if (dialog.isVisible() && pane == e.getSource() && prop.equals(JOptionPane.VALUE_PROPERTY)) {
+                        if (dialog.isVisible() && e.getSource().equals(pane) && JOptionPane.VALUE_PROPERTY.equals(prop)) {
                             dialog.setVisible(false);
                             dialog.dispose();
                             close();
@@ -376,23 +377,15 @@ public class GUIHallImpl implements PropertyChangeListener {
     /**
      * Thread to simulate clients that make orders.
      */
-    public class OrderThread extends Thread {
-        private static final Lock LOCK = new ReentrantLock();
-        private static final Condition COND = LOCK.newCondition();
-        private JFrame background;
-
-        /**
-         * Constructor of OrderThread.
-         * @param background frame with background.
-         */
-        @SuppressFBWarnings(
+    @SuppressFBWarnings(
             value = { "EI_EXPOSE_REP"},
             justification = "trying to resolve the warning, we noticed that the game was"
                 + " causing several problems, for example labels etc. were not shown"
         )
-        public OrderThread(final JFrame background) {
-            this.background = background;
-        }
+    public class OrderThread extends Thread {
+        private static final Lock LOCK = new ReentrantLock();
+        private static final Condition COND = LOCK.newCondition();
+        private final Logger logger = Logger.getLogger(GUIHallImpl.class.getName());
 
         /**
          * Method to run this thread.
@@ -403,9 +396,9 @@ public class GUIHallImpl implements PropertyChangeListener {
                 LOCK.lock();
                 try {
                     COND.await();
-                    displayOrder(background);
+                    displayOrder();
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+                    logger.log(Level.INFO, e.toString());
                 } finally {
                     LOCK.unlock();
                 }

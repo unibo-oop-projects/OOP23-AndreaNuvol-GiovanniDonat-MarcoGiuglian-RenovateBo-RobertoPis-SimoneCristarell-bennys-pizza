@@ -12,7 +12,7 @@ import it.unibo.model.impl.management.SubtractorManager;
 /**
  * Test for the GarbageBinImpl.
  */
-public class TestGarbageBin {
+class TestGarbageBin {
 
     /**
      * Test if pizza is correctly garbaged.
@@ -20,19 +20,17 @@ public class TestGarbageBin {
      * @throws InstantiationException
      * @throws IllegalAccessError
      * @throws IllegalAccessException
-     * @throws IllegalArgumentException
      * @throws InvocationTargetException
      * @throws NoSuchMethodException
-     * @throws SecurityException
      */
     @Test
-    public void testThrowPizzaInGarbageBin() throws ClassNotFoundException, InstantiationException, IllegalAccessError,
-     IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    void testThrowPizzaInGarbageBin() throws ClassNotFoundException, InstantiationException, IllegalAccessError,
+     IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         final PreparationZone p = new PreparationZoneImpl(new SubtractorManager());
         p.setNumberOfPizzasToPrepare(1);
         p.actionsOnIngredients("Dough", true, false);
-        assertTrue(p.getPizza1().pizzasAreUguals(new ArrayList<>(List.of("Dough"))));
+        assertTrue(p.getPizza1().isEqual(new ArrayList<>(List.of("Dough"))));
         p.getGarbageBin().throwPizzaInGarbageBin(p, true);
-        assertTrue(p.getPizza1().pizzasAreUguals(new ArrayList<>(List.of())));
+        assertTrue(p.getPizza1().isEqual(new ArrayList<>(List.of())));
     }
 }

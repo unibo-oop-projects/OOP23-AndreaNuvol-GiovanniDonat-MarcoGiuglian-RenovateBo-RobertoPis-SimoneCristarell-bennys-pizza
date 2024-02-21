@@ -9,6 +9,9 @@ import java.nio.file.FileSystems;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Implementation of the menu's interface.
  */
@@ -17,6 +20,7 @@ public final class  MenuImpl {
     private static final String PATH_TO_THE_ROOT = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
     private static final String FILE_PATH = SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "menu.json";
     private static List<Pizza> pizzas;
+    private static Logger logger = Logger.getLogger(MenuImpl.class.getName());
 
     private MenuImpl() { }
 
@@ -28,7 +32,16 @@ public final class  MenuImpl {
         try {
             pizzas = mapper.readValue(new File(PATH_TO_THE_ROOT + FILE_PATH), new TypeReference<List<Pizza>>() { });
         } catch (IOException e) {
-            System.err.println(e.toString());
+            logger.log(Level.WARNING, e.toString());
+        }
+    }
+
+    /**
+     * It shows the generated menu.
+     */
+    public static void show() {
+        for (final Pizza pizza : pizzas) {
+            logger.log(Level.INFO, pizza.getName() + " " + pizza.getIngredients()  + " " + pizza.getCost() + "\n");
         }
     }
 

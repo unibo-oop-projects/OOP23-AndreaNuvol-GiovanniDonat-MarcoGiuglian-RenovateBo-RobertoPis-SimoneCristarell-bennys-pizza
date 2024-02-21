@@ -28,7 +28,7 @@ public class PreparationZoneImpl implements PreparationZone {
     private PizzaFactoryImpl pizza1;
     private Optional<PizzaFactoryImpl> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
-    private Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
+    private final Map<Ingredient, Integer> ingredientsQuantities;
     private final GarbageBin garbageBin = new GarbageBinImpl();
 
     /** 
@@ -62,7 +62,7 @@ public class PreparationZoneImpl implements PreparationZone {
                                                                             InvocationTargetException,
                                                                             NoSuchMethodException {
         this.management = management;
-
+        this.ingredientsQuantities = new HashMap<>();
         final List<String> ingredientsClassesNames = new ArrayList<>(List.of("Anchovy", "Artichoke", "CherryTomatoe",
             "Dough", "Fontina", "FrenchFry", "Gorgonzola", "Ham", "Mozzarella", "Mushroom", "Olive", "Onion",
             "Parmesan", "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel"));

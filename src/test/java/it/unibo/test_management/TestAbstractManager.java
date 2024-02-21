@@ -11,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * Test the abstract class manager.
  */
-public class TestAbstractManager {
-    private AbstractManager manager = new AdderManager();
-    private AbstractManager manager2 = new SubtractorManager();
+class TestAbstractManager {
+    private final AbstractManager manager = new AdderManager();
+    private final AbstractManager manager2 = new SubtractorManager();
     /**
      * Test the instatation of manager.
      */
     @Test
-    public void testInstantiation() {
+    void testInstantiation() {
         assertNotNull(manager);
         assertNotNull(manager2);
     }

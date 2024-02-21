@@ -17,6 +17,12 @@ import org.apache.commons.lang3.tuple.Pair;
 public class ClientImpl implements Client {
     private final Random random = new Random();
     private Order order;
+    /**
+     * Contructor of ClientImpl.
+     */
+    public ClientImpl() {
+        order = null;
+    }
 
     /**
      * This method makes the client's order.
@@ -49,9 +55,9 @@ public class ClientImpl implements Client {
         final Pair<MenuImpl.Pizza, Optional<MenuImpl.Pizza>> pizzas = this.order.getOrderPizzas();
         final AdderManager manager = new AdderManager();
         double amountToAdd = 0;
-        if (pizzaFactoryImpl1.pizzasAreUguals(pizzas.getLeft().getIngredients())) {
+        if (pizzaFactoryImpl1.isEqual(pizzas.getLeft().getIngredients())) {
             amountToAdd = pizzas.getLeft().getCost();
-        } else if (pizzas.getRight().isPresent() && pizzaFactoryImpl1.pizzasAreUguals(pizzas.getRight().get().getIngredients())) {
+        } else if (pizzas.getRight().isPresent() && pizzaFactoryImpl1.isEqual(pizzas.getRight().get().getIngredients())) {
             amountToAdd = pizzas.getRight().get().getCost();
         } else {
             for (final Ingredient ingredient : pizzaFactoryImpl1.getAddedIngredients()) {
@@ -63,10 +69,10 @@ public class ClientImpl implements Client {
         manager.updateBalance(amountToAdd);
         amountToAdd = 0;
         if (pizzas.getRight().isPresent()) {
-            if (pizzaFactoryImpl2.get().pizzasAreUguals(pizzas.getLeft().getIngredients())) {
+            if (pizzaFactoryImpl2.get().isEqual(pizzas.getLeft().getIngredients())) {
                 amountToAdd = pizzas.getLeft().getCost();
             } else if (pizzas.getRight().isPresent() 
-                    && pizzaFactoryImpl2.get().pizzasAreUguals(pizzas.getRight().get().getIngredients())) {
+                    && pizzaFactoryImpl2.get().isEqual(pizzas.getRight().get().getIngredients())) {
                 amountToAdd = pizzas.getRight().get().getCost();
             } else {
                 for (final Ingredient ingredient : pizzaFactoryImpl2.get().getAddedIngredients()) {

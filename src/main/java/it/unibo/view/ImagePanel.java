@@ -10,7 +10,8 @@ import java.awt.Dimension;
  * JPanel modified to contains a background image.
  */
 public class ImagePanel extends JPanel {
-    private final Image backgroundImage;
+    private static final long serialVersionUID = 1L;
+    private final transient Image backgroundImage;
 
     /**
      * Constructor of ImagePanel by an ImagePanel.

@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
  * Modified JDialog to change some features.
  */
 public class CustomDialog extends JDialog {
+    private static final long serialVersionUID = 2L;
     private static final int WIDTH = 200;
     private static final int HEIGHT = 100;
 

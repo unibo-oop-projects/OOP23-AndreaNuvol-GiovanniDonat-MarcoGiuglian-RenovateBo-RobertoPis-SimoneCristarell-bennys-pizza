@@ -92,10 +92,7 @@ public abstract class IngredientImpl implements Ingredient {
      */
     @Override
     public boolean equals(final Object o) {
-        if (IngredientImpl.class.isInstance(o)) {
-            return o != null ? this.imagePath.equals(((IngredientImpl) o).getImagePath()) : false;
-        }
-        return false;
+        return IngredientImpl.class.isInstance(o) && o != null && this.imagePath.equals(((IngredientImpl) o).getImagePath());
     }
 
     /**
@@ -103,7 +100,7 @@ public abstract class IngredientImpl implements Ingredient {
      */
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return MAX_QUANTITY;
     }
 
     /**

@@ -53,9 +53,8 @@ public class OvenImpl implements Oven {
     }
 
     private void baking() {
-        Timer ovenTimer;
+        final Timer ovenTimer = new Timer();
         emptyOven = false;
-        ovenTimer = new Timer();
         currentTime = LocalTime.now();
         finishBakingTime = currentTime.plusSeconds(COOKNING_TIME_IN_SECONDS);
         final TimerTask ovenTask = new TimerTask() {

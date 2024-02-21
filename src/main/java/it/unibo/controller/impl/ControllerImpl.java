@@ -39,18 +39,14 @@ public class ControllerImpl implements Controller {
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws IllegalArgumentException
      * @throws InvocationTargetException
      * @throws NoSuchMethodException
-     * @throws SecurityException
      */
     public ControllerImpl() throws ClassNotFoundException,
                                     InstantiationException,
                                     IllegalAccessException,
-                                    IllegalArgumentException,
                                     InvocationTargetException,
-                                    NoSuchMethodException,
-                                    SecurityException {
+                                    NoSuchMethodException {
         this.preparationZone = new PreparationZoneImpl(this.subtractorManager);
         MenuImpl.generateMenu();
         this.propertyChangeSupport = new PropertyChangeSupport(this);
@@ -190,8 +186,9 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public Pair<Pizza, Optional<Pizza>> order() {
+        ClientImpl.Order order;
         Pair<Pizza, Optional<Pizza>> orderedPizzas;
-        ClientImpl.Order order = this.client.order();
+        order = this.client.order();
         this.preparationZone.setNumberOfPizzasToPrepare(order.getNumberPizzasToOrder());
         if (order.getNumberPizzasToOrder() == 1) {
             orderedPizzas = Pair.of(order.getOrderPizzas().getLeft(),
