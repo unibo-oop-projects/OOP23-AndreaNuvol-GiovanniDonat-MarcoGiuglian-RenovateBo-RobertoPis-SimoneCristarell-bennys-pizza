@@ -36,8 +36,6 @@ public class UpdateThread extends Thread {
     public void run() {
         while (true) {
             final double balanceDay = controller.getBalanceDay();
-            final Logger logger = Logger.getLogger(UpdateThread.class.getName());
-
             SwingUtilities.invokeLater(() -> {
                 gui.updateBalanceLabels(balanceDay);
             });
@@ -45,7 +43,8 @@ public class UpdateThread extends Thread {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                logger.log(Level.INFO, e.toString());
+                final Logger logger = Logger.getLogger(UpdateThread.class.getName());
+                logger.log(Level.WARNING, e.toString());
             }
         }
     }
