@@ -239,7 +239,7 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public TimeImpl getTimeModel() {
-        return this.time;
+        return this.time.clone();
     }
 
     /**
