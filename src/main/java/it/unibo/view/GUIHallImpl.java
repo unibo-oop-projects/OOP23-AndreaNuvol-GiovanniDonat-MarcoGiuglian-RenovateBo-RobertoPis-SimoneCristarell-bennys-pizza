@@ -108,7 +108,7 @@ public class GUIHallImpl implements PropertyChangeListener {
             background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             background.setSize(width, height);
             imagePanel.setLayout(new BorderLayout());
-            final OrderThread orderThread = new OrderThread(imagePanel, background);
+            final OrderThread orderThread = new OrderThread(background);
             orderThread.start();
             displayMenu(imagePanel, background);
             displayClockLabels(imagePanel, background);
@@ -380,12 +380,10 @@ public class GUIHallImpl implements PropertyChangeListener {
     public class OrderThread extends Thread {
         private static final Lock LOCK = new ReentrantLock();
         private static final Condition COND = LOCK.newCondition();
-        private final ImagePanel imagePanel;
         private JFrame background;
 
         /**
          * Constructor of OrderThread.
-         * @param imagePanel panel that contains the image.
          * @param background frame with background.
          */
         @SuppressFBWarnings(
@@ -393,8 +391,7 @@ public class GUIHallImpl implements PropertyChangeListener {
             justification = "trying to resolve the warning, we noticed that the game was"
                 + " causing several problems, for example labels etc. were not shown"
         )
-        public OrderThread(final ImagePanel imagePanel, final JFrame background) {
-            this.imagePanel = new ImagePanel(imagePanel);
+        public OrderThread(final JFrame background) {
             this.background = background;
         }
 

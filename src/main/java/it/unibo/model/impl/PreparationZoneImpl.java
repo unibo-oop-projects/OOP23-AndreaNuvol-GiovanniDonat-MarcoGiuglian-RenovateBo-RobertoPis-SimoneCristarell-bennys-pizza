@@ -28,7 +28,7 @@ public class PreparationZoneImpl implements PreparationZone {
     private PizzaFactoryImpl pizza1;
     private Optional<PizzaFactoryImpl> pizza2 = Optional.empty();
     private final Oven oven = new OvenImpl();
-    private final Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
+    private Map<Ingredient, Integer> ingredientsQuantities = new HashMap<>();
     private final GarbageBin garbageBin = new GarbageBinImpl();
 
     /** 
