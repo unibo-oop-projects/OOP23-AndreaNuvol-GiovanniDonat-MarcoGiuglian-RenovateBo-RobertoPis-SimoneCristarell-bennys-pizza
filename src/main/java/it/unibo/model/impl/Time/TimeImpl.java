@@ -11,7 +11,7 @@ import it.unibo.model.impl.Management.AbstractManager;
 /**
  * Implementation of Time interface.
  */
-public class TimeImpl implements Time, Cloneable {
+public class TimeImpl implements Time {
     static final String WIN_STRING = "You win!";
     static final String LOSE_STRING = "You lose!";
     static final int TIME_FOR_15_MINUTES = 5_000;
@@ -110,22 +110,5 @@ public class TimeImpl implements Time, Cloneable {
      */
     public void addPropertyChangeListener(final PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-    }
-
-    /**
-     * It gives a defensive copy of TimeImpl object.
-     */
-    @Override
-    public TimeImpl clone() {
-        try {
-            TimeImpl copy = (TimeImpl) super.clone();
-            copy.timer = new Timer();
-            copy.support = new PropertyChangeSupport(copy);
-            return copy;
-        } catch (CloneNotSupportedException e) {
-            System.out.println(e.toString());
-            System.exit(1);
-        }
-        return null;
     }
 }
