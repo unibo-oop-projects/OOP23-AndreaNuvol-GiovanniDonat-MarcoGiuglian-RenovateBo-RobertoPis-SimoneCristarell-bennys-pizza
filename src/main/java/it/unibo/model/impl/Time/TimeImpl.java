@@ -100,7 +100,7 @@ public class TimeImpl implements Time {
         if (this.min == 0) {
             return (this.getHour() + " : 00 ");
         } else {
-            return (this.getHour() + " : " + this.getMin());
+            return this.getHour() + " : " + this.getMin();
         }
     }
 
@@ -110,5 +110,20 @@ public class TimeImpl implements Time {
      */
     public void addPropertyChangeListener(final PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * It gives a defensive copy of TimeImpl object.
+     */
+    @Override
+    public TimeImpl clone() {
+        try {
+            final TimeImpl copy = (TimeImpl) super.clone();
+            copy.timer = new Timer();
+            copy.support = new PropertyChangeSupport(copy);
+            return copy;
+        } catch (CloneNotSupportedException e) {
+        }
+        return null;
     }
 }

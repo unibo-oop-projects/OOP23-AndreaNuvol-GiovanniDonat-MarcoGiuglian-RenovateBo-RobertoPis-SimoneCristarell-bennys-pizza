@@ -20,8 +20,13 @@ public final class App {
      * @throws NoSuchMethodException
      * @throws SecurityException
      */
-    public static void main(final String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
-     IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public static void main(final String[] args) throws ClassNotFoundException, 
+                                                        InstantiationException, 
+                                                        IllegalAccessException,
+                                                        IllegalArgumentException, 
+                                                        InvocationTargetException, 
+                                                        NoSuchMethodException, 
+                                                        SecurityException {
         new GUIHallImpl(new ControllerImpl());
     }
 }
