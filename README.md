@@ -39,3 +39,7 @@ Donati: Gestione della cottura delle pizze (opzionale: gestione dell'usura del f
 Nuvoli: Implementazione del menù della pizzeria, gestione del tempo (opzionale: gestione dell'umore dei clienti) e parte della grafica della sala della pizzeria;
 Giugliani: Implementazione della logica degli ingredienti, gestione della preparazione delle pizze (opzionale: pulizia del bancone) e parte della grafica della cucina della pizzeria;
 Cristarelli: Gestione dei rifornimenti degli ingredienti, gestione della preparazione delle pizze (opzionale: possibilità di tagliare la pizza) e parte della grafica della cucina della pizzeria.
+
+# WARNING!
+Come clonare la nostra repository:
+git clone link cartellaDoveClonare/
