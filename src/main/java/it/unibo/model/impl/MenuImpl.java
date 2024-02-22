@@ -1,4 +1,4 @@
-package it.unibo.model.impl.Menu;
+package it.unibo.model.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;

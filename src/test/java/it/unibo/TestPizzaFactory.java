@@ -13,13 +13,13 @@ import org.junit.jupiter.api.Test;
 import it.unibo.model.api.PizzaFactory;
 import it.unibo.model.impl.PizzaFactoryImpl;
 import it.unibo.model.impl.PreparationZoneImpl;
-import it.unibo.model.impl.ingredientsImpl.Dough;
-import it.unibo.model.impl.ingredientsImpl.FrenchFry;
-import it.unibo.model.impl.ingredientsImpl.Ham;
-import it.unibo.model.impl.ingredientsImpl.Mozzarella;
-import it.unibo.model.impl.ingredientsImpl.Mushroom;
-import it.unibo.model.impl.ingredientsImpl.Olive;
-import it.unibo.model.impl.ingredientsImpl.TomatoSauce;
+import it.unibo.model.impl.ingredients.Dough;
+import it.unibo.model.impl.ingredients.FrenchFry;
+import it.unibo.model.impl.ingredients.Ham;
+import it.unibo.model.impl.ingredients.Mozzarella;
+import it.unibo.model.impl.ingredients.Mushroom;
+import it.unibo.model.impl.ingredients.Olive;
+import it.unibo.model.impl.ingredients.TomatoSauce;
 import it.unibo.model.impl.management.SubtractorManager;
 
 /**

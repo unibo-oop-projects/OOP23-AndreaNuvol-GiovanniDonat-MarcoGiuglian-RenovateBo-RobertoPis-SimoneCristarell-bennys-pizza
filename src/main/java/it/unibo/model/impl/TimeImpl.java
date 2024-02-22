@@ -1,4 +1,4 @@
-package it.unibo.model.impl.time;
+package it.unibo.model.impl;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -6,8 +6,7 @@ import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
 import it.unibo.model.api.Time;
-import it.unibo.model.impl.Management.AbstractManager;
-
+import it.unibo.model.impl.management.AbstractManager;
 /**
  * Implementation of Time interface.
  */

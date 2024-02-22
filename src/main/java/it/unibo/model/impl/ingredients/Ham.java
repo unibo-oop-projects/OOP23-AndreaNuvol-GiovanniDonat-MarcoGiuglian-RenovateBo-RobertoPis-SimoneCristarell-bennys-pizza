@@ -1,19 +1,19 @@
-package it.unibo.model.impl.ingredientsImpl;
+package it.unibo.model.impl.ingredients;
 
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates an artichoke.
+ * Class that emulates a slice of ham.
  */
-public class Artichoke extends IngredientImpl {
+public class Ham extends IngredientImpl {
     private static final int QUANTITY_TO_REDUCE = 6;
-    private static final double PRICE = 1.1;
-    private static final String IMAGE_NAME = "Artichokes.png";
+    private static final double PRICE = 0.8;
+    private static final String IMAGE_NAME = "Ham.png";
 
     /**
-     * The constructor of the class Artichokes.
+     * The constructor of the class Ham.
      */
-    public Artichoke() {
+    public Ham() {
         super(PRICE, IMAGE_NAME);
     }
 

@@ -6,10 +6,10 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import org.junit.jupiter.api.Test;
 import it.unibo.model.api.Ingredient;
-import it.unibo.model.impl.ingredientsImpl.CherryTomatoe;
-import it.unibo.model.impl.ingredientsImpl.Gorgonzola;
-import it.unibo.model.impl.ingredientsImpl.Onion;
-import it.unibo.model.impl.ingredientsImpl.Wurstel;
+import it.unibo.model.impl.ingredients.CherryTomatoe;
+import it.unibo.model.impl.ingredients.Gorgonzola;
+import it.unibo.model.impl.ingredients.Onion;
+import it.unibo.model.impl.ingredients.Wurstel;
 
 /**
  * Test for the IngredientImpl class.

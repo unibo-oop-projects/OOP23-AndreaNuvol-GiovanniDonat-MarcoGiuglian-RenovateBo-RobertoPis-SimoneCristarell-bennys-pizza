@@ -8,7 +8,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import org.apache.commons.lang3.tuple.Pair;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.model.impl.Menu.MenuImpl.Pizza;
+import it.unibo.model.impl.MenuImpl.Pizza;
 import it.unibo.view.GUIHallImpl;
 
 /**

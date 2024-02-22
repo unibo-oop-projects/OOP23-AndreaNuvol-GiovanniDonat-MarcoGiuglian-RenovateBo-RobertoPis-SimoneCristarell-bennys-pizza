@@ -1,6 +1,6 @@
 package it.unibo.model.api;
 
-import it.unibo.model.impl.Management.SubtractorManager;
+import it.unibo.model.impl.management.SubtractorManager;
 
 /**
  * Interface of ingredient supply.

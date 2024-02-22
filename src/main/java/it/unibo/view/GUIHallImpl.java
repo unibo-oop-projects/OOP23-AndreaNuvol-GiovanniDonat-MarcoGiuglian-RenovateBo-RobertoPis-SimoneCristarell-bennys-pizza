@@ -102,7 +102,7 @@ public class GUIHallImpl implements PropertyChangeListener {
         SwingUtilities.invokeLater(() -> {
             final JFrame background = new JFrame(TITLE);
             final Image backgroundImage = Toolkit.getDefaultToolkit().getImage(PATH_TO_THE_ROOT
-                                                                        + FILE_PATH_BACKGROUND);
+                                                                      + FILE_PATH_BACKGROUND);
             final ImagePanel imagePanel = new ImagePanel(backgroundImage);
             final UpdateThread updateThread = new UpdateThread(this, controller);
             updateThread.start();
@@ -182,7 +182,7 @@ public class GUIHallImpl implements PropertyChangeListener {
                     JOptionPane.INFORMATION_MESSAGE,
                     null,
                     null,
-                    null
+                    ""
                 );
             }
         });
@@ -385,7 +385,6 @@ public class GUIHallImpl implements PropertyChangeListener {
     public class OrderThread extends Thread {
         private static final Lock LOCK = new ReentrantLock();
         private static final Condition COND = LOCK.newCondition();
-        private final Logger logger = Logger.getLogger(GUIHallImpl.class.getName());
 
         /**
          * Method to run this thread.
@@ -398,7 +397,8 @@ public class GUIHallImpl implements PropertyChangeListener {
                     COND.await();
                     displayOrder();
                 } catch (InterruptedException e) {
-                    logger.log(Level.INFO, e.toString());
+                    final Logger logger = Logger.getLogger(UpdateThread.class.getName());
+                    logger.log(Level.WARNING, e.toString());
                 } finally {
                     LOCK.unlock();
                 }

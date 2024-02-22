@@ -1,19 +1,19 @@
-package it.unibo.model.impl.ingredientsImpl;
+package it.unibo.model.impl.ingredients;
 
 import it.unibo.model.impl.IngredientImpl;
 
 /**
- * Class that emulates the mozzarella cheese.
+ * Class that emulates the cheese called 'Fontina'.
  */
-public class Mozzarella extends IngredientImpl {
+public class Fontina extends IngredientImpl {
     private static final int QUANTITY_TO_REDUCE = 10;
-    private static final double PRICE = 0.6;
-    private static final String IMAGE_NAME = "Mozzarella.png";
+    private static final double PRICE = 1;
+    private static final String IMAGE_NAME = "Fontina.png";
 
     /**
-     * The constructor of the class Mozzarella.
+     * The constructor of the class Fontina.
      */
-    public Mozzarella() {
+    public Fontina() {
         super(PRICE, IMAGE_NAME);
     }
 

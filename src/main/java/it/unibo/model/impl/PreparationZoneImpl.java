@@ -12,7 +12,7 @@ import it.unibo.model.api.Ingredient;
 import it.unibo.model.api.Oven;
 import it.unibo.model.api.PreparationZone;
 import it.unibo.model.api.Supplier;
-import it.unibo.model.impl.Management.SubtractorManager;
+import it.unibo.model.impl.management.SubtractorManager;
 
 /**
  * Implementation class of PreparationZone interface.
@@ -68,7 +68,7 @@ public class PreparationZoneImpl implements PreparationZone {
             "Parmesan", "Salami", "Sausage", "TomatoSauce", "Tuna", "Wurstel"));
 
         for (final var cl: ingredientsClassesNames) {
-            final var clazz = Class.forName(this.getClass().getPackageName() + ".ingredientsImpl." + cl);
+            final var clazz = Class.forName(this.getClass().getPackageName() + ".ingredients." + cl);
             this.ingredientsQuantities.put((Ingredient) clazz.getConstructor().newInstance(), MAX_QUANTITY);
         }
     }
