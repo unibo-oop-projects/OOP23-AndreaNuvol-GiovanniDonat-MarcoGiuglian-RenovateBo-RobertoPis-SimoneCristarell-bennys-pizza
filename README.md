@@ -42,4 +42,4 @@ Cristarelli: Gestione dei rifornimenti degli ingredienti, gestione della prepara
 
 # WARNING!
 Come clonare la nostra repository:
-git clone link cartellaDoveClonare/
+git clone link cartellaDoveClonare
